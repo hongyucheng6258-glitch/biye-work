@@ -74,6 +74,8 @@
         <span class="explore-hint"><span class="mouse-icon"></span>拖动环视 <b>W</b><b>A</b><b>S</b><b>D</b> 移动</span>
         <button class="scene-tool minimap-reopen-button" type="button" @click="mapOpen = true">⌖ 导览</button>
       </div>
+
+      <CampusWorkspace v-if="workspaceOpen" :service-id="workspaceServiceId" @close="closeWorkspace" />
     </section>
 
     <footer class="campus3d-footer">
@@ -116,6 +118,7 @@ import { computed, nextTick, onBeforeUnmount, onMounted, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { createCampusScene } from '../../features/campus3d/campus-scene.js'
 import { GROUPS, SERVICES, getRoomProfile } from '../../features/campus3d/campus-data.js'
+import CampusWorkspace from './CampusWorkspace.vue'
 
 const router = useRouter()
 const sceneFrame = ref(null)
@@ -127,6 +130,9 @@ const loading = ref(true)
 const errorMessage = ref('')
 const explorationStarted = ref(false)
 const roomPrompt = ref(null)
+const workspaceOpen = ref(false)
+const workspaceServiceId = ref(null)
+const activeRoomId = ref(null)
 const locationName = ref('梧桐中庭')
 const traveling = ref(false)
 const travelText = ref('正在前往…')
@@ -134,21 +140,6 @@ const travelProgress = ref(0)
 const mapOpen = ref(false)
 const comfort = ref(localStorage.getItem('wutong-campus-comfort') === 'true')
 const isFullscreen = ref(false)
-const restoreKey = 'wutong-campus-3d-state'
-const SERVICE_ROUTES = {
-  portal: '/',
-  activity: '/activity',
-  idle: '/idle',
-  partner: '/partner',
-  lost: '/lostfound',
-  qa: '/qa',
-  square: '/social',
-  notice: '/notice',
-  message: '/message',
-  aichat: '/ai/chat',
-  code: '/ai/code',
-  wrong: '/ai/wrong'
-}
 const serviceMap = new Map(SERVICES.map((item) => [item.id, item]))
 const groupMap = new Map(GROUPS.map((group) => [group.id, group]))
 const mapGroups = computed(() => GROUPS.filter((group) => group.id !== 'hub').map((group) => ({
@@ -159,6 +150,7 @@ const mapGroups = computed(() => GROUPS.filter((group) => group.id !== 'hub').ma
 function showRoomPrompt(id) {
   const item = serviceMap.get(id)
   if (!item) return
+  activeRoomId.value = id
   roomPrompt.value = { item, profile: getRoomProfile(id) }
   locationName.value = `${item.name} · ${item.room}`
   nextTick(() => roomOpenButton.value?.focus({ preventScroll: true }))
@@ -175,37 +167,36 @@ function startExplore() {
   sceneCanvas.value?.focus({ preventScroll: true })
 }
 
-function saveSceneState(id) {
-  const state = scene.value?.getDebug?.()
-  if (!state) return
-  sessionStorage.setItem(restoreKey, JSON.stringify({
-    ...state,
-    insideId: id || state.insideId,
-    returnPath: '/campus-3d',
-    savedAt: Date.now()
-  }))
+function openService(id) {
+  if (!serviceMap.has(id)) return
+  activeRoomId.value = id
+  hideRoomPrompt()
+  workspaceServiceId.value = id
+  workspaceOpen.value = true
+  scene.value?.setPaused(true)
 }
 
-function openService(id) {
-  const target = SERVICE_ROUTES[id]
-  if (!target) {
-    errorMessage.value = '这个空间暂时没有对应的学生端页面。'
-    return
-  }
-  saveSceneState(id)
-  hideRoomPrompt()
-  router.push(target)
+function closeWorkspace() {
+  workspaceOpen.value = false
+  scene.value?.setPaused(false)
+  if (activeRoomId.value) showRoomPrompt(activeRoomId.value)
 }
 
 function exitRoom() {
-  const id = roomPrompt.value?.item.id || scene.value?.getDebug?.()?.insideId
+  const id = activeRoomId.value || roomPrompt.value?.item.id || scene.value?.getDebug?.()?.insideId
+  workspaceOpen.value = false
+  scene.value?.setPaused(false)
   if (id) scene.value?.exit(id)
+  activeRoomId.value = null
   hideRoomPrompt()
   locationName.value = '梧桐中庭'
 }
 
 function goHall() {
   mapOpen.value = false
+  workspaceOpen.value = false
+  scene.value?.setPaused(false)
+  activeRoomId.value = null
   hideRoomPrompt()
   scene.value?.goHall()
   locationName.value = '梧桐中庭'
@@ -240,7 +231,7 @@ async function toggleFullscreen() {
 }
 
 function goHome() {
-  sessionStorage.removeItem(restoreKey)
+  workspaceOpen.value = false
   router.push('/')
 }
 
@@ -260,16 +251,6 @@ function handlePosition({ zone }) {
   if (!roomPrompt.value) locationName.value = zone === 'hub' ? '梧桐中庭' : `${group?.name || '校园空间'} · 3D实景`
 }
 
-function readRestoreState() {
-  try {
-    const state = JSON.parse(sessionStorage.getItem(restoreKey) || 'null')
-    if (!state || state.returnPath !== '/campus-3d' || Date.now() - state.savedAt > 30 * 60 * 1000) return null
-    return state
-  } catch {
-    return null
-  }
-}
-
 async function boot() {
   try {
     scene.value = await createCampusScene({
@@ -283,15 +264,7 @@ async function boot() {
       onError: (error) => { errorMessage.value = error?.message || '无法初始化三维场景。' }
     })
     scene.value.setComfort(comfort.value)
-    const saved = readRestoreState()
-    if (saved && saved.insideId) {
-      scene.value.restoreState(saved)
-      explorationStarted.value = true
-      showRoomPrompt(saved.insideId)
-      sessionStorage.removeItem(restoreKey)
-    } else {
-      scene.value.setPaused(true)
-    }
+    scene.value.setPaused(true)
   } catch (error) {
     errorMessage.value = error?.message || '浏览器不支持当前三维场景。'
   } finally {

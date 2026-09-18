@@ -13,12 +13,15 @@ test('campus 3d route is public and points to Campus3D', () => {
   assert.match(router, /campus-3d[\s\S]*public:\s*true/)
 })
 
-test('room ids map to existing student pages without a duplicate 2d directory', () => {
+test('room content stays inside the 3d page and has no duplicate 2d directory', () => {
   const source = read('src/views/campus3d/Campus3D.vue')
-  for (const route of ['/activity', '/idle', '/partner', '/lostfound', '/qa', '/social', '/notice', '/message', '/ai/chat', '/ai/code', '/ai/wrong']) {
-    assert.match(source, new RegExp(route.replace('/', '\\/')))
-  }
-  assert.doesNotMatch(source, /directoryPagination|view2d|Campus3DDirectory/)
+  const workspace = read('src/views/campus3d/CampusWorkspace.vue')
+  assert.match(source, /CampusWorkspace/)
+  assert.match(source, /workspaceOpen/)
+  assert.doesNotMatch(source, /SERVICE_ROUTES|router\.push\(target\)/)
+  assert.match(workspace, /学生端实时数据/)
+  assert.match(workspace, /listActivity|listIdle|listQuestion|listPost|listNotice|listMessage|listWrong/)
+  assert.doesNotMatch(workspace, /wutong-campus-services-v1|const seed =|directoryPagination|Campus3DDirectory/)
 })
 
 test('scene module exposes restore and destroy lifecycle hooks', () => {

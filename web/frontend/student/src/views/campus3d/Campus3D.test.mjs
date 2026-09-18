@@ -24,6 +24,9 @@ test('room content stays inside the 3d page and has no duplicate 2d directory', 
   assert.match(workspace, /normalizeImages/)
   assert.match(workspace, /WtEventArt/)
   assert.match(workspace, /workspace-card-cover|workspace-post-images/)
+  assert.match(workspace, /activityDetailOpen|fetchActivityDetail/)
+  assert.match(workspace, /确认报名|activitySignupVisible/)
+  assert.match(workspace, /openCard\(row\)/)
   assert.doesNotMatch(workspace, /wutong-campus-services-v1|const seed =|directoryPagination|Campus3DDirectory/)
 })
 

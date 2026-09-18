@@ -12,6 +12,15 @@
       :event="heroEvent"
     />
 
+    <button class="campus3d-entry" type="button" @click="go({ to: '/campus-3d' })">
+      <span class="campus3d-entry-icon" aria-hidden="true">◆</span>
+      <span class="campus3d-entry-copy">
+        <b>进入3D校园</b>
+        <small>走进一扇门，探索对应的校园服务空间</small>
+      </span>
+      <span class="campus3d-entry-arrow" aria-hidden="true">→</span>
+    </button>
+
     <!-- ===== 快捷服务条 ===== -->
     <div class="quick-strip" aria-label="校园服务快捷入口">
       <WtQuickEntry
@@ -406,6 +415,29 @@ onMounted(async () => {
 
 <style scoped>
 .portal { display: flex; flex-direction: column; }
+
+.campus3d-entry {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  margin: -12px 0 32px;
+  padding: 15px 18px;
+  border: 1px solid var(--brand-line);
+  border-radius: 14px;
+  background: linear-gradient(100deg, var(--brand-soft), var(--surface));
+  color: var(--ink);
+  text-align: left;
+  cursor: pointer;
+  transition: border-color .18s, box-shadow .18s, transform .18s;
+}
+.campus3d-entry:hover { border-color: var(--brand); box-shadow: var(--shadow-md); transform: translateY(-1px); }
+.campus3d-entry-icon { width: 38px; height: 38px; display: grid; place-items: center; flex: none; border-radius: 11px; background: var(--brand); color: #fff; font-size: 14px; box-shadow: 0 6px 15px oklch(56% .19 265 / .18); }
+.campus3d-entry-copy { min-width: 0; }
+.campus3d-entry-copy b, .campus3d-entry-copy small { display: block; }
+.campus3d-entry-copy b { color: var(--brand-strong); font-size: 14px; }
+.campus3d-entry-copy small { margin-top: 3px; color: var(--ink-3); font-size: 11px; }
+.campus3d-entry-arrow { margin-left: auto; color: var(--brand); font-size: 20px; }
 
 /* —— 快捷服务条 —— */
 .quick-strip {

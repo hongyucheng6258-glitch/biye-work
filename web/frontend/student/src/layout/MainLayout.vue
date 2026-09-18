@@ -211,11 +211,13 @@ const ICONS = {
   spark: '<path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M18.4 5.6l-2.1 2.1M7.7 16.3l-2.1 2.1"/><circle cx="12" cy="12" r="3"/>',
   code: '<path d="m8 9-4 3 4 3M16 9l4 3-4 3M13 6l-2 12"/>',
   book: '<path d="M4 19V5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2zM17 3v16"/>',
-  bell: '<path d="M18 8a6 6 0 1 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/>'
+  bell: '<path d="M18 8a6 6 0 1 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/>',
+  cube: '<path d="m12 2 9 5-9 5-9-5 9-5Z"/><path d="M3 7v10l9 5 9-5V7M12 12v10"/>'
 }
 
 const desktopNav = [
   { to: '/', label: '首页' },
+  { to: '/campus-3d', label: '3D校园' },
   { to: '/activity', label: '校园活动' },
   { to: '/idle', label: '闲置互换' },
   { to: '/lostfound', label: '失物招领' },
@@ -228,6 +230,7 @@ const navGroups = [
     label: '校园服务',
     items: [
       { to: '/', label: '综合门户', icon: 'home' },
+      { to: '/campus-3d', label: '3D校园', icon: 'cube' },
       { to: '/activity', label: '校园活动', icon: 'calendar' },
       { to: '/idle', label: '闲置互换', icon: 'bag' },
       { to: '/lostfound', label: '失物招领', icon: 'lost' },
@@ -251,6 +254,7 @@ const navGroups = [
 
 const PAGE_TITLES = {
   '/': '综合门户',
+  '/campus-3d': '3D校园',
   '/search': '搜索结果',
   '/activity': '校园活动',
   '/activity/publish': '发布活动',

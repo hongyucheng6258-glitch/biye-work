@@ -24,6 +24,12 @@ const routes = [
     meta: { public: true }
   },
   {
+    path: '/campus-3d',
+    name: 'Campus3D',
+    component: () => import('../views/campus3d/Campus3D.vue'),
+    meta: { public: true, title: '3D校园' }
+  },
+  {
     path: '/',
     component: () => import('../layout/MainLayout.vue'),
     children: [

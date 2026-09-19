@@ -10,6 +10,20 @@ export const SCENE_THEMES = {
  social: { accent: '#1b9e95', soft: '#d9f3ee', label: '社交信息', number: '02', caption: '校园连接 · 分享与互助' },
  ai: { accent: '#8470cf', soft: '#e9e3ff', label: 'AI 学习', number: '03', caption: '智能学习 · 答疑与成长' }
 };
+const SERVICE_IMAGES = Object.freeze({
+ portal: '/images/campus-v2.png',
+ activity: '/images/generated-activity-campus.png',
+ idle: '/images/generated-idle-items.png',
+ partner: '/images/generated-study-partner.png',
+ lost: '/images/generated-lost-found.png',
+ qa: '/images/generated-social-campus.png',
+ square: '/images/generated-social-campus.png',
+ notice: '/images/study-banner.jpg',
+ message: '/images/generated-social-campus.png',
+ aichat: '/images/generated-ai-study.png',
+ code: '/images/generated-ai-study.png',
+ wrong: '/images/wrong-bg.jpg'
+});
 export const SERVICES = [
  ['portal','hub','综合门户','校园动态，一屏纵览','home','中庭','首页 大厅 总览'],
  ['activity','service','校园活动','发现精彩，参与热爱','calendar','A101','报名 签到 社团 运动 志愿'],
@@ -23,7 +37,7 @@ export const SERVICES = [
  ['aichat','ai','AI 答疑','把不懂，变成恍然大悟','spark','C101','助手 聊天 人工智能 学习'],
  ['code','ai','代码纠错','读懂问题，写出好代码','code','C102','编程 修复 debug 程序'],
  ['wrong','ai','错题本','让每一次出错，都有收获','book','C103','复习 高数 概率 掌握 题目']
-].map(([id,group,name,desc,icon,room,keywords])=>({id,group,name,desc,icon,room,keywords,color:GROUPS.find(g=>g.id===group).color}));
+].map(([id,group,name,desc,icon,room,keywords])=>({id,group,name,desc,icon,room,keywords,image:SERVICE_IMAGES[id] || '',color:GROUPS.find(g=>g.id===group).color}));
 
 // 3D room presentation is data-driven so a new service can reuse the same
 // spatial components without coupling geometry to service content.

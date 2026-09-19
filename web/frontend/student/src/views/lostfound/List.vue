@@ -20,7 +20,7 @@
       <ItemCard
         v-for="lf in list"
         :key="lf.id"
-        :cover="lf.imageList?.[0]"
+        :cover="firstContentImage(lf, 'lost')"
         :title="lf.title"
         :desc="lf.description"
         :time="lf.createTime"
@@ -52,6 +52,7 @@ import ItemCard from '../../components/ItemCard.vue'
 import EmptyBox from '../../components/EmptyBox.vue'
 import { listLostFound } from '../../api/lostfound'
 import { useUserStore } from '../../store/user'
+import { firstContentImage } from '../../utils/content-assets.mjs'
 
 const route = useRoute()
 const router = useRouter()

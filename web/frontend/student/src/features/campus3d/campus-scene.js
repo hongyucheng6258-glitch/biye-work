@@ -118,6 +118,7 @@ export async function createCampusScene({ container, labels, services = SERVICES
     disposables.add(mat);
     const board = mesh(new THREE.PlaneGeometry(w, h), mat, parent, x, y, z);
     board.rotation.y = rotation;
+    board.userData.textMaterial = mat;
     return board;
   }
   function roomLight(parent, color, z = -3.6) {
@@ -152,7 +153,34 @@ export async function createCampusScene({ container, labels, services = SERVICES
     glowBox(parent, 2.76, 0.055, 0.07, color, 0, 1.38, z + 0.08, false, 0.48);
     glowBox(parent, 0.055, 1.42, 0.07, color, -1.35, 2.12, z + 0.08, false, 0.48);
     glowBox(parent, 0.055, 1.42, 0.07, color, 1.35, 2.12, z + 0.08, false, 0.48);
-    textBoard(parent, service.name, '点击屏幕打开服务内容', color, 2.43, 1.22, 0, 2.12, z + 0.075);
+    const board = textBoard(parent, service.name, '点击屏幕打开服务内容', color, 2.43, 1.22, 0, 2.12, z + 0.075);
+    if (service.image) {
+      const loader = new THREE.TextureLoader();
+      loader.load(service.image, texture => {
+        if (disposed) { texture.dispose(); return; }
+        texture.colorSpace = THREE.SRGBColorSpace;
+        texture.anisotropy = Math.min(renderer.capabilities.getMaxAnisotropy(), 4);
+        const targetAspect = 2;
+        const imageAspect = (texture.image?.width || 1) / (texture.image?.height || 1);
+        if (imageAspect > targetAspect) {
+          const repeatX = targetAspect / imageAspect;
+          texture.repeat.set(repeatX, 1);
+          texture.offset.set((1 - repeatX) / 2, 0);
+        } else {
+          const repeatY = imageAspect / targetAspect;
+          texture.repeat.set(1, repeatY);
+          texture.offset.set(0, (1 - repeatY) / 2);
+        }
+        texture.needsUpdate = true;
+        const imageMaterial = new THREE.MeshBasicMaterial({ map: texture, side: THREE.DoubleSide });
+        disposables.add(texture);
+        disposables.add(imageMaterial);
+        board.material = imageMaterial;
+        board.userData.imageMaterial = imageMaterial;
+      }, undefined, () => {
+        // The text board is deliberately kept visible when a generated asset fails to load.
+      });
+    }
     box(parent, 1.05, 0.12, 0.42, M.white, 0, 0.94, z + 0.26, true);
     box(parent, 0.08, 0.78, 0.35, M.trim, -0.42, 0.47, z + 0.24, true);
     box(parent, 0.08, 0.78, 0.35, M.trim, 0.42, 0.47, z + 0.24, true);

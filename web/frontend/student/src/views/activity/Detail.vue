@@ -12,7 +12,7 @@
         <!-- 左：封面 + 介绍 -->
         <article>
           <div class="event-detail-hero">
-            <el-image v-if="normalizeImages(act)[0]" :src="normalizeImages(act)[0]" fit="cover" class="detail-cover-img" :preview-src-list="normalizeImages(act)" />
+            <el-image v-if="detailImages.length" :src="detailImages[0]" fit="cover" class="detail-cover-img" :preview-src-list="detailImages" />
             <WtEventArt v-else :item="act" large />
             <div class="event-detail-heading">
               <div class="head-tags">
@@ -198,6 +198,7 @@ import { submitReport } from '../../api/report'
 import { favoriteStatus, favorite, unfavorite } from '../../api/favorite'
 import { formatTime } from '../../utils/date'
 import { normalizeImages } from '../../utils/image'
+import { firstContentImage } from '../../utils/content-assets.mjs'
 import { normalizeSigninQrContent } from '../../utils/signinQr.mjs'
 import { useUserStore } from '../../store/user'
 import { startChat } from '../../utils/startChat'
@@ -207,6 +208,11 @@ const router = useRouter()
 const userStore = useUserStore()
 const id = Number(route.params.id)
 const act = ref(null)
+const detailImages = computed(() => {
+  if (!act.value) return []
+  const images = normalizeImages(act.value)
+  return images.length ? images : [firstContentImage(act.value, 'activity')].filter(Boolean)
+})
 const loading = ref(false)
 const signupVisible = ref(false)
 const remark = ref('')

@@ -66,7 +66,7 @@
         class="item event-card"
         @click="$router.push(`/activity/detail/${a.id}`)"
       >
-        <img v-if="normalizeImages(a)[0]" :src="normalizeImages(a)[0]" :alt="a.title" class="event-cover-img" />
+        <img v-if="firstContentImage(a, 'activity')" :src="firstContentImage(a, 'activity')" :alt="a.title" class="event-cover-img" />
         <WtEventArt v-else :item="a" />
         <div class="item-body">
           <div class="event-title-row">
@@ -116,7 +116,7 @@ import { useRoute, useRouter } from 'vue-router'
 import { ElMessage } from 'element-plus'
 import EmptyBox from '../../components/EmptyBox.vue'
 import WtEventArt from '../../components/wt/WtEventArt.vue'
-import { normalizeImages } from '../../utils/image'
+import { firstContentImage } from '../../utils/content-assets.mjs'
 import { listActivity, recommendActivity } from '../../api/activity'
 import { useUserStore } from '../../store/user'
 

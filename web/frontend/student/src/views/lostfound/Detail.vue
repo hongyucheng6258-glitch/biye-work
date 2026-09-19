@@ -5,9 +5,9 @@
     <el-card v-if="lf">
       <div class="layout">
         <div class="gallery">
-          <el-carousel v-if="lf.imageList?.length" height="340px" :arrow="lf.imageList.length > 1 ? 'hover' : 'never'">
-            <el-carousel-item v-for="img in lf.imageList" :key="img">
-              <el-image :src="img" fit="contain" style="width:100%;height:100%" :preview-src-list="lf.imageList" />
+          <el-carousel v-if="detailImages.length" height="340px" :arrow="detailImages.length > 1 ? 'hover' : 'never'">
+            <el-carousel-item v-for="img in detailImages" :key="img">
+              <el-image :src="img" fit="contain" style="width:100%;height:100%" :preview-src-list="detailImages" />
             </el-carousel-item>
           </el-carousel>
           <el-empty v-else description="无图片" :image-size="80" />
@@ -114,7 +114,7 @@
 </template>
 
 <script setup>
-import { onMounted, reactive, ref } from 'vue'
+import { computed, onMounted, reactive, ref } from 'vue'
 import WtPageHeader from '../../components/wt/WtPageHeader.vue'
 import { useRoute, useRouter } from 'vue-router'
 import { ElMessage } from 'element-plus'
@@ -125,12 +125,19 @@ import { favoriteStatus, favorite, unfavorite } from '../../api/favorite'
 import { formatTime } from '../../utils/date'
 import { useUserStore } from '../../store/user'
 import { startChat } from '../../utils/startChat'
+import { firstContentImage } from '../../utils/content-assets.mjs'
+import { normalizeImages } from '../../utils/image'
 
 const route = useRoute()
 const router = useRouter()
 const userStore = useUserStore()
 const id = Number(route.params.id)
 const lf = ref(null)
+const detailImages = computed(() => {
+  if (!lf.value) return []
+  const images = normalizeImages(lf.value)
+  return images.length ? images : [firstContentImage(lf.value, 'lost')].filter(Boolean)
+})
 const loading = ref(false)
 const reportVisible = ref(false)
 const reasonType = ref('违规')

@@ -6,9 +6,9 @@
       <div class="layout">
         <!-- 图左 -->
         <div class="gallery">
-          <el-carousel v-if="item.imageList?.length" height="360px" :arrow="item.imageList.length > 1 ? 'hover' : 'never'">
-            <el-carousel-item v-for="img in item.imageList" :key="img">
-              <el-image :src="img" fit="contain" style="width:100%;height:100%" :preview-src-list="item.imageList" />
+          <el-carousel v-if="detailImages.length" height="360px" :arrow="detailImages.length > 1 ? 'hover' : 'never'">
+            <el-carousel-item v-for="img in detailImages" :key="img">
+              <el-image :src="img" fit="contain" style="width:100%;height:100%" :preview-src-list="detailImages" />
             </el-carousel-item>
           </el-carousel>
           <el-empty v-else description="无图片" :image-size="80" />
@@ -125,12 +125,19 @@ import { submitReport } from '../../api/report'
 import { favoriteStatus, favorite, unfavorite } from '../../api/favorite'
 import { useUserStore } from '../../store/user'
 import { startChat } from '../../utils/startChat'
+import { firstContentImage } from '../../utils/content-assets.mjs'
+import { normalizeImages } from '../../utils/image'
 
 const route = useRoute()
 const router = useRouter()
 const userStore = useUserStore()
 const id = Number(route.params.id)
 const item = ref(null)
+const detailImages = computed(() => {
+  if (!item.value) return []
+  const images = normalizeImages(item.value)
+  return images.length ? images : [firstContentImage(item.value, 'idle')].filter(Boolean)
+})
 const loading = ref(false)
 const appointVisible = ref(false)
 const appointMsg = ref('')

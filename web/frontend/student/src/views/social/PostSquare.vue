@@ -35,9 +35,9 @@
           </div>
         </div>
         <div class="post-content">{{ p.content }}</div>
-        <div v-if="p.imageList?.length" class="post-images">
-          <el-image v-for="img in p.imageList" :key="img" :src="img" fit="contain"
-                    class="post-img" :preview-src-list="p.imageList" />
+        <div v-if="postImages(p).length" class="post-images">
+          <el-image v-for="img in postImages(p)" :key="img" :src="img" fit="contain"
+                    class="post-img" :preview-src-list="postImages(p)" />
         </div>
         <div class="post-ops">
           <span class="op" :class="{ liked: p.liked }" @click="toggleLike(p)">
@@ -119,6 +119,7 @@ import { favorite, unfavorite } from '../../api/favorite'
 import { useUserStore } from '../../store/user'
 import { fromNow } from '../../utils/date'
 import { startChat } from '../../utils/startChat'
+import { firstContentImage } from '../../utils/content-assets.mjs'
 
 const route = useRoute()
 const router = useRouter()
@@ -139,6 +140,10 @@ const reportVisible = ref(false)
 const reportReasonType = ref('违规')
 const reportReason = ref('')
 const reportTarget = ref(null)
+
+function postImages(post) {
+  return post?.imageList?.length ? post.imageList : [firstContentImage(post, 'square')].filter(Boolean)
+}
 
 /** 热门话题：从动态内容提取 #标签 并按出现次数聚合 */
 const hotTopics = computed(() => {

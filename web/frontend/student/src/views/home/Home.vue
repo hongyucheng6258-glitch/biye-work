@@ -71,7 +71,7 @@
             class="item event-card"
             @click="go({ to: a.to, needLogin: a.needLogin })"
           >
-            <img v-if="normalizeImages(a)[0]" :src="normalizeImages(a)[0]" :alt="a.title" class="event-cover-img" />
+            <img v-if="firstContentImage(a, a.moduleId)" :src="firstContentImage(a, a.moduleId)" :alt="a.title" class="event-cover-img" />
             <WtEventArt v-else :item="a" />
             <div class="item-body">
               <div class="event-title-row">
@@ -120,7 +120,7 @@
             @click="go({ to: `/idle/detail/${i.id}` })"
           >
             <div class="cover">
-              <img v-if="normalizeImages(i)[0]" :src="normalizeImages(i)[0]" :alt="i.title" />
+              <img v-if="firstContentImage(i, 'idle')" :src="firstContentImage(i, 'idle')" :alt="i.title" />
               <div v-else class="cover-fallback">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 7h18l-2 13H5z"/><path d="M8 11v6M12 11v6M16 11v6"/></svg>
               </div>
@@ -232,7 +232,7 @@ import { listPost } from '../../api/post'
 import { listMessage } from '../../api/message'
 import { wrongStats } from '../../api/wrong'
 import { formatTime } from '../../utils/date'
-import { normalizeImages } from '../../utils/image'
+import { firstContentImage } from '../../utils/content-assets.mjs'
 import { useUserStore } from '../../store/user'
 import { useMessageStore } from '../../store/message'
 import WtHero from '../../components/wt/WtHero.vue'
@@ -322,6 +322,7 @@ const feedList = computed(() => {
       memberCount: i.viewCount ?? 0,
       images: i.images,
       imageList: i.imageList,
+      moduleId: 'idle',
       to: `/idle/detail/${i.id}`
     }))
   }
@@ -339,6 +340,7 @@ const feedList = computed(() => {
       memberCount: l.viewCount ?? 0,
       images: l.images,
       imageList: l.imageList,
+      moduleId: 'lost',
       to: `/lostfound/detail/${l.id}`
     }))
   }
@@ -355,6 +357,7 @@ const feedList = computed(() => {
     memberCount: a.memberCount || 0,
     images: a.images,
     imageList: a.imageList,
+    moduleId: 'activity',
     to: `/activity/detail/${a.id}`
   }))
 })

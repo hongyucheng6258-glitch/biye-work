@@ -22,7 +22,7 @@
       <ItemCard
         v-for="item in list"
         :key="item.id"
-        :cover="item.imageList?.[0]"
+        :cover="firstContentImage(item, 'idle')"
         :title="item.title"
         :desc="item.description"
         :time="item.createTime"
@@ -60,6 +60,7 @@ import ItemCard from '../../components/ItemCard.vue'
 import EmptyBox from '../../components/EmptyBox.vue'
 import { listIdle } from '../../api/idle'
 import { useUserStore } from '../../store/user'
+import { firstContentImage } from '../../utils/content-assets.mjs'
 
 const route = useRoute()
 const router = useRouter()

@@ -41,4 +41,9 @@ INSERT INTO `system_config` (`config_key`, `config_value`, `value_type`, `descri
 -- 安全
 ('user_default_status', '0', 'int', '新用户默认状态（0正常 1禁用）', 'security', 1),
 ('login_fail_lock_threshold', '5', 'int', '连续登录失败锁定阈值（0=不锁定）', 'security', 2)
-ON DUPLICATE KEY UPDATE `description` = VALUES(`description`), `category` = VALUES(`category`), `sort` = VALUES(`sort`);
+ON DUPLICATE KEY UPDATE
+  `config_value` = VALUES(`config_value`),
+  `value_type` = VALUES(`value_type`),
+  `description` = VALUES(`description`),
+  `category` = VALUES(`category`),
+  `sort` = VALUES(`sort`);

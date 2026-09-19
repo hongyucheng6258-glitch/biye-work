@@ -98,13 +98,15 @@ function goPublish() {
   router.push('/lostfound/publish')
 }
 
+let initialSearchWatch = true
 watch(
   () => route.query.q,
   (q) => {
-    if (!restoredListState || q !== undefined) {
+    if (!initialSearchWatch || !restoredListState) {
       keyword.value = String(q || '')
       pageNum.value = 1
     }
+    initialSearchWatch = false
     load()
   },
   { immediate: true }

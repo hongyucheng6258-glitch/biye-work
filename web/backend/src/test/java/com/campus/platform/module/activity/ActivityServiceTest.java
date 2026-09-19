@@ -19,6 +19,10 @@ import com.campus.platform.module.user.mapper.UserMapper;
 import com.campus.platform.utils.SignTokenUtils;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.BeforeAll;
+import com.baomidou.mybatisplus.core.MybatisConfiguration;
+import com.baomidou.mybatisplus.core.metadata.TableInfoHelper;
+import org.apache.ibatis.builder.MapperBuilderAssistant;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -33,10 +37,19 @@ import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.inOrder;
+import static org.mockito.Mockito.verifyNoInteractions;
 
 @ExtendWith(MockitoExtension.class)
 @DisplayName("活动状态动态计算与报名强校验")
 class ActivityServiceTest {
+
+    @BeforeAll
+    static void initializeMapperMetadata() {
+        TableInfoHelper.initTableInfo(new MapperBuilderAssistant(new MybatisConfiguration(), "activity-test"),
+                ActivityMember.class);
+    }
 
     private static final Long USER_ID = 1L;
     private static final Long PUBLISHER_ID = 2L;
@@ -83,6 +96,66 @@ class ActivityServiceTest {
     private static final LocalDateTime NOW = LocalDateTime.now();
     private static final LocalDateTime PAST = NOW.minusDays(1);
     private static final LocalDateTime FUTURE = NOW.plusDays(1);
+
+    private ActivityMember pendingMember() {
+        ActivityMember member = new ActivityMember();
+        member.setId(20L);
+        member.setActivityId(ACTIVITY_ID);
+        member.setUserId(USER_ID);
+        member.setStatus(Constants.MEMBER_PENDING);
+        return member;
+    }
+
+    @Test
+    void approval_locksActivityBeforeCheckingCapacityAndApprovesLastSeat() {
+        Activity a = activity(Constants.ACTIVITY_SIGNING, FUTURE, FUTURE.plusHours(2), FUTURE, 1);
+        when(memberMapper.selectById(20L)).thenReturn(pendingMember());
+        when(activityMapper.selectForUpdate(ACTIVITY_ID)).thenReturn(a);
+        when(memberMapper.selectCount(any())).thenReturn(0L, 1L);
+        when(memberMapper.update(org.mockito.ArgumentMatchers.<ActivityMember>isNull(), any())).thenReturn(1);
+        service.handleMember(PUBLISHER_ID, 20L, true);
+        var order = inOrder(memberMapper, activityMapper);
+        order.verify(memberMapper).selectById(20L);
+        order.verify(activityMapper).selectForUpdate(ACTIVITY_ID);
+        order.verify(memberMapper).selectById(20L);
+        order.verify(memberMapper).selectCount(any());
+        assertThat(a.getStatus()).isEqualTo(Constants.ACTIVITY_FULL);
+        verify(messageService).send(anyLong(), anyString(), anyString(), anyString(), anyString(), anyLong());
+    }
+
+    @Test
+    void approval_rejectsFullActivityWithoutChangingMember() {
+        when(memberMapper.selectById(20L)).thenReturn(pendingMember());
+        when(activityMapper.selectForUpdate(ACTIVITY_ID)).thenReturn(
+                activity(Constants.ACTIVITY_FULL, FUTURE, FUTURE.plusHours(2), FUTURE, 1));
+        when(memberMapper.selectCount(any())).thenReturn(1L);
+        assertThatThrownBy(() -> service.handleMember(PUBLISHER_ID, 20L, true))
+                .isInstanceOf(BizException.class).hasMessageContaining("人数已满");
+        verify(memberMapper, never()).update(org.mockito.ArgumentMatchers.<ActivityMember>any(), any());
+        verifyNoInteractions(messageService);
+    }
+
+    @Test
+    void approval_rechecksStatusAfterWaitingForLock() {
+        ActivityMember handled = pendingMember();
+        handled.setStatus(Constants.MEMBER_APPROVED);
+        when(memberMapper.selectById(20L)).thenReturn(pendingMember(), handled);
+        when(activityMapper.selectForUpdate(ACTIVITY_ID)).thenReturn(
+                activity(Constants.ACTIVITY_SIGNING, FUTURE, FUTURE.plusHours(2), FUTURE, 1));
+        assertThatThrownBy(() -> service.handleMember(PUBLISHER_ID, 20L, true))
+                .isInstanceOf(BizException.class).hasMessageContaining("已审批");
+        verifyNoInteractions(messageService);
+    }
+
+    @Test
+    void approval_doesNotNotifyIfMemberWasCancelledBeforeUpdate() {
+        when(memberMapper.selectById(20L)).thenReturn(pendingMember());
+        when(activityMapper.selectForUpdate(ACTIVITY_ID)).thenReturn(
+                activity(Constants.ACTIVITY_SIGNING, FUTURE, FUTURE.plusHours(2), FUTURE, 0));
+        assertThatThrownBy(() -> service.handleMember(PUBLISHER_ID, 20L, true))
+                .isInstanceOf(BizException.class).hasMessageContaining("已取消");
+        verifyNoInteractions(messageService);
+    }
 
     @Test
     @DisplayName("未开始、未截止、未满员 → 报名中且可报名")

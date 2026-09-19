@@ -63,7 +63,7 @@
                 <span v-if="m.publisherNickname">👤 {{ m.publisherNickname }}</span>
               </div>
             </div>
-            <el-button size="small" type="primary" @click="router.push(`/lostfound/${m.id}`)">去看看</el-button>
+            <el-button size="small" type="primary" @click="router.push(`/lostfound/detail/${m.id}`)">去看看</el-button>
           </div>
         </div>
         <el-empty v-else-if="matchedDone" description="暂未匹配到高度相似的拾到信息，发布后大家会看到你的信息" :image-size="70" />

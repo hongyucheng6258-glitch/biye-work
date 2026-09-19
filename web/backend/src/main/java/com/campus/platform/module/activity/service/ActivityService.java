@@ -20,6 +20,7 @@ import com.campus.platform.module.idle.service.IdleService;
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.campus.platform.common.BizException;
 import com.campus.platform.common.Constants;
@@ -32,6 +33,7 @@ import com.campus.platform.utils.SignTokenUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.annotation.Isolation;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -271,13 +273,25 @@ public class ActivityService {
     /**
      * 审批报名（通过/拒绝）→ 消息通知；满员自动更新活动状态。
      */
-    @Transactional
+    @Transactional(isolation = Isolation.READ_COMMITTED)
     public void handleMember(Long userId, Long memberId, boolean approve) {
         ActivityMember member = memberMapper.selectById(memberId);
         if (member == null) {
             throw new BizException(ResultCode.NOT_FOUND, "报名记录不存在");
         }
-        Activity activity = checkPublisher(userId, member.getActivityId());
+        // Serialize approvals for this activity, including approvals for different members.
+        Activity activity = activityMapper.selectForUpdate(member.getActivityId());
+        if (activity == null) {
+            throw new BizException(ResultCode.NOT_FOUND, "活动不存在");
+        }
+        if (!activity.getUserId().equals(userId)) {
+            throw new BizException(ResultCode.FORBIDDEN, "只有活动发布者可以执行此操作");
+        }
+        // The member may have been handled or cancelled while waiting for the lock.
+        member = memberMapper.selectById(memberId);
+        if (member == null) {
+            throw new BizException(ResultCode.NOT_FOUND, "报名记录不存在");
+        }
         if (member.getStatus() != Constants.MEMBER_PENDING) {
             throw new BizException(ResultCode.DUPLICATE_OPERATION, "该报名已审批");
         }
@@ -300,7 +314,13 @@ public class ActivityService {
             }
         }
         member.setStatus(approve ? Constants.MEMBER_APPROVED : Constants.MEMBER_REJECTED);
-        memberMapper.updateById(member);
+        int changed = memberMapper.update(null, new LambdaUpdateWrapper<ActivityMember>()
+                .eq(ActivityMember::getId, memberId)
+                .eq(ActivityMember::getStatus, Constants.MEMBER_PENDING)
+                .set(ActivityMember::getStatus, member.getStatus()));
+        if (changed != 1) {
+            throw new BizException(ResultCode.DUPLICATE_OPERATION, "该报名已审批或已取消");
+        }
         // 满员自动变更状态
         if (approve && activity.getMaxMembers() != null && activity.getMaxMembers() > 0) {
             Long approved = memberMapper.selectCount(new LambdaQueryWrapper<ActivityMember>()

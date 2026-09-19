@@ -54,3 +54,11 @@ overview.md
 
 # Local generated/shareable reports
 *.html.zip
+
+# Local database backups, test screenshots and temporary browser profiles (do not commit)
+/db-backup-*.sql
+/测试截图/
+**/test-results/
+**/playwright-report/
+**/.tmp-browser/
+/.local-browser/

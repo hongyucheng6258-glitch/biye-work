@@ -102,7 +102,7 @@
                   type="button"
                   class="btn"
                   :loading="canceling"
-                  :disabled="act.signedIn"
+                  :disabled="canceling || act.signedIn"
                   @click="doCancelSignup"
                 >
                   {{ act.signedIn ? '已签到不可取消' : '取消报名' }}
@@ -284,6 +284,7 @@ async function toggleFavorite() {
 }
 
 async function doSignup() {
+  if (signing.value) return
   if (!userStore.isLoggedIn) {
     router.push('/login')
     return
@@ -300,6 +301,7 @@ async function doSignup() {
 }
 
 async function doCancelSignup() {
+  if (canceling.value) return
   try {
     await ElMessageBox.confirm('确定取消该活动的报名吗？', '取消报名', { type: 'warning' })
   } catch {

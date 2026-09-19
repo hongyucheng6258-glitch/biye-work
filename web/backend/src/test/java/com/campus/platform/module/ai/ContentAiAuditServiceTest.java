@@ -41,7 +41,7 @@ class ContentAiAuditServiceTest {
 
     @Test
     void lowRiskContentShouldAutoPassAndRecordAiDecision() {
-        ContentAiAuditService service = new ContentAiAuditService(lostFoundMapper, null, null, null, null, null, mockConfig(false));
+        ContentAiAuditService service = new ContentAiAuditService(lostFoundMapper, null, null, null, null, null, null, mockConfig(false));
 
         LostFound content = new LostFound();
         content.setId(1L);
@@ -57,7 +57,7 @@ class ContentAiAuditServiceTest {
 
     @Test
     void highRiskContentShouldRemainPendingForManualReview() {
-        ContentAiAuditService service = new ContentAiAuditService(lostFoundMapper, null, null, null, null, null, mockConfig(false));
+        ContentAiAuditService service = new ContentAiAuditService(lostFoundMapper, null, null, null, null, null, null, mockConfig(false));
 
         LostFound content = new LostFound();
         content.setId(2L);
@@ -78,7 +78,7 @@ class ContentAiAuditServiceTest {
         when(holder.getApiKey()).thenReturn("sk-real-key");
         when(gateway.internalChat(anyLong(), anyString(), anyString(), anyMap()))
                 .thenThrow(new RuntimeException("AI down"));
-        ContentAiAuditService service = new ContentAiAuditService(lostFoundMapper, null, null, null, gateway, holder, mockConfig(true));
+        ContentAiAuditService service = new ContentAiAuditService(lostFoundMapper, null, null, null, null, gateway, holder, mockConfig(true));
 
         LostFound content = new LostFound();
         content.setId(3L);
@@ -97,7 +97,7 @@ class ContentAiAuditServiceTest {
         when(holder.getApiKey()).thenReturn("sk-real-key");
         when(gateway.internalChat(anyLong(), anyString(), anyString(), anyMap()))
                 .thenThrow(new RuntimeException("AI down"));
-        ContentAiAuditService service = new ContentAiAuditService(lostFoundMapper, null, null, null, gateway, holder, mockConfig(true));
+        ContentAiAuditService service = new ContentAiAuditService(lostFoundMapper, null, null, null, null, gateway, holder, mockConfig(true));
 
         LostFound content = new LostFound();
         content.setId(4L);

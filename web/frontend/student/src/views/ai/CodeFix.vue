@@ -20,12 +20,15 @@
       <!-- Monaco 代码编辑器 -->
       <div class="editor-box">
         <vue-monaco-editor
+          v-if="editorReady"
           v-model:value="code"
           :language="monacoLang"
           theme="vs"
           :options="{ fontSize: 14, minimap: { enabled: false }, automaticLayout: true }"
         />
+        <textarea v-else v-model="code" class="plain-code-editor" aria-label="代码编辑区" spellcheck="false" @focus="plainEditorInUse = true"></textarea>
       </div>
+      <p v-if="!editorReady" class="editor-note">{{ editorFailed ? '已使用基础编辑器，代码输入和纠错功能可正常使用。' : '可直接输入代码，无需等待编辑器加载。' }}</p>
     </div>
     <div class="panel right">
       <div class="panel-head"><h3>📋 纠错结果</h3></div>
@@ -37,10 +40,11 @@
 </template>
 
 <script setup>
-import { computed, ref } from 'vue'
+import { computed, ref, onMounted, onBeforeUnmount } from 'vue'
 import { ElMessage } from 'element-plus'
 import WtPageHeader from '../../components/wt/WtPageHeader.vue'
-import { VueMonacoEditor } from '@guolao/vue-monaco-editor'
+import { VueMonacoEditor, loader } from '@guolao/vue-monaco-editor'
+import { loadCodeEditor, cancelCodeEditorLoad } from '../../utils/code-editor'
 import { codeFix } from '../../api/ai'
 import { renderMarkdown } from '../../utils/markdown'
 
@@ -50,6 +54,27 @@ const code = ref('public class Main {\n    public static void main(String[] args
 const extra = ref('')
 const fixing = ref(false)
 const result = ref('')
+const editorReady = ref(false)
+const editorFailed = ref(false)
+const plainEditorInUse = ref(false)
+let disposed = false
+onMounted(() => {
+  loadCodeEditor().then(monaco => {
+    if (disposed) return
+    loader.config({ monaco })
+    if (!plainEditorInUse.value) editorReady.value = true
+  }).catch((error) => {
+    // 资源不可用 / 超时 / 离开页面都降级为 textarea，且不产生未处理 rejection。
+    if (!disposed) {
+      editorFailed.value = true
+      editorReady.value = false
+      if (error?.message && !/取消编辑器加载/.test(error.message)) {
+        ElMessage.warning('代码增强编辑器加载失败，已切换为基础编辑器')
+      }
+    }
+  })
+})
+onBeforeUnmount(() => { disposed = true; cancelCodeEditorLoad() })
 
 // Monaco 语言 id 映射（c/cpp 均为 cpp）
 const monacoLang = computed(() => {
@@ -78,12 +103,12 @@ async function fix() {
 <style scoped>
 .codefix {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   gap: 16px;
   height: calc(100vh - 140px);
 }
 .panel {
-  background: #fff;
+  background: var(--surface);
   border-radius: 10px;
   padding: 16px;
   display: flex;
@@ -128,4 +153,7 @@ async function fix() {
 .result :deep(h1), .result :deep(h2), .result :deep(h3) {
   margin: 12px 0 8px;
 }
+.plain-code-editor { width: 100%; height: 100%; min-height: 300px; display: block; resize: vertical; border: 0; padding: 16px; background: var(--surface); color: var(--ink); font: 14px/1.7 Consolas, monospace; tab-size: 2; }
+.editor-note { margin-top: 8px; font-size: 12px; color: var(--ink-3); }
+@media(max-width: 760px) { .codefix { grid-template-columns: 1fr; height: auto; } .panel-head { flex-wrap: wrap; gap: 10px; } .right { min-height: 250px; } }
 </style>

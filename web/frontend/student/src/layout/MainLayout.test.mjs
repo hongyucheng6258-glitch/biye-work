@@ -3,7 +3,7 @@ import assert from 'node:assert/strict'
 import { readFile } from 'node:fs/promises'
 
 const layout = await readFile(new URL('./MainLayout.vue', import.meta.url), 'utf8')
-const router = await readFile(new URL('../router/index.js', import.meta.url), 'utf8')
+const router = await readFile(new URL('../router/routes.js', import.meta.url), 'utf8')
 const activity = await readFile(new URL('../views/activity/List.vue', import.meta.url), 'utf8')
 const idle = await readFile(new URL('../views/idle/List.vue', import.meta.url), 'utf8')
 const lost = await readFile(new URL('../views/lostfound/List.vue', import.meta.url), 'utf8')

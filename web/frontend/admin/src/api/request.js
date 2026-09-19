@@ -28,7 +28,7 @@ request.interceptors.response.use(
       return res.data
     }
     ElMessage.error(res.message || '请求失败')
-    if (res.code === 401 || res.code === 403) {
+    if (res.code === 401) {
       localStorage.removeItem('admin_token')
       localStorage.removeItem('admin_info')
       router.push('/login')
@@ -37,7 +37,7 @@ request.interceptors.response.use(
   },
   (error) => {
     const status = error.response?.status
-    if (status === 401 || status === 403) {
+    if (status === 401) {
       localStorage.removeItem('admin_token')
       localStorage.removeItem('admin_info')
       if (router.currentRoute.value.path !== '/login') router.push('/login')

@@ -7,12 +7,16 @@
         <h1>今天的校园，也交给你了。</h1>
         <span class="greet-sub">辛苦啦，这里是今日的运营概览。</span>
       </div>
-      <span class="system-pill">
+      <span class="system-pill" :class="{ warn: errors.length }">
         <i></i>
-        平台运行正常
+        {{ loading ? '正在更新概览' : errors.length ? '部分数据加载失败' : '概览数据已更新' }}
       </span>
     </section>
 
+    <div v-if="errors.length" class="dashboard-error" role="alert">
+      <span>未能加载：{{ errors.join('、') }}。空白区域不代表没有数据。</span>
+      <button class="text-btn" :disabled="loading" @click="loadDashboard">重新加载</button>
+    </div>
     <!-- 统计卡 -->
     <section class="stat-grid">
       <div v-for="c in cards" :key="c.label" class="stat-card">
@@ -60,7 +64,9 @@
             </div>
             <button type="button" class="text-btn" @click="goAudit(a.type)">处理 →</button>
           </div>
-          <div v-if="!pendingList.length" class="audit-empty">🎉 没有待审核的内容，今日无事。</div>
+          <div v-if="loading" class="audit-empty" role="status">正在读取待审核内容…</div>
+          <div v-else-if="errors.includes('待审核内容')" class="audit-empty">读取失败，请重试。</div>
+          <div v-else-if="!pendingList.length" class="audit-empty">暂无待审核内容</div>
         </div>
       </div>
       <div class="chart-panel">
@@ -75,7 +81,7 @@
 </template>
 
 <script setup>
-import { computed, onMounted, ref } from 'vue'
+import { computed, onMounted, onBeforeUnmount, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import * as echarts from 'echarts/core'
 import { LineChart, BarChart, PieChart } from 'echarts/charts'
@@ -102,6 +108,11 @@ const moduleRef = ref()
 const pieRef = ref()
 const pendingList = ref([])
 let charts = []
+const loading = ref(true)
+const errors = ref([])
+let disposed = false
+const resizeObserver = new ResizeObserver(() => charts.forEach(chart => chart.resize()))
+function disposeCharts() { resizeObserver.disconnect(); charts.forEach(chart => chart.dispose()); charts = [] }
 
 const ICONS = {
   users: '<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/>',
@@ -140,18 +151,27 @@ function formatTime(t) {
 }
 
 function goAudit(type) {
-  router.push('/audit')
+  const module = { lost: 'lostfound', lostfound: 'lostfound', activity: 'activity', idle: 'idle', post: 'post', partner: 'partner' }[type]
+  router.push(module ? `/audit/${module}` : '/content')
 }
 
-onMounted(async () => {
+async function loadDashboard() {
+  loading.value = true
+  errors.value = []
+  overview.value = {}
+  pendingList.value = []
+  disposeCharts()
+  await Promise.all([ (async () => {
   // 数字卡片
-  try { overview.value = await statsOverview() } catch (e) {}
+  try { overview.value = await statsOverview() } catch (e) { errors.value.push('数字概览') }
+  })(), (async () => {
   // 待审核（前5条）
   try {
     const res = await auditList({ pageNum: 1, pageSize: 5 })
     const arr = Array.isArray(res) ? res : (res.list || [])
     pendingList.value = arr.map((x) => ({ key: `${x.type}-${x.id}`, ...x }))
-  } catch (e) {}
+  } catch (e) { errors.value.push('待审核内容') }
+  })(), (async () => {
   // 双折线
   try {
     const trend = await statsTrend()
@@ -169,7 +189,8 @@ onMounted(async () => {
       ],
       grid: { left: 45, right: 45, bottom: 30, top: 38 }
     })
-  } catch (e) {}
+  } catch (e) { errors.value.push('趋势图') }
+  })(), (async () => {
   // 模块发布量柱状
   try {
     const moduleData = await statsModule()
@@ -180,7 +201,8 @@ onMounted(async () => {
       series: [{ type: 'bar', data: moduleData.map((d) => d.value), color: seriesColors[0], barWidth: 34, itemStyle: { borderRadius: [6, 6, 0, 0] } }],
       grid: { left: 35, right: 15, bottom: 25, top: 15 }
     })
-  } catch (e) {}
+  } catch (e) { errors.value.push('模块发布量') }
+  })(), (async () => {
   // 双饼图
   try {
     const pie = await statsPie()
@@ -194,8 +216,12 @@ onMounted(async () => {
         }
       ]
     })
-  } catch (e) {}
-})
+  } catch (e) { errors.value.push('失物状态') }
+  })() ])
+  loading.value = false
+}
+onMounted(loadDashboard)
+onBeforeUnmount(() => { disposed = true; disposeCharts() })
 
 // 合并梧桐校园图表基底（文字/提示框/图例色），保证大屏观感统一
 function mergeTheme(option) {
@@ -210,15 +236,16 @@ function mergeTheme(option) {
 }
 
 function renderChart(el, option) {
-  if (!el) return
+  if (!el || disposed) return
   const chart = echarts.init(el)
   chart.setOption(mergeTheme(option))
   charts.push(chart)
-  window.addEventListener('resize', () => chart.resize())
+  resizeObserver.observe(el)
 }
 </script>
 
 <style scoped>
+.dashboard-error { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; padding: 14px 18px; border: 1px solid var(--brand-line); border-radius: 12px; background: var(--surface); color: var(--ink-2); }
 .dashboard { display: flex; flex-direction: column; gap: 20px; }
 
 /* —— V2 问候头 —— */
@@ -249,6 +276,8 @@ function renderChart(el, option) {
   flex-shrink: 0;
 }
 .system-pill i { width: 7px; height: 7px; border-radius: 50%; background: var(--success); }
+.system-pill.warn { color: #b45309; background: #fffbeb; border-color: #fde68a; }
+.system-pill.warn i { background: #f59e0b; box-shadow: 0 0 0 3px rgba(245, 158, 11, .18); }
 
 /* —— 统计卡 —— */
 .stat-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; }

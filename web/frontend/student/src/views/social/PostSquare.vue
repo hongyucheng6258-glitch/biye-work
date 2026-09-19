@@ -1,4 +1,5 @@
 <template>
+  <div v-if="loadError" class="load-error" role="alert"><span>{{ loadError }}</span><button type="button" class="text-btn" @click="load">重新加载</button></div>
   <WtPageHeader title="校园动态" subtitle="同学们都在聊些什么" eyebrow="同辈圈" />
 
   <div class="square">
@@ -53,7 +54,7 @@
           <CommentList :post-id="p.id" :comments="commentMap[p.id] || []" @commented="reloadComments(p)" />
         </div>
       </el-card>
-      <EmptyBox v-if="!loading && !list.length" description="还没有动态，来发第一条吧" />
+      <EmptyBox v-if="!loadError && !loading && !list.length" description="还没有动态，来发第一条吧" />
     </div>
     <el-pagination v-model:current-page="pageNum" :total="total" :page-size="10"
                    layout="prev, pager, next" @current-change="load" />
@@ -103,6 +104,7 @@
 </template>
 
 <script setup>
+import { useListState } from '../../utils/list-state'
 import { computed, ref, watch } from 'vue'
 import WtPageHeader from '../../components/wt/WtPageHeader.vue'
 import { useRoute, useRouter } from 'vue-router'
@@ -126,6 +128,8 @@ const list = ref([])
 const pageNum = ref(1)
 const total = ref(0)
 const loading = ref(false)
+const loadError = ref('')
+const restoredListState = useListState('social', { pageNum, keyword })
 const newPost = ref('')
 const newImages = ref([])
 const publishing = ref(false)
@@ -170,7 +174,7 @@ function openPost(p) {
 }
 
 async function sharePost(p) {
-  const url = `${location.origin}${location.pathname}#/social?post=${p.id}`
+  const url = `${location.origin}/social?post=${encodeURIComponent(p.id)}`
   try {
     await navigator.clipboard.writeText(url)
     ElMessage.success('链接已复制，快去分享吧')
@@ -186,10 +190,13 @@ function search() {
 
 async function load() {
   loading.value = true
+  loadError.value = ''
   try {
     const res = await listPost({ keyword: keyword.value || undefined, pageNum: pageNum.value, pageSize: 10 })
     list.value = res.list
     total.value = res.total
+  } catch (error) {
+    loadError.value = error.message || '内容加载失败，请重试'
   } finally {
     loading.value = false
   }
@@ -295,8 +302,11 @@ async function doReport() {
 watch(
   () => route.query.q,
   (q) => {
-    keyword.value = String(q || '')
-    search()
+    if (!restoredListState || q !== undefined) {
+      keyword.value = String(q || '')
+      pageNum.value = 1
+    }
+    load()
   },
   { immediate: true }
 )

@@ -140,7 +140,8 @@ export async function createCampusScene({ container, labels, services = SERVICES
       box(parent, width - 0.2, 0.06, 0.08, M.trim, x, height * 0.56, z - depth / 2 - 0.01);
       box(parent, width - 0.2, 0.06, 0.08, M.trim, x, height * 0.27, z - depth / 2 - 0.01);
     }
-    textBoard(parent, label, isDesk ? '点击查看服务内容' : '校园服务设施', color, Math.min(1.55, width + 0.14), 0.34, x, isDesk ? 1.42 : 1.94, z + depth / 2 + 0.055);
+    // 房间内不再为货架/服务台悬挂额外指示牌：房门牌已含房间名称与编号，
+    // 屏幕自带“点击屏幕打开服务内容”交互提示，避免重复悬浮牌遮挡与穿模。
   }
   function roomScreen(parent, service, color, z) {
     const screen = box(parent, 2.6, 1.46, 0.13, M.dark, 0, 2.12, z, true);
@@ -188,7 +189,6 @@ export async function createCampusScene({ container, labels, services = SERVICES
     box(parent, 1.42, 0.18, 0.92, M.white, x, 1.48, z, true);
     box(parent, 0.92, 1.45, 0.1, M.dark, x, 0.78, z - 0.36, true);
     glowBox(parent, 0.72, 0.06, 0.04, color, x, 1.25, z - 0.305, false, 0.65);
-    textBoard(parent, '校园速览', '活动 · 公告 · 消息', color, 0.78, 0.48, x, 0.92, z - 0.302);
     cylinder(parent, 0.14, 0.19, 0.18, M.trim, x, 0.09, z, true, 24);
   }
   function seatTable(parent, x, z, rotation = 0) {
@@ -358,28 +358,31 @@ export async function createCampusScene({ container, labels, services = SERVICES
     // Each doorway opens into a deeper themed room. The screen and service desk
     // are pickable hotspots; entering the room itself never opens the workspace.
     const profile = getRoomProfile(service.id);
+    // 每个房间拥有独立主题色（屏幕、服务台、灯光、地色），门框与走廊导视仍沿用所属走廊色。
+    const accent = profile.accent || corridor.color;
     const roomCenterZ = -ROOM_DEPTH / 2;
     const roomBackZ = -ROOM_DEPTH + 0.08;
     const roomWidth = width + 2.4;
     box(frame, roomWidth, 0.16, ROOM_DEPTH, M.pale, 0, -0.085, roomCenterZ);
     box(frame, roomWidth - 0.28, 0.025, ROOM_DEPTH - 0.28, material(profile.floorTone || corridor.soft, { roughness: 0.5, metalness: 0.02 }), 0, 0.018, roomCenterZ);
-    glowBox(frame, roomWidth - 0.7, 0.025, 1.28, corridor.color, 0, 0.041, -1.08, false, 0.28);
+    glowBox(frame, roomWidth - 0.7, 0.025, 1.28, accent, 0, 0.041, -1.08, false, 0.28);
     box(frame, roomWidth, ROOM_HEIGHT, 0.16, M.wall, 0, ROOM_HEIGHT / 2, roomBackZ, false, true);
     for (const sideX of [-1, 1]) box(frame, 0.16, ROOM_HEIGHT, ROOM_DEPTH, M.wall, sideX * (width / 2 + 1.15), ROOM_HEIGHT / 2, roomCenterZ, false, true);
     box(frame, roomWidth, 0.18, ROOM_DEPTH, M.white, 0, ROOM_HEIGHT, roomCenterZ);
     box(frame, roomWidth - 0.5, 0.06, 0.05, tint, 0, 0.12, roomBackZ + 0.11);
-    glowBox(frame, roomWidth - 0.72, 0.06, 0.08, corridor.color, 0, 2.72, roomBackZ + 0.12, false, 0.36);
-    roomLight(frame, corridor.color, -3.75);
-    roomScreen(frame, service, corridor.color, -6.25);
-    const propZ = [-2.45, -4.1, -5.9];
+    glowBox(frame, roomWidth - 0.72, 0.06, 0.08, accent, 0, 2.72, roomBackZ + 0.12, false, 0.36);
+    roomLight(frame, accent, -3.75);
+    roomScreen(frame, service, accent, -6.25);
+    const propZ = [-2.6, -4.6, -5.85];
     profile.facilities.slice(0, 3).forEach((label, index) => {
-      const x = index === 1 ? 0 : (index === 0 ? -(width / 2 + 0.54) : width / 2 + 0.54);
-      roomProp(frame, label, corridor.color, x, propZ[index], index === 1 ? 'desk' : 'shelf', service.id);
+      // 货架贴侧墙内侧布置（外缘距墙面留 0.1m 间隙），避免穿透墙体或门框。
+      const x = index === 1 ? 0 : (index === 0 ? -(width / 2 + 0.28) : width / 2 + 0.28);
+      roomProp(frame, label, accent, x, propZ[index], index === 1 ? 'desk' : 'shelf', service.id);
     });
-    textBoard(frame, profile.type, service.desc || profile.prompt, corridor.color, 3.9, 0.82, 0, 3.62, roomBackZ + 0.12);
+    textBoard(frame, profile.type, service.desc || profile.prompt, accent, 3.9, 0.82, 0, 3.62, roomBackZ + 0.12);
     const p = toWorld(center, corridor);
     const normal = normalLocal.clone().applyAxisAngle(UP, corridor.rot);
-    const door = { id: service.id, group: corridor.id, hinge, width, center: p, normal, view: p.clone().addScaledVector(normal, 3.2).setY(EYE), inside: p.clone().addScaledVector(normal, -2.55).setY(EYE), yaw: Math.atan2(normal.x, normal.z), target: 0, open: 0 };
+    const door = { id: service.id, group: corridor.id, hinge, width, center: p, normal, view: p.clone().addScaledVector(normal, 3.2).setY(EYE), inside: p.clone().addScaledVector(normal, -3.0).setY(EYE), yaw: Math.atan2(normal.x, normal.z), target: 0, open: 0 };
     doors.set(service.id, door);
     makeLabel(service.id, service.name, service.room || '', p.clone().addScaledVector(normal, 0.46).setY(4.65), corridor.id);
   }
@@ -420,7 +423,6 @@ export async function createCampusScene({ container, labels, services = SERVICES
     }
     if (corridor.id !== 'ai') {
       box(group, 8.3, 4.8, 0.2, M.wall, 0, 2.4, END, true, true);
-      textBoard(group, '在校园，发现更多可能', '梧桐校园 · 陪伴每一天', corridor.color, 4.2, 1.3, 0, 2.9, END + 0.13);
       glowBox(group, 5.3, 0.08, 0.06, corridor.color, 0, 2.05, END + 0.18, false, 0.36);
       planter(group, -2.8, -33.5, 0.9);
       planter(group, 2.8, -33.5, 0.9);
@@ -856,6 +858,23 @@ export async function createCampusScene({ container, labels, services = SERVICES
 
   return {
     navigate, exit, goHall, restoreState,
+    cancelNavigation() { cancel(); progressEvent(null, 'idle', 0); },
+    setQuality(quality) {
+      // 流畅：像素比 1、关闭实时阴影；均衡：像素比 1.5、1024 阴影图；高清：像素比 2、2048 阴影图。
+      // 色彩统一由 ACES Filmic 色调映射 + sRGB 输出处理（轻量内建后处理），不引入重型 EffectComposer 以保证帧率。
+      const ratio = quality === 'low' ? 1 : quality === 'high' ? 2 : 1.5;
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, ratio));
+      renderer.shadowMap.enabled = quality !== 'low';
+      const mapSize = quality === 'high' ? 2048 : 1024;
+      if (sun.shadow.mapSize.width !== mapSize || sun.shadow.mapSize.height !== mapSize) {
+        sun.shadow.mapSize.set(mapSize, mapSize);
+        sun.shadow.map?.dispose();
+        sun.shadow.map = null;
+      }
+      renderer.shadowMap.needsUpdate = true;
+      resize();
+      renderOnce();
+    },
     setPaused(value) {
       pausedByApp = !!value; keys.clear(); pointerDown = null; lastTime = performance.now();
       if (pausedByApp) for (const record of labelRecords) record.button.hidden = true;
@@ -893,7 +912,11 @@ export async function createCampusScene({ container, labels, services = SERVICES
       listeners.forEach(remove => remove());
       labelRecords.forEach(record => record.button.remove());
       for (const item of disposables) item.dispose?.();
-      renderer.dispose(); canvas.remove();
+      sun.shadow.map?.dispose();
+      renderer.dispose();
+      // 立即释放 WebGL 上下文，确保多次进出 3D 页面不会累积 GPU 上下文与内存。
+      renderer.forceContextLoss?.();
+      canvas.remove();
     }
   };
 }

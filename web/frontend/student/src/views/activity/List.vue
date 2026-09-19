@@ -1,4 +1,5 @@
 <template>
+  <div v-if="loadError" class="load-error" role="alert"><span>{{ loadError }}</span><button type="button" class="text-btn" @click="load">重新加载</button></div>
   <div class="activity-page">
     <!-- V2 列表头：collection-head -->
     <section class="collection-head activity">
@@ -96,7 +97,7 @@
         </div>
       </a>
     </div>
-    <EmptyBox v-if="!loading && !list.length" description="暂无活动" />
+    <EmptyBox v-if="!loadError && !loading && !list.length" description="暂无活动" />
     <el-pagination
       v-model:current-page="pageNum"
       :total="total"
@@ -109,6 +110,7 @@
 </template>
 
 <script setup>
+import { useListState } from '../../utils/list-state'
 import { ref, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { ElMessage } from 'element-plus'
@@ -128,6 +130,8 @@ const list = ref([])
 const pageNum = ref(1)
 const total = ref(0)
 const loading = ref(false)
+const loadError = ref('')
+const restoredListState = useListState('activity', { pageNum, keyword, category })
 const recList = ref([])
 const recLoading = ref(false)
 
@@ -180,10 +184,13 @@ function search() {
 
 async function load() {
   loading.value = true
+  loadError.value = ''
   try {
     const res = await listActivity({ keyword: keyword.value || undefined, category: category.value || undefined, pageNum: pageNum.value, pageSize: 12 })
     list.value = res.list
     total.value = res.total
+  } catch (error) {
+    loadError.value = error.message || '内容加载失败，请重试'
   } finally {
     loading.value = false
   }
@@ -201,8 +208,11 @@ function goPublish() {
 watch(
   () => route.query.q,
   (q) => {
-    keyword.value = String(q || '')
-    search()
+    if (!restoredListState || q !== undefined) {
+      keyword.value = String(q || '')
+      pageNum.value = 1
+    }
+    load()
   },
   { immediate: true }
 )

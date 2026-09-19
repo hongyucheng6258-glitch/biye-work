@@ -28,17 +28,17 @@ export const SERVICES = [
 // 3D room presentation is data-driven so a new service can reuse the same
 // spatial components without coupling geometry to service content.
 export const ROOM_PROFILES = {
- activity: { type: '活动策划室', prompt: '查看活动日历、报名信息与校园精彩安排', facilities: ['活动海报墙', '日历屏', '报名台'] },
- idle: { type: '校园交换站', prompt: '浏览闲置物品，发布交换需求', facilities: ['展示架', '价格牌', '交换柜'] },
- partner: { type: '学习协作室', prompt: '寻找学习搭子，查看协作匹配', facilities: ['学习桌', '座位牌', '搭子信息墙'] },
- lost: { type: '物品服务台', prompt: '登记、寻找并认领校园遗失物品', facilities: ['登记台', '定位屏', '招领柜'] },
- qa: { type: '讨论空间', prompt: '提出问题，查看同学们的互助回答', facilities: ['问题墙', '回答台', '便签板'] },
- square: { type: '校园媒体墙', prompt: '浏览校园动态，分享你的精彩瞬间', facilities: ['图片墙', '动态屏', '互动展示区'] },
- notice: { type: '信息公告室', prompt: '查看教务、奖学金与校园重要通知', facilities: ['公告栏', '通知屏', '重点灯箱'] },
- message: { type: '校园通信站', prompt: '打开会话列表，处理未读消息', facilities: ['消息终端', '未读灯', '会话屏'] },
- aichat: { type: '智能学习舱', prompt: '向 AI 助手提问，获得学习思路', facilities: ['助手屏', '问题卡', '对话终端'] },
- code: { type: '编程工作台', prompt: '提交代码示例，查看纠错与修复建议', facilities: ['双屏工作站', '代码屏', '结果屏'] },
- wrong: { type: '复习工作室', prompt: '整理错题，查看知识点掌握进度', facilities: ['复习桌', '错题卡', '进度板'] }
+ activity: { type: '活动策划室', prompt: '查看活动日历、报名信息与校园精彩安排', facilities: ['活动海报墙', '日历屏', '报名台'], accent: '#2f6df0', floorTone: '#dce8fc' },
+ idle: { type: '校园交换站', prompt: '浏览闲置物品，发布交换需求', facilities: ['展示架', '价格牌', '交换柜'], accent: '#1f9ed0', floorTone: '#d6f0fa' },
+ partner: { type: '学习协作室', prompt: '寻找学习搭子，查看协作匹配', facilities: ['学习桌', '座位牌', '搭子信息墙'], accent: '#5b8def', floorTone: '#e2ebfd' },
+ lost: { type: '物品服务台', prompt: '登记、寻找并认领校园遗失物品', facilities: ['登记台', '定位屏', '招领柜'], accent: '#e0892d', floorTone: '#fbeedd' },
+ qa: { type: '讨论空间', prompt: '提出问题，查看同学们的互助回答', facilities: ['问题墙', '回答台', '便签板'], accent: '#0f9d8c', floorTone: '#d7f1ec' },
+ square: { type: '校园媒体墙', prompt: '浏览校园动态，分享你的精彩瞬间', facilities: ['图片墙', '动态屏', '互动展示区'], accent: '#22b07d', floorTone: '#dcf6ec' },
+ notice: { type: '信息公告室', prompt: '查看教务、奖学金与校园重要通知', facilities: ['公告栏', '通知屏', '重点灯箱'], accent: '#d39a1e', floorTone: '#faf2dd' },
+ message: { type: '校园通信站', prompt: '打开会话列表，处理未读消息', facilities: ['消息终端', '未读灯', '会话屏'], accent: '#1982c4', floorTone: '#dcf0f9' },
+ aichat: { type: '智能学习舱', prompt: '向 AI 助手提问，获得学习思路', facilities: ['助手屏', '问题卡', '对话终端'], accent: '#8470cf', floorTone: '#e9e4fc' },
+ code: { type: '编程工作台', prompt: '提交代码示例，查看纠错与修复建议', facilities: ['双屏工作站', '代码屏', '结果屏'], accent: '#5b6ee8', floorTone: '#e3e6fc' },
+ wrong: { type: '复习工作室', prompt: '整理错题，查看知识点掌握进度', facilities: ['复习桌', '错题卡', '进度板'], accent: '#b06ad4', floorTone: '#f4e4fb' }
 };
 const DEFAULT_ROOM_PROFILE = { type: '校园服务空间', prompt: '点击服务台打开对应服务内容', facilities: ['服务台', '信息屏', '资料架'] };
 export function getRoomProfile(id) { return ROOM_PROFILES[id] || DEFAULT_ROOM_PROFILE; }

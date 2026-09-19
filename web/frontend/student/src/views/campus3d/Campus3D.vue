@@ -37,7 +37,7 @@
         <span class="error-icon" aria-hidden="true">!</span>
         <strong>3D场景暂时无法打开</strong>
         <p>{{ errorMessage }}</p>
-        <button class="primary-button" type="button" @click="goHome">返回学生端</button>
+        <button class="primary-button" type="button" @click="boot">重新加载场景</button>
       </div>
 
       <div v-if="!loading && !errorMessage && !explorationStarted" class="scene-intro">
@@ -71,6 +71,8 @@
       </div>
 
       <div class="scene-bottomline">
+        <label class="scene-tool">画质 <select v-model="quality" aria-label="场景画质" @change="setQuality"><option value="low">流畅</option><option value="balanced">均衡</option><option value="high">高清</option></select></label>
+        <button v-if="isFullscreen" class="scene-tool" @click="toggleFullscreen">退出全屏</button>
         <span class="explore-hint"><span class="mouse-icon"></span>拖动环视 <b>W</b><b>A</b><b>S</b><b>D</b> 移动</span>
         <button class="scene-tool minimap-reopen-button" type="button" @click="mapOpen = true">⌖ 导览</button>
       </div>
@@ -114,18 +116,20 @@
 </template>
 
 <script setup>
-import { computed, nextTick, onBeforeUnmount, onMounted, ref } from 'vue'
+import { computed, nextTick, onBeforeUnmount, onMounted, ref, shallowRef, watch } from 'vue'
 import { useRouter } from 'vue-router'
 import { createCampusScene } from '../../features/campus3d/campus-scene.js'
 import { GROUPS, SERVICES, getRoomProfile } from '../../features/campus3d/campus-data.js'
 import CampusWorkspace from './CampusWorkspace.vue'
+import { useUserStore } from '../../store/user'
+import { useChatStore } from '../../store/chat'
 
 const router = useRouter()
 const sceneFrame = ref(null)
 const sceneCanvas = ref(null)
 const sceneLabels = ref(null)
 const roomOpenButton = ref(null)
-const scene = ref(null)
+const scene = shallowRef(null)
 const loading = ref(true)
 const errorMessage = ref('')
 const explorationStarted = ref(false)
@@ -140,6 +144,19 @@ const travelProgress = ref(0)
 const mapOpen = ref(false)
 const comfort = ref(localStorage.getItem('wutong-campus-comfort') === 'true')
 const isFullscreen = ref(false)
+const quality = ref(localStorage.getItem('campus-quality') || 'balanced')
+const userStore = useUserStore()
+const chatStore = useChatStore()
+watch(() => userStore.isLoggedIn, loggedIn => {
+  if (loggedIn) chatStore.init(userStore.userInfo?.id)
+  else chatStore.destroy()
+}, { immediate: true })
+function handleAuthExpired() { userStore.logout() }
+function setQuality() {
+  localStorage.setItem('campus-quality', quality.value)
+  scene.value?.setQuality(quality.value)
+}
+watch([mapOpen, workspaceOpen, explorationStarted], ([map, workspace, started]) => scene.value?.setPaused(map || workspace || !started))
 const serviceMap = new Map(SERVICES.map((item) => [item.id, item]))
 const groupMap = new Map(GROUPS.map((group) => [group.id, group]))
 const mapGroups = computed(() => GROUPS.filter((group) => group.id !== 'hub').map((group) => ({
@@ -209,7 +226,7 @@ function navigateToService(id) {
 }
 
 function cancelTravel() {
-  scene.value?.goHall()
+  scene.value?.cancelNavigation()
   traveling.value = false
   hideRoomPrompt()
 }
@@ -221,13 +238,12 @@ function toggleComfort() {
 }
 
 async function toggleFullscreen() {
+  if (document.fullscreenElement) { await document.exitFullscreen(); return }
+  if (isFullscreen.value) { isFullscreen.value = false; return }
   try {
-    if (document.fullscreenElement) await document.exitFullscreen()
-    else if (sceneFrame.value?.requestFullscreen) await sceneFrame.value.requestFullscreen({ navigationUI: 'hide' })
-    else sceneFrame.value?.classList.toggle('scene-expanded')
-  } catch {
-    sceneFrame.value?.classList.toggle('scene-expanded')
-  }
+    // Include body-teleported Element Plus dialogs in the fullscreen subtree.
+    await document.documentElement.requestFullscreen({ navigationUI: 'hide' })
+  } catch { isFullscreen.value = true }
 }
 
 function goHome() {
@@ -252,6 +268,13 @@ function handlePosition({ zone }) {
 }
 
 async function boot() {
+  loading.value = true
+  errorMessage.value = ''
+  scene.value?.destroy?.()
+  scene.value = null
+  if (import.meta.env.DEV) window.__campusScene = null
+  explorationStarted.value = false
+  hideRoomPrompt()
   try {
     scene.value = await createCampusScene({
       container: sceneCanvas.value,
@@ -263,8 +286,11 @@ async function boot() {
       onPosition: handlePosition,
       onError: (error) => { errorMessage.value = error?.message || '无法初始化三维场景。' }
     })
+    scene.value.setQuality(quality.value)
     scene.value.setComfort(comfort.value)
     scene.value.setPaused(true)
+    // 仅开发环境暴露场景实例，供真实浏览器自动化驱动 navigate/exit 与诊断内存，生产构建不挂载。
+    if (import.meta.env.DEV) window.__campusScene = scene.value
   } catch (error) {
     errorMessage.value = error?.message || '浏览器不支持当前三维场景。'
   } finally {
@@ -273,17 +299,22 @@ async function boot() {
 }
 
 function syncFullscreen() {
-  isFullscreen.value = document.fullscreenElement === sceneFrame.value
+  isFullscreen.value = document.fullscreenElement === document.documentElement
 }
 
 onMounted(() => {
+  window.addEventListener('auth-expired', handleAuthExpired)
   document.addEventListener('fullscreenchange', syncFullscreen)
   boot()
 })
 
 onBeforeUnmount(() => {
+  window.removeEventListener('auth-expired', handleAuthExpired)
+  chatStore.destroy()
+  if (document.fullscreenElement) document.exitFullscreen().catch(() => {})
   document.removeEventListener('fullscreenchange', syncFullscreen)
   scene.value?.destroy?.()
+  if (import.meta.env.DEV) window.__campusScene = null
 })
 </script>
 
@@ -316,6 +347,7 @@ onBeforeUnmount(() => {
 .location-chip-scene em { border-left: 1px solid var(--line); padding-left: 8px; color: var(--ink-3); font-style: normal; }
 .pin-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--brand); }
 .scene-tool { border: 1px solid rgba(255,255,255,.82); background: rgba(255,255,255,.88); color: #587592; border-radius: 9px; min-height: 34px; padding: 0 11px; cursor: pointer; font: inherit; font-size: 11px; box-shadow: 0 5px 15px rgba(25,69,119,.08); }
+.scene-tool select { border: 0; background: transparent; color: inherit; font: inherit; padding: 4px; cursor: pointer; }
 .scene-tool:hover { color: var(--brand); background: #fff; }
 .scene-intro, .scene-state { position: absolute; inset: 0; z-index: 8; display: flex; flex-direction: column; justify-content: center; padding: 0 9%; }
 .scene-intro { align-items: flex-start; background: linear-gradient(90deg, rgba(232,243,253,.95), rgba(232,243,253,.52) 54%, rgba(232,243,253,0)); color: #16395d; }

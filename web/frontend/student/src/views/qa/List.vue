@@ -1,4 +1,5 @@
 <template>
+  <div v-if="loadError" class="load-error" role="alert"><span>{{ loadError }}</span><button type="button" class="text-btn" @click="load">重新加载</button></div>
   <WtPageHeader title="校园互助问答" subtitle="有问题，问同学" eyebrow="校园服务" />
 
   <div class="qa-list">
@@ -32,7 +33,7 @@
         </div>
       </div>
     </div>
-    <EmptyBox v-if="!loading && !list.length" description="还没有问题，来问第一个吧" />
+    <EmptyBox v-if="!loadError && !loading && !list.length" description="还没有问题，来问第一个吧" />
     <el-pagination
       v-model:current-page="pageNum"
       :total="total"
@@ -44,6 +45,7 @@
 </template>
 
 <script setup>
+import { useListState } from '../../utils/list-state'
 import { ref } from 'vue'
 import WtPageHeader from '../../components/wt/WtPageHeader.vue'
 import { useRouter } from 'vue-router'
@@ -61,6 +63,8 @@ const list = ref([])
 const pageNum = ref(1)
 const total = ref(0)
 const loading = ref(false)
+const loadError = ref('')
+const restoredListState = useListState('qa', { pageNum, keyword, category })
 
 function selectCategory(c) {
   category.value = c
@@ -74,10 +78,13 @@ function search() {
 
 async function load() {
   loading.value = true
+  loadError.value = ''
   try {
     const res = await listQuestion({ keyword: keyword.value || undefined, category: category.value || undefined, pageNum: pageNum.value, pageSize: 12 })
     list.value = res.list
     total.value = res.total
+  } catch (error) {
+    loadError.value = error.message || '内容加载失败，请重试'
   } finally {
     loading.value = false
   }

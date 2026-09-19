@@ -1,6 +1,8 @@
 import axios from 'axios'
 import { ElMessage } from 'element-plus'
 import router from '../router'
+import { requestRouter } from './request-navigation'
+import { responseAction } from './request-policy.mjs'
 
 /**
  * axios 封装（共享约定 #1）：
@@ -34,12 +36,7 @@ request.interceptors.response.use(
     if (!response.config?.silent) {
       ElMessage.error(res.message || '请求失败')
     }
-    if (res.code === 401) {
-      localStorage.removeItem('token')
-      localStorage.removeItem('userInfo')
-      window.dispatchEvent(new Event('auth-expired'))
-      router.push('/login')
-    }
+    handleResponseAction(res.code)
     const err = new Error(res.message || '请求失败')
     err.code = res.code
     err.message = res.message || '请求失败'
@@ -51,22 +48,26 @@ request.interceptors.response.use(
     if (!error.config?.silent) {
       ElMessage.error(message)
     }
-    if (biz?.code === 401 || error.response?.status === 401 || error.response?.status === 403) {
-      localStorage.removeItem('token')
-      localStorage.removeItem('userInfo')
-      window.dispatchEvent(new Event('auth-expired'))
-      if (router.currentRoute.value.path !== '/login') router.push('/login')
-    }
-    // 维护模式：503 跳转到维护页面
-    if (error.response?.status === 503 || biz?.code === 503) {
-      if (router.currentRoute.value.path !== '/maintenance') {
-        router.push('/maintenance')
-      }
-    }
-    error.code = biz?.code ?? error.response?.status ?? -1
+    handleResponseAction(biz?.code, error.response?.status)
+    error.code = biz?.code ?? error.response?.status ?? error.code ?? -1
     error.message = message
     return Promise.reject(error)
   }
 )
+
+function handleResponseAction(code, status) {
+  const action = responseAction(code, status)
+  const target = requestRouter(router)
+  if (action === 'login') {
+    localStorage.removeItem('token')
+    localStorage.removeItem('userInfo')
+    window.dispatchEvent(new Event('auth-expired'))
+    if (target.currentRoute.value.path !== '/login') {
+      target.replace({ path: '/login', query: { redirect: target.currentRoute.value.fullPath } })
+    }
+  } else if (action === 'maintenance' && target.currentRoute.value.path !== '/maintenance') {
+    target.replace('/maintenance')
+  }
+}
 
 export default request

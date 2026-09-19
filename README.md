@@ -265,6 +265,47 @@ cd web/frontend/admin && npm test
 | Redis | `localhost:6379` |
 | MinIO API / 控制台 | `http://localhost:9000` / `http://localhost:9001` |
 
+## Docker 一键部署
+
+项目根目录已提供 `docker-compose.yml`，会启动 MySQL、Redis、Spring Boot 后端、学生端和管理端。首次启动会在新的 Docker 数据卷中初始化数据库并导入演示账号，不会读取或覆盖本机已有的 MySQL/Redis 数据。
+
+```powershell
+Copy-Item .env.example .env
+# 按需修改 .env 中的数据库密码和 AI_API_KEY
+docker compose up -d --build
+docker compose ps
+```
+
+启动完成后访问：
+
+- 学生端：`http://localhost:5173`
+- 管理端：`http://localhost:5174/admin/`
+- 后端 API：`http://localhost:8080`
+
+常用操作：
+
+```powershell
+docker compose logs -f backend       # 查看后端日志
+docker compose down                  # 停止容器，保留数据卷
+docker compose down -v               # 停止并删除 Docker 数据（会清空演示库）
+```
+
+如果首次启动提示 `mysql is unhealthy`，先查看初始化日志：
+
+```powershell
+docker compose logs mysql --tail=200
+```
+
+确认这是全新的演示环境后，可删除未完成初始化的数据卷再重试（会清空该 Docker 数据卷）：
+
+```powershell
+docker compose down
+docker volume rm ai-campus_mysql_data
+docker compose up -d --build
+```
+
+生产环境请移除 compose 中 `99-testdata.sql` 的初始化挂载，并使用独立的数据库备份与密钥管理方案。
+
 ## 部署说明
 
 完整的数据库、Redis、后端、前端部署流程与常见问题排查见 [部署说明.md](部署说明.md)。

@@ -33,7 +33,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   `create_time`     DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `update_time`     DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `uk_student_no` (`student_no`),
+  UNIQUE KEY `uk_student_no` (`student_no`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='用户表';
 
 -- 管理员表

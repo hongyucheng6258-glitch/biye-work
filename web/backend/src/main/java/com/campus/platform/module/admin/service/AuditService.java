@@ -103,7 +103,7 @@ public class AuditService {
         notifyAuthor(target, false, reason);
     }
 
-    /** 各类型统一更新审核状态，返回（作者ID, 内容标题） */
+    /** 各类型统一更新审核状态，返回作者与可回跳的业务目标 */
     private AuditedTarget doAudit(String type, Long id, int auditStatus, String reason) {
         switch (type) {
             case Constants.BIZ_IDLE -> {
@@ -115,7 +115,7 @@ public class AuditService {
                 item.setAuditReason(reason);
                 item.setAuditSource(item.getAiRiskLevel() == null ? "manual" : "ai_manual");
                 idleItemMapper.updateById(item);
-                return new AuditedTarget(item.getUserId(), "闲置「" + item.getTitle() + "」");
+                return new AuditedTarget(item.getUserId(), "闲置「" + item.getTitle() + "」", Constants.BIZ_IDLE, item.getId());
             }
             case Constants.BIZ_ACTIVITY -> {
                 Activity activity = activityMapper.selectById(id);
@@ -126,7 +126,7 @@ public class AuditService {
                 activity.setAuditReason(reason);
                 activity.setAuditSource(activity.getAiRiskLevel() == null ? "manual" : "ai_manual");
                 activityMapper.updateById(activity);
-                return new AuditedTarget(activity.getUserId(), "活动「" + activity.getTitle() + "」");
+                return new AuditedTarget(activity.getUserId(), "活动「" + activity.getTitle() + "」", Constants.BIZ_ACTIVITY, activity.getId());
             }
             case Constants.BIZ_LOSTFOUND -> {
                 LostFound lf = lostFoundMapper.selectById(id);
@@ -137,7 +137,7 @@ public class AuditService {
                 lf.setAuditReason(reason);
                 lf.setAuditSource(lf.getAiRiskLevel() == null ? "manual" : "ai_manual");
                 lostFoundMapper.updateById(lf);
-                return new AuditedTarget(lf.getUserId(), "失物招领「" + lf.getTitle() + "」");
+                return new AuditedTarget(lf.getUserId(), "失物招领「" + lf.getTitle() + "」", Constants.BIZ_LOSTFOUND, lf.getId());
             }
             case Constants.BIZ_POST -> {
                 Post post = postMapper.selectById(id);
@@ -150,7 +150,7 @@ public class AuditService {
                 postMapper.updateById(post);
                 String preview = post.getContent().length() > 20
                         ? post.getContent().substring(0, 20) + "..." : post.getContent();
-                return new AuditedTarget(post.getUserId(), "动态「" + preview + "」");
+                return new AuditedTarget(post.getUserId(), "动态「" + preview + "」", Constants.BIZ_POST, post.getId());
             }
             case Constants.BIZ_PARTNER -> {
                 StudyPartner p = studyPartnerMapper.selectById(id);
@@ -161,7 +161,7 @@ public class AuditService {
                 p.setAuditReason(reason);
                 p.setAuditSource(p.getAiRiskLevel() == null ? "manual" : "ai_manual");
                 studyPartnerMapper.updateById(p);
-                return new AuditedTarget(p.getUserId(), "学习搭子「" + p.getSubject() + "」");
+                return new AuditedTarget(p.getUserId(), "学习搭子「" + p.getSubject() + "」", Constants.BIZ_PARTNER, p.getId());
             }
             default -> throw new BizException(ResultCode.BAD_REQUEST, "不支持的审核类型: " + type);
         }
@@ -172,9 +172,9 @@ public class AuditService {
                 passed ? "审核通过" : "审核未通过",
                 passed ? "你发布的" + target.title() + "已通过审核，现已公开展示。"
                         : "你发布的" + target.title() + "未通过审核，原因：" + reason,
-                Constants.MSG_AUDIT, null);
+                target.bizType(), target.bizId());
     }
 
-    private record AuditedTarget(Long authorId, String title) {
+    private record AuditedTarget(Long authorId, String title, String bizType, Long bizId) {
     }
 }

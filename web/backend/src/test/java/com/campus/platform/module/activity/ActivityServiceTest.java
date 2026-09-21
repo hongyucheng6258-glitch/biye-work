@@ -40,6 +40,7 @@ import static org.mockito.Mockito.when;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.inOrder;
 import static org.mockito.Mockito.verifyNoInteractions;
+import static org.mockito.Mockito.times;
 
 @ExtendWith(MockitoExtension.class)
 @DisplayName("活动状态动态计算与报名强校验")
@@ -302,6 +303,6 @@ class ActivityServiceTest {
         service.signup(USER_ID, ACTIVITY_ID, new SignupDTO());
 
         verify(memberMapper).insert(any(ActivityMember.class));
-        verify(messageService).send(anyLong(), anyString(), anyString(), anyString(), anyString(), anyLong());
+        verify(messageService, times(2)).send(anyLong(), anyString(), anyString(), anyString(), anyString(), anyLong());
     }
 }

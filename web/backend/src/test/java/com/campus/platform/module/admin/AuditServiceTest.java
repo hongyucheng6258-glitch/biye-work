@@ -32,7 +32,6 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.ArgumentMatchers.isNull;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -96,7 +95,7 @@ class AuditServiceTest {
             assertThat(captor.getValue().getAuditReason()).isNull();
 
             verify(messageService).send(eq(5L), eq(Constants.MSG_AUDIT), eq("审核通过"),
-                    anyString(), eq(Constants.MSG_AUDIT), isNull());
+                    anyString(), eq(Constants.BIZ_IDLE), eq(10L));
         }
 
         @Test
@@ -115,7 +114,7 @@ class AuditServiceTest {
             // D2 验收：驳回理由必须随消息送达
             ArgumentCaptor<String> contentCaptor = ArgumentCaptor.forClass(String.class);
             verify(messageService).send(eq(5L), eq(Constants.MSG_AUDIT), eq("审核未通过"),
-                    contentCaptor.capture(), eq(Constants.MSG_AUDIT), isNull());
+                    contentCaptor.capture(), eq(Constants.BIZ_IDLE), eq(10L));
             assertThat(contentCaptor.getValue()).contains("涉嫌售卖违禁品");
             assertThat(contentCaptor.getValue()).contains("违规商品");
         }

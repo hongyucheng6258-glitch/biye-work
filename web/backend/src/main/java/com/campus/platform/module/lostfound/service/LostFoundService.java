@@ -152,6 +152,9 @@ public class LostFoundService {
         messageService.send(lf.getUserId(), Constants.MSG_INTERACT, "收到新的认领申请",
                 String.format("有人申请认领你发布的「%s」，请及时核实处理。", lf.getTitle()),
                 Constants.BIZ_LOSTFOUND, lfId);
+        messageService.send(userId, Constants.MSG_INTERACT, "认领申请已提交",
+                String.format("你对「%s」的认领申请已提交，等待发布者核实。", lf.getTitle()),
+                Constants.BIZ_LOSTFOUND, lfId);
         return claim;
     }
 

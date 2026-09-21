@@ -235,6 +235,10 @@ public class IdleService {
                 String.format("「%s」想与你互换「%s」，请尽快处理。",
                         buyer == null ? "有用户" : buyer.getNickname(), item.getTitle()),
                 Constants.BIZ_IDLE, appointment.getItemId());
+        messageService.send(userId, Constants.MSG_INTERACT,
+                "预约已提交",
+                String.format("你对「%s」的预约已提交，等待发布者确认。", item.getTitle()),
+                Constants.BIZ_IDLE, appointment.getItemId());
         return appointment;
     }
 
@@ -315,6 +319,9 @@ public class IdleService {
         review.setScore(dto.getScore());
         review.setContent(dto.getContent());
         reviewMapper.insert(review);
+        messageService.send(toUserId, Constants.MSG_INTERACT, "收到新的互评",
+                "你收到了一条闲置互换评价，快去查看对方的反馈吧。",
+                Constants.BIZ_IDLE, appointment.getItemId());
     }
 
     /** 我的预约（买/卖双向） */

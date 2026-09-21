@@ -62,6 +62,7 @@ import { useMessageStore } from '../../store/message'
 import { useChatStore } from '../../store/chat'
 import { fromNow } from '../../utils/date'
 import EmptyBox from '../../components/EmptyBox.vue'
+import { messageTarget } from '../../utils/message-navigation.mjs'
 
 const router = useRouter()
 const messageStore = useMessageStore()
@@ -97,8 +98,8 @@ async function load() {
   loading.value = true
   try {
     const res = await listMessage({ type: type.value || undefined, pageNum: pageNum.value, pageSize: 10 })
-    list.value = res.list
-    total.value = res.total
+    list.value = Array.isArray(res?.list) ? res.list : []
+    total.value = Number(res?.total || 0)
     messageStore.refreshUnread()
   } finally {
     loading.value = false
@@ -112,10 +113,8 @@ async function openMsg(m) {
     m.isRead = 1
     messageStore.refreshUnread()
   }
-  // 按业务类型跳转详情
-  if (m.bizType === 'conversation' && m.bizId) router.push(`/chat/${m.bizId}`)
-  else if (m.bizType === 'idle' && m.bizId) router.push('/idle/appointments')
-  else if (m.bizType === 'activity' && m.bizId) router.push(`/activity/detail/${m.bizId}`)
+  const target = messageTarget(m)
+  if (target) await router.push(target)
 }
 
 async function readAll() {

@@ -208,6 +208,10 @@ public class ActivityService {
                 String.format("「%s」报名了你的活动「%s」，请审批。",
                         applicant == null ? "有用户" : applicant.getNickname(), activity.getTitle()),
                 Constants.BIZ_ACTIVITY, activityId);
+        messageService.send(userId, Constants.MSG_INTERACT,
+                "报名已提交",
+                String.format("你对活动「%s」的报名已提交，等待发布者审批。", activity.getTitle()),
+                Constants.BIZ_ACTIVITY, activityId);
     }
 
     /** 取消报名（仅待审批/已通过可取消；已结束/已签到不可取消） */

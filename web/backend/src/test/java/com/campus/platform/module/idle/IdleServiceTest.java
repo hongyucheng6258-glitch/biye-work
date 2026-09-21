@@ -179,6 +179,8 @@ class IdleServiceTest {
 
             verify(messageService).send(eq(SELLER), eq(Constants.MSG_INTERACT),
                     anyString(), anyString(), eq(Constants.BIZ_IDLE), any());
+            verify(messageService).send(eq(BUYER), eq(Constants.MSG_INTERACT),
+                    eq("预约已提交"), anyString(), eq(Constants.BIZ_IDLE), eq(ITEM_ID));
         }
 
         @Test

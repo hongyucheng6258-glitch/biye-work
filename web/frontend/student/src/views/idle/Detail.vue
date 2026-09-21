@@ -135,6 +135,7 @@ const router = useRouter()
 const userStore = useUserStore()
 const id = Number(route.params.id)
 const item = ref(null)
+const loading = ref(false)
 const detailImages = computed(() => {
   if (!item.value) return []
   const images = normalizeImages(item.value)

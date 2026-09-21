@@ -18,3 +18,10 @@ test('闲置详情页提供已完成预约的评价入口', () => {
   assert.match(source, /reviewAppoint\(appointmentId, reviewForm\)/)
   assert.match(source, /v-model="reviewVisible"/)
 })
+
+test('闲置详情页声明加载状态，避免 v-loading 引用未定义变量', () => {
+  const source = read('Detail.vue')
+
+  assert.match(source, /v-loading="loading"/)
+  assert.match(source, /const loading = ref\(false\)/)
+})

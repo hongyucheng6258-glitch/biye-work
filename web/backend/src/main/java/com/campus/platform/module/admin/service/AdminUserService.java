@@ -30,6 +30,7 @@ public class AdminUserService {
     private final AdminMapper adminMapper;
     private final AuthService authService;
     private final RedisUtils redisUtils;
+    private final AdminPermissionService adminPermissionService;
 
     /** 用户列表/搜索（学号/昵称/状态） */
     public PageResult<User> listUsers(String keyword, Integer status, int pageNum, int pageSize) {
@@ -109,12 +110,17 @@ public class AdminUserService {
         if (admin == null) {
             throw new BizException(ResultCode.NOT_FOUND, "管理员不存在");
         }
+        boolean roleChanged = !java.util.Objects.equals(admin.getRole(), dto.getRole());
         admin.setNickname(dto.getNickname());
         admin.setRole(dto.getRole());
         if (StrUtil.isNotBlank(dto.getPassword())) {
             admin.setPassword(authService.encode(dto.getPassword()));
         }
         adminMapper.updateById(admin);
+        // 降权/改角色后旧令牌必须失效，防止按旧角色继续操作
+        if (roleChanged) {
+            adminPermissionService.revokeToken(id);
+        }
         return admin;
     }
 
@@ -134,5 +140,7 @@ public class AdminUserService {
             }
         }
         adminMapper.deleteById(id);
+        // 删除后旧令牌立即失效
+        adminPermissionService.revokeToken(id);
     }
 }

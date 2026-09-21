@@ -158,6 +158,17 @@
           </el-table-column>
         </el-table>
       </el-dialog>
+        <div v-if="membersTotal > membersPageSize" class="members-pager">
+          <el-pagination
+            layout="prev, pager, next"
+            :total="membersTotal"
+            :page-size="membersPageSize"
+            :current-page="membersPage"
+            background
+            small
+            @current-change="onMembersPageChange"
+          />
+        </div>
 
       <!-- 签到二维码弹窗 -->
       <el-dialog v-model="qrVisible" title="活动签到" width="420px">
@@ -220,6 +231,9 @@ const signing = ref(false)
 const canceling = ref(false)
 const membersVisible = ref(false)
 const members = ref([])
+const membersTotal = ref(0)
+const membersPage = ref(1)
+const membersPageSize = 10
 const qrVisible = ref(false)
 const qrContent = ref('')
 const qrImage = ref('')
@@ -323,18 +337,24 @@ async function doCancelSignup() {
   }
 }
 
-async function loadMembers() {
-  members.value = await activityMembers(id)
+async function loadMembers(page = membersPage.value) {
+  const res = await activityMembers(id, { pageNum: page, pageSize: membersPageSize })
+  members.value = res?.list || []
+  membersTotal.value = res?.total || 0
+  membersPage.value = page
   membersVisible.value = true
+}
+
+function onMembersPageChange(page) {
+  loadMembers(page)
 }
 
 async function approve(row, ok) {
   await handleMember(row.id, ok)
   ElMessage.success(ok ? '已通过' : '已拒绝')
-  loadMembers()
+  loadMembers(membersPage.value)
   load()
 }
-
 async function showQrcode() {
   const res = await signinQrcode(id)
   const content = normalizeSigninQrContent(res)
@@ -564,4 +584,8 @@ onMounted(load)
   .ticket-date > strong { font-size: 60px; }
   .detail-breadcrumb { font-size: 11px; margin: 2px 0 20px; }
 }
+</style>
+
+<style scoped>
+.members-pager { display: flex; justify-content: center; margin-top: 12px; }
 </style>

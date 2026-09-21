@@ -243,22 +243,21 @@ public class ActivityService {
                 String.format("有同学取消了活动「%s」的报名。", activity.getTitle()),
                 Constants.BIZ_ACTIVITY, activityId);
     }
-    /** 报名名单（仅发布者可见，含签到状态） */
-    public List<MemberVO> members(Long userId, Long activityId) {
+    /** 报名名单（仅发布者可见，含签到状态；第8项修复：分页返回） */
+    public PageResult<MemberVO> members(Long userId, Long activityId, int pageNum, int pageSize) {
         checkPublisher(userId, activityId);
-        List<ActivityMember> members = memberMapper.selectList(new LambdaQueryWrapper<ActivityMember>()
-                .eq(ActivityMember::getActivityId, activityId)
-                .orderByAsc(ActivityMember::getId));
-        if (members.isEmpty()) {
-            return List.of();
-        }
-        Map<Long, User> userMap = userMapper.selectBatchIds(
-                        members.stream().map(ActivityMember::getUserId).toList())
-                .stream().collect(Collectors.toMap(User::getId, Function.identity()));
+        Page<ActivityMember> page = memberMapper.selectPage(new Page<>(pageNum, pageSize),
+                new LambdaQueryWrapper<ActivityMember>()
+                        .eq(ActivityMember::getActivityId, activityId)
+                        .orderByAsc(ActivityMember::getId));
+        List<ActivityMember> list = page.getRecords();
+        Map<Long, User> userMap = list.isEmpty() ? Map.of()
+                : userMapper.selectBatchIds(list.stream().map(ActivityMember::getUserId).toList())
+                        .stream().collect(Collectors.toMap(User::getId, Function.identity()));
         Map<Long, Boolean> signedMap = signinMapper.selectList(new LambdaQueryWrapper<ActivitySignin>()
                         .eq(ActivitySignin::getActivityId, activityId))
                 .stream().collect(Collectors.toMap(ActivitySignin::getUserId, s -> true));
-        return members.stream().map(m -> {
+        java.util.function.Function<ActivityMember, MemberVO> toVo = m -> {
             MemberVO vo = new MemberVO();
             BeanUtil.copyProperties(m, vo);
             User u = userMap.get(m.getUserId());
@@ -267,7 +266,12 @@ public class ActivityService {
             vo.setStudentNo(u == null ? null : u.getStudentNo());
             vo.setSignedIn(signedMap.getOrDefault(m.getUserId(), false));
             return vo;
-        }).toList();
+        };
+        PageResult<MemberVO> result = new PageResult<>();
+        result.setTotal(page.getTotal());
+        result.setPages(page.getPages());
+        result.setList(page.getRecords().stream().map(toVo).collect(Collectors.toList()));
+        return result;
     }
 
     /**

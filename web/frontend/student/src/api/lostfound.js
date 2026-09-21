@@ -12,8 +12,8 @@ export function claimLostFound(id, data) {
   return request.post(`/lostfound/${id}/claim`, data)
 }
 
-export function lostFoundClaims(id) {
-  return request.get(`/lostfound/${id}/claims`)
+export function lostFoundClaims(id, params) {
+  return request.get(`/lostfound/${id}/claims`, { params })
 }
 
 export function myClaim(id) {

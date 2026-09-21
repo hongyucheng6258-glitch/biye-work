@@ -12,7 +12,7 @@
         <p class="auth-story-more">报名喜欢的活动、交换闲置好物、<br>和 AI 一起整理错题。</p>
       </div>
       <div class="auth-photo">
-        <img src="/images/campus-v2.png" alt="阳光下的大学校园" />
+        <img src="/images/campus-v2.webp" alt="阳光下的大学校园" />
         <span class="auth-photo-note">秋日校园 · 2026</span>
         <span class="auth-photo-caption">梧桐树下，认识新朋友</span>
       </div>

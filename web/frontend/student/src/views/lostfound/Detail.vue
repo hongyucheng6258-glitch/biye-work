@@ -95,6 +95,17 @@
         </el-table-column>
       </el-table>
       <el-empty v-if="!claimsLoading && !claims.length" description="暂无认领申请" />
+      <div v-if="claimTotal > claimPageSize" class="claim-pager">
+        <el-pagination
+          layout="prev, pager, next"
+          :total="claimTotal"
+          :page-size="claimPageSize"
+          :current-page="claimPage"
+          background
+          small
+          @current-change="onClaimPageChange"
+        />
+      </div>
     </el-dialog>
 
     <el-dialog v-model="reportVisible" title="举报该信息" width="440px">
@@ -150,6 +161,9 @@ const claimForm = reactive({ message: '', contact: '' })
 const claimsVisible = ref(false)
 const claimsLoading = ref(false)
 const claims = ref([])
+const claimTotal = ref(0)
+const claimPage = ref(1)
+const claimPageSize = 10
 const myClaim = ref(null)
 
 const claimStatusText = (s) => ['待确认', '已同意（待归还）', '已拒绝', '已归还'][s] ?? ''
@@ -197,15 +211,25 @@ function editInfo() {
   router.push(`/lostfound/publish?id=${id}`)
 }
 
-async function openClaims() {
-  claimsVisible.value = true
+async function loadClaims(page = claimPage.value) {
   claimsLoading.value = true
   try {
-    const res = await lostFoundClaims(id)
-    claims.value = res
+    const res = await lostFoundClaims(id, { pageNum: page, pageSize: claimPageSize })
+    claims.value = res?.list || []
+    claimTotal.value = res?.total || 0
+    claimPage.value = page
   } finally {
     claimsLoading.value = false
   }
+}
+
+function onClaimPageChange(page) {
+  loadClaims(page)
+}
+
+async function openClaims() {
+  claimsVisible.value = true
+  await loadClaims(1)
 }
 
 async function doClaim() {
@@ -298,4 +322,8 @@ onMounted(load)
   gap: 10px;
   flex-wrap: wrap;
 }
+</style>
+
+<style scoped>
+.claim-pager { display: flex; justify-content: center; margin-top: 12px; }
 </style>

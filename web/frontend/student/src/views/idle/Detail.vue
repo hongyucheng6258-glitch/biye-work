@@ -7,11 +7,12 @@
         <!-- 图左 -->
         <div class="gallery">
           <el-carousel v-if="detailImages.length" height="360px" :arrow="detailImages.length > 1 ? 'hover' : 'never'">
+          <span v-if="isSchematic" class="schematic-flag">示意图</span>
             <el-carousel-item v-for="img in detailImages" :key="img">
-              <el-image :src="img" fit="contain" style="width:100%;height:100%" :preview-src-list="detailImages" />
+              <el-image :src="img" fit="contain" style="width:100%;height:100%" :preview-src-list="detailImages" lazy @error="onImgError($event, img)" />
             </el-carousel-item>
           </el-carousel>
-          <el-empty v-else description="无图片" :image-size="80" />
+          <el-empty v-else description="暂无图片" :image-size="80" />
         </div>
         <!-- 右侧信息 -->
         <div class="info">
@@ -126,6 +127,7 @@ import { favoriteStatus, favorite, unfavorite } from '../../api/favorite'
 import { useUserStore } from '../../store/user'
 import { startChat } from '../../utils/startChat'
 import { firstContentImage } from '../../utils/content-assets.mjs'
+import { onImageError, isFallbackSrc } from '../../utils/content-assets.mjs'
 import { normalizeImages } from '../../utils/image'
 
 const route = useRoute()
@@ -136,9 +138,13 @@ const item = ref(null)
 const detailImages = computed(() => {
   if (!item.value) return []
   const images = normalizeImages(item.value)
-  return images.length ? images : [firstContentImage(item.value, 'idle')].filter(Boolean)
+  return images.length ? images : [firstContentImage(item.value, 'idle', item.value.category)].filter(Boolean)
 })
-const loading = ref(false)
+const isSchematic = computed(() => detailImages.value.length === 1 && isFallbackSrc(detailImages.value[0], 'idle', item.value?.category))
+function onImgError(event, img) {
+  if (isSchematic) return
+  onImageError(event, 'idle', item.value?.category)
+}
 const appointVisible = ref(false)
 const appointMsg = ref('')
 const appointing = ref(false)
@@ -314,5 +320,19 @@ onMounted(load)
   display: flex;
   align-items: center;
   margin-bottom: 12px;
+}
+</style>
+
+<style scoped>
+.schematic-flag {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 3;
+  font-size: 12px;
+  padding: 3px 8px;
+  border-radius: 4px;
+  color: #fff;
+  background: rgba(15, 23, 42, 0.62);
 }
 </style>

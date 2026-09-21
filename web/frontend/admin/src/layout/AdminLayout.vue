@@ -10,7 +10,7 @@
         </div>
       </div>
 
-      <template v-for="group in navGroups" :key="group.label">
+      <template v-for="group in visibleGroups" :key="group.label">
         <div class="nav-label">{{ group.label }}</div>
         <router-link
           v-for="item in group.items"
@@ -52,7 +52,8 @@
           </button>
           <button class="icon-btn" title="待办通知" @click="goNotice">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8a6 6 0 1 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg>
-            <span class="badge-dot">{{ totalPending }}</span>
+            <span v-if="countError" class="badge-dot retry" title="待办数加载失败，点击重试" @click.stop="loadCounts">!</span>
+            <span v-else class="badge-dot">{{ totalPending }}</span>
           </button>
           <button class="icon-btn" title="退出" @click="logout">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/></svg>
@@ -71,8 +72,7 @@
 import { computed, onMounted, onUnmounted, ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useAdminStore } from '../store/admin'
-import { auditList } from '../api/audit'
-import { reportList } from '../api/report'
+import { statsPendingCounts } from '../api/stats'
 
 const router = useRouter()
 const route = useRoute()
@@ -80,6 +80,7 @@ const adminStore = useAdminStore()
 const keyword = ref('')
 const searchRef = ref()
 const counts = ref({})
+const countError = ref(false)
 let countTimer = null
 
 const ICONS = {
@@ -121,7 +122,7 @@ const navGroups = computed(() => [
   {
     label: '内容管理',
     items: [
-      { to: '/content', label: '内容管理', icon: 'manage' }
+      { to: '/content', label: '内容管理', icon: 'log' }
     ]
   },
   {
@@ -151,12 +152,15 @@ const visibleGroups = computed(() =>
 
 const roleText = computed(() => {
   const role = adminStore.adminInfo?.role
-  return { super: '超级管理员', admin: '内容管理员', ai: 'AI 运营', viewer: '只读' }[role] || role || '管理员'
+  // 后端角色定义：super=超级管理员 / audit=审核员（与 AdminSaveDTO 角色约束一致）
+  return { super: '超级管理员', audit: '审核员' }[role] || role || '管理员'
 })
 
-const totalPending = computed(() =>
-  Object.values(counts.value).reduce((a, b) => a + (Number(b) || 0), 0)
-)
+const totalPending = computed(() => {
+  // 待办角标 = 各审核类型 + 举报（互斥业务项）；ai 复核是待审内容的子集，不累加避免重复计数
+  const keys = ['activity', 'idle', 'lostfound', 'post', 'partner', 'report']
+  return keys.reduce((a, k) => a + (Number(counts.value[k]) || 0), 0)
+})
 
 function isActive(to) {
   if (to === '/dashboard') return route.path === '/dashboard'
@@ -191,15 +195,16 @@ function onKeydown(e) {
 }
 
 function goNotice() {
-  // 按待办数排序的跳转优先级（counts 含 report/ai）
+  // 按待办数排序的跳转优先级（counts 含 report/ai）。
+  // 路由使用 router 内部路径（base=/admin/ 由 createWebHistory 统一处理），不得再拼 /admin 前缀。
   const order = [
     { k: 'report', to: '/report' },
-    { k: 'activity', to: '/admin/audit/activity' },
-    { k: 'idle', to: '/admin/audit/idle' },
-    { k: 'lostfound', to: '/admin/audit/lostfound' },
-    { k: 'post', to: '/admin/audit/post' },
-    { k: 'partner', to: '/admin/audit/partner' },
-    { k: 'ai', to: '/admin/ai/audit' },
+    { k: 'activity', to: '/audit/activity' },
+    { k: 'idle', to: '/audit/idle' },
+    { k: 'lostfound', to: '/audit/lostfound' },
+    { k: 'post', to: '/audit/post' },
+    { k: 'partner', to: '/audit/partner' },
+    { k: 'ai', to: '/ai/audit' },
   ]
   const top = order.reduce((best, it) =>
     (Number(counts.value[it.k]) || 0) > (Number(counts.value[best.k]) || 0) ? it : best, order[0])
@@ -213,29 +218,12 @@ function goNotice() {
 
 async function loadCounts() {
   try {
-    const results = await Promise.all(
-      auditTypes.map(async (t) => {
-        const res = await auditList({ type: t.key, pageNum: 1, pageSize: 1 })
-        return [t.key, res.total || 0]
-      })
-    )
-    const map = Object.fromEntries(results)
-    // AI 复核：4 类待审核中 AI 风险 >= 中 的合计（取第一页近似）
-    let ai = 0
-    for (const t of auditTypes) {
-      const res = await auditList({ type: t.key, pageNum: 1, pageSize: 100 })
-      ai += (res.list || []).filter((r) => (r.aiRiskLevel ?? 0) >= 1).length
-    }
-    map.ai = ai
-    try {
-      const rr = await reportList({ status: 0, pageNum: 1, pageSize: 1 })
-      map.report = rr.total || 0
-    } catch (e) {
-      map.report = 0
-    }
-    counts.value = map
+    const data = await statsPendingCounts()
+    counts.value = data || {}
+    countError.value = ''
   } catch (e) {
-    // 统计失败不阻塞布局
+    // 接口失败：保留上次计数并进入可重试失败态，不能静默显示成 0 条
+    countError.value = true
   }
 }
 
@@ -443,6 +431,11 @@ onUnmounted(() => {
   min-width: 16px; height: 16px; padding: 0 4px;
   border-radius: var(--r-pill); background: var(--accent); color: var(--accent-ink);
   font-size: 10px; font-weight: 700; display: grid; place-items: center;
+}
+.badge-dot.retry {
+  background: var(--error);
+  cursor: pointer;
+  min-width: 18px;
 }
 .content { padding: var(--s-6); max-width: 1440px; width: 100%; margin: 0 auto; }
 

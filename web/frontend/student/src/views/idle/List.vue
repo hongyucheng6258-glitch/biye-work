@@ -22,10 +22,12 @@
       <ItemCard
         v-for="item in list"
         :key="item.id"
-        :cover="firstContentImage(item, 'idle')"
+        :cover="firstContentImage(item, 'idle', item.category)"
         :title="item.title"
         :desc="item.description"
         :time="item.createTime"
+        module="idle"
+        :category="item.category"
         @click="$router.push(`/idle/detail/${item.id}`)"
       >
         <template #badge>

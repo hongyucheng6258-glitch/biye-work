@@ -48,12 +48,16 @@ public class QuestionController {
         return R.ok(questionService.myList(UserContext.getUid(), pageNum, pageSize));
     }
 
-    /** 详情（含回答列表） */
+    /** 详情（含回答列表；第8项修复：回答分页） */
     @GetMapping("/{id}")
-    public R<Map<String, Object>> detail(@PathVariable Long id) {
+    public R<Map<String, Object>> detail(
+            @PathVariable Long id,
+            @RequestParam(defaultValue = "1") Integer pageNum,
+            @RequestParam(defaultValue = "10") Integer pageSize) {
         UserContext.CurrentUser current = UserContext.get();
         Long uid = current == null ? null : current.uid();
-        return R.ok(questionService.detail(id, uid));
+        int capped = Math.min(pageSize == null ? 10 : Math.max(1, pageSize), 100);
+        return R.ok(questionService.detail(id, uid, Math.max(1, pageNum == null ? 1 : pageNum), capped));
     }
 
     /** 回答 */

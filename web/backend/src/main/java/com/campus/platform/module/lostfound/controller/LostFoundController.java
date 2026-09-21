@@ -83,8 +83,13 @@ public class LostFoundController {
     }
 
     @GetMapping("/{id}/claims")
-    public R<List<ClaimVO>> claims(@PathVariable Long id) {
-        return R.ok(lostFoundService.claims(UserContext.getUid(), id));
+    public R<PageResult<ClaimVO>> claims(
+            @PathVariable Long id,
+            @RequestParam(defaultValue = "1") Integer pageNum,
+            @RequestParam(defaultValue = "10") Integer pageSize) {
+        int capped = Math.min(pageSize == null ? 10 : Math.max(1, pageSize), 100);
+        return R.ok(lostFoundService.claims(UserContext.getUid(), id,
+                Math.max(1, pageNum == null ? 1 : pageNum), capped));
     }
 
     @PutMapping("/claim/{claimId}/handle")

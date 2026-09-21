@@ -16,3 +16,8 @@ export function statsModule() {
 export function statsPie() {
   return request.get('/stats/pie')
 }
+
+/** 各类型待办数（后端准确 COUNT；ai 为待审子集，不参与角标合计） */
+export function statsPendingCounts() {
+  return request.get('/stats/pending-counts')
+}

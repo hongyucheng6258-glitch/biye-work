@@ -1,5 +1,7 @@
 USE ai_campus_platform;
 
+SET NAMES utf8mb4;
+
 CREATE TABLE IF NOT EXISTS `favorite` (
   `id` bigint NOT NULL AUTO_INCREMENT,
   `user_id` bigint NOT NULL,

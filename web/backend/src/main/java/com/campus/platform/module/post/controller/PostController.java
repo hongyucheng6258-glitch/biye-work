@@ -43,6 +43,14 @@ public class PostController {
         return R.ok(postService.list(uid, keyword, pageNum, pageSize));
     }
 
+    /** 动态详情（分享直达；仅返回审核通过的可见动态） */
+    @GetMapping("/{id}")
+    public R<PostVO> detail(@PathVariable Long id) {
+        UserContext.CurrentUser current = UserContext.get();
+        Long uid = current == null ? null : current.uid();
+        return R.ok(postService.detail(uid, id));
+    }
+
     @PostMapping("/{id}/like")
     public R<Void> like(@PathVariable Long id) {
         postService.like(UserContext.getUid(), id);

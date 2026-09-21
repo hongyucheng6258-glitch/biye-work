@@ -1,0 +1,1675 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>梧桐校园 · 空间版原型（方向 C · 全局空间界面）</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+/* ============================================================
+   梧桐校园 · 空间版原型（方向 C：全局空间界面）
+   —— Three.js 漂浮岛屿 + 相机飞行 + 2D 编辑风内容面板 + 平面降级
+   设计 Token 与 ui-prototype/index.html 完全一致
+   ============================================================ */
+:root {
+  --paper:        oklch(98% 0.012 95);
+  --surface:      oklch(100% 0 0);
+  --surface-2:    oklch(97% 0.01 95);
+  --surface-3:    oklch(94% 0.012 95);
+  --ink:          oklch(26% 0.02 95);
+  --ink-2:        oklch(45% 0.02 95);
+  --ink-3:        oklch(62% 0.015 95);
+  --line:         oklch(90% 0.012 95);
+  --line-strong:  oklch(83% 0.014 95);
+
+  --brand:        oklch(53% 0.12 168);
+  --brand-strong: oklch(45% 0.12 168);
+  --brand-ink:    oklch(99% 0.02 168);
+  --brand-soft:   oklch(95% 0.045 168);
+  --brand-line:   oklch(86% 0.07 168);
+
+  --accent:        oklch(68% 0.17 48);
+  --accent-strong: oklch(60% 0.17 48);
+  --accent-ink:    oklch(99% 0.02 48);
+  --accent-soft:   oklch(95% 0.06 48);
+  --accent-line:   oklch(87% 0.09 48);
+
+  --success:    oklch(58% 0.13 150);
+  --success-soft: oklch(95% 0.05 150);
+  --warning:    oklch(72% 0.15 75);
+  --warning-soft: oklch(96% 0.06 75);
+  --error:      oklch(58% 0.18 25);
+  --error-soft: oklch(95% 0.05 25);
+
+  --info:        oklch(55% 0.09 230);
+  --info-strong: oklch(47% 0.1 230);
+  --info-ink:    oklch(99% 0.02 230);
+  --info-soft:   oklch(95% 0.035 230);
+  --info-line:   oklch(86% 0.06 230);
+
+  --gold:        oklch(75% 0.13 75);
+  --gold-strong: oklch(58% 0.13 75);
+  --gold-soft:   oklch(96% 0.055 75);
+
+  --purple:        oklch(45% 0.13 290);
+  --purple-soft:   oklch(95% 0.04 290);
+
+  --s-1:4px; --s-2:8px; --s-3:12px; --s-4:16px; --s-5:24px;
+  --s-6:32px; --s-7:48px; --s-8:64px; --s-9:96px;
+
+  --r-xs:6px; --r-sm:10px; --r-md:14px; --r-lg:20px; --r-xl:28px; --r-pill:999px;
+
+  --font-sans: "Plus Jakarta Sans","PingFang SC","Microsoft YaHei","Noto Sans SC",system-ui,sans-serif;
+  --font-display: "Fraunces","Songti SC",Georgia,serif;
+
+  --fs-display:2.5rem; --fs-h1:1.75rem; --fs-h2:1.375rem; --fs-h3:1.125rem;
+  --fs-body:1rem; --fs-sm:0.875rem; --fs-xs:0.75rem; --fs-cap:0.6875rem;
+
+  --shadow-sm: 0 1px 2px oklch(26% 0.02 95 / .06), 0 1px 3px oklch(26% 0.02 95 / .05);
+  --shadow-md: 0 6px 16px oklch(26% 0.02 95 / .08);
+  --shadow-lg: 0 18px 40px oklch(26% 0.02 95 / .12);
+
+  --ease-out: cubic-bezier(0.16,1,0.3,1);
+  --ease-quart: cubic-bezier(0.25,1,0.5,1);
+}
+:root[data-theme="dark"] {
+  --paper:        oklch(16% 0.014 90);
+  --surface:      oklch(21% 0.014 90);
+  --surface-2:    oklch(25% 0.014 90);
+  --surface-3:    oklch(29% 0.016 90);
+  --ink:          oklch(93% 0.01 90);
+  --ink-2:        oklch(76% 0.012 90);
+  --ink-3:        oklch(60% 0.012 90);
+  --line:         oklch(33% 0.014 90);
+  --line-strong:  oklch(40% 0.014 90);
+
+  --brand:        oklch(75% 0.12 168);
+  --brand-strong: oklch(66% 0.12 168);
+  --brand-ink:    oklch(18% 0.04 168);
+  --brand-soft:   oklch(27% 0.06 168);
+  --brand-line:   oklch(39% 0.08 168);
+
+  --accent:        oklch(74% 0.16 48);
+  --accent-strong: oklch(66% 0.16 48);
+  --accent-ink:    oklch(20% 0.05 48);
+  --accent-soft:   oklch(28% 0.07 48);
+  --accent-line:   oklch(40% 0.09 48);
+
+  --success:    oklch(70% 0.13 150);
+  --success-soft: oklch(26% 0.06 150);
+  --warning:    oklch(78% 0.14 75);
+  --warning-soft: oklch(27% 0.07 75);
+  --error:      oklch(68% 0.17 25);
+  --error-soft: oklch(27% 0.07 25);
+
+  --info:        oklch(70% 0.1 230);
+  --info-strong: oklch(78% 0.09 230);
+  --info-ink:    oklch(16% 0.04 230);
+  --info-soft:   oklch(28% 0.06 230);
+  --info-line:   oklch(40% 0.07 230);
+
+  --gold:        oklch(80% 0.13 75);
+  --gold-strong: oklch(85% 0.1 75);
+  --gold-soft:   oklch(29% 0.06 75);
+
+  --purple:        oklch(68% 0.13 290);
+  --purple-soft:   oklch(28% 0.06 290);
+
+  --shadow-sm: 0 1px 2px oklch(0% 0 0 / .3), 0 1px 3px oklch(0% 0 0 / .25);
+  --shadow-md: 0 6px 16px oklch(0% 0 0 / .4);
+  --shadow-lg: 0 18px 40px oklch(0% 0 0 / .5);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: 100%; }
+body {
+  font-family: var(--font-sans);
+  background: var(--paper);
+  color: var(--ink);
+  font-size: var(--fs-body);
+  line-height: 1.5;
+  overflow: hidden;
+  -webkit-font-smoothing: antialiased;
+  transition: background 0.35s var(--ease-out), color 0.35s;
+}
+a { color: inherit; text-decoration: none; }
+button { font-family: inherit; cursor: pointer; border: none; background: none; color: inherit; }
+input { font-family: inherit; font-size: inherit; }
+img { max-width: 100%; display: block; }
+svg { display: block; }
+
+/* ================== 3D 舞台 ================== */
+#stage { position: fixed; inset: 0; z-index: 0; }
+#stage canvas { display: block; width: 100%; height: 100%; touch-action: none; }
+body[data-mode="2d"] #stage, body[data-mode="2d"] #labels, body[data-mode="2d"] #dock { display: none; }
+
+/* ================== 3D 岛屿标签层 ================== */
+#labels { position: fixed; inset: 0; z-index: 1; pointer-events: none; overflow: hidden; }
+.isl-label {
+  position: absolute; left: 0; top: 0;
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 5px 14px 5px 6px;
+  background: color-mix(in srgb, var(--paper) 82%, transparent);
+  backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+  border: 1px solid var(--line);
+  border-radius: var(--r-pill);
+  box-shadow: var(--shadow-sm);
+  font-size: var(--fs-sm); font-weight: 600; white-space: nowrap;
+  pointer-events: auto; cursor: pointer; user-select: none;
+  transition: border-color .2s var(--ease-out), box-shadow .2s var(--ease-out), background .2s;
+  will-change: transform, opacity;
+}
+.isl-label:hover, .isl-label.active {
+  border-color: var(--brand);
+  box-shadow: var(--shadow-md), 0 0 0 4px var(--brand-soft);
+}
+.isl-label .ic {
+  width: 26px; height: 26px; flex: none; border-radius: var(--r-sm);
+  display: grid; place-items: center;
+  background: var(--brand-soft); color: var(--brand-strong);
+}
+.isl-label .ic svg { width: 15px; height: 15px; }
+.isl-label.accent .ic { background: var(--accent-soft); color: var(--accent-strong); }
+.isl-label .desc {
+  font-size: var(--fs-cap); font-weight: 500; color: var(--ink-3);
+  max-width: 0; overflow: hidden;
+  transition: max-width .35s var(--ease-out), margin .35s var(--ease-out);
+}
+.isl-label:hover .desc, .isl-label.active .desc { max-width: 150px; margin-left: 2px; }
+.isl-label::after { /* 与岛屿连接的小竖线 */
+  content: ""; position: absolute; left: 50%; bottom: -14px; width: 1px; height: 12px;
+  background: var(--line-strong);
+}
+
+/* ================== 顶栏（玻璃） ================== */
+#topbar {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 20;
+  display: flex; align-items: center; gap: 14px;
+  padding: 14px 28px;
+  background: color-mix(in srgb, var(--paper) 78%, transparent);
+  backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--line);
+}
+body[data-boot="intro"] #topbar, body[data-boot="intro"] #dock,
+body[data-boot="intro"] #panel, body[data-boot="intro"] #hud { opacity: 0; pointer-events: none; }
+#topbar, #dock, #panel, #hud { transition: opacity .5s var(--ease-out); }
+
+.tb-brand { display: flex; align-items: center; gap: 10px; cursor: pointer; }
+.tb-mark {
+  width: 38px; height: 38px; border-radius: var(--r-md);
+  display: grid; place-items: center;
+  font-family: var(--font-display); font-weight: 600; font-size: 1.1rem;
+  color: var(--brand-ink);
+  background: linear-gradient(140deg, var(--brand), var(--brand-strong));
+  box-shadow: var(--shadow-sm);
+}
+.tb-name { font-family: var(--font-display); font-weight: 600; font-size: 1.05rem; line-height: 1.1; }
+.tb-sub { font-size: var(--fs-cap); color: var(--ink-3); letter-spacing: .06em; text-transform: uppercase; }
+.tb-tag {
+  font-size: var(--fs-cap); font-weight: 600; color: var(--brand-strong);
+  background: var(--brand-soft); border: 1px solid var(--brand-line);
+  padding: 3px 10px; border-radius: var(--r-pill); white-space: nowrap;
+}
+
+.tb-search {
+  flex: 1; max-width: 430px; height: 40px; margin-left: 18px;
+  display: flex; align-items: center; gap: 10px; padding: 0 16px;
+  border: 1px solid var(--line); border-radius: var(--r-pill);
+  background: var(--surface-2);
+  transition: border-color .2s, box-shadow .2s;
+}
+.tb-search:focus-within { border-color: var(--brand); background: var(--surface); box-shadow: 0 0 0 4px var(--brand-soft); }
+.tb-search svg { width: 16px; height: 16px; color: var(--ink-3); flex: none; }
+.tb-search input { flex: 1; border: none; outline: none; background: transparent; color: var(--ink); font-size: var(--fs-sm); }
+.tb-search input::placeholder { color: var(--ink-3); }
+
+.tb-actions { display: flex; align-items: center; gap: 8px; margin-left: auto; }
+.tb-icon {
+  position: relative; width: 40px; height: 40px; border-radius: var(--r-pill);
+  display: grid; place-items: center; color: var(--ink-2);
+  border: 1px solid var(--line); background: var(--surface);
+  transition: background .2s, color .2s, transform .15s var(--ease-out);
+}
+.tb-icon:hover { background: var(--surface-2); color: var(--ink); transform: translateY(-1px); }
+.tb-icon svg { width: 18px; height: 18px; }
+.tb-icon .dot {
+  position: absolute; top: 6px; right: 7px; width: 8px; height: 8px;
+  border-radius: 50%; background: var(--accent); border: 2px solid var(--paper);
+}
+/* 主题图标切换 */
+[data-theme="light"] .ic-moon { display: none; }
+[data-theme="dark"] .ic-sun { display: none; }
+
+/* ================== 左侧空间导航坞 ================== */
+#dock {
+  position: fixed; left: 20px; top: 50%; transform: translateY(-50%); z-index: 15;
+  display: flex; flex-direction: column; gap: 2px;
+  width: 168px; padding: 10px;
+  background: color-mix(in srgb, var(--paper) 80%, transparent);
+  backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+  border: 1px solid var(--line); border-radius: var(--r-lg);
+  box-shadow: var(--shadow-md);
+  max-height: calc(100vh - 160px); overflow-y: auto; scrollbar-width: none;
+}
+#dock::-webkit-scrollbar { display: none; }
+.dock-label { font-size: var(--fs-cap); color: var(--ink-3); letter-spacing: .08em; text-transform: uppercase; padding: 8px 10px 4px; }
+.dock-item {
+  display: flex; align-items: center; gap: 10px;
+  width: 100%; padding: 8px 10px; border-radius: var(--r-sm);
+  font-size: var(--fs-sm); font-weight: 500; color: var(--ink-2); text-align: left;
+  transition: background .18s var(--ease-out), color .18s;
+}
+.dock-item svg { width: 17px; height: 17px; flex: none; }
+.dock-item:hover { background: var(--surface-2); color: var(--ink); }
+.dock-item.active { background: var(--brand-soft); color: var(--brand-strong); font-weight: 600; }
+.dock-item.active svg { color: var(--brand); }
+.dock-item.dimmed { opacity: .3; }
+.dock-item.accent.active { background: var(--accent-soft); color: var(--accent-strong); }
+.dock-sep { height: 1px; background: var(--line); margin: 8px 6px; }
+.dock-key { margin-left: auto; font-size: var(--fs-cap); color: var(--ink-3); font-weight: 600; }
+
+/* ================== 右侧内容面板 ================== */
+#panel {
+  position: fixed; top: 84px; right: 24px; bottom: 88px; z-index: 18;
+  width: 388px; max-width: calc(100vw - 48px);
+  display: flex; flex-direction: column;
+  background: color-mix(in srgb, var(--surface) 92%, transparent);
+  backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
+  border: 1px solid var(--line); border-radius: var(--r-xl);
+  box-shadow: var(--shadow-lg);
+  transform: translateX(calc(100% + 48px));
+  transition: transform .55s var(--ease-quart);
+}
+#panel.open { transform: translateX(0); }
+.panel-head {
+  display: flex; align-items: center; gap: 12px;
+  padding: 18px 20px 14px; border-bottom: 1px solid var(--line);
+}
+.panel-head .ic {
+  width: 44px; height: 44px; flex: none; border-radius: var(--r-md);
+  display: grid; place-items: center;
+  background: var(--brand-soft); color: var(--brand-strong);
+}
+.panel-head .ic svg { width: 22px; height: 22px; }
+.panel-head.accent .ic { background: var(--accent-soft); color: var(--accent-strong); }
+.panel-title { font-family: var(--font-display); font-weight: 600; font-size: var(--fs-h2); line-height: 1.15; }
+.panel-sub { font-size: var(--fs-xs); color: var(--ink-3); }
+.panel-close {
+  margin-left: auto; width: 32px; height: 32px; border-radius: var(--r-pill);
+  display: grid; place-items: center; color: var(--ink-3);
+  transition: background .18s, color .18s;
+}
+.panel-close:hover { background: var(--surface-3); color: var(--ink); }
+.panel-close svg { width: 15px; height: 15px; }
+.panel-body { flex: 1; overflow-y: auto; padding: 16px 20px 20px; scrollbar-width: thin; }
+.panel-body::-webkit-scrollbar { width: 5px; }
+.panel-body::-webkit-scrollbar-thumb { background: var(--line-strong); border-radius: 4px; }
+.panel-foot { padding: 14px 20px; border-top: 1px solid var(--line); }
+.panel-cta {
+  width: 100%; height: 42px; border-radius: var(--r-pill);
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  font-size: var(--fs-sm); font-weight: 600;
+  color: var(--brand-ink); background: var(--brand);
+  transition: background .18s, transform .18s var(--ease-out);
+}
+.panel-cta:hover { background: var(--brand-strong); transform: translateY(-1px); }
+.panel-cta svg { width: 15px; height: 15px; }
+.panel-cta.accent { background: var(--accent); color: var(--accent-ink); }
+.panel-cta.accent:hover { background: var(--accent-strong); }
+
+/* —— 面板内容组件（编辑风） —— */
+.pc-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.pc-stat { padding: 12px 14px; border: 1px solid var(--line); border-radius: var(--r-md); background: var(--surface); }
+.pc-stat b { display: block; font-family: var(--font-display); font-size: 1.35rem; font-weight: 600; line-height: 1.1; }
+.pc-stat span { font-size: var(--fs-xs); color: var(--ink-3); }
+.pc-sec { margin: 18px 0 10px; display: flex; align-items: center; gap: 8px; }
+.pc-sec b { font-size: var(--fs-sm); font-weight: 600; }
+.pc-sec span { font-size: var(--fs-cap); color: var(--ink-3); }
+.pc-card {
+  display: block; width: 100%; text-align: left; margin-bottom: 12px;
+  border: 1px solid var(--line); border-radius: var(--r-md); background: var(--surface);
+  overflow: hidden; transition: transform .2s var(--ease-out), box-shadow .2s, border-color .2s;
+}
+.pc-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); border-color: var(--brand-line); }
+.pc-card .pic { position: relative; height: 118px; overflow: hidden; }
+.pc-card .pic img { width: 100%; height: 100%; object-fit: cover; transition: transform .4s var(--ease-out); }
+.pc-card:hover .pic img { transform: scale(1.04); }
+.pc-card .body { padding: 12px 14px; }
+.pc-card .ttl { font-weight: 600; font-size: var(--fs-sm); line-height: 1.35; }
+.pc-card .meta { margin-top: 6px; display: flex; flex-wrap: wrap; gap: 6px 12px; font-size: var(--fs-xs); color: var(--ink-3); }
+.pc-card .meta svg { width: 12px; height: 12px; display: inline-block; vertical-align: -1.5px; margin-right: 3px; }
+.pc-badge {
+  position: absolute; top: 10px; left: 10px;
+  font-size: var(--fs-cap); font-weight: 600;
+  padding: 3px 10px; border-radius: var(--r-pill);
+  backdrop-filter: blur(6px);
+}
+.pc-badge.open { background: var(--success-soft); color: var(--success); }
+.pc-badge.full { background: var(--warning-soft); color: var(--warning); }
+.pc-badge.sign { background: var(--info-soft); color: var(--info-strong); }
+.pc-badge.ai { background: var(--accent-soft); color: var(--accent-strong); }
+.pc-badge.done { background: var(--success-soft); color: var(--success); }
+.pc-badge.match { background: var(--brand-soft); color: var(--brand-strong); }
+.pc-row {
+  display: flex; gap: 12px; align-items: center; width: 100%; text-align: left;
+  padding: 10px 12px; margin-bottom: 8px;
+  border: 1px solid var(--line); border-radius: var(--r-md); background: var(--surface);
+  transition: border-color .2s, background .2s;
+}
+.pc-row:hover { border-color: var(--brand-line); background: var(--surface-2); }
+.pc-row .thumb { width: 52px; height: 52px; flex: none; border-radius: var(--r-sm); overflow: hidden; background: var(--surface-3); }
+.pc-row .thumb img { width: 100%; height: 100%; object-fit: cover; }
+.pc-row .info { flex: 1; min-width: 0; }
+.pc-row .info b { display: block; font-size: var(--fs-sm); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.pc-row .info span { font-size: var(--fs-xs); color: var(--ink-3); }
+.pc-price { font-family: var(--font-display); font-weight: 600; color: var(--accent-strong); font-size: var(--fs-sm); white-space: nowrap; }
+.pc-note { font-size: var(--fs-xs); color: var(--ink-3); background: var(--surface-2); border: 1px solid var(--line); border-radius: var(--r-sm); padding: 8px 12px; line-height: 1.6; }
+.pc-note b { color: var(--accent-strong); }
+.pc-entry {
+  display: flex; align-items: center; gap: 12px; width: 100%; text-align: left;
+  padding: 12px 14px; margin-bottom: 10px;
+  border: 1px solid var(--line); border-radius: var(--r-md); background: var(--surface);
+  transition: border-color .2s, background .2s, transform .2s var(--ease-out);
+}
+.pc-entry:hover { border-color: var(--brand-line); transform: translateX(2px); }
+.pc-entry .eic { width: 38px; height: 38px; flex: none; border-radius: var(--r-sm); display: grid; place-items: center; background: var(--brand-soft); color: var(--brand-strong); }
+.pc-entry .eic svg { width: 18px; height: 18px; }
+.pc-entry b { display: block; font-size: var(--fs-sm); }
+.pc-entry span { font-size: var(--fs-xs); color: var(--ink-3); }
+.pc-entry .go { margin-left: auto; color: var(--ink-3); }
+.pc-entry .go svg { width: 15px; height: 15px; }
+
+/* ================== 底部 HUD ================== */
+#hud {
+  position: fixed; left: 50%; bottom: 20px; transform: translateX(-50%); z-index: 15;
+  display: flex; align-items: center; gap: 14px;
+  padding: 9px 10px 9px 20px;
+  background: color-mix(in srgb, var(--paper) 82%, transparent);
+  backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+  border: 1px solid var(--line); border-radius: var(--r-pill);
+  box-shadow: var(--shadow-md); font-size: var(--fs-xs); color: var(--ink-3); white-space: nowrap;
+}
+#hud kbd {
+  font-family: inherit; font-size: var(--fs-cap); font-weight: 600;
+  background: var(--surface-2); border: 1px solid var(--line-strong);
+  border-radius: 5px; padding: 1px 6px; color: var(--ink-2);
+}
+.hud-switch {
+  display: inline-flex; align-items: center; gap: 6px;
+  height: 32px; padding: 0 14px 0 10px; border-radius: var(--r-pill);
+  border: 1px solid var(--line); background: var(--surface);
+  font-size: var(--fs-xs); font-weight: 600; color: var(--ink-2);
+  transition: border-color .2s, color .2s;
+}
+.hud-switch:hover { border-color: var(--brand); color: var(--brand-strong); }
+.hud-switch svg { width: 14px; height: 14px; }
+
+/* ================== 2D 平面降级模式 ================== */
+#grid2d {
+  position: fixed; inset: 0; z-index: 10; overflow-y: auto;
+  display: none; padding: 96px 32px 40px;
+}
+body[data-mode="2d"] #grid2d { display: block; }
+.g2d-head { max-width: 1080px; margin: 0 auto 20px; }
+.g2d-title { font-family: var(--font-display); font-weight: 600; font-size: var(--fs-h1); }
+.g2d-sub { font-size: var(--fs-sm); color: var(--ink-2); margin-top: 6px; }
+.g2d-note {
+  display: inline-flex; align-items: center; gap: 8px; margin-top: 14px;
+  font-size: var(--fs-xs); color: var(--brand-strong);
+  background: var(--brand-soft); border: 1px solid var(--brand-line);
+  border-radius: var(--r-pill); padding: 6px 14px;
+}
+.g2d-grid { max-width: 1080px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 16px; }
+.g2d-card {
+  display: block; text-align: left;
+  border: 1px solid var(--line); border-radius: var(--r-lg); background: var(--surface);
+  overflow: hidden; transition: transform .22s var(--ease-out), box-shadow .22s, border-color .22s;
+}
+.g2d-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); border-color: var(--brand-line); }
+.g2d-card .pic { height: 110px; position: relative; overflow: hidden; }
+.g2d-card .pic img { width: 100%; height: 100%; object-fit: cover; }
+.g2d-card .pic .fallback {
+  width: 100%; height: 100%; display: grid; place-items: center;
+  background: linear-gradient(135deg, var(--brand-soft), var(--surface-3)); color: var(--brand-strong);
+}
+.g2d-card .pic .fallback svg { width: 34px; height: 34px; }
+.g2d-card .pic.accent .fallback { background: linear-gradient(135deg, var(--accent-soft), var(--surface-3)); color: var(--accent-strong); }
+.g2d-card .body { padding: 12px 14px; }
+.g2d-card .body b { font-size: var(--fs-sm); }
+.g2d-card .body p { font-size: var(--fs-xs); color: var(--ink-3); margin-top: 3px; }
+.g2d-back {
+  position: fixed; right: 28px; bottom: 28px; z-index: 12;
+  display: inline-flex; align-items: center; gap: 8px;
+  height: 44px; padding: 0 20px; border-radius: var(--r-pill);
+  background: var(--brand); color: var(--brand-ink); font-weight: 600; font-size: var(--fs-sm);
+  box-shadow: var(--shadow-md); transition: background .18s, transform .18s var(--ease-out);
+}
+.g2d-back:hover { background: var(--brand-strong); transform: translateY(-1px); }
+.g2d-back svg { width: 16px; height: 16px; }
+
+/* ================== 入场序幕 ================== */
+#intro {
+  position: fixed; inset: 0; z-index: 100;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0;
+  background:
+    radial-gradient(1200px 500px at 50% -10%, var(--brand-soft), transparent 70%),
+    var(--paper);
+  transition: opacity .8s var(--ease-out); text-align: center;
+}
+#intro.hide { opacity: 0; pointer-events: none; }
+.intro-mark {
+  width: 88px; height: 88px; border-radius: var(--r-lg);
+  display: grid; place-items: center;
+  font-family: var(--font-display); font-weight: 600; font-size: 2.6rem;
+  color: var(--brand-ink);
+  background: linear-gradient(140deg, var(--brand), var(--brand-strong));
+  box-shadow: var(--shadow-lg);
+  animation: introFloat 4s ease-in-out infinite;
+}
+@keyframes introFloat { 0%,100% { transform: translateY(0) } 50% { transform: translateY(-8px) } }
+.intro-kicker { margin-top: 28px; font-size: var(--fs-cap); letter-spacing: .35em; text-transform: uppercase; color: var(--ink-3); }
+#intro h1 { margin-top: 10px; font-family: var(--font-display); font-weight: 600; font-size: clamp(1.8rem, 1.2rem + 2.6vw, 2.8rem); line-height: 1.15; }
+#intro h1 em { font-style: normal; color: var(--brand); }
+.intro-sub { margin-top: 12px; max-width: 52ch; font-size: var(--fs-sm); color: var(--ink-2); line-height: 1.7; }
+.intro-actions { margin-top: 36px; display: flex; align-items: center; gap: 16px; flex-wrap: wrap; justify-content: center; }
+.intro-enter {
+  display: inline-flex; align-items: center; gap: 10px;
+  height: 52px; padding: 0 30px; border-radius: var(--r-pill);
+  font-size: var(--fs-body); font-weight: 600;
+  color: var(--brand-ink); background: var(--brand);
+  box-shadow: var(--shadow-md); transition: background .18s, transform .18s var(--ease-out);
+}
+.intro-enter:hover { background: var(--brand-strong); transform: translateY(-2px); }
+.intro-enter svg { width: 18px; height: 18px; }
+.intro-flat { font-size: var(--fs-sm); color: var(--ink-3); text-decoration: underline dotted var(--line-strong); text-underline-offset: 4px; }
+.intro-flat:hover { color: var(--ink-2); }
+.intro-tips { margin-top: 42px; display: flex; gap: 18px; flex-wrap: wrap; justify-content: center; font-size: var(--fs-xs); color: var(--ink-3); }
+.intro-tips span { display: inline-flex; gap: 6px; align-items: center; }
+.intro-tips svg { width: 13px; height: 13px; color: var(--brand); }
+
+/* ================== Toast ================== */
+#toast {
+  position: fixed; left: 50%; bottom: 84px; transform: translateX(-50%) translateY(16px); z-index: 200;
+  padding: 10px 20px; border-radius: var(--r-pill);
+  background: var(--ink); color: var(--paper);
+  font-size: var(--fs-sm); font-weight: 500; box-shadow: var(--shadow-lg);
+  opacity: 0; pointer-events: none;
+  transition: opacity .3s var(--ease-out), transform .3s var(--ease-out);
+  max-width: min(86vw, 480px); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+#toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+/* ================== 响应式 ================== */
+@media (max-width: 1080px) {
+  #panel { width: 340px; }
+}
+@media (max-width: 860px) {
+  #dock {
+    left: 50%; top: auto; bottom: 74px; transform: translateX(-50%);
+    flex-direction: row; width: auto; max-width: calc(100vw - 24px); max-height: none;
+    overflow-x: auto; overflow-y: hidden; padding: 8px;
+  }
+  .dock-label, .dock-sep { display: none; }
+  .dock-item { flex: none; padding: 8px 12px; border-radius: var(--r-pill); }
+  .dock-item .txt { display: none; }
+  .dock-item.active { box-shadow: inset 0 0 0 1px var(--brand-line); }
+  #panel {
+    top: auto; left: 12px; right: 12px; bottom: 12px; width: auto; max-height: 58vh;
+    transform: translateY(calc(100% + 24px));
+  }
+  #panel.open { transform: translateY(0); }
+  .tb-search { display: none; }
+  .tb-tag { display: none; }
+  .isl-label .desc { display: none; }
+  #hud { bottom: 14px; gap: 8px; padding-left: 14px; }
+  .hud-tip { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  * { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+}
+</style>
+</head>
+<body data-mode="3d" data-boot="intro">
+
+<!-- ==================== 3D 舞台 ==================== -->
+<div id="stage" role="application" aria-label="梧桐校园 3D 空间。左键拖拽旋转，右键拖拽平移，滚轮缩放，点击岛屿进入模块。"></div>
+<div id="labels" aria-hidden="true"></div>
+
+<!-- ==================== 顶栏 ==================== -->
+<header id="topbar">
+  <div class="tb-brand" id="tbBrand" title="回到总览">
+    <div class="tb-mark">梧</div>
+    <div>
+      <div class="tb-name">梧桐校园</div>
+      <div class="tb-sub">Spatial Campus</div>
+    </div>
+  </div>
+  <span class="tb-tag">方向 C · 全局空间界面 原型</span>
+  <form class="tb-search" id="searchForm" role="search">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+      <circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/>
+    </svg>
+    <input id="searchInput" type="search" placeholder="搜索模块：活动 / 闲置 / 失物 / 搭子…" aria-label="搜索模块" />
+  </form>
+  <div class="tb-actions">
+    <button class="tb-icon" id="themeToggle" title="切换明暗主题" aria-label="切换明暗主题">
+      <svg class="ic-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+        <circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>
+      </svg>
+      <svg class="ic-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+        <path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/>
+      </svg>
+      <span class="dot" style="display:none"></span>
+    </button>
+    <button class="tb-icon" id="bellBtn" title="消息中心（原型演示）" aria-label="消息中心">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+        <path d="M18 8a6 6 0 1 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/>
+      </svg>
+      <span class="dot"></span>
+    </button>
+  </div>
+</header>
+
+<!-- ==================== 左侧导航坞（JS 渲染） ==================== -->
+<nav id="dock" aria-label="空间模块导航"></nav>
+
+<!-- ==================== 右侧内容面板 ==================== -->
+<aside id="panel" aria-hidden="true">
+  <div class="panel-head" id="panelHead">
+    <div class="ic" id="panelIcon"></div>
+    <div>
+      <div class="panel-title" id="panelTitle">模块</div>
+      <div class="panel-sub" id="panelSub"></div>
+    </div>
+    <button class="panel-close" id="panelClose" title="收起面板（Esc）" aria-label="收起面板">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true">
+        <path d="M18 6 6 18M6 6l12 12"/>
+      </svg>
+    </button>
+  </div>
+  <div class="panel-body" id="panelBody"></div>
+  <div class="panel-foot">
+    <button class="panel-cta" id="panelCta">进入模块
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+    </button>
+  </div>
+</aside>
+
+<!-- ==================== 底部 HUD ==================== -->
+<footer id="hud">
+  <span class="hud-tip">左键拖拽旋转 · 右键拖拽平移 · 滚轮缩放 · <kbd>← → ↑ ↓</kbd> 旋转 · <kbd>Esc</kbd> 总览</span>
+  <button class="hud-switch" id="modeToggle" title="切换 3D 空间 / 平面网格">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+      <rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/>
+      <rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/>
+    </svg>
+    <span id="modeToggleTxt">切换平面模式</span>
+  </button>
+</footer>
+
+<!-- ==================== 2D 平面降级模式 ==================== -->
+<main id="grid2d">
+  <div class="g2d-head">
+    <div class="g2d-title">梧桐校园 · 平面模式</div>
+    <div class="g2d-sub">WebGL 不可用或主动切换时的降级形态 —— 与 3D 空间共享同一套模块数据与设计令牌。</div>
+    <div class="g2d-note">● 降级策略演示：保留全部功能入口，仅去掉 3D 表现层</div>
+  </div>
+  <div class="g2d-grid" id="g2dGrid"></div>
+  <button class="g2d-back" id="back3d">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+      <path d="M21 16V8l-9-5-9 5v8l9 5 9-5z"/><path d="M3.3 7.9 12 12.8l8.7-4.9M12 22.5V12.8"/>
+    </svg>
+    返回 3D 空间
+  </button>
+</main>
+
+<!-- ==================== 入场序幕 ==================== -->
+<div id="intro">
+  <div class="intro-mark">梧</div>
+  <div class="intro-kicker">Spatial UI Prototype</div>
+  <h1>梧桐校园 · <em>全局空间界面</em></h1>
+  <p class="intro-sub">
+    整站以 Three.js 漂浮校园呈现：左键拖拽环视、右键平移、滚轮缩放整个校园；点击岛屿，镜头飞行抵达后右侧打开模块面板 —— 3D 承担导航与空间记忆，2D 面板保留全部业务可用性。
+  </p>
+  <div class="intro-actions">
+    <button class="intro-enter" id="introEnter">进入校园
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+    </button>
+    <button class="intro-flat" id="introFlat">先看平面版（降级模式）</button>
+  </div>
+  <div class="intro-tips">
+    <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.5 8.5 0 0 1-12.5 7.5L3 21l2-5.5A8.5 8.5 0 1 1 21 11.5z"/></svg> 私信 · 问答等长内容仍在 2D 面板</span>
+    <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M18.4 5.6l-2.1 2.1M7.7 16.3l-2.1 2.1"/><circle cx="12" cy="12" r="3"/></svg> 明暗主题与 3D 场景联动</span>
+    <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M8 21h8"/></svg> WebGL 不可用自动降级</span>
+  </div>
+</div>
+
+<div id="toast" role="status" aria-live="polite"></div>
+
+<!-- ==================================================================
+     脚本一（经典脚本）：UI 层 —— 数据、导航坞、面板、主题、模式、降级
+     独立于 Three.js 运行；3D 加载失败时全部功能仍可用（渐进增强）
+     ================================================================== -->
+<script>
+(function () {
+  'use strict';
+
+  /* ---------------- 图标库（与主工程 MainLayout 同源） ---------------- */
+  var ICONS = {
+    home: '<path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/>',
+    calendar: '<rect x="3" y="4" width="18" height="17" rx="2"/><path d="M3 9h18M8 2v4M16 2v4"/>',
+    bag: '<path d="M3 7h18l-2 13H5z"/><path d="M3 7l-1-3H0M6 11v6M10 11v6M14 11v6M18 11v6"/>',
+    lost: '<circle cx="12" cy="8" r="5"/><path d="M9 13l-1.5 8L12 18l4.5 3L15 13"/>',
+    chat: '<path d="M21 11.5a8.5 8.5 0 0 1-12.5 7.5L3 21l2-5.5A8.5 8.5 0 1 1 21 11.5z"/>',
+    megaphone: '<path d="M3 11l18-5v12L3 13zM11.6 16.8a3 3 0 1 1-5.8-1.6"/>',
+    spark: '<path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M18.4 5.6l-2.1 2.1M7.7 16.3l-2.1 2.1"/><circle cx="12" cy="12" r="3"/>',
+    code: '<path d="m8 9-4 3 4 3M16 9l4 3-4 3M13 6l-2 12"/>',
+    book: '<path d="M4 19V5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2zM17 3v16"/>',
+    bell: '<path d="M18 8a6 6 0 1 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/>',
+    compass: '<circle cx="12" cy="12" r="9"/><path d="m15.5 8.5-2 5-5 2 2-5z"/>',
+    users: '<circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0M16 4.6a3.5 3.5 0 0 1 0 6.8M21.5 20a6.5 6.5 0 0 0-4.5-6.2"/>',
+    qa: '<path d="M5 19h9a7 7 0 0 0 0-14H8"/><path d="M8 8H5.5A2.5 2.5 0 0 0 3 10.5 2.5 2.5 0 0 0 5.5 13H8"/>',
+    send: '<path d="M22 2 11 13"/><path d="M22 2 15 22l-4-9-9-4z"/>'
+  };
+  function icon(name) {
+    return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">' + (ICONS[name] || ICONS.spark) + '</svg>';
+  }
+
+  /* ---------------- 模块数据（与主工程侧栏一致） ---------------- */
+  var MODULES = [
+    { id: 'overview', name: '总览', icon: 'compass', desc: '俯瞰校园全貌', kind: 'overview' },
+    { id: 'home',     name: '综合门户', icon: 'home',     desc: '校园动态一屏纵览' },
+    { id: 'activity', name: '校园活动', icon: 'calendar', desc: '发布 · 报名 · 签到', meta: '12 场进行中' },
+    { id: 'idle',     name: '闲置互换', icon: 'bag',       desc: '预约 · 评价 · AI 估价', meta: 'AI 估价' },
+    { id: 'lost',     name: '失物招领', icon: 'lost',     desc: '发布 · 认领 · AI 匹配' },
+    { id: 'partner',  name: '学习搭子', icon: 'users',    desc: 'AI 匹配撮合' },
+    { id: 'qa',       name: '互助问答', icon: 'qa',       desc: '提问 · 采纳 · AI 参考' },
+    { id: 'social',   name: '动态广场', icon: 'chat',     desc: '图文 · 点赞 · 评论' },
+    { id: 'notice',   name: '校园公告', icon: 'megaphone', desc: '权威通知' },
+    { id: 'message',  name: '消息中心', icon: 'bell',     desc: '站内信 + 实时私信' },
+    { id: 'ai',       name: 'AI 学习',  icon: 'spark',     desc: '答疑 · 代码纠错 · 错题本', accent: true }
+  ];
+  var MODULE_MAP = {};
+  MODULES.forEach(function (m) { MODULE_MAP[m.id] = m; });
+
+  /* ---------------- 面板内容数据 ---------------- */
+  var PANELS = {
+    home: {
+      body:
+        '<div class="pc-stats">' +
+        '<div class="pc-stat"><b>12</b><span>进行中活动</span></div>' +
+        '<div class="pc-stat"><b>48</b><span>今日新增动态</span></div>' +
+        '<div class="pc-stat"><b>5</b><span>待认领失物</span></div>' +
+        '<div class="pc-stat"><b>23</b><span>在线学习搭子</span></div></div>' +
+        '<div class="pc-sec"><b>为你推荐</b><span>基于专业与活跃度</span></div>' +
+        row('activity-card.jpg', '书香敬老院志愿服务 · 第三期', '报名中 · 周六 09:00 · 敬老院', 'pc-badge open', '报名中') +
+        row('social-card.jpg', '今天的校园晚霞', '动态广场 · 128 次点赞', 'pc-badge ai', '热门') +
+        row('study-banner.jpg', '图书馆考研自习搭子', 'AI 匹配 · 匹配度 92%', 'pc-badge match', '搭子')
+    },
+    activity: {
+      body:
+        '<div class="pc-sec"><b>热门活动</b><span>按报名热度</span></div>' +
+        card('activity-card.jpg', '书香敬老院志愿服务 · 第三期', '周六 09:00 · 校外敬老院 · 名额 20 人', 'pc-badge open', '报名中') +
+        card('activity-card.jpg', '院系 3v3 篮球联赛', '周日 14:00 · 东区体育馆 · 名额 48 人', 'pc-badge full', '已满员') +
+        card('activity-card.jpg', '春日草坪音乐节', '5 月 2 日 · 大草坪 · 免票入场', 'pc-badge sign', '签到开启') +
+        '<div class="pc-note">✦ AI 智能推荐：根据你近 30 天报名偏好，<b>运动类活动</b>匹配度最高。</div>'
+    },
+    idle: {
+      body:
+        '<div class="pc-sec"><b>闲置好物</b><span>AI 智能估价</span></div>' +
+        priceRow('idle-card.jpg', '机械键盘 · 87 键红轴', '九成新 · 已消毒', '¥128') +
+        priceRow('idle-card.jpg', '山地自行车 · 26 寸', '毕业出 · 可试骑', '¥450') +
+        priceRow('idle-card.jpg', '银色 U 盘 · 64G', '读写正常', '¥35') +
+        priceRow('idle-card.jpg', '羽毛球拍 · 单拍', '手胶已换新', '¥88') +
+        '<div class="pc-note">✦ 发布闲置时 <b>AI 智能估价</b> 会参考成色与历史成交给出建议价。</div>'
+    },
+    lost: {
+      body:
+        '<div class="pc-sec"><b>失物招领</b><span>AI 智能匹配</span></div>' +
+        card('lost-card.jpg', '捡到：学生卡 · 张同学', '教学楼 B203 · 今天 14:20', 'pc-badge match', 'AI 匹配 2 条') +
+        card('lost-card.jpg', '寻物：图书馆借阅证', '可能落在三楼自习区', 'pc-badge open', '寻找中') +
+        '<div class="pc-note">✦ 发布寻物后，<b>AI 智能匹配</b>会在失物与招领之间自动比对时间、地点与物品特征。</div>'
+    },
+    partner: {
+      body:
+        '<div class="pc-sec"><b>学习搭子</b><span>AI 匹配撮合</span></div>' +
+        card('study-banner.jpg', '图书馆考研自习 · 早八型', '每天 08:00 · 四楼北区', 'pc-badge match', '匹配度 92%') +
+        card('study-banner.jpg', '操场夜跑搭子 · 21:30', '每周 3 次 · 配速 6\'00"', 'pc-badge match', '匹配度 87%') +
+        '<div class="pc-note">✦ AI 推荐理由：作息一致、目标相近，且都在 <b>错题本</b> 里标记过高数薄弱点。</div>'
+    },
+    qa: {
+      body:
+        '<div class="pc-sec"><b>互助问答</b><span>最新提问</span></div>' +
+        qaRow('概率论 · 全概率公式什么时候用？', '3 回答 · 已采纳 · AI 参考回答') +
+        qaRow('Spring Boot 拦截器顺序怎么排？', '5 回答 · AI 参考回答') +
+        qaRow('校园卡消磁了去哪补办？', '2 回答 · 已采纳') +
+        '<div class="pc-note">✦ 每个问题可获取 <b>AI 参考回答</b>，采纳后同步给提问者。</div>'
+    },
+    social: {
+      body:
+        '<div class="pc-sec"><b>动态广场</b><span>最新动态</span></div>' +
+        card('social-card.jpg', '今天的校园晚霞，太治愈了', '#校园晚霞 · 128 赞 · 36 评论', 'pc-badge ai', '热门') +
+        card('social-card.jpg', '图书馆四楼的窗边位测评', '动态广场 · 89 赞', '', '') +
+        '<div class="pc-note">✦ 发布支持 <b>AI 辅助起草</b>：草稿生成、润色、扩写一键完成。</div>'
+    },
+    notice: {
+      body:
+        '<div class="pc-sec"><b>校园公告</b><span>最近更新</span></div>' +
+        noticeRow('关于系统维护暂停服务的通知', '05-12', '重要') +
+        noticeRow('春季运动会报名安排', '05-10', '活动') +
+        noticeRow('国家奖学金申请截止提醒', '05-08', '事务') +
+        '<div class="pc-note">✦ 公告由管理端统一发布，支持上下线管理。</div>'
+    },
+    message: {
+      body:
+        '<div class="pc-sec"><b>站内消息</b><span>未读 3</span></div>' +
+        msgRow('活动报名审批通过', '「书香敬老院志愿服务」报名已通过，请按时签到', '刚刚') +
+        msgRow('举报处理结果通知', '你举报的内容已被处理：内容下架', '2 小时前') +
+        msgRow('系统维护公告', '本周六 02:00-06:00 系统升级维护', '昨天') +
+        '<div class="pc-sec"><b>私信</b><span>WebSocket 实时</span></div>' +
+        msgRow('李四', '晚上图书馆见？', '在线') +
+        msgRow('王五', 'U 盘还在吗？我想要', '2 小时前')
+    },
+    ai: {
+      body:
+        '<div class="pc-sec"><b>AI 学习</b><span>DeepSeek 已接入</span></div>' +
+        entry('spark', 'AI 答疑', '多轮上下文对话 · 校园向导') +
+        entry('code', '代码纠错', '高亮 diff · 一键复制修复') +
+        entry('book', '错题本', '拍照 OCR 录入 · 复习计划 · 同类题生成') +
+        '<div class="pc-note">✦ 错题本支持 <b>拍照 OCR</b> 智能整理，按薄弱点生成 <b>复习计划</b> 与 <b>同类练习题</b>。</div>'
+    }
+  };
+
+  /* 面板内容片段构造器 */
+  function card(img, ttl, meta, badgeCls, badgeTxt) {
+    var badge = badgeTxt ? '<span class="pc-badge ' + badgeCls + '">' + badgeTxt + '</span>' : '';
+    return '<button class="pc-card"><span class="pic"><img src="images/' + img + '" alt="">' + badge + '</span>' +
+      '<span class="body"><span class="ttl">' + ttl + '</span><span class="meta">' + meta + '</span></span></button>';
+  }
+  function row(img, ttl, meta, badgeCls, badgeTxt) {
+    return '<button class="pc-row"><span class="thumb"><img src="images/' + img + '" alt=""></span>' +
+      '<span class="info"><b>' + ttl + '</b><span>' + meta + '</span></span>' +
+      (badgeTxt ? '<span class="pc-badge ' + badgeCls + '" style="position:static">' + badgeTxt + '</span>' : '') + '</button>';
+  }
+  function priceRow(img, ttl, meta, price) {
+    return '<button class="pc-row"><span class="thumb"><img src="images/' + img + '" alt=""></span>' +
+      '<span class="info"><b>' + ttl + '</b><span>' + meta + '</span></span><span class="pc-price">' + price + '</span></button>';
+  }
+  function qaRow(q, meta) {
+    return '<button class="pc-row"><span class="info"><b>' + q + '</b><span>' + meta + '</span></span></button>';
+  }
+  function noticeRow(ttl, date, tag) {
+    return '<button class="pc-row"><span class="info"><b>' + ttl + '</b><span>' + date + ' · ' + tag + '</span></span></button>';
+  }
+  function msgRow(ttl, desc, time) {
+    return '<button class="pc-row"><span class="info"><b>' + ttl + '</b><span>' + desc + '</span></span>' +
+      '<span style="font-size:var(--fs-cap);color:var(--ink-3);white-space:nowrap">' + time + '</span></button>';
+  }
+  function entry(ic, ttl, desc) {
+    return '<button class="pc-entry"><span class="eic">' + icon(ic) + '</span>' +
+      '<span><b>' + ttl + '</b><span>' + desc + '</span></span>' +
+      '<span class="go"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="15" height="15"><path d="M9 6l6 6-6 6"/></svg></span></button>';
+  }
+
+  /* ---------------- DOM 引用 ---------------- */
+  var $ = function (id) { return document.getElementById(id); };
+  var els = {
+    dock: $('dock'), panel: $('panel'), panelHead: $('panelHead'), panelIcon: $('panelIcon'),
+    panelTitle: $('panelTitle'), panelSub: $('panelSub'), panelBody: $('panelBody'),
+    panelClose: $('panelClose'), panelCta: $('panelCta'), toast: $('toast'),
+    grid2d: $('grid2d'), g2dGrid: $('g2dGrid')
+  };
+
+  var state = {
+    theme: 'light', mode: '3d', selected: null, entered: false, threeReady: false
+  };
+
+  /* ---------------- Toast ---------------- */
+  var toastTimer = null;
+  function toast(msg) {
+    els.toast.textContent = msg;
+    els.toast.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function () { els.toast.classList.remove('show'); }, 2200);
+  }
+
+  /* ---------------- 导航坞 ---------------- */
+  function renderDock() {
+    var html = '<div class="dock-label">空间导航</div>';
+    MODULES.forEach(function (m) {
+      if (m.kind === 'overview') {
+        html += '<button class="dock-item" data-id="overview" title="总览">' + icon(m.icon) + '<span class="txt">' + m.name + '</span></button><div class="dock-sep"></div><div class="dock-label">校园服务</div>';
+      } else if (m.id === 'ai') {
+        html += '<div class="dock-sep"></div><div class="dock-label">AI 学习</div>' + dockItem(m);
+      } else {
+        html += dockItem(m);
+      }
+    });
+    els.dock.innerHTML = html;
+    els.dock.querySelectorAll('.dock-item').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var id = btn.dataset.id;
+        if (id === 'overview') goOverview(); else selectModule(id);
+      });
+    });
+    syncDock();
+  }
+  function dockItem(m) {
+    return '<button class="dock-item' + (m.accent ? ' accent' : '') + '" data-id="' + m.id + '" title="' + m.name + '">' +
+      icon(m.icon) + '<span class="txt">' + m.name + '</span>' +
+      (m.meta ? '<span class="dock-key">' + m.meta + '</span>' : '') + '</button>';
+  }
+  function syncDock() {
+    els.dock.querySelectorAll('.dock-item').forEach(function (btn) {
+      var active = state.selected === btn.dataset.id || (!state.selected && btn.dataset.id === 'overview');
+      btn.classList.toggle('active', active);
+      btn.setAttribute('aria-current', active ? 'true' : 'false');
+    });
+  }
+
+  /* ---------------- 模块选择 ---------------- */
+  function selectModule(id, skipPanel) {
+    var m = MODULE_MAP[id];
+    if (!m) return;
+    state.selected = id;
+    syncDock();
+    if (window.__three && window.__three.ready) window.__three.flyToIsland(id);
+    if (!skipPanel) openPanel(id);
+  }
+  function goOverview() {
+    state.selected = null;
+    syncDock();
+    closePanel();
+    if (window.__three && window.__three.ready) window.__three.goOverview();
+  }
+  window.__ui = {
+    selectModule: selectModule,
+    goOverview: goOverview,
+    toast: toast,
+    state: state
+  };
+
+  /* ---------------- 面板 ---------------- */
+  function openPanel(id) {
+    var m = MODULE_MAP[id];
+    if (!m) return;
+    els.panelHead.classList.toggle('accent', !!m.accent);
+    els.panelIcon.innerHTML = icon(m.icon);
+    els.panelTitle.textContent = m.name;
+    els.panelSub.textContent = m.desc + (m.meta ? ' · ' + m.meta : '');
+    els.panelBody.innerHTML = (PANELS[id] && PANELS[id].body) || '<div class="pc-note">模块内容预留位。</div>';
+    els.panel.classList.add('open');
+    els.panel.setAttribute('aria-hidden', 'false');
+    els.panelCta.classList.toggle('accent', !!m.accent);
+  }
+  function closePanel() {
+    els.panel.classList.remove('open');
+    els.panel.setAttribute('aria-hidden', 'true');
+  }
+  els.panelClose.addEventListener('click', closePanel);
+  els.panelCta.addEventListener('click', function () {
+    toast('原型演示：进入「' + (MODULE_MAP[state.selected] || { name: '模块' }).name + '」完整页面');
+  });
+
+  /* ---------------- 主题 ---------------- */
+  function setTheme(t) {
+    state.theme = t;
+    document.documentElement.setAttribute('data-theme', t);
+    if (window.__three && window.__three.ready) window.__three.setTheme(t);
+  }
+  $('themeToggle').addEventListener('click', function () {
+    setTheme(state.theme === 'light' ? 'dark' : 'light');
+  });
+  $('bellBtn').addEventListener('click', function () { selectModule('message'); });
+  $('tbBrand').addEventListener('click', goOverview);
+
+  /* ---------------- 搜索（过滤导航坞） ---------------- */
+  var searchInput = $('searchInput');
+  searchInput.addEventListener('input', function () {
+    var q = searchInput.value.trim().toLowerCase();
+    els.dock.querySelectorAll('.dock-item').forEach(function (btn) {
+      var m = MODULE_MAP[btn.dataset.id];
+      var hit = !q || (m && (m.name + m.desc + (m.meta || '')).toLowerCase().indexOf(q) >= 0);
+      btn.classList.toggle('dimmed', !hit);
+    });
+  });
+  $('searchForm').addEventListener('submit', function (e) {
+    e.preventDefault();
+    var first = els.dock.querySelector('.dock-item:not(.dimmed):not([data-id="overview"])');
+    if (first) { selectModule(first.dataset.id); toast('已定位：' + MODULE_MAP[first.dataset.id].name); }
+    else toast('没有匹配的模块');
+  });
+
+  /* ---------------- 模式切换（3D / 2D 降级） ---------------- */
+  function setMode(mode, silent) {
+    state.mode = mode;
+    document.body.setAttribute('data-mode', mode);
+    $('modeToggleTxt').textContent = mode === '3d' ? '切换平面模式' : '返回 3D 空间';
+    if (window.__three && window.__three.ready) window.__three.setPaused(mode !== '3d');
+    if (!silent) toast(mode === '3d' ? '已进入 3D 空间模式' : '已切换平面降级模式');
+  }
+  $('modeToggle').addEventListener('click', function () { setMode(state.mode === '3d' ? '2d' : '3d'); });
+  $('back3d').addEventListener('click', function () { setMode('3d'); });
+
+  /* ---------------- 2D 网格 ---------------- */
+  var G2D_IMG = { home: 'hero-campus.jpg', activity: 'activity-card.jpg', idle: 'idle-card.jpg', lost: 'lost-card.jpg', partner: 'study-banner.jpg', social: 'social-card.jpg', ai: 'ai-bg.jpg' };
+  function renderGrid2d() {
+    var html = '';
+    MODULES.forEach(function (m) {
+      if (m.kind === 'overview') return;
+      var img = G2D_IMG[m.id];
+      var pic = img
+        ? '<span class="pic"><img src="images/' + img + '" alt=""></span>'
+        : '<span class="pic' + (m.accent ? ' accent' : '') + '"><span class="fallback">' + icon(m.icon) + '</span></span>';
+      html += '<button class="g2d-card" data-id="' + m.id + '">' + pic +
+        '<span class="body"><b>' + m.name + '</b><p>' + m.desc + '</p></span></button>';
+    });
+    els.g2dGrid.innerHTML = html;
+    els.g2dGrid.querySelectorAll('.g2d-card').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        toast('原型演示：进入「' + MODULE_MAP[btn.dataset.id].name + '」');
+      });
+    });
+  }
+
+  /* ---------------- 键盘 ---------------- */
+  document.addEventListener('keydown', function (e) {
+    if (e.target && (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA')) return;
+    if (e.key === 'Escape') {
+      if (els.panel.classList.contains('open')) closePanel();
+      else goOverview();
+    }
+  });
+
+  /* ---------------- 入场 ---------------- */
+  function enterCampus() {
+    if (state.entered) return;
+    state.entered = true;
+    document.body.setAttribute('data-boot', 'ready');
+    var intro = $('intro');
+    intro.classList.add('hide');
+    setTimeout(function () { intro.style.display = 'none'; }, 900);
+    if (window.__three && window.__three.ready) window.__three.enterCampus();
+    else toast('正在加载 3D 空间，请稍候…（若加载失败将自动切换平面模式）');
+  }
+  $('introEnter').addEventListener('click', enterCampus);
+  $('introFlat').addEventListener('click', function () {
+    enterCampus();
+    setMode('2d', true);
+    toast('当前为平面降级模式，点击右下角返回 3D 空间');
+  });
+
+  /* ---------------- 启动 UI 层 ---------------- */
+  renderDock();
+  renderGrid2d();
+  window.__spatialSetMode = setMode;  /* 供 3D 模块失败时调用 */
+})();
+</script>
+
+<!-- ==================================================================
+     脚本二（ESM 模块）：Three.js 3D 空间层
+     从 CDN 动态加载 three；失败 / 超时 → 自动降级到平面模式
+     ================================================================== -->
+<script type="module">
+(async function () {
+  const CDN = 'https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js';
+  const MAX_WAIT = 12000;
+  let THREE = null;
+  const giveUp = (msg) => {
+    if (window.__three && window.__three.ready) return; /* 已成功则忽略 */
+    console.warn('[spatial] ' + msg);
+    if (window.__spatialSetMode) window.__spatialSetMode('2d', true);
+    const t = document.getElementById('toast');
+    if (t) { t.textContent = 'WebGL / Three.js 初始化失败，已切换平面模式'; t.classList.add('show'); setTimeout(() => t.classList.remove('show'), 2600); }
+  };
+  const timer = setTimeout(() => giveUp('CDN 加载超时'), MAX_WAIT);
+
+  try { THREE = await import(CDN); }
+  catch (e) { clearTimeout(timer); giveUp('CDN 加载失败'); return; }
+
+  /* ================= 基础初始化 ================= */
+  const stage = document.getElementById('stage');
+  let renderer;
+  try {
+    renderer = new THREE.WebGLRenderer({ antialias: true, powerPreference: 'high-performance' });
+  } catch (e) { clearTimeout(timer); giveUp('WebGL 不可用'); return; }
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  stage.appendChild(renderer.domElement);
+
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.1, 500);
+
+  const REDUCED = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const UI = window.__ui; /* UI 层（含选中状态 state） */
+
+  /* ================= 主题场景参数 ================= */
+  const THEMES = {
+    light: {
+      sky: 0xeef4ea, fog: 0xeef4ea, fogDensity: 0.0038,
+      hemiSky: 0xfff8ec, hemiGround: 0xcfe3d6, hemiInt: 1.05,
+      dirColor: 0xfff2dd, dirInt: 1.15,
+      stars: 0, cloud: 0xffffff
+    },
+    dark: {
+      sky: 0x0f1512, fog: 0x0f1512, fogDensity: 0.0055,
+      hemiSky: 0x44584e, hemiGround: 0x1a2420, hemiInt: 0.55,
+      dirColor: 0x9fb8ff, dirInt: 0.42,
+      stars: 0.9, cloud: 0x2a3430
+    }
+  };
+  let themeName = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
+
+  const hemi = new THREE.HemisphereLight(THEMES[themeName].hemiSky, THEMES[themeName].hemiGround, THEMES[themeName].hemiInt);
+  scene.add(hemi);
+  const dir = new THREE.DirectionalLight(THEMES[themeName].dirColor, THEMES[themeName].dirInt);
+  dir.position.set(34, 52, 22);
+  scene.add(dir);
+
+  function applySceneTheme(name) {
+    themeName = name;
+    const t = THEMES[name];
+    scene.background = new THREE.Color(t.sky);
+    scene.fog = new THREE.FogExp2(t.fog, t.fogDensity);
+    hemi.color.set(t.hemiSky); hemi.groundColor.set(t.hemiGround); hemi.intensity = t.hemiInt;
+    dir.color.set(t.dirColor); dir.intensity = t.dirInt;
+    starsMat && (starsMat.opacity = t.stars);
+    cloudMats.forEach(m => m.color.set(t.cloud));
+  }
+
+  /* ================= 材质调色板（品牌：梧桐绿 + 暖珊瑚） ================= */
+  const mat = (c, opt) => new THREE.MeshStandardMaterial(Object.assign({ color: c, flatShading: true, roughness: 0.88, metalness: 0 }, opt || {}));
+  const M = {
+    grass: mat(0x7ac395), grass2: mat(0x5fae7f),
+    earth: mat(0x8b7355), earth2: mat(0x6d5940),
+    cream: mat(0xf4ecdc), cream2: mat(0xe3d7bd),
+    wood: mat(0xb98a5a), wood2: mat(0x8f6a42),
+    coral: mat(0xf4795f), coralGlow: new THREE.MeshStandardMaterial({ color: 0xf4795f, emissive: 0xe05a3e, emissiveIntensity: 0.85, flatShading: true }),
+    brand: mat(0x0e8a63), brand2: mat(0x0a6b4f),
+    blue: mat(0x4a7fc1), blueGlow: new THREE.MeshStandardMaterial({ color: 0x4a7fc1, emissive: 0x2e5f9e, emissiveIntensity: 0.5, flatShading: true }),
+    gold: mat(0xe8c268), goldGlow: new THREE.MeshStandardMaterial({ color: 0xe8c268, emissive: 0xb8933e, emissiveIntensity: 0.9, flatShading: true }),
+    white: mat(0xffffff),
+    water: new THREE.MeshStandardMaterial({ color: 0x6fbfd4, transparent: true, opacity: 0.75, roughness: 0.3, flatShading: true })
+  };
+  const ringMatBrand = () => new THREE.MeshBasicMaterial({ color: 0x0e8a63 });
+  const coralRing = 0xf4795f, brandRing = 0x0e8a63;
+
+  /* ================= 小工具 ================= */
+  const V3 = (x, y, z) => new THREE.Vector3(x, y, z);
+  function box(w, h, d, m, x = 0, y = 0, z = 0, ry = 0) {
+    const o = new THREE.Mesh(new THREE.BoxGeometry(w, h, d), m);
+    o.position.set(x, y, z); if (ry) o.rotation.y = ry; return o;
+  }
+  function cyl(rt, rb, h, m, x = 0, y = 0, z = 0, seg = 20) {
+    const o = new THREE.Mesh(new THREE.CylinderGeometry(rt, rb, h, seg), m);
+    o.position.set(x, y, z); return o;
+  }
+  function sph(r, m, x = 0, y = 0, z = 0, w = 12, h = 9) {
+    const o = new THREE.Mesh(new THREE.SphereGeometry(r, w, h), m);
+    o.position.set(x, y, z); return o;
+  }
+  function tor(r, t, m, x = 0, y = 0, z = 0, rx = Math.PI / 2) {
+    const o = new THREE.Mesh(new THREE.TorusGeometry(r, t, 10, 40), m);
+    o.position.set(x, y, z); o.rotation.x = rx; return o;
+  }
+  function cone(r, h, m, x = 0, y = 0, z = 0, seg = 16) {
+    const o = new THREE.Mesh(new THREE.ConeGeometry(r, h, seg), m);
+    o.position.set(x, y, z); return o;
+  }
+
+  /* ================= 模块与岛屿布局 =================
+     布局：门户居中，9 座模块岛环形分布，AI 岛更高更远（珊瑚强调） */
+  const MODULES_UI = ['overview', 'home', 'activity', 'idle', 'lost', 'partner', 'qa', 'social', 'notice', 'message', 'ai'];
+  const ISLAND_DEFS = [
+    { id: 'home',     angle: null, r: 0,   y: 0 },
+    { id: 'activity', angle: 12,   r: 30,  y: 1.2 },
+    { id: 'idle',     angle: 52,   r: 31,  y: -0.6 },
+    { id: 'partner',  angle: 92,   r: 29,  y: 1.8 },
+    { id: 'qa',       angle: 132,  r: 32,  y: -0.2 },
+    { id: 'social',   angle: 172,  r: 29,  y: 1.0 },
+    { id: 'notice',   angle: 212,  r: 31,  y: -0.8 },
+    { id: 'message',  angle: 252,  r: 29,  y: 1.4 },
+    { id: 'lost',     angle: 292,  r: 32,  y: 0.4 },
+    { id: 'ai',       angle: 330,  r: 38,  y: 6.5 }
+  ];
+  function islandPos(def) {
+    if (def.angle === null) return V3(0, def.y, 0);
+    const a = THREE.MathUtils.degToRad(def.angle);
+    return V3(Math.cos(a) * def.r, def.y, Math.sin(a) * def.r);
+  }
+
+  /* ---------- 漂浮平台（岛基座 + 强调环） ---------- */
+  function platform(radius = 6.5, topMat = M.grass) {
+    const g = new THREE.Group();
+    g.add(cyl(radius, radius * 0.96, 1.3, topMat, 0, 0, 0, 26));                       // 草坪顶
+    const under = cyl(radius * 0.96, radius * 0.4, 3.2, M.earth, 0, -2.2, 0, 26);      // 倒锥土层
+    g.add(under);
+    const under2 = cyl(radius * 0.42, radius * 0.16, 1.6, M.earth2, 0, -4.4, 0, 20);
+    g.add(under2);
+    const ring = tor(radius + 1.05, 0.16, ringMatBrand(), 0, 0.7, 0);                  // 悬浮强调环
+    g.add(ring);
+    return { group: g, ring };
+  }
+
+  /* ---------- 各模块标志性小建筑 ---------- */
+  const BUILDERS = {
+    home() { // 梧桐树 + 石凳
+      const b = new THREE.Group();
+      b.add(cyl(0.55, 0.7, 4.2, M.wood2, 0, 2.4, 0, 10));
+      b.add(sph(2.5, M.grass, 0, 5.6, 0, 14, 10));
+      b.add(sph(1.8, M.grass2, 1.6, 5.0, 0.6, 12, 9));
+      b.add(sph(1.5, M.grass, -1.5, 4.7, -0.8, 12, 9));
+      b.add(box(2.6, 0.5, 1, M.cream, 3.2, 0.9, 1.8, 0.5));   // 石凳
+      b.add(tor(3.6, 0.22, M.brand, 0, 0.68, 0));            // 环形小径
+      return b;
+    },
+    activity() { // 体育馆 + 旗
+      const b = new THREE.Group();
+      b.add(box(5.2, 2.6, 3.6, M.cream, 0, 1.95, 0));
+      const roof = cyl(2.1, 2.1, 5.4, M.coral, 0, 3.9, 0, 24);
+      roof.rotation.z = Math.PI / 2; roof.scale.z = 0.62; b.add(roof);
+      b.add(box(1.1, 1.5, 2.6, M.coral, 2.3, 3.7, 1.2));     // 看台
+      b.add(box(1.1, 1.0, 2.6, M.coral, 3.4, 3.4, 1.2));
+      b.add(cyl(0.08, 0.08, 5, M.wood2, -2.4, 2.5, -1.4, 8)); // 旗杆
+      const flag = box(1.3, 0.8, 0.06, M.coral, -1.75, 4.6, -1.4);
+      b.add(flag);
+      return b;
+    },
+    idle() { // 市集摊位
+      const b = new THREE.Group();
+      [[-2, -1.4], [2, -1.4], [-2, 1.4], [2, 1.4]].forEach(p => b.add(cyl(0.12, 0.12, 3, M.wood, p[0], 1.5, p[1], 8)));
+      const awn = box(4.8, 0.25, 3.6, M.brand, 0, 3.2, 0); awn.rotation.x = 0.12; b.add(awn);
+      b.add(box(2.2, 0.9, 1.1, M.wood, -0.9, 0.65, 0.4));     // 货箱
+      b.add(box(1.4, 0.7, 0.9, M.cream2, 1.2, 0.5, -0.8, 0.4));
+      b.add(box(0.9, 0.55, 0.7, M.gold, 1.1, 1.25, 0.5));     // 小金箱（估价）
+      return b;
+    },
+    lost() { // 招领灯塔
+      const b = new THREE.Group();
+      for (let i = 0; i < 5; i++) b.add(cyl(1.05 - i * 0.09, 1.12 - i * 0.09, 0.9, i % 2 ? M.coral : M.cream, 0, 0.45 + i * 0.9, 0, 18));
+      b.add(sph(0.62, M.goldGlow, 0, 5.3, 0, 12, 9));         // 灯塔光球
+      b.add(box(2.4, 1.4, 1.6, M.cream2, 2.6, 0.7, 1.2, -0.4));// 小屋
+      const p = new THREE.PointLight(0xffe2b0, 14, 14, 2); p.position.set(0, 5.3, 0); b.add(p);
+      return b;
+    },
+    partner() { // 双桌亭（搭子）
+      const b = new THREE.Group();
+      b.add(box(1.9, 0.22, 1.2, M.wood, -1.5, 1.05, 0.3, 0.2));
+      b.add(box(1.9, 0.22, 1.2, M.wood, 1.5, 1.05, -0.3, -0.2));
+      [[-1.5, 0.3], [1.5, -0.3]].forEach((p, i) => {
+        b.add(box(0.75, 0.5, 0.5, M.brand, p[0], 1.4, p[1], i ? -0.2 : 0.2)); // 书本
+      });
+      const arch = tor(2.1, 0.16, M.brand, 0, 0.6, 0, 0);
+      arch.geometry = new THREE.TorusGeometry(2.1, 0.16, 10, 28, Math.PI); b.add(arch);
+      return b;
+    },
+    qa() { // 问答叠石
+      const b = new THREE.Group();
+      b.add(box(2.4, 0.9, 2.4, M.cream, 0, 0.45, 0, 0.2));
+      b.add(box(1.9, 0.8, 1.9, M.brand, 0.2, 1.3, 0, -0.35));
+      b.add(box(1.35, 0.7, 1.35, M.cream, -0.1, 2.05, 0.1, 0.5));
+      b.add(tor(0.75, 0.1, M.blueGlow, 0.4, 3.4, 0, Math.PI / 2.4));   // 悬浮问号环
+      return b;
+    },
+    social() { // 喷泉广场
+      const b = new THREE.Group();
+      b.add(cyl(2.1, 2.3, 0.55, M.cream2, 0, 0.3, 0, 22));
+      b.add(cyl(1.3, 1.4, 0.45, M.cream, 0, 0.8, 0, 20));
+      b.add(cyl(0.35, 0.45, 1.5, M.cream, 0, 1.7, 0, 14));
+      b.add(cyl(1.55, 1.55, 0.12, M.water, 0, 0.62, 0, 22));
+      for (let i = 0; i < 3; i++) b.add(sph(0.16, M.water, 0, 2.6 + i * 0.5, 0, 8, 6));
+      b.add(box(1.6, 1.2, 0.14, M.wood, 3.2, 0.6, 1.6, 0.6));  // 展示板
+      b.add(cyl(0.09, 0.09, 1.2, M.wood2, 3.2, 0.6, 2.45, 8));
+      return b;
+    },
+    notice() { // 公告板 + 喇叭
+      const b = new THREE.Group();
+      [[-1.7, 0], [1.7, 0]].forEach(p => b.add(cyl(0.11, 0.11, 2.6, M.wood2, p[0], 1.3, 0, 8)));
+      b.add(box(4.1, 2.3, 0.22, M.cream, 0, 2.1, 0));
+      b.add(box(4.35, 0.28, 0.34, M.coral, 0, 3.35, 0));
+      b.add(box(4.35, 0.28, 0.34, M.coral, 0, 0.85, 0));
+      const mega = cone(0.55, 1.1, M.coral, 0, 4.2, 0, 14);
+      mega.rotation.z = Math.PI / 2.3; b.add(mega);
+      b.add(sph(0.3, M.goldGlow, 1.4, 4.05, 0.3, 10, 8));
+      return b;
+    },
+    message() { // 邮塔 + 纸飞机
+      const b = new THREE.Group();
+      b.add(box(2.6, 3.6, 2.6, M.cream, 0, 1.8, 0));
+      b.add(cone(2.1, 1.6, M.wood, 0, 4.4, 0, 4));
+      b.add(box(0.7, 0.9, 0.1, M.wood2, 0, 1.6, 1.32));
+      const planes = new THREE.Group();
+      for (let i = 0; i < 3; i++) {
+        const pl = new THREE.Mesh(new THREE.ConeGeometry(0.22, 0.75, 5), M.white);
+        pl.rotation.z = -Math.PI / 2;
+        const a = i * Math.PI * 2 / 3;
+        pl.position.set(Math.cos(a) * 2.4, 0, Math.sin(a) * 2.4);
+        planes.add(pl);
+      }
+      planes.position.y = 5.6; b.add(planes);
+      b.userData.planes = planes;
+      return b;
+    },
+    ai() { // AI 图书馆 + 晶体
+      const b = new THREE.Group();
+      b.add(cyl(2.9, 3.15, 1.15, M.cream2, 0, 0.55, 0, 24));
+      const dome = new THREE.Mesh(new THREE.SphereGeometry(2.9, 24, 14, 0, Math.PI * 2, 0, Math.PI / 2), M.cream);
+      dome.position.y = 1.1; b.add(dome);
+      const crystal = new THREE.Mesh(new THREE.OctahedronGeometry(1.15), M.coralGlow);
+      crystal.position.set(0, 6.1, 0); b.add(crystal);
+      const ring1 = tor(2.0, 0.06, M.blueGlow, 0, 6.1, 0, Math.PI / 2.6);
+      const ring2 = tor(2.6, 0.05, M.blueGlow, 0, 6.1, 0, Math.PI / 1.7);
+      b.add(ring1); b.add(ring2);
+      b.add(box(1.2, 0.55, 0.9, M.wood, 2.6, 0.4, 1.8, 0.5));
+      const p = new THREE.PointLight(0xf4795f, 18, 16, 2); p.position.set(0, 6.1, 0); b.add(p);
+      b.userData.crystal = crystal; b.userData.rings = [ring1, ring2];
+      return b;
+    }
+  };
+
+  /* ---------- 组装岛屿 ---------- */
+  const islands = [];
+  const islandRoot = new THREE.Group();
+  scene.add(islandRoot);
+  ISLAND_DEFS.forEach(def => {
+    const { group: plat, ring } = platform(def.id === 'home' ? 8 : 6.5, def.id === 'ai' ? M.grass2 : M.grass);
+    const building = BUILDERS[def.id]();
+    plat.add(building);
+    const pos = islandPos(def);
+    plat.position.copy(pos);
+    plat.userData = { islandId: def.id };
+    plat.traverse(o => { o.userData.islandId = def.id; });
+    islandRoot.add(plat);
+    islands.push({ id: def.id, def, group: plat, building, ring, ringMat: ring.material, baseY: pos.y, phase: Math.random() * Math.PI * 2, hoverT: 0, anchorY: def.id === 'home' ? 10.5 : 8 });
+  });
+
+  /* ---------- 航线（门户 → 各岛 弧形虚线） ---------- */
+  const routeMats = [];
+  islands.forEach(isl => {
+    if (isl.id === 'home') return;
+    const from = V3(0, 1.2, 0);
+    const to = isl.group.position.clone();
+    const mid = from.clone().lerp(to, 0.5); mid.y = Math.max(from.y, to.y) + 6;
+    const curve = new THREE.QuadraticBezierCurve3(from, mid, to);
+    const pts = curve.getPoints(36);
+    const geo = new THREE.BufferGeometry().setFromPoints(pts);
+    const rm = new THREE.LineDashedMaterial({ color: 0x9ecdb4, dashSize: 0.7, gapSize: 0.55, transparent: true, opacity: 0.55 });
+    const line = new THREE.Line(geo, rm);
+    line.computeLineDistances();
+    scene.add(line);
+    routeMats.push({ id: isl.id, mat: rm });
+  });
+
+  /* ---------- 云层 ---------- */
+  const cloudMats = [];
+  const clouds = [];
+  for (let i = 0; i < 9; i++) {
+    const cm = new THREE.MeshLambertMaterial({ color: 0xffffff, transparent: true, opacity: 0.92 });
+    cloudMats.push(cm);
+    const g = new THREE.Group();
+    const n = 3 + Math.floor(Math.random() * 3);
+    for (let j = 0; j < n; j++) {
+      const s = sph(1.4 + Math.random() * 2.1, cm, (Math.random() - 0.5) * 5, Math.random() * 0.8, (Math.random() - 0.5) * 2.4, 10, 8);
+      s.scale.y = 0.45; g.add(s);
+    }
+    const ang = Math.random() * Math.PI * 2;
+    const rad = 26 + Math.random() * 68;
+    g.position.set(Math.cos(ang) * rad, -18 + Math.random() * 9, Math.sin(ang) * rad);
+    scene.add(g);
+    clouds.push({ g, speed: 0.010 + Math.random() * 0.018 });
+  }
+
+  /* ---------- 梧桐叶粒子 ---------- */
+  function leafTexture() {
+    const c = document.createElement('canvas'); c.width = 64; c.height = 64;
+    const ctx = c.getContext('2d');
+    ctx.translate(32, 32); ctx.rotate(Math.PI / 4);
+    const grad = ctx.createLinearGradient(-18, 0, 18, 0);
+    grad.addColorStop(0, 'rgba(90,190,130,0.95)');
+    grad.addColorStop(1, 'rgba(60,150,100,0.9)');
+    ctx.fillStyle = grad;
+    ctx.beginPath();
+    ctx.moveTo(0, -20);
+    ctx.quadraticCurveTo(14, -6, 0, 18);
+    ctx.quadraticCurveTo(-14, -6, 0, -20);
+    ctx.fill();
+    ctx.strokeStyle = 'rgba(40,110,75,0.9)'; ctx.lineWidth = 1.6;
+    ctx.beginPath(); ctx.moveTo(0, -18); ctx.lineTo(0, 16); ctx.stroke();
+    const t = new THREE.CanvasTexture(c); return t;
+  }
+  const LEAF_N = REDUCED ? 40 : 130;
+  const leafGeo = new THREE.BufferGeometry();
+  const leafPos = new Float32Array(LEAF_N * 3);
+  const leafCol = new Float32Array(LEAF_N * 3);
+  const leafData = [];
+  const cGreen = new THREE.Color(0x64b98a), cCoral = new THREE.Color(0xf4906f);
+  for (let i = 0; i < LEAF_N; i++) {
+    leafPos[i * 3] = (Math.random() - 0.5) * 110;
+    leafPos[i * 3 + 1] = -6 + Math.random() * 34;
+    leafPos[i * 3 + 2] = (Math.random() - 0.5) * 110;
+    const c = Math.random() < 0.82 ? cGreen : cCoral;
+    leafCol[i * 3] = c.r; leafCol[i * 3 + 1] = c.g; leafCol[i * 3 + 2] = c.b;
+    leafData.push({ speed: 0.5 + Math.random() * 0.9, phase: Math.random() * Math.PI * 2, amp: 0.4 + Math.random() * 0.7 });
+  }
+  leafGeo.setAttribute('position', new THREE.BufferAttribute(leafPos, 3));
+  leafGeo.setAttribute('color', new THREE.BufferAttribute(leafCol, 3));
+  const leafMat = new THREE.PointsMaterial({ size: 1.05, map: leafTexture(), transparent: true, depthWrite: false, vertexColors: true, sizeAttenuation: true });
+  const leaves = new THREE.Points(leafGeo, leafMat);
+  scene.add(leaves);
+
+  /* ---------- 星空（暗色主题） ---------- */
+  const starGeo = new THREE.BufferGeometry();
+  const starPos = new Float32Array(320 * 3);
+  for (let i = 0; i < 320; i++) {
+    const a = Math.random() * Math.PI * 2, p = Math.random() * Math.PI * 0.42;
+    const r = 190;
+    starPos[i * 3] = r * Math.sin(p) * Math.cos(a);
+    starPos[i * 3 + 1] = r * Math.cos(p) + 8;
+    starPos[i * 3 + 2] = r * Math.sin(p) * Math.sin(a);
+  }
+  starGeo.setAttribute('position', new THREE.BufferAttribute(starPos, 3));
+  const starsMat = new THREE.PointsMaterial({ color: 0xffffff, size: 1.4, transparent: true, opacity: 0, sizeAttenuation: false });
+  scene.add(new THREE.Points(starGeo, starsMat));
+
+  applySceneTheme(themeName);
+
+  /* ================= 相机控制（自定义轨道 + 惯性） ================= */
+  const cam = {
+    target: V3(0, 2, 0),
+    az: 0.5, pol: 1.02, dist: 62,
+    vAz: 0, vPol: 0
+  };
+  const OVERVIEW = { pos: V3(0, 40, 66), target: V3(0, 2, 0) };
+  function applyCamera() {
+    cam.pol = THREE.MathUtils.clamp(cam.pol, 0.22, 1.38);
+    cam.dist = THREE.MathUtils.clamp(cam.dist, UI.state.selected ? 9 : 16, 115);
+    camera.position.set(
+      cam.target.x + cam.dist * Math.sin(cam.pol) * Math.sin(cam.az),
+      cam.target.y + cam.dist * Math.cos(cam.pol),
+      cam.target.z + cam.dist * Math.sin(cam.pol) * Math.cos(cam.az)
+    );
+    camera.lookAt(cam.target);
+  }
+  function syncOrbitFromCamera() {
+    const d = camera.position.clone().sub(cam.target);
+    cam.dist = d.length();
+    cam.pol = Math.acos(THREE.MathUtils.clamp(d.y / cam.dist, -1, 1));
+    cam.az = Math.atan2(d.x, d.z);
+  }
+  function viewpointOf(id) {
+    const isl = islands.find(i => i.id === id);
+    if (!isl || id === 'home') return { pos: V3(0, 15, 26), target: V3(0, 4, 0) };
+    const p = isl.group.position;
+    const dir = V3(p.x, 0, p.z).normalize();
+    return { pos: p.clone().add(dir.multiplyScalar(id === 'ai' ? 20 : 17)).add(V3(0, 9.5, 0)), target: p.clone().add(V3(0, 2.6, 0)) };
+  }
+
+  /* ---------- 飞行动画 ---------- */
+  let flight = null;
+  function flyTo(pos, target, dur) {
+    const d = dur !== undefined ? dur : (REDUCED ? 60 : 1500);
+    flight = { t0: performance.now(), dur: d, fp: camera.position.clone(), tp: pos.clone(), ft: cam.target.clone(), tt: target.clone() };
+    cam.vAz = cam.vPol = 0;
+  }
+  function stepFlight(now) {
+    if (!flight) return;
+    let k = (now - flight.t0) / flight.dur;
+    if (k >= 1) {
+      camera.position.copy(flight.tp); cam.target.copy(flight.tt);
+      syncOrbitFromCamera(); flight = null; return;
+    }
+    const e = k < 0.5 ? 4 * k * k * k : 1 - Math.pow(-2 * k + 2, 3) / 2; // easeInOutCubic
+    camera.position.lerpVectors(flight.fp, flight.tp, e);
+    cam.target.lerpVectors(flight.ft, flight.tt, e);
+    camera.lookAt(cam.target);
+  }
+
+  /* ================= HTML 标签投影 ================= */
+  const labelsRoot = document.getElementById('labels');
+  const MODULES_JS = {
+    home: { name: '综合门户', icon: 'home', desc: '校园动态一屏纵览' },
+    activity: { name: '校园活动', icon: 'calendar', desc: '发布 · 报名 · 签到' },
+    idle: { name: '闲置互换', icon: 'bag', desc: 'AI 智能估价' },
+    lost: { name: '失物招领', icon: 'lost', desc: 'AI 智能匹配' },
+    partner: { name: '学习搭子', icon: 'users', desc: 'AI 匹配撮合' },
+    qa: { name: '互助问答', icon: 'qa', desc: 'AI 参考回答' },
+    social: { name: '动态广场', icon: 'chat', desc: '图文 · 点赞 · 评论' },
+    notice: { name: '校园公告', icon: 'megaphone', desc: '权威通知' },
+    message: { name: '消息中心', icon: 'bell', desc: '站内信 + 私信' },
+    ai: { name: 'AI 学习', icon: 'spark', desc: '答疑 · 代码 · 错题本' }
+  };
+  const ICON_PATHS = {
+    home: '<path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/>',
+    calendar: '<rect x="3" y="4" width="18" height="17" rx="2"/><path d="M3 9h18M8 2v4M16 2v4"/>',
+    bag: '<path d="M3 7h18l-2 13H5z"/><path d="M3 7l-1-3H0M6 11v6M10 11v6M14 11v6M18 11v6"/>',
+    lost: '<circle cx="12" cy="8" r="5"/><path d="M9 13l-1.5 8L12 18l4.5 3L15 13"/>',
+    chat: '<path d="M21 11.5a8.5 8.5 0 0 1-12.5 7.5L3 21l2-5.5A8.5 8.5 0 1 1 21 11.5z"/>',
+    megaphone: '<path d="M3 11l18-5v12L3 13zM11.6 16.8a3 3 0 1 1-5.8-1.6"/>',
+    spark: '<path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M18.4 5.6l-2.1 2.1M7.7 16.3l-2.1 2.1"/><circle cx="12" cy="12" r="3"/>',
+    bell: '<path d="M18 8a6 6 0 1 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/>',
+    users: '<circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0M16 4.6a3.5 3.5 0 0 1 0 6.8M21.5 20a6.5 6.5 0 0 0-4.5-6.2"/>',
+    qa: '<path d="M5 19h9a7 7 0 0 0 0-14H8"/><path d="M8 8H5.5A2.5 2.5 0 0 0 3 10.5 2.5 2.5 0 0 0 5.5 13H8"/>'
+  };
+  islands.forEach(isl => {
+    const m = MODULES_JS[isl.id];
+    const el = document.createElement('button');
+    el.className = 'isl-label' + (isl.id === 'ai' ? ' accent' : '');
+    el.setAttribute('aria-label', m.name);
+    el.dataset.island = isl.id;
+    el.innerHTML = '<span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">' + ICON_PATHS[m.icon] + '</svg></span>' +
+      '<span>' + m.name + '</span><span class="desc">' + m.desc + '</span>';
+    el.addEventListener('click', (e) => { e.stopPropagation(); window.__ui.selectModule(isl.id); });
+    labelsRoot.appendChild(el);
+    isl.labelEl = el;
+  });
+
+  const _pv = new THREE.Vector3();
+  function updateLabels() {
+    const w = window.innerWidth, h = window.innerHeight;
+    islands.forEach(isl => {
+      _pv.copy(isl.group.position); _pv.y += isl.anchorY + Math.sin(tGlobal * 0.5 + isl.phase) * 0.5;
+      const dist = _pv.distanceTo(camera.position);
+      _pv.project(camera);
+      if (_pv.z > 1 || Math.abs(_pv.x) > 1.25 || Math.abs(_pv.y) > 1.25) { isl.labelEl.style.opacity = '0'; isl.labelEl.style.pointerEvents = 'none'; return; }
+      const x = (_pv.x * 0.5 + 0.5) * w, y = (-_pv.y * 0.5 + 0.5) * h;
+      const sc = THREE.MathUtils.clamp(46 / dist, 0.66, 1.02);
+      isl.labelEl.style.transform = 'translate(-50%,-100%) translate(' + x.toFixed(1) + 'px,' + y.toFixed(1) + 'px) scale(' + sc.toFixed(2) + ')';
+      isl.labelEl.style.opacity = String(THREE.MathUtils.clamp(1.35 - dist / 130, 0.35, 1));
+      isl.labelEl.style.pointerEvents = 'auto';
+      isl.labelEl.classList.toggle('active', UI.state.selected === isl.id);
+    });
+  }
+
+  /* ================= 拾取（悬浮 / 点击） ================= */
+  const raycaster = new THREE.Raycaster();
+  const pointerNDC = new THREE.Vector2(-2, -2);
+  let hoveredId = null;
+  function pick() {
+    raycaster.setFromCamera(pointerNDC, camera);
+    const hits = raycaster.intersectObjects(islandRoot.children, true);
+    if (hits.length) {
+      const id = hits[0].object.userData.islandId;
+      if (id) { hoveredId = id; return; }
+    }
+    hoveredId = null;
+  }
+
+  /* ================= 指针 / 滚轮 / 键盘 =================
+     左键拖拽 = 旋转；右键/中键拖拽 = 平移；滚轮 = 缩放
+     监听同时绑在画布与标签层上：从岛屿标签上开始拖拽同样生效 */
+  const dom = renderer.domElement;
+  const labelsRootEl = document.getElementById('labels');
+  let dragging = false, panDrag = false, downX = 0, downY = 0, downT = 0, lastX = 0, lastY = 0, moved = 0;
+  let idleTimer = 0, downOnLabelId = null;
+
+  /* 平移：沿相机右/上方向移动注视目标 */
+  const _panR = new THREE.Vector3(), _panU = new THREE.Vector3();
+  function panBy(dx, dy) {
+    const k = cam.dist * 0.0012;
+    _panR.setFromMatrixColumn(camera.matrix, 0);
+    _panU.setFromMatrixColumn(camera.matrix, 1);
+    cam.target.addScaledVector(_panR, -dx * k).addScaledVector(_panU, dy * k);
+  }
+
+  function onPointerDown(e) {
+    dragging = true;
+    panDrag = e.button === 1 || e.button === 2;
+    moved = 0;
+    downX = lastX = e.clientX; downY = lastY = e.clientY; downT = performance.now();
+    const lbl = e.target && e.target.closest ? e.target.closest('.isl-label') : null;
+    downOnLabelId = lbl ? lbl.dataset.island : null;
+    if (e.button === 1) e.preventDefault(); /* 阻止中键自动滚动 */
+    try { e.currentTarget.setPointerCapture(e.pointerId); } catch (err) { /* 合成事件无有效指针时忽略 */ }
+  }
+  function onPointerMove(e) {
+    pointerNDC.set((e.clientX / window.innerWidth) * 2 - 1, -(e.clientY / window.innerHeight) * 2 + 1);
+    if (!dragging) { pick(); idleTimer = 0; return; }
+    const dx = e.clientX - lastX, dy = e.clientY - lastY;
+    lastX = e.clientX; lastY = e.clientY;
+    moved += Math.abs(dx) + Math.abs(dy);
+    if (panDrag) { panBy(dx, dy); }
+    else {
+      const s = REDUCED ? 0.0032 : 0.005;
+      cam.az -= dx * s; cam.pol -= dy * s * 0.82;
+      cam.vAz = -dx * s * 0.4; cam.vPol = -dy * s * 0.33;
+    }
+    flight = null;
+    idleTimer = 0;
+  }
+  function onPointerUp(e) {
+    dragging = false;
+    const quick = performance.now() - downT < 420;
+    const tiny = moved < 7;
+    pointerNDC.set((e.clientX / window.innerWidth) * 2 - 1, -(e.clientY / window.innerHeight) * 2 + 1);
+    /* 快速点击且几乎没有位移：标签点击 → 选中对应岛；画布点击 → 射线拾取 */
+    if (quick && tiny) {
+      if (downOnLabelId) window.__ui.selectModule(downOnLabelId);
+      else { pick(); if (hoveredId) window.__ui.selectModule(hoveredId); }
+    }
+    downOnLabelId = null;
+  }
+
+  [dom, labelsRootEl].forEach(function (el) {
+    el.addEventListener('pointerdown', onPointerDown);
+    el.addEventListener('pointermove', onPointerMove);
+    el.addEventListener('pointerup', onPointerUp);
+    el.addEventListener('contextmenu', function (e) { e.preventDefault(); });
+  });
+  dom.addEventListener('pointerleave', () => { hoveredId = null; });
+  dom.addEventListener('wheel', (e) => {
+    e.preventDefault();
+    cam.dist *= 1 + Math.sign(e.deltaY) * 0.09;
+    flight = null; idleTimer = 0;
+  }, { passive: false });
+
+  window.addEventListener('keydown', (e) => {
+    if (e.target && (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA')) return;
+    if (document.body.getAttribute('data-mode') !== '3d') return;
+    const step = 0.09;
+    if (e.key === 'ArrowLeft') { cam.az -= step; flight = null; e.preventDefault(); }
+    else if (e.key === 'ArrowRight') { cam.az += step; flight = null; e.preventDefault(); }
+    else if (e.key === 'ArrowUp') { cam.pol -= step; flight = null; e.preventDefault(); }
+    else if (e.key === 'ArrowDown') { cam.pol += step; flight = null; e.preventDefault(); }
+  });
+
+  window.addEventListener('resize', () => {
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+  });
+
+  /* ================= 渲染循环 ================= */
+  let tGlobal = 0, lastT = performance.now(), paused = false, rafId = null;
+  function loop(now) {
+    rafId = requestAnimationFrame(loop);
+    if (paused) return;
+    const dt = Math.min((now - lastT) / 1000, 0.05); lastT = now;
+    tGlobal += dt;
+    idleTimer += dt;
+
+    stepFlight(now);
+    if (!flight) {
+      /* 惯性 + 闲置自转 */
+      cam.az += cam.vAz; cam.pol += cam.vPol;
+      cam.vAz *= 0.90; cam.vPol *= 0.90;
+      if (!REDUCED && !dragging && idleTimer > 6 && !UI.state.selected) cam.az += dt * 0.045;
+      applyCamera();
+    }
+
+    /* 岛屿悬浮 + 悬停抬升 + 环旋转 */
+    islands.forEach(isl => {
+      const target = hoveredId === isl.id ? 1 : 0;
+      isl.hoverT += (target - isl.hoverT) * Math.min(1, dt * 7);
+      isl.group.position.y = isl.baseY + Math.sin(tGlobal * 0.5 + isl.phase) * 0.5 + isl.hoverT * 1.25;
+      isl.ring.rotation.z += dt * (0.25 + isl.hoverT * 1.1 + (UI.state.selected === isl.id ? 1.5 : 0));
+      isl.ring.material.color.set(UI.state.selected === isl.id ? coralRing : brandRing);
+      const ud = isl.building.userData;
+      if (ud.planes) ud.planes.rotation.y += dt * 0.8;
+      if (ud.crystal) { ud.crystal.rotation.y += dt * 0.9; ud.crystal.position.y = 6.1 + Math.sin(tGlobal * 1.2) * 0.35; }
+      if (ud.rings) { ud.rings[0].rotation.z += dt * 0.5; ud.rings[1].rotation.z -= dt * 0.35; }
+    });
+    /* 航线高亮 */
+    routeMats.forEach(rm => {
+      const on = UI.state.selected === rm.id;
+      rm.mat.color.set(on ? 0xf4906f : 0x9ecdb4);
+      rm.mat.opacity = on ? 0.95 : 0.5;
+    });
+
+    /* 云、叶、光标 */
+    clouds.forEach(c => { c.g.position.x += c.speed * (REDUCED ? 0.3 : 1); if (c.g.position.x > 105) c.g.position.x = -105; });
+    const spd = REDUCED ? 0.25 : 1;
+    const lp = leafGeo.attributes.position.array;
+    for (let i = 0; i < LEAF_N; i++) {
+      const d = leafData[i];
+      lp[i * 3 + 1] -= d.speed * dt * spd;
+      lp[i * 3] += Math.sin(tGlobal * 0.8 + d.phase) * d.amp * dt * spd;
+      if (lp[i * 3 + 1] < -9) { lp[i * 3 + 1] = 26 + Math.random() * 6; lp[i * 3] = (Math.random() - 0.5) * 110; lp[i * 3 + 2] = (Math.random() - 0.5) * 110; }
+    }
+    leafGeo.attributes.position.needsUpdate = true;
+
+    dom.style.cursor = dragging ? 'grabbing' : (hoveredId ? 'pointer' : 'grab');
+
+    updateLabels();
+    renderer.render(scene, camera);
+  }
+
+  /* ================= 对 UI 层暴露的 3D API ================= */
+  window.__three = {
+    ready: true,
+    flyToIsland(id) {
+      const vp = viewpointOf(id);
+      flyTo(vp.pos, vp.target);
+    },
+    goOverview() { flyTo(OVERVIEW.pos, OVERVIEW.target); },
+    enterCampus() {
+      camera.position.set(-20, 96, 150);
+      cam.target.set(0, 2, 0);
+      camera.lookAt(cam.target);
+      flyTo(OVERVIEW.pos, OVERVIEW.target, REDUCED ? 60 : 2400);
+    },
+    setTheme(name) { applySceneTheme(name); },
+    setPaused(p) { paused = p; }
+  };
+
+  /* 初始相机（序幕期间缓慢漂移的远景） */
+  camera.position.set(-26, 84, 148);
+  cam.target.set(0, 2, 0);
+  camera.lookAt(cam.target);
+  applyCamera();
+
+  clearTimeout(timer);
+  rafId = requestAnimationFrame(loop);
+
+  document.addEventListener('visibilitychange', () => { paused = document.hidden; });
+
+  /* 若 UI 已经先行进入（CDN 慢但成功） */
+  if (document.body.getAttribute('data-boot') === 'ready') window.__three.enterCampus();
+})().catch(err => {
+  console.warn('[spatial] 3D 初始化异常', err);
+  if (window.__spatialSetMode) window.__spatialSetMode('2d', true);
+});
+</script>
+</body>
+</html>

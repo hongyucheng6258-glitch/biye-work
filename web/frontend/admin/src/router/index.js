@@ -51,12 +51,23 @@ router.beforeEach((to) => {
     return { path: '/login', query: { redirect: to.fullPath } }
   }
   if (to.meta.superOnly) {
-    const info = JSON.parse(localStorage.getItem('admin_info') || 'null')
+    // admin_info 本地 JSON 可能损坏：容错解析，解析失败按非超管处理，不令导航守卫崩溃
+    const info = safeParseAdminInfo()
     if (info?.role !== 'super') {
       return { path: '/dashboard' }
     }
   }
   return true
 })
+
+/** 容错解析 admin_info 本地缓存，损坏时返回 null */
+function safeParseAdminInfo() {
+  try {
+    return JSON.parse(localStorage.getItem('admin_info') || 'null')
+  } catch (e) {
+    localStorage.removeItem('admin_info')
+    return null
+  }
+}
 
 export default router

@@ -1,0 +1,2740 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>梧桐校园 · 管理端 UI 原型</title>
+<style>
+/* ============================================================
+   梧桐校园 · 管理端设计 Token（升级版）
+   暖色编辑风 · 梧桐绿(品牌·深) + 暖珊瑚(强调) + 信息蓝 + 成就金 + 典雅紫
+   主色较学生端深一档（L45%），更严肃；信息密度更高。
+   ============================================================ */
+:root {
+  /* —— 中性 / 表面（暖奶油调） —— */
+  --paper:        oklch(97.5% 0.012 95);
+  --surface:      oklch(100% 0 0);
+  --surface-2:    oklch(96.5% 0.01 95);
+  --surface-3:    oklch(94% 0.012 95);
+  --ink:          oklch(25% 0.02 95);
+  --ink-2:        oklch(44% 0.02 95);
+  --ink-3:        oklch(61% 0.015 95);
+  --line:         oklch(90% 0.012 95);
+  --line-strong:  oklch(83% 0.014 95);
+
+  /* —— 品牌：梧桐绿（管理端 · 深一档） —— */
+  --brand:        oklch(45% 0.12 168);
+  --brand-strong: oklch(38% 0.12 168);
+  --brand-deep:   oklch(32% 0.11 168);
+  --brand-ink:    oklch(99% 0.02 168);
+  --brand-soft:   oklch(94% 0.04 168);
+  --brand-line:   oklch(85% 0.07 168);
+
+  /* —— 强调：暖珊瑚（能量 / 高亮） —— */
+  --accent:        oklch(68% 0.17 48);
+  --accent-strong: oklch(60% 0.17 48);
+  --accent-ink:    oklch(99% 0.02 48);
+  --accent-soft:   oklch(95% 0.05 48);
+  --accent-line:   oklch(87% 0.09 48);
+
+  /* —— 信息蓝（AI / 链接 / 提示）【新增】 —— */
+  --info:        oklch(55% 0.09 230);
+  --info-strong: oklch(47% 0.1 230);
+  --info-ink:    oklch(99% 0.02 230);
+  --info-soft:   oklch(94% 0.035 230);
+  --info-line:   oklch(85% 0.06 230);
+
+  /* —— 成就金（勋章 / 积分 / 预警）【新增】 —— */
+  --gold:        oklch(75% 0.13 75);
+  --gold-strong: oklch(58% 0.13 75);
+  --gold-soft:   oklch(96% 0.055 75);
+  --gold-line:   oklch(88% 0.08 75);
+
+  /* —— 典雅紫（角色 / 权限）【新增】 —— */
+  --purple:        oklch(45% 0.13 290);
+  --purple-strong: oklch(38% 0.13 290);
+  --purple-soft:   oklch(95% 0.04 290);
+  --purple-line:   oklch(87% 0.06 290);
+
+  /* —— 语义色 —— */
+  --success:      oklch(58% 0.13 150);
+  --success-soft: oklch(95% 0.045 150);
+  --warning:      oklch(70% 0.15 75);
+  --warning-soft: oklch(96% 0.06 75);
+  --error:        oklch(58% 0.18 25);
+  --error-soft:   oklch(95% 0.045 25);
+
+  /* —— 深色侧栏（管理端特征，双主题恒定） —— */
+  --side-bg:  linear-gradient(180deg, oklch(26% 0.035 168) 0%, oklch(21% 0.028 168) 100%);
+  --side-ink: oklch(90% 0.02 168);
+  --side-ink-3: oklch(66% 0.025 168);
+  --side-line: oklch(100% 0 0 / .08);
+  --side-active: oklch(45% 0.12 168 / .28);
+  --side-hover: oklch(100% 0 0 / .06);
+
+  /* —— 间距（4pt 基准） —— */
+  --s-1:4px; --s-2:8px; --s-3:12px; --s-4:16px; --s-5:24px;
+  --s-6:32px; --s-7:48px; --s-8:64px;
+
+  /* —— 圆角（管理端更硬朗） —— */
+  --r-xs:6px; --r-sm:8px; --r-md:10px; --r-lg:14px; --r-xl:20px; --r-pill:999px;
+
+  /* —— 字体 —— */
+  --font-sans: "Plus Jakarta Sans","PingFang SC","Microsoft YaHei","Noto Sans SC",system-ui,sans-serif;
+  --font-display: "Fraunces","Songti SC",Georgia,serif;
+  --font-mono: ui-monospace,"SF Mono","Cascadia Code",Consolas,monospace;
+
+  /* —— 字阶（管理端紧凑） —— */
+  --fs-h1:1.375rem; --fs-h2:1.125rem; --fs-h3:1rem;
+  --fs-body:0.9rem; --fs-sm:0.8125rem; --fs-xs:0.75rem; --fs-cap:0.6875rem;
+
+  /* —— 阴影（克制） —— */
+  --shadow-sm: 0 1px 2px oklch(25% 0.02 95 / .05), 0 1px 3px oklch(25% 0.02 95 / .04);
+  --shadow-md: 0 4px 12px oklch(25% 0.02 95 / .07);
+  --shadow-lg: 0 14px 32px oklch(25% 0.02 95 / .11);
+
+  --ease-out: cubic-bezier(0.16,1,0.3,1);
+}
+
+:root[data-theme="dark"] {
+  --paper:        oklch(16% 0.014 90);
+  --surface:      oklch(21% 0.014 90);
+  --surface-2:    oklch(25% 0.014 90);
+  --surface-3:    oklch(29% 0.016 90);
+  --ink:          oklch(93% 0.01 90);
+  --ink-2:        oklch(76% 0.012 90);
+  --ink-3:        oklch(60% 0.012 90);
+  --line:         oklch(33% 0.014 90);
+  --line-strong:  oklch(41% 0.014 90);
+
+  --brand:        oklch(70% 0.12 168);
+  --brand-strong: oklch(62% 0.12 168);
+  --brand-deep:   oklch(52% 0.12 168);
+  --brand-ink:    oklch(16% 0.04 168);
+  --brand-soft:   oklch(27% 0.055 168);
+  --brand-line:   oklch(39% 0.08 168);
+
+  --accent:        oklch(74% 0.16 48);
+  --accent-strong: oklch(66% 0.16 48);
+  --accent-ink:    oklch(20% 0.05 48);
+  --accent-soft:   oklch(28% 0.06 48);
+  --accent-line:   oklch(40% 0.09 48);
+
+  --info:        oklch(70% 0.1 230);
+  --info-strong: oklch(62% 0.1 230);
+  --info-ink:    oklch(16% 0.04 230);
+  --info-soft:   oklch(27% 0.06 230);
+  --info-line:   oklch(39% 0.07 230);
+
+  --gold:        oklch(80% 0.13 75);
+  --gold-strong: oklch(70% 0.13 75);
+  --gold-soft:   oklch(28% 0.06 75);
+  --gold-line:   oklch(40% 0.08 75);
+
+  --purple:        oklch(68% 0.13 290);
+  --purple-strong: oklch(60% 0.13 290);
+  --purple-soft:   oklch(27% 0.06 290);
+  --purple-line:   oklch(39% 0.07 290);
+
+  --success:      oklch(70% 0.13 150);
+  --success-soft: oklch(27% 0.055 150);
+  --warning:      oklch(78% 0.14 75);
+  --warning-soft: oklch(28% 0.065 75);
+  --error:        oklch(68% 0.17 25);
+  --error-soft:   oklch(27% 0.06 25);
+
+  --side-bg:  linear-gradient(180deg, oklch(24% 0.032 168) 0%, oklch(19% 0.026 168) 100%);
+  --side-ink: oklch(90% 0.02 168);
+  --side-ink-3: oklch(64% 0.025 168);
+  --side-line: oklch(100% 0 0 / .07);
+  --side-active: oklch(70% 0.12 168 / .22);
+  --side-hover: oklch(100% 0 0 / .05);
+
+  --shadow-sm: 0 1px 2px oklch(0% 0 0 / .3), 0 1px 3px oklch(0% 0 0 / .25);
+  --shadow-md: 0 4px 12px oklch(0% 0 0 / .38);
+  --shadow-lg: 0 14px 32px oklch(0% 0 0 / .5);
+}
+
+/* ============ 基础 ============ */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: 100%; }
+body {
+  font-family: var(--font-sans);
+  background: var(--paper);
+  color: var(--ink);
+  font-size: var(--fs-body);
+  line-height: 1.45;
+  -webkit-font-smoothing: antialiased;
+  transition: background 0.3s var(--ease-out), color 0.3s;
+}
+a { color: inherit; text-decoration: none; }
+button { font-family: inherit; cursor: pointer; border: none; background: none; color: inherit; }
+input, select, textarea { font-family: inherit; font-size: inherit; }
+img { max-width: 100%; display: block; }
+::selection { background: var(--brand-soft); }
+
+/* ============ 按钮体系 ============ */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+  padding: 9px 16px; border-radius: var(--r-sm); font-weight: 600; font-size: var(--fs-sm);
+  transition: background .18s var(--ease-out), border-color .18s, color .18s, transform .12s, box-shadow .18s;
+  white-space: nowrap;
+}
+.btn:active { transform: translateY(1px); }
+.btn-primary { background: var(--brand); color: var(--brand-ink); }
+.btn-primary:hover { background: var(--brand-strong); box-shadow: var(--shadow-sm); }
+.btn-success { background: var(--success); color: #fff; }
+.btn-success:hover { filter: brightness(1.08); box-shadow: var(--shadow-sm); }
+.btn-warning { background: var(--warning); color: oklch(24% 0.06 75); }
+.btn-warning:hover { filter: brightness(1.04); box-shadow: var(--shadow-sm); }
+.btn-danger { background: var(--error); color: #fff; }
+.btn-danger:hover { filter: brightness(1.08); box-shadow: var(--shadow-sm); }
+.btn-accent { background: var(--accent); color: var(--accent-ink); }
+.btn-accent:hover { background: var(--accent-strong); }
+.btn-ghost { background: var(--surface); color: var(--ink-2); border: 1px solid var(--line-strong); }
+.btn-ghost:hover { border-color: var(--brand-line); color: var(--ink); background: var(--surface-2); }
+.btn-ghost-danger { background: var(--surface); color: var(--error); border: 1px solid var(--line-strong); }
+.btn-ghost-danger:hover { border-color: var(--error); background: var(--error-soft); }
+.btn-ghost-success { background: var(--surface); color: var(--success); border: 1px solid var(--line-strong); }
+.btn-ghost-success:hover { border-color: var(--success); background: var(--success-soft); }
+.btn-sm { padding: 5px 10px; font-size: var(--fs-xs); border-radius: var(--r-xs); }
+.btn-block { width: 100%; }
+.btn svg { width: 15px; height: 15px; }
+.link-btn { color: var(--brand); font-weight: 600; font-size: var(--fs-sm); cursor: pointer; }
+.link-btn:hover { text-decoration: underline; }
+.link-btn.danger { color: var(--error); }
+.link-btn + .link-btn { margin-left: 12px; }
+
+/* ============ 标签体系 ============ */
+.tag {
+  display: inline-flex; align-items: center; gap: 4px; padding: 2px 9px;
+  border-radius: var(--r-pill); font-size: var(--fs-cap); font-weight: 600;
+  letter-spacing: .02em; white-space: nowrap;
+}
+.tag::before { content: ""; width: 5px; height: 5px; border-radius: 50%; background: currentColor; opacity: .85; }
+.tag-brand { background: var(--brand-soft); color: var(--brand-strong); }
+.tag-accent { background: var(--accent-soft); color: var(--accent-strong); }
+.tag-info { background: var(--info-soft); color: var(--info-strong); }
+.tag-gold { background: var(--gold-soft); color: var(--gold-strong); }
+.tag-purple { background: var(--purple-soft); color: var(--purple); }
+.tag-success { background: var(--success-soft); color: var(--success); }
+.tag-warning { background: var(--warning-soft); color: var(--gold-strong); }
+.tag-error { background: var(--error-soft); color: var(--error); }
+.tag-neutral { background: var(--surface-3); color: var(--ink-2); }
+.tag-plain::before { display: none; }
+
+/* ============ 卡片 ============ */
+.card {
+  background: var(--surface); border: 1px solid var(--line);
+  border-radius: var(--r-lg); padding: var(--s-5);
+  transition: box-shadow .25s var(--ease-out), border-color .25s;
+}
+.card-head { display: flex; align-items: center; justify-content: space-between; gap: var(--s-3); margin-bottom: var(--s-4); }
+.card-title { font-family: var(--font-display); font-weight: 600; font-size: var(--fs-h3); }
+.card-sub { font-size: var(--fs-xs); color: var(--ink-3); margin-top: 2px; }
+
+/* ============ 管理端布局 ============ */
+.admin-shell { display: none; grid-template-columns: 232px 1fr; min-height: 100vh; }
+.admin-shell.show { display: grid; }
+
+/* —— 深色侧栏 —— */
+.sidebar {
+  position: sticky; top: 0; height: 100vh; z-index: 30;
+  display: flex; flex-direction: column; gap: 2px;
+  padding: 20px 12px 16px;
+  background: var(--side-bg);
+  color: var(--side-ink);
+  overflow-y: auto; overflow-x: hidden;
+  transition: width .25s var(--ease-out);
+}
+.brand { display: flex; align-items: center; gap: 10px; padding: 6px 8px; margin-bottom: 14px; }
+.brand-mark {
+  width: 38px; height: 38px; border-radius: 11px; flex: none;
+  display: grid; place-items: center; font-family: var(--font-display);
+  font-weight: 600; font-size: 1.15rem; color: #fff;
+  background: linear-gradient(140deg, var(--brand), var(--brand-deep));
+  box-shadow: 0 2px 8px oklch(0% 0 0 / .3);
+}
+.brand-name { font-family: var(--font-display); font-weight: 600; font-size: 1.05rem; line-height: 1.15; color: #fff; }
+.brand-sub { font-size: var(--fs-cap); color: var(--side-ink-3); letter-spacing: .06em; text-transform: uppercase; }
+
+.nav-label { font-size: var(--fs-cap); color: var(--side-ink-3); letter-spacing: .1em; padding: 14px 10px 5px; white-space: nowrap; }
+.nav-item {
+  display: flex; align-items: center; gap: 11px; width: 100%;
+  padding: 9px 10px; border-radius: var(--r-sm);
+  font-size: var(--fs-sm); font-weight: 500; color: var(--side-ink-3);
+  transition: background .18s, color .18s; cursor: pointer; position: relative;
+  white-space: nowrap;
+}
+.nav-item svg { width: 18px; height: 18px; flex: none; }
+.nav-item:hover { background: var(--side-hover); color: var(--side-ink); }
+.nav-item.active { background: var(--side-active); color: #fff; font-weight: 600; }
+.nav-item.active::before { content: ""; position: absolute; left: -12px; top: 20%; bottom: 20%; width: 3px; border-radius: 2px; background: var(--accent); }
+.nav-count { margin-left: auto; background: var(--accent); color: var(--accent-ink); font-size: 10px; font-weight: 700; min-width: 18px; height: 17px; padding: 0 5px; border-radius: var(--r-pill); display: grid; place-items: center; }
+.nav-count.gold { background: var(--gold); color: oklch(24% 0.06 75); }
+
+.sidebar-foot { margin-top: auto; padding-top: 12px; border-top: 1px solid var(--side-line); }
+.side-user { display: flex; align-items: center; gap: 10px; padding: 8px; border-radius: var(--r-sm); cursor: pointer; transition: background .18s; }
+.side-user:hover { background: var(--side-hover); }
+.side-avatar { width: 34px; height: 34px; border-radius: 50%; background: linear-gradient(140deg, var(--purple), var(--info)); color: #fff; display: grid; place-items: center; font-weight: 600; font-size: var(--fs-xs); flex: none; }
+.side-user-meta { line-height: 1.2; min-width: 0; }
+.side-user-meta b { display: block; font-size: var(--fs-sm); color: #fff; }
+.side-user-meta span { font-size: var(--fs-cap); color: var(--side-ink-3); }
+
+/* —— 主区 —— */
+.main { display: flex; flex-direction: column; min-width: 0; }
+.topbar {
+  position: sticky; top: 0; z-index: 20;
+  display: flex; align-items: center; gap: var(--s-4);
+  height: 60px; padding: 0 var(--s-6);
+  background: color-mix(in srgb, var(--paper) 85%, transparent);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--line);
+}
+.crumbs { display: flex; align-items: center; gap: 8px; font-size: var(--fs-sm); color: var(--ink-3); }
+.crumbs b { color: var(--ink); font-weight: 600; }
+.crumbs .sep { opacity: .5; }
+.topbar-search { flex: 1; max-width: 420px; position: relative; }
+.topbar-search svg { position: absolute; left: 12px; top: 50%; width: 16px; height: 16px; transform: translateY(-50%); color: var(--ink-3); pointer-events: none; }
+.topbar-search input {
+  width: 100%; height: 38px; padding: 0 14px 0 36px;
+  border: 1px solid var(--line); border-radius: var(--r-sm);
+  background: var(--surface-2); color: var(--ink); font-size: var(--fs-sm);
+  transition: border-color .2s, box-shadow .2s, background .2s;
+}
+.topbar-search input:focus { outline: none; border-color: var(--brand); background: var(--surface); box-shadow: 0 0 0 3px var(--brand-soft); }
+.top-actions { display: flex; align-items: center; gap: 8px; margin-left: auto; }
+.icon-btn {
+  position: relative; width: 38px; height: 38px; border-radius: var(--r-sm);
+  display: grid; place-items: center; color: var(--ink-2);
+  border: 1px solid var(--line); background: var(--surface);
+  transition: background .18s, color .18s, border-color .18s;
+}
+.icon-btn:hover { background: var(--surface-2); color: var(--ink); }
+.icon-btn svg { width: 17px; height: 17px; }
+.badge-dot { position: absolute; top: -4px; right: -4px; min-width: 16px; height: 16px; padding: 0 4px; border-radius: var(--r-pill); background: var(--accent); color: var(--accent-ink); font-size: 10px; font-weight: 700; display: grid; place-items: center; }
+
+.content { padding: var(--s-6); max-width: 1440px; width: 100%; margin: 0 auto; }
+.page { display: none; }
+.page.active { display: block; animation: fadeUp .35s var(--ease-out); }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+.page-head { display: flex; align-items: flex-start; justify-content: space-between; gap: var(--s-4); margin-bottom: var(--s-5); }
+.page-head h1 { font-family: var(--font-display); font-size: var(--fs-h1); font-weight: 600; margin-bottom: 4px; letter-spacing: -.01em; }
+.page-head .desc { color: var(--ink-3); font-size: var(--fs-sm); }
+.page-head-actions { display: flex; gap: var(--s-2); flex: none; }
+
+/* ============ KPI 卡 ============ */
+.kpi-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--s-4); margin-bottom: var(--s-5); }
+.kpi { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-lg); padding: var(--s-4) var(--s-5); display: flex; gap: var(--s-4); align-items: center; transition: box-shadow .25s, border-color .25s; }
+.kpi:hover { box-shadow: var(--shadow-md); border-color: var(--brand-line); }
+.kpi-icon { width: 46px; height: 46px; border-radius: var(--r-md); display: grid; place-items: center; flex: none; }
+.kpi-icon svg { width: 22px; height: 22px; }
+.kpi-icon.brand { background: var(--brand-soft); color: var(--brand-strong); }
+.kpi-icon.accent { background: var(--accent-soft); color: var(--accent-strong); }
+.kpi-icon.info { background: var(--info-soft); color: var(--info-strong); }
+.kpi-icon.gold { background: var(--gold-soft); color: var(--gold-strong); }
+.kpi-body { min-width: 0; flex: 1; }
+.kpi-label { font-size: var(--fs-xs); color: var(--ink-3); font-weight: 500; }
+.kpi-value { font-family: var(--font-display); font-size: 1.55rem; font-weight: 600; line-height: 1.2; letter-spacing: -.01em; }
+.kpi-value small { font-size: var(--fs-sm); color: var(--ink-3); font-weight: 500; }
+.kpi-trend { display: inline-flex; align-items: center; gap: 3px; font-size: var(--fs-cap); font-weight: 700; margin-top: 3px; }
+.kpi-trend.up { color: var(--success); }
+.kpi-trend.down { color: var(--error); }
+.kpi-trend.flat { color: var(--ink-3); font-weight: 500; }
+.kpi-trend svg { width: 11px; height: 11px; }
+.kpi-trend span { color: var(--ink-3); font-weight: 400; }
+
+/* ============ 图表 ============ */
+.chart-grid { display: grid; grid-template-columns: 1fr 320px; gap: var(--s-4); margin-bottom: var(--s-4); }
+.chart-legend { display: flex; gap: var(--s-4); flex-wrap: wrap; }
+.legend-item { display: flex; align-items: center; gap: 6px; font-size: var(--fs-xs); color: var(--ink-2); }
+.legend-dot { width: 9px; height: 9px; border-radius: 3px; }
+.bars { display: flex; align-items: flex-end; gap: 10px; height: 180px; padding-top: var(--s-2); }
+.bar-col { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 6px; height: 100%; }
+.bar-track { flex: 1; width: 100%; display: flex; align-items: flex-end; gap: 3px; }
+.bar { flex: 1; border-radius: 4px 4px 2px 2px; background: var(--brand-soft); min-height: 4px; transition: filter .2s; }
+.bar.a { background: var(--brand); opacity: .85; }
+.bar.b { background: var(--gold); opacity: .8; }
+.bar-track:hover .bar { filter: brightness(1.15); }
+.bar-x { font-size: var(--fs-cap); color: var(--ink-3); }
+.donut-wrap { display: flex; align-items: center; gap: var(--s-4); }
+.donut-legend { display: flex; flex-direction: column; gap: 9px; flex: 1; }
+.dl-row { display: flex; align-items: center; gap: 8px; font-size: var(--fs-xs); color: var(--ink-2); }
+.dl-row b { margin-left: auto; font-family: var(--font-display); color: var(--ink); font-size: var(--fs-sm); }
+.dl-dot { width: 9px; height: 9px; border-radius: 3px; flex: none; }
+
+/* ============ 审核队列 / 动态流 ============ */
+.dash-grid { display: grid; grid-template-columns: 340px 1fr; gap: var(--s-4); }
+.queue-row { display: flex; align-items: center; gap: var(--s-3); padding: 10px 0; border-bottom: 1px solid var(--line); }
+.queue-row:last-child { border-bottom: none; }
+.queue-name { display: flex; align-items: center; gap: 8px; font-size: var(--fs-sm); font-weight: 500; width: 108px; flex: none; }
+.queue-name svg { width: 15px; height: 15px; color: var(--ink-3); }
+.queue-bar { flex: 1; height: 7px; border-radius: var(--r-pill); background: var(--surface-3); overflow: hidden; }
+.queue-bar span { display: block; height: 100%; border-radius: var(--r-pill); }
+.queue-num { font-size: var(--fs-sm); font-family: var(--font-display); font-weight: 600; width: 28px; text-align: right; }
+.feed-item { display: flex; gap: var(--s-3); padding: 10px 0; border-bottom: 1px solid var(--line); }
+.feed-item:last-child { border-bottom: none; }
+.feed-dot { width: 8px; height: 8px; border-radius: 50%; margin-top: 5px; flex: none; }
+.feed-txt { font-size: var(--fs-sm); line-height: 1.5; color: var(--ink-2); flex: 1; }
+.feed-txt b { color: var(--ink); font-weight: 600; }
+.feed-time { font-size: var(--fs-cap); color: var(--ink-3); flex: none; }
+.health-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--s-3); }
+.health-item { display: flex; align-items: center; gap: var(--s-3); padding: var(--s-3); border: 1px solid var(--line); border-radius: var(--r-md); background: var(--surface-2); }
+.health-state { width: 8px; height: 8px; border-radius: 50%; flex: none; }
+.health-state.ok { background: var(--success); box-shadow: 0 0 6px var(--success); }
+.health-state.warn { background: var(--warning); box-shadow: 0 0 6px var(--warning); }
+.health-state.err { background: var(--error); box-shadow: 0 0 6px var(--error); }
+.health-body { flex: 1; min-width: 0; }
+.health-body b { display: block; font-size: var(--fs-sm); }
+.health-body span { font-size: var(--fs-cap); color: var(--ink-3); }
+.health-val { font-size: var(--fs-xs); font-family: var(--font-mono); color: var(--ink-2); }
+
+/* ============ 筛选栏 ============ */
+.filter-bar { display: flex; align-items: center; gap: var(--s-2); flex-wrap: wrap; margin-bottom: var(--s-4); }
+.filter-input, .filter-select {
+  height: 36px; padding: 0 12px; border: 1px solid var(--line); border-radius: var(--r-sm);
+  background: var(--surface); color: var(--ink); font-size: var(--fs-sm);
+  transition: border-color .2s, box-shadow .2s;
+}
+.filter-input { min-width: 220px; }
+.filter-input:focus, .filter-select:focus { outline: none; border-color: var(--brand); box-shadow: 0 0 0 3px var(--brand-soft); }
+.filter-input::placeholder { color: var(--ink-3); }
+.filter-select { cursor: pointer; }
+.filter-spacer { flex: 1; }
+
+/* ============ 表格 ============ */
+.table-card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-lg); overflow: hidden; }
+.table-scroll { overflow-x: auto; }
+.table { width: 100%; border-collapse: collapse; font-size: var(--fs-sm); }
+.table th {
+  text-align: left; padding: 11px var(--s-4); background: var(--surface-2);
+  color: var(--ink-3); font-size: var(--fs-cap); font-weight: 600; letter-spacing: .05em;
+  border-bottom: 1px solid var(--line); white-space: nowrap;
+}
+.table td { padding: 12px var(--s-4); border-bottom: 1px solid var(--line); color: var(--ink-2); vertical-align: middle; white-space: nowrap; }
+.table tbody tr { transition: background .15s; }
+.table tbody tr:hover { background: var(--surface-2); }
+.table tbody tr:last-child td { border-bottom: none; }
+.cell-user { display: flex; align-items: center; gap: 10px; }
+.cell-avatar { width: 32px; height: 32px; border-radius: 50%; display: grid; place-items: center; color: #fff; font-size: var(--fs-cap); font-weight: 600; flex: none; }
+.cell-user b { display: block; color: var(--ink); font-weight: 600; font-size: var(--fs-sm); }
+.cell-user span { display: block; font-size: var(--fs-cap); color: var(--ink-3); }
+.cell-strong { color: var(--ink); font-weight: 600; }
+.cell-num { font-family: var(--font-mono); font-size: var(--fs-xs); }
+.table-foot { display: flex; align-items: center; justify-content: space-between; gap: var(--s-3); padding: var(--s-3) var(--s-4); flex-wrap: wrap; }
+.table-info { font-size: var(--fs-xs); color: var(--ink-3); }
+.pagination { display: flex; gap: 4px; }
+.page-btn { min-width: 30px; height: 30px; padding: 0 8px; border-radius: var(--r-xs); border: 1px solid var(--line); background: var(--surface); color: var(--ink-2); font-size: var(--fs-xs); font-weight: 600; display: grid; place-items: center; cursor: pointer; transition: all .15s; }
+.page-btn:hover { border-color: var(--brand-line); color: var(--brand-strong); }
+.page-btn.active { background: var(--brand); border-color: var(--brand); color: var(--brand-ink); }
+.page-btn.ellipsis { border: none; cursor: default; }
+
+/* ============ Tab 切换 ============ */
+.tabs { display: inline-flex; background: var(--surface-2); border: 1px solid var(--line); border-radius: var(--r-pill); padding: 3px; gap: 2px; }
+.tab { padding: 6px 14px; border-radius: var(--r-pill); font-size: var(--fs-xs); font-weight: 600; color: var(--ink-2); cursor: pointer; transition: background .2s, color .2s; display: inline-flex; align-items: center; gap: 6px; }
+.tab.active { background: var(--surface); color: var(--brand-strong); box-shadow: var(--shadow-sm); }
+.tab-count { background: var(--accent); color: var(--accent-ink); font-size: 10px; font-weight: 700; min-width: 17px; height: 16px; padding: 0 4px; border-radius: var(--r-pill); display: grid; place-items: center; }
+.tab.active .tab-count { background: var(--brand); color: var(--brand-ink); }
+.tab-pane { display: none; }
+.tab-pane.active { display: block; animation: fadeUp .3s var(--ease-out); }
+
+/* ============ 审核卡片 ============ */
+.review-list { display: flex; flex-direction: column; gap: var(--s-3); }
+.review-card { display: grid; grid-template-columns: 148px 1fr auto; gap: var(--s-5); padding: var(--s-4); background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-lg); transition: box-shadow .25s, border-color .25s; }
+.review-card:hover { box-shadow: var(--shadow-md); border-color: var(--brand-line); }
+.review-cover { width: 148px; height: 104px; border-radius: var(--r-md); background: var(--surface-3); overflow: hidden; display: grid; place-items: center; color: var(--ink-3); }
+.review-cover img { width: 100%; height: 100%; object-fit: cover; }
+.review-cover svg { width: 26px; height: 26px; }
+.review-body { min-width: 0; display: flex; flex-direction: column; gap: 8px; }
+.review-title { font-weight: 600; font-size: var(--fs-sm); color: var(--ink); display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.review-meta { display: flex; gap: var(--s-3); flex-wrap: wrap; font-size: var(--fs-cap); color: var(--ink-3); }
+.review-meta span { display: inline-flex; align-items: center; gap: 4px; }
+.review-meta svg { width: 12px; height: 12px; }
+.review-desc { font-size: var(--fs-sm); color: var(--ink-2); line-height: 1.55; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.review-actions { display: flex; flex-direction: column; gap: var(--s-2); justify-content: center; }
+.review-actions .btn { min-width: 92px; }
+.ai-pre { display: flex; gap: var(--s-2); align-items: flex-start; padding: var(--s-2) var(--s-3); border-radius: var(--r-sm); background: var(--info-soft); border: 1px solid var(--info-line); }
+.ai-pre-icon { width: 26px; height: 26px; border-radius: var(--r-xs); background: var(--info); color: var(--info-ink); display: grid; place-items: center; flex: none; }
+.ai-pre-icon svg { width: 14px; height: 14px; }
+.ai-pre-body { font-size: var(--fs-xs); color: var(--info-strong); line-height: 1.5; }
+.ai-pre-body b { display: block; }
+.ai-pre-body .pct { font-family: var(--font-mono); font-weight: 700; }
+
+/* ============ 抽屉 / 弹窗 ============ */
+.drawer-mask { position: fixed; inset: 0; background: oklch(20% 0.02 95 / .45); backdrop-filter: blur(2px); z-index: 90; opacity: 0; pointer-events: none; transition: opacity .25s; }
+.drawer-mask.show { opacity: 1; pointer-events: auto; }
+.drawer { position: fixed; top: 0; right: -520px; width: min(520px, 94vw); height: 100vh; background: var(--surface); border-left: 1px solid var(--line); box-shadow: var(--shadow-lg); z-index: 100; display: flex; flex-direction: column; transition: right .35s var(--ease-out); }
+.drawer.show { right: 0; }
+.drawer-head { display: flex; align-items: center; justify-content: space-between; gap: var(--s-3); padding: var(--s-4) var(--s-5); border-bottom: 1px solid var(--line); }
+.drawer-head h3 { font-family: var(--font-display); font-size: var(--fs-h2); }
+.drawer-body { flex: 1; overflow-y: auto; padding: var(--s-5); display: flex; flex-direction: column; gap: var(--s-4); }
+.drawer-foot { display: flex; gap: var(--s-2); padding: var(--s-4) var(--s-5); border-top: 1px solid var(--line); background: var(--surface-2); }
+.detail-sec { border: 1px solid var(--line); border-radius: var(--r-md); padding: var(--s-4); }
+.detail-sec h4 { font-size: var(--fs-sm); font-weight: 700; color: var(--ink); margin-bottom: var(--s-2); }
+.kv { display: grid; grid-template-columns: 88px 1fr; gap: 6px var(--s-3); font-size: var(--fs-sm); }
+.kv dt { color: var(--ink-3); }
+.kv dd { color: var(--ink-2); }
+.modal-mask { position: fixed; inset: 0; background: oklch(20% 0.02 95 / .45); backdrop-filter: blur(2px); z-index: 110; display: grid; place-items: center; opacity: 0; pointer-events: none; transition: opacity .22s; }
+.modal-mask.show { opacity: 1; pointer-events: auto; }
+.modal { width: min(420px, 92vw); background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-lg); box-shadow: var(--shadow-lg); padding: var(--s-5); transform: translateY(10px) scale(.98); transition: transform .25s var(--ease-out); }
+.modal-mask.show .modal { transform: none; }
+.modal h3 { font-family: var(--font-display); font-size: var(--fs-h3); margin-bottom: var(--s-2); }
+.modal p { color: var(--ink-2); font-size: var(--fs-sm); line-height: 1.6; margin-bottom: var(--s-4); }
+.modal-actions { display: flex; justify-content: flex-end; gap: var(--s-2); }
+
+/* ============ 表单 ============ */
+.form-group { margin-bottom: var(--s-4); }
+.form-label { display: block; font-size: var(--fs-sm); font-weight: 600; color: var(--ink-2); margin-bottom: 6px; }
+.form-label .req { color: var(--error); margin-left: 2px; }
+.form-input, .form-select, .form-textarea {
+  width: 100%; padding: 9px 12px; background: var(--surface);
+  border: 1px solid var(--line); border-radius: var(--r-sm);
+  color: var(--ink); font-size: var(--fs-sm);
+  transition: border-color .2s, box-shadow .2s;
+}
+.form-input:focus, .form-select:focus, .form-textarea:focus { outline: none; border-color: var(--brand); box-shadow: 0 0 0 3px var(--brand-soft); }
+.form-textarea { min-height: 96px; resize: vertical; line-height: 1.55; }
+.form-select { cursor: pointer; }
+.form-hint { font-size: var(--fs-cap); color: var(--ink-3); margin-top: 5px; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: var(--s-3) var(--s-4); }
+.form-row.single { grid-template-columns: 1fr; }
+
+/* ============ 开关 ============ */
+.switch { position: relative; display: inline-flex; align-items: center; gap: 10px; cursor: pointer; user-select: none; }
+.switch input { position: absolute; opacity: 0; pointer-events: none; }
+.switch-track { width: 40px; height: 22px; border-radius: var(--r-pill); background: var(--surface-3); border: 1px solid var(--line-strong); transition: background .2s, border-color .2s; flex: none; position: relative; }
+.switch-track::after { content: ""; position: absolute; top: 2px; left: 2px; width: 16px; height: 16px; border-radius: 50%; background: var(--surface); box-shadow: var(--shadow-sm); transition: left .2s var(--ease-out); }
+.switch input:checked + .switch-track { background: var(--brand); border-color: var(--brand); }
+.switch input:checked + .switch-track::after { left: 20px; background: #fff; }
+.switch-label { font-size: var(--fs-sm); color: var(--ink-2); font-weight: 500; }
+.setting-row { display: flex; align-items: center; justify-content: space-between; gap: var(--s-4); padding: var(--s-3) 0; border-bottom: 1px solid var(--line); }
+.setting-row:last-child { border-bottom: none; }
+.setting-row .txt b { display: block; font-size: var(--fs-sm); color: var(--ink); }
+.setting-row .txt span { font-size: var(--fs-xs); color: var(--ink-3); }
+
+/* ============ 时间线 ============ */
+.timeline { position: relative; padding-left: 24px; }
+.timeline::before { content: ""; position: absolute; left: 7px; top: 6px; bottom: 6px; width: 2px; background: var(--line); border-radius: 2px; }
+.tl-item { position: relative; padding-bottom: var(--s-4); }
+.tl-item:last-child { padding-bottom: 0; }
+.tl-item::before { content: ""; position: absolute; left: -24px; top: 4px; width: 16px; height: 16px; border-radius: 50%; background: var(--surface); border: 3px solid var(--line-strong); }
+.tl-item.done::before { border-color: var(--success); background: var(--success-soft); }
+.tl-item.current::before { border-color: var(--accent); background: var(--accent-soft); box-shadow: 0 0 0 4px var(--accent-soft); }
+.tl-head { display: flex; align-items: center; gap: var(--s-2); margin-bottom: 3px; }
+.tl-head b { font-size: var(--fs-sm); color: var(--ink); }
+.tl-time { margin-left: auto; font-size: var(--fs-cap); color: var(--ink-3); }
+.tl-txt { font-size: var(--fs-xs); color: var(--ink-2); line-height: 1.55; }
+
+/* ============ 通用小组件 ============ */
+.avatar { border-radius: 50%; display: grid; place-items: center; color: #fff; font-weight: 600; flex: none; }
+.empty { text-align: center; padding: var(--s-7) var(--s-5); color: var(--ink-3); }
+.empty svg { width: 44px; height: 44px; margin: 0 auto var(--s-2); opacity: .35; }
+.empty b { display: block; color: var(--ink-2); font-size: var(--fs-sm); margin-bottom: 3px; }
+.empty p { font-size: var(--fs-xs); }
+.mt-2 { margin-top: var(--s-2); } .mt-3 { margin-top: var(--s-3); } .mt-4 { margin-top: var(--s-4); } .mt-5 { margin-top: var(--s-5); }
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: var(--s-4); }
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--s-4); }
+.notice-banner { display: flex; gap: var(--s-3); align-items: flex-start; padding: var(--s-3) var(--s-4); border-radius: var(--r-md); background: var(--info-soft); border: 1px solid var(--info-line); font-size: var(--fs-sm); color: var(--info-strong); line-height: 1.55; }
+.notice-banner.warn { background: var(--warning-soft); border-color: var(--gold-line); color: var(--gold-strong); }
+.notice-banner svg { width: 16px; height: 16px; flex: none; margin-top: 1px; }
+
+/* ============ 登录页 ============ */
+.admin-login { min-height: 100vh; display: grid; grid-template-columns: 1.15fr 1fr; }
+.login-visual { position: relative; overflow: hidden; background: linear-gradient(150deg, oklch(30% 0.055 168) 0%, oklch(22% 0.035 168) 55%, oklch(20% 0.03 190) 100%); }
+.login-visual::before { content: ""; position: absolute; inset: 0; background: url('images/login-bg.jpg') center/cover; opacity: .22; mix-blend-mode: overlay; }
+.login-visual::after { content: ""; position: absolute; inset: 0; background: radial-gradient(ellipse at 70% 20%, oklch(70% 0.12 168 / .25), transparent 55%); }
+.login-visual-content { position: relative; z-index: 1; height: 100%; display: flex; flex-direction: column; justify-content: space-between; padding: var(--s-7); color: #fff; }
+.login-brand { display: flex; align-items: center; gap: 12px; }
+.login-brand .brand-mark { background: rgba(255,255,255,.14); backdrop-filter: blur(8px); border: 1px solid rgba(255,255,255,.25); }
+.login-brand .brand-name { color: #fff; }
+.login-brand .brand-sub { color: rgba(255,255,255,.65); }
+.login-hero h2 { font-family: var(--font-display); font-size: 2.3rem; font-weight: 600; line-height: 1.2; margin-bottom: var(--s-3); max-width: 440px; }
+.login-hero p { font-size: var(--fs-body); line-height: 1.7; color: rgba(255,255,255,.8); max-width: 420px; }
+.login-feats { display: flex; flex-direction: column; gap: 12px; margin-top: var(--s-5); max-width: 400px; }
+.login-feat { display: flex; align-items: center; gap: 12px; padding: 13px 16px; border-radius: var(--r-md); background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.14); backdrop-filter: blur(10px); }
+.login-feat-icon { width: 34px; height: 34px; border-radius: var(--r-sm); background: rgba(255,255,255,.14); display: grid; place-items: center; flex: none; }
+.login-feat-icon svg { width: 17px; height: 17px; color: oklch(88% 0.1 150); }
+.login-feat-icon.c2 svg { color: oklch(82% 0.1 230); }
+.login-feat-icon.c3 svg { color: oklch(84% 0.12 75); }
+.login-feat b { display: block; font-size: var(--fs-sm); }
+.login-feat span { font-size: var(--fs-cap); color: rgba(255,255,255,.65); }
+.login-stats { display: flex; gap: var(--s-6); padding-top: var(--s-5); border-top: 1px solid rgba(255,255,255,.16); }
+.login-stats b { font-family: var(--font-display); font-size: 1.5rem; font-weight: 600; display: block; }
+.login-stats span { font-size: var(--fs-cap); color: rgba(255,255,255,.62); letter-spacing: .05em; }
+
+.login-form-wrap { display: grid; place-items: center; padding: var(--s-6); background: var(--paper); position: relative; }
+.login-card { width: 100%; max-width: 380px; }
+.login-card h1 { font-family: var(--font-display); font-size: var(--fs-h1); font-weight: 600; margin-bottom: 4px; }
+.login-card .sub { color: var(--ink-3); font-size: var(--fs-sm); margin-bottom: var(--s-6); }
+.input-icon { position: relative; }
+.input-icon svg { position: absolute; left: 13px; top: 50%; width: 16px; height: 16px; transform: translateY(-50%); color: var(--ink-3); pointer-events: none; }
+.input-icon .form-input { height: 44px; padding-left: 40px; border-radius: var(--r-md); }
+.captcha-row { display: grid; grid-template-columns: 1fr 118px; gap: var(--s-3); }
+.captcha-img { height: 44px; border-radius: var(--r-md); background: var(--surface-3); display: grid; place-items: center; color: var(--ink-2); font-family: var(--font-display); letter-spacing: .14em; font-size: var(--fs-h3); cursor: pointer; border: 1px solid var(--line); user-select: none; }
+.login-row { display: flex; align-items: center; justify-content: space-between; margin: var(--s-4) 0 var(--s-5); font-size: var(--fs-sm); }
+.login-row a { color: var(--brand-strong); font-weight: 600; }
+.login-tip { display: flex; gap: 8px; align-items: flex-start; margin-top: var(--s-4); padding: 10px 12px; border-radius: var(--r-sm); background: var(--info-soft); border: 1px solid var(--info-line); font-size: var(--fs-xs); color: var(--info-strong); line-height: 1.5; }
+.login-tip svg { width: 14px; height: 14px; flex: none; margin-top: 1px; }
+.login-back { position: absolute; top: var(--s-5); right: var(--s-5); }
+
+/* ============ 浮动原型导航 ============ */
+.proto-nav { position: fixed; bottom: 20px; right: 20px; z-index: 200; }
+.proto-toggle { display: flex; align-items: center; gap: 8px; padding: 10px 16px; border-radius: var(--r-pill); background: var(--ink); color: var(--paper); font-size: var(--fs-xs); font-weight: 700; box-shadow: var(--shadow-lg); cursor: pointer; border: 1px solid oklch(100% 0 0 / .12); }
+.proto-toggle svg { width: 14px; height: 14px; }
+.proto-menu { position: absolute; bottom: 52px; right: 0; width: 240px; max-height: 420px; overflow-y: auto; background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-md); box-shadow: var(--shadow-lg); padding: 8px; display: none; }
+.proto-menu.show { display: block; animation: fadeUp .25s var(--ease-out); }
+.proto-item { display: flex; align-items: center; justify-content: space-between; gap: 8px; width: 100%; padding: 8px 10px; border-radius: var(--r-xs); font-size: var(--fs-xs); color: var(--ink-2); cursor: pointer; text-align: left; }
+.proto-item:hover { background: var(--surface-2); color: var(--ink); }
+.proto-item.active { background: var(--brand-soft); color: var(--brand-strong); font-weight: 600; }
+.proto-item .num { font-family: var(--font-mono); font-size: 10px; color: var(--ink-3); }
+
+/* ============ 响应式 ============ */
+@media (max-width: 1200px) {
+  .kpi-grid { grid-template-columns: repeat(2, 1fr); }
+  .chart-grid { grid-template-columns: 1fr; }
+  .dash-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 920px) {
+  .admin-shell { grid-template-columns: 64px 1fr; }
+  .sidebar { padding: 16px 10px; }
+  .brand-name, .brand-sub, .nav-label, .nav-item span, .nav-count, .side-user-meta { display: none; }
+  .nav-item { justify-content: center; padding: 11px 0; }
+  .nav-item.active::before { left: -10px; }
+  .brand { justify-content: center; padding: 6px 0; }
+  .side-user { justify-content: center; padding: 8px 0; }
+  .crumbs { display: none; }
+}
+@media (max-width: 780px) {
+  .admin-login { grid-template-columns: 1fr; }
+  .login-visual { display: none; }
+  .content { padding: var(--s-4); }
+  .topbar { padding: 0 var(--s-4); }
+  .topbar-search { display: none; }
+  .kpi-grid { grid-template-columns: 1fr; }
+  .grid-2, .grid-3 { grid-template-columns: 1fr; }
+  .review-card { grid-template-columns: 1fr; }
+  .review-cover { width: 100%; height: 140px; }
+  .review-actions { flex-direction: row; flex-wrap: wrap; }
+  .review-actions .btn { flex: 1; }
+  .form-row { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- ============================================================
+     页面 1 · 管理员登录
+     ============================================================ -->
+<div class="admin-login" id="page-login">
+  <div class="login-visual">
+    <div class="login-visual-content">
+      <div class="login-brand">
+        <div class="brand-mark">梧</div>
+        <div>
+          <div class="brand-name">梧桐校园</div>
+          <div class="brand-sub">Admin Console</div>
+        </div>
+      </div>
+      <div class="login-hero">
+        <h2>秩序与温度并存的<br/>校园治理中枢</h2>
+        <p>梧桐校园管理端 —— 内容审核、社区治理、AI 研学洞察，一站式守护校园生态的健康运转。</p>
+        <div class="login-feats">
+          <div class="login-feat">
+            <div class="login-feat-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4"/><path d="M12 3l7 3v5c0 4.5-3 8.5-7 10-4-1.5-7-5.5-7-10V6z"/></svg>
+            </div>
+            <div><b>内容安全审核</b><span>活动 / 闲置 / 动态全流程人工复核</span></div>
+          </div>
+          <div class="login-feat">
+            <div class="login-feat-icon c2">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M18.4 5.6l-2.1 2.1M7.7 16.3l-2.1 2.1"/><circle cx="12" cy="12" r="3"/></svg>
+            </div>
+            <div><b>AI 智能预审</b><span>敏感内容自动拦截，置信度可视化</span></div>
+          </div>
+          <div class="login-feat">
+            <div class="login-feat-icon c3">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 20h18M6 16V9M11 16V5M16 16v-6M21 16v-9"/></svg>
+            </div>
+            <div><b>运营数据洞察</b><span>用户增长 / 内容热度 / AI 调用量实时看板</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="login-stats">
+        <div><b>1,286</b><span>今日已审核</span></div>
+        <div><b>1.2s</b><span>平均审核响应</span></div>
+        <div><b>99.9%</b><span>系统可用率</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="login-form-wrap">
+    <button class="btn btn-ghost btn-sm login-back" onclick="goPage('dashboard'); document.getElementById('adminShell').classList.add('show'); document.getElementById('page-login').style.display='none';">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+      直接进入后台
+    </button>
+    <div class="login-card">
+      <h1>欢迎回来</h1>
+      <p class="sub">管理员账号登录 · 仅限授权人员使用</p>
+      <div class="form-group">
+        <label class="form-label">管理员账号</label>
+        <div class="input-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          <input class="form-input" type="text" placeholder="账号 / 工号" value="admin" />
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">密码</label>
+        <div class="input-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          <input class="form-input" type="password" placeholder="请输入密码" value="••••••••" />
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">图形验证码</label>
+        <div class="captcha-row">
+          <input class="form-input" style="height:44px;border-radius:var(--r-md);" type="text" placeholder="不区分大小写" />
+          <div class="captcha-img">W T 7 K</div>
+        </div>
+      </div>
+      <div class="login-row">
+        <label class="switch">
+          <input type="checkbox" checked />
+          <span class="switch-track"></span>
+          <span class="switch-label">记住此设备</span>
+        </label>
+        <a>忘记密码？</a>
+      </div>
+      <button class="btn btn-primary btn-block" style="height:46px;font-size:var(--fs-body);" onclick="adminLogin()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4M10 17l5-5-5-5M15 12H3"/></svg>
+        登录管理后台
+      </button>
+      <div class="login-tip">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
+        <span>检测到非常用登录环境，本次登录将开启双重校验（短信验证码已发送至预留手机）。</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     管理端外壳：侧栏 + 顶栏 + 内容区
+     ============================================================ -->
+<div class="admin-shell" id="adminShell">
+
+  <!-- —— 左侧深色导航 —— -->
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-mark">梧</div>
+      <div>
+        <div class="brand-name">梧桐校园</div>
+        <div class="brand-sub">Admin Console</div>
+      </div>
+    </div>
+
+    <div class="nav-label">概览</div>
+    <div class="nav-item active" data-page="dashboard">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="9" rx="1"/><rect x="14" y="3" width="7" height="5" rx="1"/><rect x="14" y="12" width="7" height="9" rx="1"/><rect x="3" y="16" width="7" height="5" rx="1"/></svg>
+      <span>数据看板</span>
+    </div>
+
+    <div class="nav-label">内容审核</div>
+    <div class="nav-item" data-page="review-activity">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M3 9h18M8 2v4M16 2v4"/></svg>
+      <span>活动审核</span>
+      <em class="nav-count">12</em>
+    </div>
+    <div class="nav-item" data-page="review-idle">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 7h18l-2 13H5z"/><path d="M8 11v6M12 11v6M16 11v6"/></svg>
+      <span>闲置审核</span>
+      <em class="nav-count">8</em>
+    </div>
+    <div class="nav-item" data-page="review-lost">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+      <span>失物招领审核</span>
+      <em class="nav-count">5</em>
+    </div>
+    <div class="nav-item" data-page="review-post">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.5 8.5 0 0 1-12.5 7.5L3 21l2-5.5A8.5 8.5 0 1 1 21 11.5z"/></svg>
+      <span>动态审核</span>
+      <em class="nav-count">16</em>
+    </div>
+    <div class="nav-item" data-page="ai-review">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M18.4 5.6l-2.1 2.1M7.7 16.3l-2.1 2.1"/><circle cx="12" cy="12" r="3"/></svg>
+      <span>AI 内容审核</span>
+      <em class="nav-count gold">3</em>
+    </div>
+
+    <div class="nav-label">用户与社区</div>
+    <div class="nav-item" data-page="users">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+      <span>用户管理</span>
+    </div>
+    <div class="nav-item" data-page="report">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><path d="M12 9v4M12 17h.01"/></svg>
+      <span>举报处理</span>
+      <em class="nav-count">4</em>
+    </div>
+
+    <div class="nav-label">系统</div>
+    <div class="nav-item" data-page="notice">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l18-5v12L3 13zM11.6 16.8a3 3 0 1 1-5.8-1.6"/></svg>
+      <span>系统公告</span>
+    </div>
+    <div class="nav-item" data-page="admins">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/><path d="m16 11 2 2 4-4"/></svg>
+      <span>管理员账号</span>
+    </div>
+    <div class="nav-item" data-page="ai-config">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09a1.65 1.65 0 0 0-1-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09a1.65 1.65 0 0 0 1.51-1 1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33h.01a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51h.01a1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82v.01a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+      <span>AI 配置</span>
+    </div>
+    <div class="nav-item" data-page="ai-logs">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/></svg>
+      <span>调用日志</span>
+    </div>
+    <div class="nav-item" data-page="settings">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2 2 7l10 5 10-5z"/><path d="M2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+      <span>系统配置</span>
+    </div>
+
+    <div class="sidebar-foot">
+      <div class="side-user" onclick="goPage('settings')">
+        <div class="side-avatar">陈</div>
+        <div class="side-user-meta">
+          <b>陈启明</b>
+          <span>超级管理员</span>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- —— 主区 —— -->
+  <div class="main">
+    <header class="topbar">
+      <div class="crumbs">
+        <span>首页</span><span class="sep">/</span><b id="crumbNow">数据看板</b>
+      </div>
+      <div class="topbar-search">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+        <input type="search" placeholder="搜索用户 / 内容 / 工单 ID…（Ctrl + K）" />
+      </div>
+      <div class="top-actions">
+        <button class="icon-btn" onclick="toggleTheme()" title="切换主题">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" id="themeIcon"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        </button>
+        <button class="icon-btn" title="通知">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8a6 6 0 1 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg>
+          <span class="badge-dot">7</span>
+        </button>
+        <button class="icon-btn" onclick="adminLogout()" title="退出">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/></svg>
+        </button>
+      </div>
+    </header>
+
+    <div class="content">
+
+<!-- ============================================================
+     页面 2 · 数据看板
+     ============================================================ -->
+<section class="page active" data-page="dashboard">
+  <div class="page-head">
+    <div>
+      <h1>数据看板</h1>
+      <p class="desc">平台运营总览 · 数据每 5 分钟自动刷新</p>
+    </div>
+    <div class="page-head-actions">
+      <button class="btn btn-ghost btn-sm">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a9 9 0 1 1-3-6.7L21 8"/><path d="M21 3v5h-5"/></svg>
+        刷新
+      </button>
+      <button class="btn btn-ghost btn-sm">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+        导出报表
+      </button>
+    </div>
+  </div>
+
+  <!-- KPI -->
+  <div class="kpi-grid">
+    <div class="kpi">
+      <div class="kpi-icon brand">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+      </div>
+      <div class="kpi-body">
+        <div class="kpi-label">注册用户</div>
+        <div class="kpi-value">12,486</div>
+        <div class="kpi-trend up">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17 17 7M17 7H8M17 7v9"/></svg>
+          +3.2% <span>较上周</span>
+        </div>
+      </div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-icon accent">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+      </div>
+      <div class="kpi-body">
+        <div class="kpi-label">今日活跃 (DAU)</div>
+        <div class="kpi-value">3,652</div>
+        <div class="kpi-trend up">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17 17 7M17 7H8M17 7v9"/></svg>
+          +8.7% <span>较昨日</span>
+        </div>
+      </div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-icon gold">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.8l-5.8 3.1 1.1-6.5L2.6 9.8l6.5-.9z"/></svg>
+      </div>
+      <div class="kpi-body">
+        <div class="kpi-label">待审核内容</div>
+        <div class="kpi-value">41<small> 条</small></div>
+        <div class="kpi-trend down">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 7l10 10M17 17H8M17 17V8"/></svg>
+          -12.5% <span>处理及时</span>
+        </div>
+      </div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-icon info">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+      </div>
+      <div class="kpi-body">
+        <div class="kpi-label">今日 AI 调用</div>
+        <div class="kpi-value">8,214<small> 次</small></div>
+        <div class="kpi-trend up">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17 17 7M17 7H8M17 7v9"/></svg>
+          +21.4% <span>较上周</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 趋势图 + 分布 -->
+  <div class="chart-grid">
+    <div class="card">
+      <div class="card-head">
+        <div>
+          <div class="card-title">近 7 日活跃趋势</div>
+          <div class="card-sub">日活用户 vs AI 调用量（千次）</div>
+        </div>
+        <div class="chart-legend">
+          <span class="legend-item"><span class="legend-dot" style="background:var(--brand)"></span>日活用户</span>
+          <span class="legend-item"><span class="legend-dot" style="background:var(--gold)"></span>AI 调用</span>
+        </div>
+      </div>
+      <div class="bars">
+        <div class="bar-col"><div class="bar-track"><div class="bar a" style="height:58%"></div><div class="bar b" style="height:44%"></div></div><div class="bar-x">周一</div></div>
+        <div class="bar-col"><div class="bar-track"><div class="bar a" style="height:66%"></div><div class="bar b" style="height:52%"></div></div><div class="bar-x">周二</div></div>
+        <div class="bar-col"><div class="bar-track"><div class="bar a" style="height:52%"></div><div class="bar b" style="height:48%"></div></div><div class="bar-x">周三</div></div>
+        <div class="bar-col"><div class="bar-track"><div class="bar a" style="height:74%"></div><div class="bar b" style="height:61%"></div></div><div class="bar-x">周四</div></div>
+        <div class="bar-col"><div class="bar-track"><div class="bar a" style="height:88%"></div><div class="bar b" style="height:72%"></div></div><div class="bar-x">周五</div></div>
+        <div class="bar-col"><div class="bar-track"><div class="bar a" style="height:96%"></div><div class="bar b" style="height:83%"></div></div><div class="bar-x">周六</div></div>
+        <div class="bar-col"><div class="bar-track"><div class="bar a" style="height:82%"></div><div class="bar b" style="height:69%"></div></div><div class="bar-x">周日</div></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-head">
+        <div>
+          <div class="card-title">内容构成分布</div>
+          <div class="card-sub">近 30 日新增内容</div>
+        </div>
+      </div>
+      <div class="donut-wrap">
+        <svg width="128" height="128" viewBox="0 0 128 128" style="flex:none">
+          <circle cx="64" cy="64" r="50" fill="none" stroke="var(--surface-3)" stroke-width="16"/>
+          <circle cx="64" cy="64" r="50" fill="none" stroke="var(--brand)" stroke-width="16" stroke-dasharray="122 192" stroke-linecap="round" transform="rotate(-90 64 64)"/>
+          <circle cx="64" cy="64" r="50" fill="none" stroke="var(--gold)" stroke-width="16" stroke-dasharray="62 252" stroke-dashoffset="-130" stroke-linecap="round" transform="rotate(-90 64 64)"/>
+          <circle cx="64" cy="64" r="50" fill="none" stroke="var(--info)" stroke-width="16" stroke-dasharray="45 269" stroke-dashoffset="-198" stroke-linecap="round" transform="rotate(-90 64 64)"/>
+          <circle cx="64" cy="64" r="50" fill="none" stroke="var(--accent)" stroke-width="16" stroke-dasharray="30 284" stroke-dashoffset="-249" stroke-linecap="round" transform="rotate(-90 64 64)"/>
+          <text x="64" y="60" text-anchor="middle" style="font:600 15px var(--font-display);fill:var(--ink)">4,286</text>
+          <text x="64" y="76" text-anchor="middle" style="font:400 9px var(--font-sans);fill:var(--ink-3)">条内容</text>
+        </svg>
+        <div class="donut-legend">
+          <div class="dl-row"><span class="dl-dot" style="background:var(--brand)"></span>校园动态<b>1,842</b></div>
+          <div class="dl-row"><span class="dl-dot" style="background:var(--gold)"></span>闲置物品<b>936</b></div>
+          <div class="dl-row"><span class="dl-dot" style="background:var(--info)"></span>AI 问答<b>680</b></div>
+          <div class="dl-row"><span class="dl-dot" style="background:var(--accent)"></span>活动报名<b>453</b></div>
+          <div class="dl-row"><span class="dl-dot" style="background:var(--surface-3)"></span>其他<b>375</b></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 队列 + 动态 -->
+  <div class="dash-grid">
+    <div class="card">
+      <div class="card-head">
+        <div>
+          <div class="card-title">审核队列概览</div>
+          <div class="card-sub">按模块展示今日待处理量</div>
+        </div>
+        <span class="tag tag-warning tag-plain">共 41 条待审</span>
+      </div>
+      <div class="queue-row">
+        <div class="queue-name"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M3 9h18M8 2v4M16 2v4"/></svg>活动审核</div>
+        <div class="queue-bar"><span style="width:62%;background:linear-gradient(90deg,var(--brand),var(--brand-strong))"></span></div>
+        <div class="queue-num">12</div>
+      </div>
+      <div class="queue-row">
+        <div class="queue-name"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 7h18l-2 13H5z"/><path d="M8 11v6M12 11v6M16 11v6"/></svg>闲置审核</div>
+        <div class="queue-bar"><span style="width:41%;background:linear-gradient(90deg,var(--gold),var(--gold-strong))"></span></div>
+        <div class="queue-num">8</div>
+      </div>
+      <div class="queue-row">
+        <div class="queue-name"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>失物招领</div>
+        <div class="queue-bar"><span style="width:26%;background:linear-gradient(90deg,var(--info),var(--info-strong))"></span></div>
+        <div class="queue-num">5</div>
+      </div>
+      <div class="queue-row">
+        <div class="queue-name"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.5 8.5 0 0 1-12.5 7.5L3 21l2-5.5A8.5 8.5 0 1 1 21 11.5z"/></svg>动态审核</div>
+        <div class="queue-bar"><span style="width:82%;background:linear-gradient(90deg,var(--accent),var(--accent-strong))"></span></div>
+        <div class="queue-num">16</div>
+      </div>
+      <div class="mt-3">
+        <div class="health-grid">
+          <div class="health-item">
+            <span class="health-state ok"></span>
+            <div class="health-body"><b>AI 服务</b><span>接口正常</span></div>
+            <span class="health-val">86ms</span>
+          </div>
+          <div class="health-item">
+            <span class="health-state ok"></span>
+            <div class="health-body"><b>数据库</b><span>连接池 32/100</span></div>
+            <span class="health-val">99.9%</span>
+          </div>
+          <div class="health-item">
+            <span class="health-state warn"></span>
+            <div class="health-body"><b>缓存服务</b><span>内存占用偏高</span></div>
+            <span class="health-val">78%</span>
+          </div>
+          <div class="health-item">
+            <span class="health-state ok"></span>
+            <div class="health-body"><b>消息队列</b><span>消费正常</span></div>
+            <span class="health-val">0 积压</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-head">
+        <div>
+          <div class="card-title">最新平台动态</div>
+          <div class="card-sub">实时事件流</div>
+        </div>
+        <button class="link-btn">查看全部</button>
+      </div>
+      <div class="feed-item">
+        <span class="feed-dot" style="background:var(--success)"></span>
+        <p class="feed-txt"><b>林晓雨</b> 通过了活动「第十八届梧桐科技文化节」的审核</p>
+        <span class="feed-time">2 分钟前</span>
+      </div>
+      <div class="feed-item">
+        <span class="feed-dot" style="background:var(--info)"></span>
+        <p class="feed-txt">AI 预审拦截动态 1 条 · 命中规则「疑似广告推广」(置信度 87%)</p>
+        <span class="feed-time">8 分钟前</span>
+      </div>
+      <div class="feed-item">
+        <span class="feed-dot" style="background:var(--accent)"></span>
+        <p class="feed-txt"><b>张同学</b> 提交了闲置物品「九成新 iPad Air 5」的审核申请</p>
+        <span class="feed-time">15 分钟前</span>
+      </div>
+      <div class="feed-item">
+        <span class="feed-dot" style="background:var(--error)"></span>
+        <p class="feed-txt">举报工单 <b>#R20260916-003</b> 已受理 · 类型：闲置商品描述不符</p>
+        <span class="feed-time">26 分钟前</span>
+      </div>
+      <div class="feed-item">
+        <span class="feed-dot" style="background:var(--brand)"></span>
+        <p class="feed-txt">新管理员 <b>王思远</b> 加入了「内容管理」权限组</p>
+        <span class="feed-time">1 小时前</span>
+      </div>
+      <div class="feed-item">
+        <span class="feed-dot" style="background:var(--gold)"></span>
+        <p class="feed-txt">系统公告「关于国庆放假安排的通知」已发布，触达 11,203 人</p>
+        <span class="feed-time">2 小时前</span>
+      </div>
+      <div class="feed-item">
+        <span class="feed-dot" style="background:var(--ink-3)"></span>
+        <p class="feed-txt">每日数据库自动备份完成 · 耗时 4 分 12 秒</p>
+        <span class="feed-time">03:00</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     页面 3 · 用户管理
+     ============================================================ -->
+<section class="page" data-page="users">
+  <div class="page-head">
+    <div>
+      <h1>用户管理</h1>
+      <p class="desc">全校学生账号 · 共 12,486 位注册用户，今日新增 38 位</p>
+    </div>
+    <div class="page-head-actions">
+      <button class="btn btn-ghost btn-sm">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+        导出名单
+      </button>
+      <button class="btn btn-primary btn-sm">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><path d="M20 8v6M23 11h-6"/></svg>
+        批量导入
+      </button>
+    </div>
+  </div>
+
+  <div class="filter-bar">
+    <input class="filter-input" type="search" placeholder="搜索昵称 / 学号 / 手机号…" />
+    <select class="filter-select">
+      <option>全部学院</option><option>信息工程学院</option><option>外国语学院</option>
+      <option>经济管理学院</option><option>艺术设计学院</option><option>机械工程学院</option>
+    </select>
+    <select class="filter-select">
+      <option>全部状态</option><option>正常</option><option>已封禁</option><option>已注销</option>
+    </select>
+    <select class="filter-select">
+      <option>注册时间排序</option><option>最近活跃排序</option><option>举报次数排序</option>
+    </select>
+    <div class="filter-spacer"></div>
+    <span class="tag tag-neutral tag-plain">已选 0 项</span>
+    <button class="btn btn-ghost btn-sm">批量封禁</button>
+  </div>
+
+  <div class="table-card">
+    <div class="table-scroll">
+      <table class="table">
+        <thead>
+          <tr>
+            <th style="width:36px"><input type="checkbox" /></th>
+            <th>用户</th>
+            <th>学院 / 专业</th>
+            <th>注册时间</th>
+            <th>最近活跃</th>
+            <th>内容量</th>
+            <th>举报</th>
+            <th>状态</th>
+            <th style="width:170px">操作</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><input type="checkbox" /></td>
+            <td><div class="cell-user"><span class="cell-avatar" style="background:linear-gradient(140deg,var(--brand),var(--accent))">林</span><div><b>林晓雨</b><span>2022级 · 学号 20220315</span></div></div></td>
+            <td>信息工程学院 · 软件工程</td>
+            <td class="cell-num">2025-09-02</td>
+            <td class="cell-num">3 分钟前</td>
+            <td class="cell-strong">86</td>
+            <td><span class="tag tag-success">0 次</span></td>
+            <td><span class="tag tag-success">正常</span></td>
+            <td>
+              <button class="link-btn" onclick="openDrawer()">详情</button>
+              <button class="link-btn danger" onclick="openModal()">封禁</button>
+            </td>
+          </tr>
+          <tr>
+            <td><input type="checkbox" /></td>
+            <td><div class="cell-user"><span class="cell-avatar" style="background:linear-gradient(140deg,var(--info),var(--purple))">王</span><div><b>王浩然</b><span>2023级 · 学号 20231208</span></div></div></td>
+            <td>经济管理学院 · 会计学</td>
+            <td class="cell-num">2025-09-11</td>
+            <td class="cell-num">26 分钟前</td>
+            <td class="cell-strong">142</td>
+            <td><span class="tag tag-warning">2 次</span></td>
+            <td><span class="tag tag-success">正常</span></td>
+            <td>
+              <button class="link-btn" onclick="openDrawer()">详情</button>
+              <button class="link-btn danger" onclick="openModal()">封禁</button>
+            </td>
+          </tr>
+          <tr>
+            <td><input type="checkbox" /></td>
+            <td><div class="cell-user"><span class="cell-avatar" style="background:linear-gradient(140deg,var(--accent),var(--gold))">苏</span><div><b>苏婉清</b><span>2021级 · 学号 20210789</span></div></div></td>
+            <td>外国语学院 · 英语</td>
+            <td class="cell-num">2025-08-28</td>
+            <td class="cell-num">1 小时前</td>
+            <td class="cell-strong">58</td>
+            <td><span class="tag tag-success">0 次</span></td>
+            <td><span class="tag tag-success">正常</span></td>
+            <td>
+              <button class="link-btn" onclick="openDrawer()">详情</button>
+              <button class="link-btn danger" onclick="openModal()">封禁</button>
+            </td>
+          </tr>
+          <tr style="background:var(--error-soft)">
+            <td><input type="checkbox" /></td>
+            <td><div class="cell-user"><span class="cell-avatar" style="background:linear-gradient(140deg,var(--error),oklch(48% 0.15 25))">赵</span><div><b>赵天宇</b><span>2022级 · 学号 20220544</span></div></div></td>
+            <td>艺术设计学院 · 视觉传达</td>
+            <td class="cell-num">2025-06-15</td>
+            <td class="cell-num">3 天前</td>
+            <td class="cell-strong">219</td>
+            <td><span class="tag tag-error">5 次</span></td>
+            <td><span class="tag tag-error">已封禁</span></td>
+            <td>
+              <button class="link-btn" onclick="openDrawer()">详情</button>
+              <button class="link-btn" onclick="closeRowBan(this)">解封</button>
+            </td>
+          </tr>
+          <tr>
+            <td><input type="checkbox" /></td>
+            <td><div class="cell-user"><span class="cell-avatar" style="background:linear-gradient(140deg,var(--gold),var(--accent))">郑</span><div><b>郑思琪</b><span>2024级 · 学号 20240901</span></div></div></td>
+            <td>机械工程学院 · 机械设计</td>
+            <td class="cell-num">2025-09-14</td>
+            <td class="cell-num">12 分钟前</td>
+            <td class="cell-strong">23</td>
+            <td><span class="tag tag-success">0 次</span></td>
+            <td><span class="tag tag-success">正常</span></td>
+            <td>
+              <button class="link-btn" onclick="openDrawer()">详情</button>
+              <button class="link-btn danger" onclick="openModal()">封禁</button>
+            </td>
+          </tr>
+          <tr>
+            <td><input type="checkbox" /></td>
+            <td><div class="cell-user"><span class="cell-avatar" style="background:linear-gradient(140deg,var(--purple),var(--info))">何</span><div><b>何嘉豪</b><span>2023级 · 学号 20230162</span></div></div></td>
+            <td>信息工程学院 · 数据科学</td>
+            <td class="cell-num">2025-07-02</td>
+            <td class="cell-num">5 小时前</td>
+            <td class="cell-strong">67</td>
+            <td><span class="tag tag-warning">1 次</span></td>
+            <td><span class="tag tag-success">正常</span></td>
+            <td>
+              <button class="link-btn" onclick="openDrawer()">详情</button>
+              <button class="link-btn danger" onclick="openModal()">封禁</button>
+            </td>
+          </tr>
+          <tr>
+            <td><input type="checkbox" /></td>
+            <td><div class="cell-user"><span class="cell-avatar" style="background:linear-gradient(140deg,var(--brand),var(--info))">许</span><div><b>许静怡</b><span>2022级 · 学号 20220619</span></div></div></td>
+            <td>经济管理学院 · 市场营销</td>
+            <td class="cell-num">2025-05-20</td>
+            <td class="cell-num">昨天</td>
+            <td class="cell-strong">94</td>
+            <td><span class="tag tag-success">0 次</span></td>
+            <td><span class="tag tag-neutral">已注销</span></td>
+            <td>
+              <button class="link-btn" onclick="openDrawer()">详情</button>
+              <button class="link-btn danger" style="opacity:.4;cursor:not-allowed" disabled>封禁</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="table-foot">
+      <span class="table-info">第 1-7 位，共 12,486 位用户</span>
+      <div class="pagination">
+        <button class="page-btn">‹</button>
+        <button class="page-btn active">1</button>
+        <button class="page-btn">2</button>
+        <button class="page-btn">3</button>
+        <button class="page-btn ellipsis">…</button>
+        <button class="page-btn">1784</button>
+        <button class="page-btn">›</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     页面 4 · 管理员账号管理
+     ============================================================ -->
+<section class="page" data-page="admins">
+  <div class="page-head">
+    <div>
+      <h1>管理员账号</h1>
+      <p class="desc">后台账号与角色权限管理 · 当前 6 位管理员</p>
+    </div>
+    <div class="page-head-actions">
+      <button class="btn btn-primary btn-sm" onclick="openModal()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><path d="M20 8v6M23 11h-6"/></svg>
+        新增管理员
+      </button>
+    </div>
+  </div>
+
+  <div class="notice-banner">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
+    <span>权限变更实时生效；「超级管理员」角色仅可由同角色账号授予，删除操作需二次确认并记录审计日志。</span>
+  </div>
+
+  <div class="table-card mt-4">
+    <div class="table-scroll">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>账号</th>
+            <th>角色</th>
+            <th>负责模块</th>
+            <th>最近登录</th>
+            <th>登录 IP</th>
+            <th>状态</th>
+            <th style="width:170px">操作</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><div class="cell-user"><span class="cell-avatar" style="background:linear-gradient(140deg,var(--purple),var(--info))">陈</span><div><b>陈启明</b><span>admin · 学生处</span></div></div></td>
+            <td><span class="tag tag-purple">超级管理员</span></td>
+            <td>全部模块</td>
+            <td class="cell-num">今天 09:12</td>
+            <td class="cell-num">10.12.3.44</td>
+            <td><span class="tag tag-success">在线</span></td>
+            <td>
+              <button class="link-btn" onclick="openDrawer()">编辑</button>
+              <button class="link-btn danger" style="opacity:.4;cursor:not-allowed" disabled>删除</button>
+            </td>
+          </tr>
+          <tr>
+            <td><div class="cell-user"><span class="cell-avatar" style="background:linear-gradient(140deg,var(--brand),var(--accent))">林</span><div><b>林晓雨</b><span>reviewer01 · 校团委</span></div></div></td>
+            <td><span class="tag tag-brand">内容管理员</span></td>
+            <td>活动审核 · 动态审核</td>
+            <td class="cell-num">今天 10:45</td>
+            <td class="cell-num">10.12.8.201</td>
+            <td><span class="tag tag-success">在线</span></td>
+            <td>
+              <button class="link-btn" onclick="openDrawer()">编辑</button>
+              <button class="link-btn danger" onclick="openModal()">删除</button>
+            </td>
+          </tr>
+          <tr>
+            <td><div class="cell-user"><span class="cell-avatar" style="background:linear-gradient(140deg,var(--gold),var(--accent))">周</span><div><b>周子墨</b><span>reviewer02 · 保卫处</span></div></div></td>
+            <td><span class="tag tag-brand">内容管理员</span></td>
+            <td>闲置审核 · 失物招领</td>
+            <td class="cell-num">今天 08:30</td>
+            <td class="cell-num">10.12.5.118</td>
+            <td><span class="tag tag-success">在线</span></td>
+            <td>
+              <button class="link-btn" onclick="openDrawer()">编辑</button>
+              <button class="link-btn danger" onclick="openModal()">删除</button>
+            </td>
+          </tr>
+          <tr>
+            <td><div class="cell-user"><span class="cell-avatar" style="background:linear-gradient(140deg,var(--info),var(--brand))">吴</span><div><b>吴亦菲</b><span>ai_ops01 · 网信办</span></div></div></td>
+            <td><span class="tag tag-info">AI 运营</span></td>
+            <td>AI 配置 · 内容审核 · 调用日志</td>
+            <td class="cell-num">昨天 17:52</td>
+            <td class="cell-num">10.12.9.66</td>
+            <td><span class="tag tag-neutral">离线</span></td>
+            <td>
+              <button class="link-btn" onclick="openDrawer()">编辑</button>
+              <button class="link-btn danger" onclick="openModal()">删除</button>
+            </td>
+          </tr>
+          <tr>
+            <td><div class="cell-user"><span class="cell-avatar" style="background:linear-gradient(140deg,var(--ink-3),var(--ink-2))">郑</span><div><b>郑海涛</b><span>readonly01 · 教务处</span></div></div></td>
+            <td><span class="tag tag-neutral">只读</span></td>
+            <td>数据看板（仅查看）</td>
+            <td class="cell-num">昨天 14:08</td>
+            <td class="cell-num">10.12.2.77</td>
+            <td><span class="tag tag-neutral">离线</span></td>
+            <td>
+              <button class="link-btn" onclick="openDrawer()">编辑</button>
+              <button class="link-btn danger" onclick="openModal()">删除</button>
+            </td>
+          </tr>
+          <tr>
+            <td><div class="cell-user"><span class="cell-avatar" style="background:linear-gradient(140deg,var(--accent),var(--error))">孙</span><div><b>孙梦洁</b><span>reviewer03 · 学生会</span></div></div></td>
+            <td><span class="tag tag-brand">内容管理员</span></td>
+            <td>动态审核 · 举报处理</td>
+            <td class="cell-num">09-14 11:23</td>
+            <td class="cell-num">10.12.8.109</td>
+            <td><span class="tag tag-warning">已停用</span></td>
+            <td>
+              <button class="link-btn" onclick="openDrawer()">编辑</button>
+              <button class="link-btn" onclick="closeRowBan(this)">启用</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="table-foot">
+      <span class="table-info">角色说明：超级管理员（全部权限）· 内容管理员（审核流）· AI 运营（模型与日志）· 只读（仅看板）</span>
+      <div class="pagination">
+        <button class="page-btn">‹</button>
+        <button class="page-btn active">1</button>
+        <button class="page-btn">›</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     页面 5 · 活动审核
+     ============================================================ -->
+<section class="page" data-page="review-activity">
+  <div class="page-head">
+    <div>
+      <h1>活动审核</h1>
+      <p class="desc">校园活动发布审核 · 平均处理时长 2.1 小时</p>
+    </div>
+    <div class="page-head-actions">
+      <button class="btn btn-ghost btn-sm">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+        导出审核记录
+      </button>
+    </div>
+  </div>
+
+  <div class="tabs mb-4" style="margin-bottom:16px">
+    <button class="tab active" data-tabs="act">待审核<span class="tab-count">12</span></button>
+    <button class="tab" data-tabs="act">已通过</button>
+    <button class="tab" data-tabs="act">已拒绝</button>
+    <button class="tab" data-tabs="act">已打回</button>
+  </div>
+
+  <div class="tab-pane active" data-tabs="act">
+    <div class="review-list">
+      <div class="review-card">
+        <div class="review-cover"><img src="images/activity-card.jpg" alt="活动封面" /></div>
+        <div class="review-body">
+          <div class="review-title">第十八届「梧桐科技文化节」暨创新创业成果展
+            <span class="tag tag-brand tag-plain">社团活动</span>
+          </div>
+          <div class="review-meta">
+            <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>信息工程学院学生会</span>
+            <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M3 9h18M8 2v4M16 2v4"/></svg>09-28 14:00</span>
+            <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>预计 500 人</span>
+            <span>提交于 22 分钟前</span>
+          </div>
+          <p class="review-desc">面向全校征集创新创业项目展位，含 3 场主题路演、无人机编队表演与 AI 互动体验区，活动全程直播并提供志愿时长认证……</p>
+        </div>
+        <div class="review-actions">
+          <button class="btn btn-success btn-sm" onclick="approve(this)">通过</button>
+          <button class="btn btn-warning btn-sm" onclick="approve(this)">打回补充</button>
+          <button class="btn btn-ghost-danger btn-sm" onclick="approve(this)">拒绝</button>
+        </div>
+      </div>
+
+      <div class="review-card">
+        <div class="review-cover"><img src="images/social-card.jpg" alt="活动封面" /></div>
+        <div class="review-body">
+          <div class="review-title">「秋日乐章」草坪音乐会
+            <span class="tag tag-accent tag-plain">文艺演出</span>
+          </div>
+          <div class="review-meta">
+            <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>吉他社 · 街舞社联办</span>
+            <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M3 9h18M8 2v4M16 2v4"/></svg>10-12 18:30</span>
+            <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>预计 800 人</span>
+            <span>提交于 1 小时前</span>
+          </div>
+          <p class="review-desc">西区草坪露天演出，含学生乐队专场与荧光合唱环节；因涉及夜间用电与场地保护，需重点核查安全预案与场地审批材料……</p>
+        </div>
+        <div class="review-actions">
+          <button class="btn btn-success btn-sm" onclick="approve(this)">通过</button>
+          <button class="btn btn-warning btn-sm" onclick="approve(this)">打回补充</button>
+          <button class="btn btn-ghost-danger btn-sm" onclick="approve(this)">拒绝</button>
+        </div>
+      </div>
+
+      <div class="review-card">
+        <div class="review-cover"><img src="images/study-banner.jpg" alt="活动封面" /></div>
+        <div class="review-body">
+          <div class="review-title">「梧桐杯」大学生程序设计竞赛校内选拔赛
+            <span class="tag tag-info tag-plain">学科竞赛</span>
+          </div>
+          <div class="review-meta">
+            <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>ACM 集训队</span>
+            <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M3 9h18M8 2v4M16 2v4"/></svg>10-19 09:00</span>
+            <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>预计 300 人</span>
+            <span>提交于 3 小时前</span>
+          </div>
+          <p class="review-desc">采用 ACM 赛制，5 小时 12 题个人赛，赛前安排两场模拟赛；获奖者将代表学校参加省赛，需审核指导老师信息与场地机房预约……</p>
+        </div>
+        <div class="review-actions">
+          <button class="btn btn-success btn-sm" onclick="approve(this)">通过</button>
+          <button class="btn btn-warning btn-sm" onclick="approve(this)">打回补充</button>
+          <button class="btn btn-ghost-danger btn-sm" onclick="approve(this)">拒绝</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="tab-pane" data-tabs="act">
+    <div class="empty">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="m9 11 3 3L22 4"/></svg>
+      <b>本页暂无已通过的活动</b>
+      <p>切换其他页码查看历史记录</p>
+    </div>
+  </div>
+  <div class="tab-pane" data-tabs="act">
+    <div class="empty">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M4.9 4.9 19.1 19.1"/></svg>
+      <b>本页暂无已拒绝的活动</b>
+      <p>拒绝记录将保留 90 天供申诉查询</p>
+    </div>
+  </div>
+  <div class="tab-pane" data-tabs="act">
+    <div class="empty">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12a9 9 0 1 0 9-9"/><path d="M3 4v8h8"/></svg>
+      <b>本页暂无打回待补充的活动</b>
+      <p>打回的活动需发布方在 72 小时内补充材料</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     页面 6 · 闲置审核
+     ============================================================ -->
+<section class="page" data-page="review-idle">
+  <div class="page-head">
+    <div>
+      <h1>闲置审核</h1>
+      <p class="desc">闲置物品上架审核 · 重点核查实物一致性与交易安全</p>
+    </div>
+    <div class="page-head-actions">
+      <button class="btn btn-ghost btn-sm">导出审核记录</button>
+    </div>
+  </div>
+
+  <div class="tabs" style="margin-bottom:16px">
+    <button class="tab active" data-tabs="idle">待审核<span class="tab-count">8</span></button>
+    <button class="tab" data-tabs="idle">已通过</button>
+    <button class="tab" data-tabs="idle">已拒绝</button>
+  </div>
+
+  <div class="tab-pane active" data-tabs="idle">
+    <div class="review-list">
+      <div class="review-card">
+        <div class="review-cover"><img src="images/idle-card.jpg" alt="物品图片" /></div>
+        <div class="review-body">
+          <div class="review-title">九成新 iPad Air 5（含笔尖膜 + 原装充电器）
+            <span class="tag tag-gold tag-plain">¥2,199</span>
+          </div>
+          <div class="review-meta">
+            <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 7h18l-2 13H5z"/><path d="M8 11v6M12 11v6M16 11v6"/></svg>数码电器</span>
+            <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>何嘉豪 · 信息工程学院</span>
+            <span>提交于 15 分钟前</span>
+          </div>
+          <p class="review-desc">2024 年 3 月购入，日常笔记使用无磕碰，电池效率 96%，支持线下东门面交验机；发票与购买记录齐全……</p>
+        </div>
+        <div class="review-actions">
+          <button class="btn btn-success btn-sm" onclick="approve(this)">通过</button>
+          <button class="btn btn-ghost-danger btn-sm" onclick="approve(this)">拒绝</button>
+        </div>
+      </div>
+
+      <div class="review-card">
+        <div class="review-cover"><img src="images/wrong-bg.jpg" alt="物品图片" /></div>
+        <div class="review-body">
+          <div class="review-title">考研数学复习全套资料（张宇 + 李永乐 2026 版）
+            <span class="tag tag-gold tag-plain">¥68</span>
+          </div>
+          <div class="review-meta">
+            <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 7h18l-2 13H5z"/><path d="M8 11v6M12 11v6M16 11v6"/></svg>图书教材</span>
+            <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>郑思琪 · 机械工程学院</span>
+            <span>提交于 42 分钟前</span>
+          </div>
+          <p class="review-desc">高数 + 线代 + 概率论全三册，含 330 题、真题大全解；笔记用铅笔标注可擦除，另附赠手写思维导图一本……</p>
+        </div>
+        <div class="review-actions">
+          <button class="btn btn-success btn-sm" onclick="approve(this)">通过</button>
+          <button class="btn btn-ghost-danger btn-sm" onclick="approve(this)">拒绝</button>
+        </div>
+      </div>
+
+      <div class="review-card" style="border-color:var(--error-line)">
+        <div class="review-cover"><img src="images/social-card.jpg" alt="物品图片" /></div>
+        <div class="review-body">
+          <div class="review-title">全新未拆封 iPhone 16 Pro Max 256G 代购
+            <span class="tag tag-gold tag-plain">¥8,499</span>
+          </div>
+          <div class="review-meta">
+            <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 7h18l-2 13H5z"/><path d="M8 11v6M12 11v6M16 11v6"/></svg>数码电器</span>
+            <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>王浩然 · 经济管理学院</span>
+            <span>提交于 2 小时前</span>
+          </div>
+          <p class="review-desc">宣称「海外代购、比官网便宜 600 元、仅限今明两天」，描述中含微信联系方式引导私下交易……</p>
+          <div class="ai-pre">
+            <div class="ai-pre-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><path d="M12 9v4M12 17h.01"/></svg>
+            </div>
+            <div class="ai-pre-body">
+              <b>AI 预审建议：拒绝（风险等级 高）</b>
+              命中规则：<span class="pct">「引导站外交易」92%</span> · <span class="pct">「疑似职业代购」81%</span> · 同账号 7 日内第 3 次发布同类商品
+            </div>
+          </div>
+        </div>
+        <div class="review-actions">
+          <button class="btn btn-success btn-sm" onclick="approve(this)">通过</button>
+          <button class="btn btn-danger btn-sm" onclick="approve(this)">拒绝并处罚</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="tab-pane" data-tabs="idle">
+    <div class="empty"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="m9 11 3 3L22 4"/></svg><b>本页暂无已通过的物品</b><p>切换其他页码查看历史记录</p></div>
+  </div>
+  <div class="tab-pane" data-tabs="idle">
+    <div class="empty"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M4.9 4.9 19.1 19.1"/></svg><b>本页暂无已拒绝的物品</b><p>拒绝记录将保留 90 天供申诉查询</p></div>
+  </div>
+</section>
+
+<!-- ============================================================
+     页面 7 · 失物招领审核
+     ============================================================ -->
+<section class="page" data-page="review-lost">
+  <div class="page-head">
+    <div>
+      <h1>失物招领审核</h1>
+      <p class="desc">失物 / 招领信息审核 · 重点保护失主隐私信息</p>
+    </div>
+    <div class="page-head-actions">
+      <button class="btn btn-ghost btn-sm">导出审核记录</button>
+    </div>
+  </div>
+
+  <div class="tabs" style="margin-bottom:16px">
+    <button class="tab active" data-tabs="lost">待审核<span class="tab-count">5</span></button>
+    <button class="tab" data-tabs="lost">已通过</button>
+    <button class="tab" data-tabs="lost">已拒绝</button>
+  </div>
+
+  <div class="tab-pane active" data-tabs="lost">
+    <div class="review-list">
+      <div class="review-card">
+        <div class="review-cover"><img src="images/lost-card.jpg" alt="物品图片" /></div>
+        <div class="review-body">
+          <div class="review-title">【拾获】黑色长款钱包（图书馆三楼自习区）
+            <span class="tag tag-info tag-plain">拾获登记</span>
+          </div>
+          <div class="review-meta">
+            <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>苏婉清 · 外国语学院</span>
+            <span>拾获于今天 11:20</span>
+            <span>提交于 1 小时前</span>
+          </div>
+          <p class="review-desc">内有现金若干、校园卡一张（卡号已登记）、身份证一张；已交至图书馆服务台失物招领处，凭有效证件认领……</p>
+        </div>
+        <div class="review-actions">
+          <button class="btn btn-success btn-sm" onclick="approve(this)">通过</button>
+          <button class="btn btn-warning btn-sm" onclick="approve(this)">打回补充</button>
+          <button class="btn btn-ghost-danger btn-sm" onclick="approve(this)">拒绝</button>
+        </div>
+      </div>
+
+      <div class="review-card">
+        <div class="review-cover">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        </div>
+        <div class="review-body">
+          <div class="review-title">【寻物】AirPods Pro 2 白色耳机（体育馆篮球场）
+            <span class="tag tag-accent tag-plain">寻物启事</span>
+          </div>
+          <div class="review-meta">
+            <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>许静怡 · 经济管理学院</span>
+            <span>遗失于昨天 19:40</span>
+            <span>提交于 3 小时前</span>
+          </div>
+          <p class="review-desc">右耳外壳有一道细小划痕，充电盒贴有库洛米贴纸；失主非常着急，愿以奶茶答谢归还者，可私信联系确认特征……</p>
+        </div>
+        <div class="review-actions">
+          <button class="btn btn-success btn-sm" onclick="approve(this)">通过</button>
+          <button class="btn btn-warning btn-sm" onclick="approve(this)">打回补充</button>
+          <button class="btn btn-ghost-danger btn-sm" onclick="approve(this)">拒绝</button>
+        </div>
+      </div>
+
+      <div class="review-card">
+        <div class="review-cover"><img src="images/study-banner.jpg" alt="物品图片" /></div>
+        <div class="review-body">
+          <div class="review-title">【拾获】高数课本 + 课堂笔记（一教 302）
+            <span class="tag tag-info tag-plain">拾获登记</span>
+          </div>
+          <div class="review-meta">
+            <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>林晓雨 · 信息工程学院</span>
+            <span>拾获于今天 08:55</span>
+            <span>提交于 5 小时前</span>
+          </div>
+          <p class="review-desc">笔记内页有大量手写公式推导（似考研复习内容），扉页有姓名缩写「Z.M.」；请失主前往学生服务中心 2 号窗口认领……</p>
+        </div>
+        <div class="review-actions">
+          <button class="btn btn-success btn-sm" onclick="approve(this)">通过</button>
+          <button class="btn btn-warning btn-sm" onclick="approve(this)">打回补充</button>
+          <button class="btn btn-ghost-danger btn-sm" onclick="approve(this)">拒绝</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="tab-pane" data-tabs="lost">
+    <div class="empty"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="m9 11 3 3L22 4"/></svg><b>本页暂无已通过的信息</b><p>切换其他页码查看历史记录</p></div>
+  </div>
+  <div class="tab-pane" data-tabs="lost">
+    <div class="empty"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M4.9 4.9 19.1 19.1"/></svg><b>本页暂无已拒绝的信息</b><p>拒绝记录将保留 90 天供申诉查询</p></div>
+  </div>
+</section>
+
+<!-- ============================================================
+     页面 8 · 校园动态审核（含 AI 预审）
+     ============================================================ -->
+<section class="page" data-page="review-post">
+  <div class="page-head">
+    <div>
+      <h1>动态审核</h1>
+      <p class="desc">校园动态发布审核 · AI 预审 + 人工复核双保险</p>
+    </div>
+    <div class="page-head-actions">
+      <button class="btn btn-ghost btn-sm">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M18.4 5.6l-2.1 2.1M7.7 16.3l-2.1 2.1"/><circle cx="12" cy="12" r="3"/></svg>
+        AI 预审设置
+      </button>
+    </div>
+  </div>
+
+  <div class="tabs" style="margin-bottom:16px">
+    <button class="tab active" data-tabs="post">待审核<span class="tab-count">16</span></button>
+    <button class="tab" data-tabs="post">AI 预警<span class="tab-count">3</span></button>
+    <button class="tab" data-tabs="post">已通过</button>
+    <button class="tab" data-tabs="post">已拒绝</button>
+  </div>
+
+  <div class="tab-pane active" data-tabs="post">
+    <div class="review-list">
+      <div class="review-card">
+        <div class="review-cover"><img src="images/social-card.jpg" alt="动态配图" /></div>
+        <div class="review-body">
+          <div class="review-title">今日份校园晚霞，美到词穷🌇
+            <span class="tag tag-neutral tag-plain">图文动态</span>
+          </div>
+          <div class="review-meta">
+            <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.5 8.5 0 0 1-12.5 7.5L3 21l2-5.5A8.5 8.5 0 1 1 21 11.5z"/></svg>林晓雨</span>
+            <span>含 3 张配图</span>
+            <span>提交于 8 分钟前</span>
+          </div>
+          <p class="review-desc">「18:30 的操场，风把云吹成了橘子汽水的颜色。期末周的疲惫被这片天治好了，分享给还没看到的小伙伴～」……</p>
+          <div class="ai-pre">
+            <div class="ai-pre-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="m9 11 3 3L22 4"/></svg>
+            </div>
+            <div class="ai-pre-body">
+              <b>AI 预审建议：通过（内容健康）</b>
+              敏感词检测 <span class="pct">0 命中</span> · 图像合规 <span class="pct">100%</span> · 广告识别 <span class="pct">2%</span>（正常环境噪声）
+            </div>
+          </div>
+        </div>
+        <div class="review-actions">
+          <button class="btn btn-success btn-sm" onclick="approve(this)">通过</button>
+          <button class="btn btn-ghost-danger btn-sm" onclick="approve(this)">拒绝</button>
+        </div>
+      </div>
+
+      <div class="review-card">
+        <div class="review-cover">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.5 8.5 0 0 1-12.5 7.5L3 21l2-5.5A8.5 8.5 0 1 1 21 11.5z"/></svg>
+        </div>
+        <div class="review-body">
+          <div class="review-title">食堂二楼新出的麻辣香锅真实测评！
+            <span class="tag tag-neutral tag-plain">图文动态</span>
+          </div>
+          <div class="review-meta">
+            <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.5 8.5 0 0 1-12.5 7.5L3 21l2-5.5A8.5 8.5 0 1 1 21 11.5z"/></svg>郑思琪</span>
+            <span>含 2 张配图</span>
+            <span>提交于 35 分钟前</span>
+          </div>
+          <p class="review-desc">「15 元自助称重，荤素同价；辣度可选微辣/中辣/变态辣，亲测中辣刚好下饭。附排队攻略：11:50 前到不用排……」……</p>
+          <div class="ai-pre">
+            <div class="ai-pre-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="m9 11 3 3L22 4"/></svg>
+            </div>
+            <div class="ai-pre-body">
+              <b>AI 预审建议：通过（内容健康）</b>
+              敏感词检测 <span class="pct">0 命中</span> · 图像合规 <span class="pct">100%</span> · 疑似营销 <span class="pct">6%</span>（个人测评，非商业推广）
+            </div>
+          </div>
+        </div>
+        <div class="review-actions">
+          <button class="btn btn-success btn-sm" onclick="approve(this)">通过</button>
+          <button class="btn btn-ghost-danger btn-sm" onclick="approve(this)">拒绝</button>
+        </div>
+      </div>
+
+      <div class="review-card" style="border-color:var(--error-line)">
+        <div class="review-cover"><img src="images/idle-card.jpg" alt="动态配图" /></div>
+        <div class="review-body">
+          <div class="review-title">四六级保过班内部渠道，加 V：xxxx886
+            <span class="tag tag-neutral tag-plain">图文动态</span>
+          </div>
+          <div class="review-meta">
+            <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.5 8.5 0 0 1-12.5 7.5L3 21l2-5.5A8.5 8.5 0 1 1 21 11.5z"/></svg>赵天宇</span>
+            <span>含 1 张配图</span>
+            <span>提交于 1 小时前</span>
+          </div>
+          <p class="review-desc">「学姐亲测有效！不过全额退款，名额有限速来，附转账截图为证，已经有 30+ 同学上车成功上岸……」……</p>
+          <div class="ai-pre">
+            <div class="ai-pre-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><path d="M12 9v4M12 17h.01"/></svg>
+            </div>
+            <div class="ai-pre-body">
+              <b>AI 预审建议：拦截（风险等级 高）</b>
+              命中规则：<span class="pct">「虚假保过承诺」95%</span> · <span class="pct">「站外引流」89%</span> · <span class="pct">「兼职诈骗话术」76%</span> · 该账号历史被举报 5 次
+            </div>
+          </div>
+        </div>
+        <div class="review-actions">
+          <button class="btn btn-success btn-sm" onclick="approve(this)">放行</button>
+          <button class="btn btn-danger btn-sm" onclick="approve(this)">拦截</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="tab-pane" data-tabs="post">
+    <div class="notice-banner warn">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><path d="M12 9v4M12 17h.01"/></svg>
+      <span>以下 3 条动态被 AI 预审自动拦截，等待人工复核。复核通过将恢复展示并优化对应风控规则。</span>
+    </div>
+    <div class="review-list mt-4">
+      <div class="review-card">
+        <div class="review-cover">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.5 8.5 0 0 1-12.5 7.5L3 21l2-5.5A8.5 8.5 0 1 1 21 11.5z"/></svg>
+        </div>
+        <div class="review-body">
+          <div class="review-title">出二手电动车（含头盔充电器）
+            <span class="tag tag-neutral tag-plain">图文动态</span>
+          </div>
+          <div class="review-meta">
+            <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.5 8.5 0 0 1-12.5 7.5L3 21l2-5.5A8.5 8.5 0 1 1 21 11.5z"/></svg>王浩然</span>
+            <span>AI 自动拦截 · 1 小时前</span>
+          </div>
+          <div class="ai-pre">
+            <div class="ai-pre-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><path d="M12 9v4M12 17h.01"/></svg>
+            </div>
+            <div class="ai-pre-body">
+              <b>命中规则：「疑似广告推广」（置信度 71%，中等）</b>
+              文本模式与营销帖高度相似，但含明显个人转让特征（自用描述 + 面交方式），建议人工判断
+            </div>
+          </div>
+        </div>
+        <div class="review-actions">
+          <button class="btn btn-success btn-sm" onclick="approve(this)">恢复展示</button>
+          <button class="btn btn-danger btn-sm" onclick="approve(this)">维持拦截</button>
+        </div>
+      </div>
+
+      <div class="review-card">
+        <div class="review-cover">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.5 8.5 0 0 1-12.5 7.5L3 21l2-5.5A8.5 8.5 0 1 1 21 11.5z"/></svg>
+        </div>
+        <div class="review-body">
+          <div class="review-title">关于最近流行的「拍一拍」骗局提醒
+            <span class="tag tag-neutral tag-plain">图文动态</span>
+          </div>
+          <div class="review-meta">
+            <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.5 8.5 0 0 1-12.5 7.5L3 21l2-5.5A8.5 8.5 0 1 1 21 11.5z"/></svg>何嘉豪</span>
+          <span>AI 自动拦截 · 2 小时前</span>
+          </div>
+          <div class="ai-pre">
+            <div class="ai-pre-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><path d="M12 9v4M12 17h.01"/></svg>
+            </div>
+            <div class="ai-pre-body">
+              <b>命中规则：「涉诈关键词」（置信度 64%，中等）</b>
+              正文转述了诈骗话术用于提醒同学防范，属于正例误伤，建议恢复展示
+            </div>
+          </div>
+        </div>
+        <div class="review-actions">
+          <button class="btn btn-success btn-sm" onclick="approve(this)">恢复展示</button>
+          <button class="btn btn-danger btn-sm" onclick="approve(this)">维持拦截</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="tab-pane" data-tabs="post">
+    <div class="empty"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="m9 11 3 3L22 4"/></svg><b>本页暂无已通过的动态</b><p>切换其他页码查看历史记录</p></div>
+  </div>
+  <div class="tab-pane" data-tabs="post">
+    <div class="empty"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M4.9 4.9 19.1 19.1"/></svg><b>本页暂无已拒绝的动态</b><p>拒绝记录将保留 90 天供申诉查询</p></div>
+  </div>
+</section>
+
+<!-- ============================================================
+     页面 9 · AI 内容审核
+     ============================================================ -->
+<section class="page" data-page="ai-review">
+  <div class="page-head">
+    <div>
+      <h1>AI 内容审核</h1>
+      <p class="desc">自动审核引擎运行日志与人工复核队列</p>
+    </div>
+    <div class="page-head-actions">
+      <button class="btn btn-ghost btn-sm" onclick="goPage('ai-config')">引擎参数</button>
+      <button class="btn btn-primary btn-sm" onclick="goPage('ai-logs')">完整调用日志</button>
+    </div>
+  </div>
+
+  <div class="kpi-grid" style="grid-template-columns:repeat(3,1fr)">
+    <div class="kpi">
+      <div class="kpi-icon info">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M18.4 5.6l-2.1 2.1M7.7 16.3l-2.1 2.1"/><circle cx="12" cy="12" r="3"/></svg>
+      </div>
+      <div class="kpi-body">
+        <div class="kpi-label">今日自动扫描</div>
+        <div class="kpi-value">3,127<small> 条</small></div>
+        <div class="kpi-trend up"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17 17 7M17 7H8M17 7v9"/></svg>+9.6% <span>较昨日</span></div>
+      </div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-icon accent">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      </div>
+      <div class="kpi-body">
+        <div class="kpi-label">自动拦截</div>
+        <div class="kpi-value">47<small> 条</small></div>
+        <div class="kpi-trend flat">拦截率 1.5% <span>· 正常范围</span></div>
+      </div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-icon gold">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+      </div>
+      <div class="kpi-body">
+        <div class="kpi-label">待人工复核</div>
+        <div class="kpi-value">3<small> 条</small></div>
+        <div class="kpi-trend down"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 7l10 10M17 17H8M17 17V8"/></svg>-2 条 <span>今日已复核</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="tabs" style="margin-bottom:16px">
+    <button class="tab active" data-tabs="ai">复核队列<span class="tab-count">3</span></button>
+    <button class="tab" data-tabs="ai">拦截日志</button>
+    <button class="tab" data-tabs="ai">规则命中统计</button>
+  </div>
+
+  <div class="tab-pane active" data-tabs="ai">
+    <div class="notice-banner">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
+      <span>复核队列展示 AI 中等置信度的拦截内容；复核结论将回流至风控模型，用于优化后续判断准确率。</span>
+    </div>
+    <div class="review-list mt-4">
+      <div class="review-card">
+        <div class="review-cover">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.5 8.5 0 0 1-12.5 7.5L3 21l2-5.5A8.5 8.5 0 1 1 21 11.5z"/></svg>
+        </div>
+        <div class="review-body">
+          <div class="review-title">动态「出二手电动车」· 王浩然
+            <span class="tag tag-warning tag-plain">置信度 71%</span>
+          </div>
+          <div class="ai-pre">
+            <div class="ai-pre-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><path d="M12 9v4M12 17h.01"/></svg>
+            </div>
+            <div class="ai-pre-body">
+              <b>命中规则：「疑似广告推广」</b>
+              建议人工判断 · 详见动态审核页同名条目
+            </div>
+          </div>
+        </div>
+        <div class="review-actions">
+          <button class="btn btn-success btn-sm" onclick="approve(this)">复核放行</button>
+          <button class="btn btn-danger btn-sm" onclick="approve(this)">维持拦截</button>
+        </div>
+      </div>
+
+      <div class="review-card">
+        <div class="review-cover">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.5 8.5 0 0 1-12.5 7.5L3 21l2-5.5A8.5 8.5 0 1 1 21 11.5z"/></svg>
+        </div>
+        <div class="review-body">
+          <div class="review-title">动态「拍一拍骗局提醒」· 何嘉豪
+            <span class="tag tag-warning tag-plain">置信度 64%</span>
+          </div>
+          <div class="ai-pre">
+            <div class="ai-pre-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><path d="M12 9v4M12 17h.01"/></svg>
+            </div>
+            <div class="ai-pre-body">
+              <b>命中规则：「涉诈关键词」（误伤候选）</b>
+              转述诈骗话术用于防范提醒，历史上同类复核 12 次中 11 次选择放行
+            </div>
+          </div>
+        </div>
+        <div class="review-actions">
+          <button class="btn btn-success btn-sm" onclick="approve(this)">复核放行</button>
+          <button class="btn btn-danger btn-sm" onclick="approve(this)">维持拦截</button>
+        </div>
+      </div>
+
+      <div class="review-card">
+        <div class="review-cover"><img src="images/activity-card.jpg" alt="内容配图" /></div>
+        <div class="review-body">
+          <div class="review-title">活动「社团纳新外链报名表」· 摄影协会
+            <span class="tag tag-warning tag-plain">置信度 66%</span>
+          </div>
+          <div class="ai-pre">
+            <div class="ai-pre-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><path d="M12 9v4M12 17h.01"/></svg>
+            </div>
+            <div class="ai-pre-body">
+              <b>命中规则：「站外链接收集个人信息」</b>
+              报名表单域名未在白名单内，但社团资质完整，建议核实链接安全性后放行
+            </div>
+          </div>
+        </div>
+        <div class="review-actions">
+          <button class="btn btn-success btn-sm" onclick="approve(this)">复核放行</button>
+          <button class="btn btn-danger btn-sm" onclick="approve(this)">维持拦截</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="tab-pane" data-tabs="ai">
+    <div class="table-card">
+      <div class="table-scroll">
+        <table class="table">
+          <thead>
+            <tr><th>时间</th><th>内容类型</th><th>内容摘要</th><th>命中规则</th><th>置信度</th><th>处理</th><th>操作员</th></tr>
+          </thead>
+          <tbody>
+            <tr><td class="cell-num">10:32:08</td><td>动态</td><td>四六级保过班内部渠道…</td><td><span class="tag tag-error">虚假承诺</span></td><td class="cell-strong">95%</td><td><span class="tag tag-error">自动拦截</span></td><td class="cell-num">AI</td></tr>
+            <tr><td class="cell-num">10:28:41</td><td>闲置</td><td>iPhone 代购比官网便宜…</td><td><span class="tag tag-error">站外交易</span></td><td class="cell-strong">92%</td><td><span class="tag tag-warning">转人工</span></td><td class="cell-num">AI</td></tr>
+            <tr><td class="cell-num">10:15:19</td><td>动态</td><td>兼职刷单日结 300…</td><td><span class="tag tag-error">兼职诈骗</span></td><td class="cell-strong">97%</td><td><span class="tag tag-error">自动拦截</span></td><td class="cell-num">AI</td></tr>
+            <tr><td class="cell-num">09:58:02</td><td>动态</td><td>出二手电动车（含头盔）…</td><td><span class="tag tag-warning">疑似广告</span></td><td class="cell-strong">71%</td><td><span class="tag tag-warning">转人工</span></td><td class="cell-num">AI</td></tr>
+            <tr><td class="cell-num">09:47:33</td><td>动态</td><td>校园周边驾校团报优惠…</td><td><span class="tag tag-warning">商业推广</span></td><td class="cell-strong">84%</td><td><span class="tag tag-error">自动拦截</span></td><td class="cell-num">AI</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="table-foot">
+        <span class="table-info">今日第 1-5 条，共 47 条拦截记录</span>
+        <div class="pagination"><button class="page-btn">‹</button><button class="page-btn active">1</button><button class="page-btn">2</button><button class="page-btn">…</button><button class="page-btn">10</button><button class="page-btn">›</button></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="tab-pane" data-tabs="ai">
+    <div class="card">
+      <div class="card-head">
+        <div><div class="card-title">近 30 日规则命中排行</div><div class="card-sub">用于调优规则库与置信度阈值</div></div>
+      </div>
+      <div class="queue-row">
+        <div class="queue-name" style="width:150px">广告推广</div>
+        <div class="queue-bar"><span style="width:88%;background:linear-gradient(90deg,var(--accent),var(--accent-strong))"></span></div>
+        <div class="queue-num">412</div>
+      </div>
+      <div class="queue-row">
+        <div class="queue-name" style="width:150px">站外引流</div>
+        <div class="queue-bar"><span style="width:64%;background:linear-gradient(90deg,var(--error),oklch(48% 0.15 25))"></span></div>
+        <div class="queue-num">301</div>
+      </div>
+      <div class="queue-row">
+        <div class="queue-name" style="width:150px">敏感词汇</div>
+        <div class="queue-bar"><span style="width:38%;background:linear-gradient(90deg,var(--info),var(--info-strong))"></span></div>
+        <div class="queue-num">176</div>
+      </div>
+      <div class="queue-row">
+        <div class="queue-name" style="width:150px">图像不合规</div>
+        <div class="queue-bar"><span style="width:18%;background:linear-gradient(90deg,var(--brand),var(--brand-strong))"></span></div>
+        <div class="queue-num">85</div>
+      </div>
+      <div class="queue-row">
+        <div class="queue-name" style="width:150px">诈骗话术</div>
+        <div class="queue-bar"><span style="width:12%;background:linear-gradient(90deg,var(--gold),var(--gold-strong))"></span></div>
+        <div class="queue-num">57</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     页面 10 · 系统公告管理
+     ============================================================ -->
+<section class="page" data-page="notice">
+  <div class="page-head">
+    <div>
+      <h1>系统公告</h1>
+      <p class="desc">面向全体学生的公告发布与历史管理</p>
+    </div>
+    <div class="page-head-actions">
+      <button class="btn btn-ghost btn-sm">回收站</button>
+      <button class="btn btn-primary btn-sm">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+        新建公告
+      </button>
+    </div>
+  </div>
+
+  <div class="dash-grid" style="grid-template-columns:1fr 360px">
+    <div class="table-card">
+      <div class="table-scroll">
+        <table class="table">
+          <thead>
+            <tr><th>公告标题</th><th>类型</th><th>触达</th><th>发布时间</th><th>状态</th><th style="width:130px">操作</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="cell-strong">关于 2026 年国庆节放假安排的通知</td>
+              <td><span class="tag tag-brand tag-plain">行政通知</span></td>
+              <td class="cell-num">11,203 / 12,486</td>
+              <td class="cell-num">09-15 10:00</td>
+              <td><span class="tag tag-success">已发布</span></td>
+              <td><button class="link-btn">编辑</button><button class="link-btn danger">撤回</button></td>
+            </tr>
+            <tr>
+              <td class="cell-strong">梧桐校园 3.0 版本更新公告（AI 答疑升级）</td>
+              <td><span class="tag tag-info tag-plain">产品动态</span></td>
+              <td class="cell-num">9,876 / 12,486</td>
+              <td class="cell-num">09-12 16:30</td>
+              <td><span class="tag tag-success">已发布</span></td>
+              <td><button class="link-btn">编辑</button><button class="link-btn danger">撤回</button></td>
+            </tr>
+            <tr>
+              <td class="cell-strong">期末周图书馆延长开放时间的温馨提醒</td>
+              <td><span class="tag tag-gold tag-plain">校园生活</span></td>
+              <td class="cell-num">8,214 / 12,486</td>
+              <td class="cell-num">09-10 09:00</td>
+              <td><span class="tag tag-success">已发布</span></td>
+              <td><button class="link-btn">编辑</button><button class="link-btn danger">撤回</button></td>
+            </tr>
+            <tr>
+              <td class="cell-strong">防范「AI 换脸」诈骗的安全提示</td>
+              <td><span class="tag tag-accent tag-plain">安全提醒</span></td>
+              <td class="cell-num">—</td>
+              <td class="cell-num">定时 09-17 08:00</td>
+              <td><span class="tag tag-warning">待发布</span></td>
+              <td><button class="link-btn">编辑</button><button class="link-btn danger">取消</button></td>
+            </tr>
+            <tr style="opacity:.62">
+              <td class="cell-strong">中秋节游园会志愿者招募（已过期）</td>
+              <td><span class="tag tag-brand tag-plain">行政通知</span></td>
+              <td class="cell-num">7,102 / 12,486</td>
+              <td class="cell-num">08-28 14:00</td>
+              <td><span class="tag tag-neutral">已过期</span></td>
+              <td><button class="link-btn">查看</button><button class="link-btn danger">删除</button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="table-foot">
+        <span class="table-info">第 1-5 条，共 23 条公告</span>
+        <div class="pagination"><button class="page-btn">‹</button><button class="page-btn active">1</button><button class="page-btn">2</button><button class="page-btn">…</button><button class="page-btn">5</button><button class="page-btn">›</button></div>
+      </div>
+    </div>
+
+    <div class="card" style="position:sticky;top:84px">
+      <div class="card-head">
+        <div>
+          <div class="card-title">发布公告</div>
+          <div class="card-sub">支持定时发布与范围圈选</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">公告标题<span class="req">*</span></label>
+        <input class="form-input" type="text" placeholder="一句话概括公告内容" />
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">类型</label>
+          <select class="form-select"><option>行政通知</option><option>产品动态</option><option>校园生活</option><option>安全提醒</option></select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">发布范围</label>
+          <select class="form-select"><option>全体学生</option><option>指定学院</option><option>指定年级</option></select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">正文<span class="req">*</span></label>
+        <textarea class="form-textarea" placeholder="支持 Markdown 与图片，正文字数上限 2000…" style="min-height:130px"></textarea>
+      </div>
+      <div class="form-group">
+        <label class="form-label">定时发布</label>
+        <div class="form-row">
+          <input class="form-input" type="date" value="2026-09-17" />
+          <input class="form-input" type="time" value="08:00" />
+        </div>
+      </div>
+      <div class="setting-row" style="border-bottom:none;padding:4px 0 16px">
+        <div class="txt"><b>同时推送站内消息</b><span>触达消息中心「系统通知」栏</span></div>
+        <label class="switch"><input type="checkbox" checked /><span class="switch-track"></span></label>
+      </div>
+      <div style="display:flex;gap:8px">
+        <button class="btn btn-primary btn-sm" style="flex:1">发布公告</button>
+        <button class="btn btn-ghost btn-sm">存为草稿</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     页面 11 · 举报处理
+     ============================================================ -->
+<section class="page" data-page="report">
+  <div class="page-head">
+    <div>
+      <h1>举报处理</h1>
+      <p class="desc">社区举报工单 · 今日新增 4 单，平均办结时长 6.2 小时</p>
+    </div>
+    <div class="page-head-actions">
+      <button class="btn btn-ghost btn-sm">导出工单</button>
+    </div>
+  </div>
+
+  <div class="filter-bar">
+    <select class="filter-select"><option>全部类型</option><option>垃圾广告</option><option>欺诈信息</option><option>违规交易</option><option>人身攻击</option><option>不当内容</option></select>
+    <select class="filter-select"><option>全部状态</option><option>待受理</option><option>处理中</option><option>已结案</option><option>已驳回</option></select>
+    <input class="filter-input" type="search" placeholder="搜索工单号 / 举报人 / 被举报内容…" style="min-width:240px" />
+    <div class="filter-spacer"></div>
+    <span class="tag tag-error tag-plain">2 单即将超时（48h）</span>
+  </div>
+
+  <div class="table-card">
+    <div class="table-scroll">
+      <table class="table">
+        <thead>
+          <tr><th>工单号</th><th>举报类型</th><th>被举报内容</th><th>举报人</th><th>提交时间</th><th>状态</th><th style="width:130px">操作</th></tr>
+        </thead>
+        <tbody>
+          <tr style="background:var(--error-soft)">
+            <td class="cell-num">#R20260916-004</td>
+            <td><span class="tag tag-error">欺诈信息</span></td>
+            <td class="cell-strong">动态「四六级保过班内部渠道」</td>
+            <td>3 人联合举报</td>
+            <td class="cell-num">10:31</td>
+            <td><span class="tag tag-warning">待受理</span></td>
+            <td><button class="link-btn" onclick="openDrawer()">处理</button></td>
+          </tr>
+          <tr>
+            <td class="cell-num">#R20260916-003</td>
+            <td><span class="tag tag-warning">违规交易</span></td>
+            <td class="cell-strong">闲置「iPhone 16 代购」</td>
+            <td>何嘉豪</td>
+            <td class="cell-num">09:58</td>
+            <td><span class="tag tag-info">处理中</span></td>
+            <td><button class="link-btn" onclick="openDrawer()">跟进</button></td>
+          </tr>
+          <tr style="background:var(--error-soft)">
+            <td class="cell-num">#R20260915-011</td>
+            <td><span class="tag tag-error">人身攻击</span></td>
+            <td class="cell-strong">动态评论区（涉言语冲突）</td>
+            <td>匿名</td>
+            <td class="cell-num">昨天 21:14</td>
+            <td><span class="tag tag-warning">待受理</span></td>
+            <td><button class="link-btn" onclick="openDrawer()">处理</button></td>
+          </tr>
+          <tr>
+            <td class="cell-num">#R20260915-009</td>
+            <td><span class="tag tag-neutral">垃圾广告</span></td>
+            <td class="cell-strong">闲置「驾校团报优惠」</td>
+            <td>林晓雨</td>
+            <td class="cell-num">昨天 15:40</td>
+            <td><span class="tag tag-success">已结案</span></td>
+            <td><button class="link-btn" onclick="openDrawer()">查看</button></td>
+          </tr>
+          <tr>
+            <td class="cell-num">#R20260914-006</td>
+            <td><span class="tag tag-neutral">不当内容</span></td>
+            <td class="cell-strong">动态配图（低俗擦边）</td>
+            <td>苏婉清</td>
+            <td class="cell-num">09-14 19:22</td>
+            <td><span class="tag tag-success">已结案</span></td>
+            <td><button class="link-btn" onclick="openDrawer()">查看</button></td>
+          </tr>
+          <tr style="opacity:.62">
+            <td class="cell-num">#R20260914-002</td>
+            <td><span class="tag tag-neutral">垃圾广告</span></td>
+            <td class="cell-strong">动态「拼单优惠群」</td>
+            <td>匿名</td>
+            <td class="cell-num">09-14 10:05</td>
+            <td><span class="tag tag-neutral">已驳回</span></td>
+            <td><button class="link-btn" onclick="openDrawer()">查看</button></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="table-foot">
+      <span class="table-info">第 1-6 单，共 89 单（近 30 日）</span>
+      <div class="pagination"><button class="page-btn">‹</button><button class="page-btn active">1</button><button class="page-btn">2</button><button class="page-btn">3</button><button class="page-btn">…</button><button class="page-btn">15</button><button class="page-btn">›</button></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     页面 12 · AI 配置
+     ============================================================ -->
+<section class="page" data-page="ai-config">
+  <div class="page-head">
+    <div>
+      <h1>AI 配置</h1>
+      <p class="desc">模型接入、审核引擎与调用限额 · 修改后 30 秒内热生效</p>
+    </div>
+    <div class="page-head-actions">
+      <button class="btn btn-ghost btn-sm">恢复默认</button>
+      <button class="btn btn-primary btn-sm" onclick="approve(this)">保存配置</button>
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-head">
+        <div>
+          <div class="card-title">模型接入</div>
+          <div class="card-sub">学生端 AI 答疑 / 代码纠错使用的底层模型</div>
+        </div>
+        <span class="tag tag-success">已连通</span>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">模型服务商</label>
+          <select class="form-select"><option>智谱 GLM-4</option><option>百度文心一言</option><option>阿里通义千问</option><option>科大讯飞星火</option></select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">模型版本</label>
+          <select class="form-select"><option>glm-4-flash（当前）</option><option>glm-4-air</option><option>glm-4-plus</option></select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">API Key</label>
+        <input class="form-input" type="password" value="••••••••••••••••••••3f9a" readonly />
+        <p class="form-hint">密钥已脱敏保存于服务端加密存储，仅超级管理员可更换</p>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">温度 (Temperature)</label>
+          <input class="form-input" type="number" value="0.7" step="0.1" min="0" max="2" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">最大回复 Token</label>
+          <input class="form-input" type="number" value="2048" step="256" />
+        </div>
+      </div>
+      <div class="setting-row">
+        <div class="txt"><b>流式输出 (SSE)</b><span>打字机效果，降低学生等待焦虑</span></div>
+        <label class="switch"><input type="checkbox" checked /><span class="switch-track"></span></label>
+      </div>
+      <div class="setting-row" style="border-bottom:none">
+        <div class="txt"><b>回答前展示思考过程</b><span>展示推理链路，辅助学习理解</span></div>
+        <label class="switch"><input type="checkbox" /><span class="switch-track"></span></label>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-head">
+        <div>
+          <div class="card-title">内容审核引擎</div>
+          <div class="card-sub">AI 预审的拦截阈值与生效范围</div>
+        </div>
+        <span class="tag tag-success">运行中</span>
+      </div>
+      <div class="form-group">
+        <label class="form-label">自动拦截置信度阈值</label>
+        <div class="form-row">
+          <select class="form-select">
+            <option selected>≥ 85% 自动拦截（严格）</option>
+            <option>≥ 90% 自动拦截（标准）</option>
+            <option>≥ 95% 自动拦截（宽松）</option>
+          </select>
+          <select class="form-select">
+            <option selected>60%-85% 转人工复核</option>
+            <option>50%-85% 转人工复核</option>
+            <option>仅高危转人工</option>
+          </select>
+        </div>
+        <p class="form-hint">当前误拦率 0.8% · 漏拦率 0.3%（近 7 日）</p>
+      </div>
+      <div class="form-group">
+        <label class="form-label">审核范围</label>
+        <div style="display:flex;flex-direction:column;gap:8px;padding:12px;border:1px solid var(--line);border-radius:var(--r-sm);background:var(--surface-2)">
+          <label class="switch"><input type="checkbox" checked /><span class="switch-track"></span><span class="switch-label">校园动态（发布时）</span></label>
+          <label class="switch"><input type="checkbox" checked /><span class="switch-track"></span><span class="switch-label">闲置物品（上架时）</span></label>
+          <label class="switch"><input type="checkbox" checked /><span class="switch-track"></span><span class="switch-label">动态评论（实时）</span></label>
+          <label class="switch"><input type="checkbox" /><span class="switch-track"></span><span class="switch-label">私信内容（仅高危场景）</span></label>
+        </div>
+      </div>
+      <div class="setting-row">
+        <div class="txt"><b>敏感词库自动更新</b><span>每周一凌晨同步教育行业词库</span></div>
+        <label class="switch"><input type="checkbox" checked /><span class="switch-track"></span></label>
+      </div>
+    </div>
+  </div>
+
+  <div class="card mt-4">
+    <div class="card-head">
+      <div>
+        <div class="card-title">调用限额与熔断</div>
+        <div class="card-sub">保护预算与防止滥用</div>
+      </div>
+    </div>
+    <div class="grid-3">
+      <div>
+        <div class="form-group">
+          <label class="form-label">单用户每日 AI 调用上限</label>
+          <input class="form-input" type="number" value="50" />
+          <p class="form-hint">超出后引导学生次日再来</p>
+        </div>
+      </div>
+      <div>
+        <div class="form-group">
+          <label class="form-label">平台每日总调用量上限</label>
+          <input class="form-input" type="number" value="200000" />
+          <p class="form-hint">当前日均 8,214 次 · 预算余量充足</p>
+        </div>
+      </div>
+      <div>
+        <div class="form-group">
+          <label class="form-label">失败熔断阈值</label>
+          <input class="form-input" type="number" value="5" />
+          <p class="form-hint">连续失败 N 次后暂停并告警</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     页面 13 · 调用日志
+     ============================================================ -->
+<section class="page" data-page="ai-logs">
+  <div class="page-head">
+    <div>
+      <h1>调用日志</h1>
+      <p class="desc">AI 服务调用全量日志 · 保留 90 天</p>
+    </div>
+    <div class="page-head-actions">
+      <button class="btn btn-ghost btn-sm">导出 CSV</button>
+    </div>
+  </div>
+
+  <div class="kpi-grid" style="grid-template-columns:repeat(4,1fr)">
+    <div class="kpi"><div class="kpi-icon info"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></svg></div><div class="kpi-body"><div class="kpi-label">今日调用</div><div class="kpi-value">8,214</div><div class="kpi-trend up"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17 17 7M17 7H8M17 7v9"/></svg>+21.4%<span>较上周</span></div></div></div>
+    <div class="kpi"><div class="kpi-icon brand"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M2 12h20"/><circle cx="12" cy="12" r="9"/></svg></div><div class="kpi-body"><div class="kpi-label">Token 消耗</div><div class="kpi-value">2.4<small> M</small></div><div class="kpi-trend flat">预估成本 ¥36.5</div></div></div>
+    <div class="kpi"><div class="kpi-icon gold"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div><div class="kpi-body"><div class="kpi-label">平均耗时</div><div class="kpi-value">1.86<small> s</small></div><div class="kpi-trend up"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17 17 7M17 7H8M17 7v9"/></svg>P95 3.2s</div></div></div>
+    <div class="kpi"><div class="kpi-icon accent"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg></div><div class="kpi-body"><div class="kpi-label">失败率</div><div class="kpi-value">0.42<small> %</small></div><div class="kpi-trend down"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 7l10 10M17 17H8M17 17V8"/></svg>34 次<span>·已重试 21 次</span></div></div></div>
+  </div>
+
+  <div class="filter-bar">
+    <select class="filter-select"><option>全部模块</option><option>AI 答疑</option><option>代码纠错</option><option>错题本</option><option>内容审核</option></select>
+    <select class="filter-select"><option>全部状态</option><option>成功</option><option>失败</option><option>超时</option><option>限流</option></select>
+    <input class="filter-input" type="search" placeholder="搜索 Trace ID / 用户学号…" />
+    <div class="filter-spacer"></div>
+    <button class="btn btn-ghost btn-sm">仅看失败</button>
+  </div>
+
+  <div class="table-card">
+    <div class="table-scroll">
+      <table class="table">
+        <thead>
+          <tr><th>时间</th><th>Trace ID</th><th>用户</th><th>模块</th><th>问题摘要</th><th>Token</th><th>耗时</th><th>状态</th><th>操作</th></tr>
+        </thead>
+        <tbody>
+          <tr><td class="cell-num">10:34:21</td><td class="cell-num">tr-8f3a92c1</td><td>林晓雨</td><td><span class="tag tag-info tag-plain">AI 答疑</span></td><td>解释一下快速排序的时间复杂度…</td><td class="cell-num">1,842</td><td class="cell-num">1.9s</td><td><span class="tag tag-success">成功</span></td><td><button class="link-btn" onclick="openDrawer()">详情</button></td></tr>
+          <tr><td class="cell-num">10:33:58</td><td class="cell-num">tr-77b1e0d4</td><td>王浩然</td><td><span class="tag tag-brand tag-plain">代码纠错</span></td><td>这段 Java 代码为什么空指针…</td><td class="cell-num">2,317</td><td class="cell-num">2.4s</td><td><span class="tag tag-success">成功</span></td><td><button class="link-btn" onclick="openDrawer()">详情</button></td></tr>
+          <tr><td class="cell-num">10:33:12</td><td class="cell-num">tr-2c9f45a8</td><td>—</td><td><span class="tag tag-accent tag-plain">内容审核</span></td><td>动态「四六级保过班」自动预审</td><td class="cell-num">356</td><td class="cell-num">0.4s</td><td><span class="tag tag-error">拦截</span></td><td><button class="link-btn" onclick="openDrawer()">详情</button></td></tr>
+          <tr style="background:var(--error-soft)"><td class="cell-num">10:32:47</td><td class="cell-num">tr-a18d330b</td><td>苏婉清</td><td><span class="tag tag-info tag-plain">AI 答疑</span></td><td>帮我写一篇英语作文…</td><td class="cell-num">—</td><td class="cell-num">10.0s</td><td><span class="tag tag-error">超时</span></td><td><button class="link-btn" onclick="openDrawer()">详情</button></td></tr>
+          <tr><td class="cell-num">10:31:29</td><td class="cell-num">tr-5e07b992</td><td>郑思琪</td><td><span class="tag tag-gold tag-plain">错题本</span></td><td>高数错题相似题推荐</td><td class="cell-num">1,204</td><td class="cell-num">1.6s</td><td><span class="tag tag-success">成功</span></td><td><button class="link-btn" onclick="openDrawer()">详情</button></td></tr>
+          <tr><td class="cell-num">10:30:55</td><td class="cell-num">tr-d42c8f10</td><td>赵天宇</td><td><span class="tag tag-info tag-plain">AI 答疑</span></td><td>（用户已触发限流）</td><td class="cell-num">—</td><td class="cell-num">0.1s</td><td><span class="tag tag-warning">限流</span></td><td><button class="link-btn" onclick="openDrawer()">详情</button></td></tr>
+          <tr><td class="cell-num">10:30:12</td><td class="cell-num">tr-90aa51e7</td><td>何嘉豪</td><td><span class="tag tag-brand tag-plain">代码纠错</span></td><td>Python 爬虫报错分析…</td><td class="cell-num">2,061</td><td class="cell-num">2.1s</td><td><span class="tag tag-success">成功</span></td><td><button class="link-btn" onclick="openDrawer()">详情</button></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="table-foot">
+      <span class="table-info">第 1-7 条，今日共 8,214 条 · 实时滚动</span>
+      <div class="pagination"><button class="page-btn">‹</button><button class="page-btn active">1</button><button class="page-btn">2</button><button class="page-btn">3</button><button class="page-btn">…</button><button class="page-btn">1174</button><button class="page-btn">›</button></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     页面 14 · 系统配置
+     ============================================================ -->
+<section class="page" data-page="settings">
+  <div class="page-head">
+    <div>
+      <h1>系统配置</h1>
+      <p class="desc">站点信息与全局开关 · 部分变更需二次确认</p>
+    </div>
+    <div class="page-head-actions">
+      <button class="btn btn-primary btn-sm" onclick="approve(this)">保存修改</button>
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-head">
+        <div><div class="card-title">站点信息</div><div class="card-sub">展示于学生端登录页与浏览器标签</div></div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">站点名称</label>
+        <input class="form-input" type="text" value="梧桐校园 · AI 校园综合服务平台" />
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">联系人邮箱</label>
+          <input class="form-input" type="email" value="admin@wutong.edu.cn" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">服务热线</label>
+          <input class="form-input" type="text" value="0571-8888-6666" />
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">站点 Logo</label>
+        <div style="display:flex;align-items:center;gap:12px">
+          <div class="brand-mark" style="width:48px;height:48px;border-radius:14px;display:grid;place-items:center;font-family:var(--font-display);font-weight:600;font-size:1.4rem;color:#fff;background:linear-gradient(140deg,var(--brand),var(--brand-deep))">梧</div>
+          <button class="btn btn-ghost btn-sm">上传新 Logo</button>
+          <span class="form-hint" style="margin:0">建议 512×512 PNG</span>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">登录页标语</label>
+        <input class="form-input" type="text" value="让校园生活更智慧，让青春更有温度" />
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-head">
+        <div><div class="card-title">功能开关</div><div class="card-sub">全局生效，关闭后学生端入口同步隐藏</div></div>
+      </div>
+      <div class="setting-row">
+        <div class="txt"><b>新用户注册</b><span>关闭后仅允许已有账号登录</span></div>
+        <label class="switch"><input type="checkbox" checked /><span class="switch-track"></span></label>
+      </div>
+      <div class="setting-row">
+        <div class="txt"><b>闲置互换模块</b><span>含发布、交易、评价全流程</span></div>
+        <label class="switch"><input type="checkbox" checked /><span class="switch-track"></span></label>
+      </div>
+      <div class="setting-row">
+        <div class="txt"><b>AI 答疑服务</b><span>关闭时学生端显示维护提示</span></div>
+        <label class="switch"><input type="checkbox" checked /><span class="switch-track"></span></label>
+      </div>
+      <div class="setting-row">
+        <div class="txt"><b>动态评论功能</b><span>全局关闭或仅可点赞</span></div>
+        <label class="switch"><input type="checkbox" checked /><span class="switch-track"></span></label>
+      </div>
+      <div class="setting-row" style="border-bottom:none">
+        <div class="txt"><b>消息推送</b><span>系统通知与互动提醒</span></div>
+        <label class="switch"><input type="checkbox" checked /><span class="switch-track"></span></label>
+      </div>
+    </div>
+  </div>
+
+  <div class="card mt-4" style="border-color:var(--error-line)">
+    <div class="card-head">
+      <div>
+        <div class="card-title" style="color:var(--error)">危险区域</div>
+        <div class="card-sub">以下操作影响全体用户，请谨慎执行</div>
+      </div>
+    </div>
+    <div class="setting-row">
+      <div class="txt"><b>维护模式</b><span>开启后学生端全站显示维护页面，管理员不受影响</span></div>
+      <button class="btn btn-warning btn-sm">开启维护</button>
+    </div>
+    <div class="setting-row">
+      <div class="txt"><b>清空缓存</b><span>清除 Redis 热点缓存，短暂增加数据库压力</span></div>
+      <button class="btn btn-ghost-danger btn-sm">清理</button>
+    </div>
+    <div class="setting-row" style="border-bottom:none">
+      <div class="txt"><b>导出全部数据</b><span>打包全库备份下载（约 2.3 GB）</span></div>
+      <button class="btn btn-ghost-danger btn-sm">导出</button>
+    </div>
+  </div>
+</section>
+
+    </div><!-- /content -->
+  </div><!-- /main -->
+</div><!-- /admin-shell -->
+
+<!-- ============================================================
+     全局抽屉：审核详情（示例：活动审核）
+     ============================================================ -->
+<div class="drawer-mask" id="drawerMask" onclick="closeDrawer()"></div>
+<aside class="drawer" id="drawer">
+  <div class="drawer-head">
+    <h3>审核详情</h3>
+    <button class="icon-btn" onclick="closeDrawer()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg>
+    </button>
+  </div>
+  <div class="drawer-body">
+    <div class="review-cover" style="width:100%;height:170px"><img src="images/activity-card.jpg" alt="活动封面" /></div>
+    <div>
+      <div class="review-title" style="font-size:var(--fs-h3);font-family:var(--font-display)">第十八届「梧桐科技文化节」暨创新创业成果展</div>
+      <div class="review-meta mt-2">
+        <span><span class="tag tag-brand tag-plain">社团活动</span></span>
+        <span>提交于 22 分钟前</span>
+      </div>
+    </div>
+    <div class="detail-sec">
+      <h4>基本信息</h4>
+      <dl class="kv">
+        <dt>主办方</dt><dd>信息工程学院学生会</dd>
+        <dt>活动时间</dt><dd>09-28 14:00 — 17:30</dd>
+        <dt>活动地点</dt><dd>大学生活动中心 · 一层展厅</dd>
+        <dt>预计人数</dt><dd>500 人（已报备保卫处）</dd>
+        <dt>联系人</dt><dd>林晓雨 138****6621</dd>
+      </dl>
+    </div>
+    <div class="detail-sec">
+      <h4>活动介绍</h4>
+      <p style="font-size:var(--fs-sm);color:var(--ink-2);line-height:1.7">面向全校征集创新创业项目展位，含 3 场主题路演、无人机编队表演与 AI 互动体验区。活动全程直播并提供志愿时长认证。已提交场地审批单（附件 1）、安全预案（附件 2）与经费预算表（附件 3）。</p>
+      <div class="mt-2" style="display:flex;gap:8px;flex-wrap:wrap">
+        <span class="tag tag-neutral tag-plain">附件 1 · 场地审批单.pdf</span>
+        <span class="tag tag-neutral tag-plain">附件 2 · 安全预案.pdf</span>
+        <span class="tag tag-neutral tag-plain">附件 3 · 预算表.xlsx</span>
+      </div>
+    </div>
+    <div class="detail-sec">
+      <h4>处理记录</h4>
+      <div class="timeline">
+        <div class="tl-item done">
+          <div class="tl-head"><b>提交申请</b><span class="tl-time">今天 10:12</span></div>
+          <p class="tl-txt">林晓雨（学生会）提交活动发布申请，附件齐全</p>
+        </div>
+        <div class="tl-item done">
+          <div class="tl-head"><b>AI 预审通过</b><span class="tl-time">今天 10:12</span></div>
+          <p class="tl-txt">敏感词 0 命中 · 图像合规 100% · 广告识别 1%（正常）</p>
+        </div>
+        <div class="tl-item current">
+          <div class="tl-head"><b>等待人工审核</b><span class="tl-time">进行中</span></div>
+          <p class="tl-txt">已等待 22 分钟，超 67% 的同类申请</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="drawer-foot">
+    <button class="btn btn-success" style="flex:1" onclick="approve(this);closeDrawer()">通过发布</button>
+    <button class="btn btn-warning" onclick="closeDrawer()">打回补充</button>
+    <button class="btn btn-ghost-danger" onclick="closeDrawer()">拒绝</button>
+  </div>
+</aside>
+
+<!-- ============================================================
+     全局确认弹窗
+     ============================================================ -->
+<div class="modal-mask" id="modalMask">
+  <div class="modal">
+    <h3 id="modalTitle">确认封禁该账号？</h3>
+    <p id="modalText">封禁后该用户将无法登录与发布内容，历史内容保留但不可见。此操作会通过站内信通知对方，并记录审计日志。</p>
+    <div class="modal-actions">
+      <button class="btn btn-ghost btn-sm" onclick="closeModal()">取消</button>
+      <button class="btn btn-danger btn-sm" onclick="closeModal()">确认封禁</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     浮动原型导航
+     ============================================================ -->
+<div class="proto-nav">
+  <button class="proto-toggle" id="protoToggle">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+    管理端 · 14 页导航
+  </button>
+  <div class="proto-menu" id="protoMenu"></div>
+</div>
+
+<script>
+/* ============ 页面路由 ============ */
+const PAGE_NAMES = {
+  'login':            '管理员登录',
+  'dashboard':        '数据看板',
+  'review-activity': '活动审核',
+  'review-idle':     '闲置审核',
+  'review-lost':     '失物招领审核',
+  'review-post':     '动态审核',
+  'ai-review':       'AI 内容审核',
+  'users':           '用户管理',
+  'report':          '举报处理',
+  'notice':          '系统公告',
+  'admins':          '管理员账号',
+  'ai-config':       'AI 配置',
+  'ai-logs':         '调用日志',
+  'settings':        '系统配置'
+};
+
+function goPage(name) {
+  const isLogin = name === 'login';
+  document.querySelectorAll('.page').forEach(p => {
+    p.classList.toggle('active', p.dataset.page === name);
+  });
+  document.getElementById('page-login').style.display = isLogin ? 'grid' : 'none';
+  document.getElementById('adminShell').classList.toggle('show', !isLogin);
+  if (!isLogin) document.getElementById('crumbNow').textContent = PAGE_NAMES[name] || name;
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.toggle('active', n.dataset.page === name));
+  document.querySelectorAll('.proto-item').forEach(n => n.classList.toggle('active', n.dataset.page === name));
+  window.scrollTo({ top: 0 });
+}
+
+function adminLogin()  { goPage('dashboard'); }
+function adminLogout() { goPage('login'); }
+
+/* ============ 侧栏导航 ============ */
+document.querySelectorAll('.nav-item').forEach(item => {
+  item.addEventListener('click', () => goPage(item.dataset.page));
+});
+
+/* ============ Tab 切换 ============ */
+document.querySelectorAll('.tabs').forEach(group => {
+  group.querySelectorAll('.tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      const scope = tab.dataset.tabs;
+      document.querySelectorAll(`.tab[data-tabs="${scope}"]`).forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+      const page = group.closest('.page');
+      const panes = page ? page.querySelectorAll(`.tab-pane[data-tabs="${scope}"]`) : [];
+      const idx = Array.from(group.querySelectorAll('.tab')).indexOf(tab);
+      panes.forEach((p, i) => p.classList.toggle('active', i === idx));
+    });
+  });
+});
+
+/* ============ 主题切换 ============ */
+function toggleTheme() {
+  const root = document.documentElement;
+  const dark = root.dataset.theme === 'dark';
+  root.dataset.theme = dark ? 'light' : 'dark';
+  document.getElementById('themeIcon').innerHTML = dark
+    ? '<path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/>'
+    : '<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>';
+}
+
+/* ============ 抽屉 / 弹窗 ============ */
+function openDrawer() { document.getElementById('drawer').classList.add('show'); document.getElementById('drawerMask').classList.add('show'); }
+function closeDrawer() { document.getElementById('drawer').classList.remove('show'); document.getElementById('drawerMask').classList.remove('show'); }
+function openModal()   { document.getElementById('modalMask').classList.add('show'); }
+function closeModal()  { document.getElementById('modalMask').classList.remove('show'); }
+document.getElementById('modalMask').addEventListener('click', e => { if (e.target.id === 'modalMask') closeModal(); });
+
+/* ============ 审核操作反馈 ============ */
+function approve(btn) {
+  const card = btn.closest('.review-card') || btn.closest('.card');
+  const label = btn.textContent.trim();
+  if (card) {
+    card.style.transition = 'opacity .4s, transform .4s';
+    card.style.opacity = '.35';
+    card.style.transform = 'scale(.985)';
+  }
+  btn.textContent = '已' + label.replace(/^(已|确认)/, '');
+  btn.disabled = true;
+  btn.style.opacity = '.75';
+  btn.style.cursor = 'default';
+}
+function closeRowBan(btn) {
+  const row = btn.closest('tr');
+  if (row) { row.style.background = ''; row.style.transition = 'background .4s'; }
+  btn.textContent = '已处理';
+  btn.disabled = true;
+  btn.style.cursor = 'default';
+}
+
+/* ============ 浮动导航 ============ */
+const menu = document.getElementById('protoMenu');
+menu.innerHTML = Object.entries(PAGE_NAMES).map(([k, v], i) =>
+  `<button class="proto-item${k === 'login' ? ' active' : ''}" data-page="${k}">${v}<span class="num">${String(i + 1).padStart(2, '0')}</span></button>`
+).join('');
+menu.querySelectorAll('.proto-item').forEach(b => b.addEventListener('click', () => { goPage(b.dataset.page); menu.classList.remove('show'); }));
+document.getElementById('protoToggle').addEventListener('click', e => { e.stopPropagation(); menu.classList.toggle('show'); });
+document.addEventListener('click', e => { if (!e.target.closest('.proto-nav')) menu.classList.remove('show'); });
+
+/* ============ 键盘快捷 ============ */
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') { closeDrawer(); closeModal(); menu.classList.remove('show'); }
+  if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') { e.preventDefault(); document.querySelector('.topbar-search input')?.focus(); }
+});
+</script>
+</body>
+</html>

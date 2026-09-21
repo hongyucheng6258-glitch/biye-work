@@ -10,8 +10,8 @@ export function listQuestion(params) {
 export function myQuestion(params) {
   return request.get('/qa/my', { params })
 }
-export function questionDetail(id) {
-  return request.get(`/qa/${id}`)
+export function questionDetail(id, params) {
+  return request.get(`/qa/${id}`, { params })
 }
 export function answerQuestion(id, data) {
   return request.post(`/qa/${id}/answer`, data)

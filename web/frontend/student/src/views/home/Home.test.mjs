@@ -6,7 +6,7 @@ const source = await readFile(new URL('./Home.vue', import.meta.url), 'utf8')
 
 test('V2 首页使用摄影 Hero（校园蓝视觉）', () => {
   assert.match(source, /<WtHero/)
-  assert.match(source, /photo="\/images\/campus-v2\.png"/)
+  assert.match(source, /photo="\/images\/campus-v2\.webp"/)
   assert.match(source, /photo-note="秋日校园 · 2026"/)
   assert.match(source, /primary="\{ label:\s*'发现校园活动'/)
 })

@@ -1,0 +1,2106 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>梧桐校园 · 3D 走廊原型（枢纽大厅 + 支廊）</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+<style>
+/* ============================================================
+   梧桐校园 · 3D 走廊原型（方案 C：枢纽大厅 + 三条支廊）
+   第一人称 · 点击门自动寻路 + WASD 自由行走 · 开门白光过场 · 2D 内容面板
+   设计 Token 与 ui-prototype/index.html 完全一致
+   ============================================================ */
+:root {
+  --paper:        oklch(98% 0.012 95);
+  --surface:      oklch(100% 0 0);
+  --surface-2:    oklch(97% 0.01 95);
+  --surface-3:    oklch(94% 0.012 95);
+  --ink:          oklch(26% 0.02 95);
+  --ink-2:        oklch(45% 0.02 95);
+  --ink-3:        oklch(62% 0.015 95);
+  --line:         oklch(90% 0.012 95);
+  --line-strong:  oklch(83% 0.014 95);
+
+  --brand:        oklch(53% 0.12 168);
+  --brand-strong: oklch(45% 0.12 168);
+  --brand-ink:    oklch(99% 0.02 168);
+  --brand-soft:   oklch(95% 0.045 168);
+  --brand-line:   oklch(86% 0.07 168);
+
+  --accent:        oklch(68% 0.17 48);
+  --accent-strong: oklch(60% 0.17 48);
+  --accent-ink:    oklch(99% 0.02 48);
+  --accent-soft:   oklch(95% 0.06 48);
+  --accent-line:   oklch(87% 0.09 48);
+
+  --success:    oklch(58% 0.13 150);
+  --success-soft: oklch(95% 0.05 150);
+  --warning:    oklch(72% 0.15 75);
+  --warning-soft: oklch(96% 0.06 75);
+  --error:      oklch(58% 0.18 25);
+  --error-soft: oklch(95% 0.05 25);
+
+  --info:        oklch(55% 0.09 230);
+  --info-strong: oklch(47% 0.1 230);
+  --info-ink:    oklch(99% 0.02 230);
+  --info-soft:   oklch(95% 0.035 230);
+  --info-line:   oklch(86% 0.06 230);
+
+  --gold:        oklch(75% 0.13 75);
+  --gold-strong: oklch(58% 0.13 75);
+  --gold-soft:   oklch(96% 0.055 75);
+
+  --s-1:4px; --s-2:8px; --s-3:12px; --s-4:16px; --s-5:24px;
+  --s-6:32px; --s-7:48px; --s-8:64px; --s-9:96px;
+
+  --r-xs:6px; --r-sm:10px; --r-md:14px; --r-lg:20px; --r-xl:28px; --r-pill:999px;
+
+  --font-sans: "Plus Jakarta Sans","PingFang SC","Microsoft YaHei","Noto Sans SC",system-ui,sans-serif;
+  --font-display: "Fraunces","Songti SC",Georgia,serif;
+  --font-mono: "JetBrains Mono",ui-monospace,Consolas,monospace;
+
+  --fs-display:2.5rem; --fs-h1:1.75rem; --fs-h2:1.375rem; --fs-h3:1.125rem;
+  --fs-body:1rem; --fs-sm:0.875rem; --fs-xs:0.75rem; --fs-cap:0.6875rem;
+
+  --shadow-sm: 0 1px 2px oklch(26% 0.02 95 / .06), 0 1px 3px oklch(26% 0.02 95 / .05);
+  --shadow-md: 0 6px 16px oklch(26% 0.02 95 / .08);
+  --shadow-lg: 0 18px 40px oklch(26% 0.02 95 / .12);
+
+  --ease-out: cubic-bezier(0.16,1,0.3,1);
+  --ease-quart: cubic-bezier(0.25,1,0.5,1);
+}
+:root[data-theme="dark"] {
+  --paper:        oklch(16% 0.014 90);
+  --surface:      oklch(21% 0.014 90);
+  --surface-2:    oklch(25% 0.014 90);
+  --surface-3:    oklch(29% 0.016 90);
+  --ink:          oklch(93% 0.01 90);
+  --ink-2:        oklch(76% 0.012 90);
+  --ink-3:        oklch(60% 0.012 90);
+  --line:         oklch(33% 0.014 90);
+  --line-strong:  oklch(40% 0.014 90);
+
+  --brand:        oklch(75% 0.12 168);
+  --brand-strong: oklch(66% 0.12 168);
+  --brand-ink:    oklch(18% 0.04 168);
+  --brand-soft:   oklch(27% 0.06 168);
+  --brand-line:   oklch(39% 0.08 168);
+
+  --accent:        oklch(74% 0.16 48);
+  --accent-strong: oklch(66% 0.16 48);
+  --accent-ink:    oklch(20% 0.05 48);
+  --accent-soft:   oklch(28% 0.07 48);
+  --accent-line:   oklch(40% 0.09 48);
+
+  --success:    oklch(70% 0.13 150);
+  --success-soft: oklch(26% 0.06 150);
+  --warning:    oklch(78% 0.14 75);
+  --warning-soft: oklch(27% 0.07 75);
+  --error:      oklch(68% 0.17 25);
+  --error-soft: oklch(27% 0.07 25);
+
+  --info:        oklch(70% 0.1 230);
+  --info-strong: oklch(78% 0.09 230);
+  --info-ink:    oklch(16% 0.04 230);
+  --info-soft:   oklch(28% 0.06 230);
+  --info-line:   oklch(40% 0.07 230);
+
+  --gold:        oklch(80% 0.13 75);
+  --gold-strong: oklch(85% 0.1 75);
+  --gold-soft:   oklch(29% 0.06 75);
+
+  --shadow-sm: 0 1px 2px oklch(0% 0 0 / .3), 0 1px 3px oklch(0% 0 0 / .25);
+  --shadow-md: 0 6px 16px oklch(0% 0 0 / .4);
+  --shadow-lg: 0 18px 40px oklch(0% 0 0 / .5);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: 100%; }
+body {
+  font-family: var(--font-sans);
+  background: var(--paper);
+  color: var(--ink);
+  font-size: var(--fs-body);
+  line-height: 1.5;
+  overflow: hidden;
+  -webkit-font-smoothing: antialiased;
+  transition: background 0.35s var(--ease-out), color 0.35s;
+}
+a { color: inherit; text-decoration: none; }
+button { font-family: inherit; cursor: pointer; border: none; background: none; color: inherit; }
+input { font-family: inherit; font-size: inherit; }
+svg { display: block; }
+
+/* ================== 3D 舞台 ================== */
+#stage { position: fixed; inset: 0; z-index: 0; }
+#stage canvas { display: block; width: 100%; height: 100%; touch-action: none; }
+body[data-mode="2d"] #stage, body[data-mode="2d"] #labels { display: none; }
+
+/* ================== 3D 标签层（门牌 / 廊口匾 / tooltip） ================== */
+#labels { position: fixed; inset: 0; z-index: 1; pointer-events: none; overflow: hidden; }
+.d-label {
+  position: absolute; left: 0; top: 0;
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 5px 14px 5px 6px;
+  background: color-mix(in srgb, var(--paper) 82%, transparent);
+  backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+  border: 1px solid var(--line);
+  border-radius: var(--r-pill);
+  box-shadow: var(--shadow-sm);
+  font-size: var(--fs-sm); font-weight: 600; white-space: nowrap;
+  pointer-events: auto; cursor: pointer; user-select: none;
+  transition: border-color .2s var(--ease-out), box-shadow .2s var(--ease-out);
+  will-change: transform, opacity;
+}
+.d-label:hover, .d-label.active {
+  border-color: var(--brand);
+  box-shadow: var(--shadow-md), 0 0 0 4px var(--brand-soft);
+}
+.d-label .ic {
+  width: 26px; height: 26px; flex: none; border-radius: var(--r-sm);
+  display: grid; place-items: center;
+  background: var(--brand-soft); color: var(--brand-strong);
+}
+.d-label .ic svg { width: 15px; height: 15px; }
+.d-label.accent .ic { background: var(--accent-soft); color: var(--accent-strong); }
+.d-label .desc {
+  font-size: var(--fs-cap); font-weight: 500; color: var(--ink-3);
+  max-width: 0; overflow: hidden;
+  transition: max-width .35s var(--ease-out), margin .35s var(--ease-out);
+}
+.d-label:hover .desc, .d-label.active .desc { max-width: 150px; margin-left: 2px; }
+.d-label::after {
+  content: ""; position: absolute; left: 50%; bottom: -13px; width: 1px; height: 11px;
+  background: var(--line-strong);
+}
+/* 廊口匾（大一号） */
+.d-label.arch { font-size: var(--fs-body); padding: 7px 18px 7px 8px; }
+.d-label.arch .ic { width: 30px; height: 30px; }
+.d-label.arch .ic svg { width: 17px; height: 17px; }
+/* 悬浮 tooltip（索引牌用） */
+#tip3d {
+  position: absolute; left: 0; top: 0; z-index: 2;
+  padding: 4px 12px; border-radius: var(--r-pill);
+  background: var(--ink); color: var(--paper);
+  font-size: var(--fs-xs); font-weight: 600; white-space: nowrap;
+  opacity: 0; transition: opacity .15s; pointer-events: none;
+  transform: translate(-50%, -160%);
+}
+#tip3d.show { opacity: .96; }
+
+/* ================== 白光过场 ================== */
+#fade {
+  position: fixed; inset: 0; z-index: 60; pointer-events: none; opacity: 0;
+  background: radial-gradient(circle at 50% 46%, #fffdf4 0%, #ffe8c2 100%);
+  transition: opacity .45s ease;
+}
+#fade.on { opacity: 1; }
+
+/* ================== 顶栏 ================== */
+#topbar {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 20;
+  display: flex; align-items: center; gap: 14px;
+  padding: 14px 28px;
+  background: color-mix(in srgb, var(--paper) 78%, transparent);
+  backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--line);
+}
+body[data-boot="intro"] #topbar, body[data-boot="intro"] #nav,
+body[data-boot="intro"] #panel, body[data-boot="intro"] #hud { opacity: 0; pointer-events: none; }
+#topbar, #nav, #panel, #hud { transition: opacity .5s var(--ease-out); }
+.tb-brand { display: flex; align-items: center; gap: 10px; cursor: pointer; }
+.tb-mark {
+  width: 38px; height: 38px; border-radius: var(--r-md);
+  display: grid; place-items: center;
+  font-family: var(--font-display); font-weight: 600; font-size: 1.1rem;
+  color: var(--brand-ink);
+  background: linear-gradient(140deg, var(--brand), var(--brand-strong));
+  box-shadow: var(--shadow-sm);
+}
+.tb-name { font-family: var(--font-display); font-weight: 600; font-size: 1.05rem; line-height: 1.1; }
+.tb-sub { font-size: var(--fs-cap); color: var(--ink-3); letter-spacing: .06em; text-transform: uppercase; }
+.tb-tag {
+  font-size: var(--fs-cap); font-weight: 600; color: var(--brand-strong);
+  background: var(--brand-soft); border: 1px solid var(--brand-line);
+  padding: 3px 10px; border-radius: var(--r-pill); white-space: nowrap;
+}
+.tb-search {
+  flex: 1; max-width: 430px; height: 40px; margin-left: 18px;
+  display: flex; align-items: center; gap: 10px; padding: 0 16px;
+  border: 1px solid var(--line); border-radius: var(--r-pill);
+  background: var(--surface-2); transition: border-color .2s, box-shadow .2s;
+}
+.tb-search:focus-within { border-color: var(--brand); background: var(--surface); box-shadow: 0 0 0 4px var(--brand-soft); }
+.tb-search svg { width: 16px; height: 16px; color: var(--ink-3); flex: none; }
+.tb-search input { flex: 1; border: none; outline: none; background: transparent; color: var(--ink); font-size: var(--fs-sm); }
+.tb-search input::placeholder { color: var(--ink-3); }
+.tb-actions { display: flex; align-items: center; gap: 8px; margin-left: auto; }
+.tb-icon {
+  position: relative; width: 40px; height: 40px; border-radius: var(--r-pill);
+  display: grid; place-items: center; color: var(--ink-2);
+  border: 1px solid var(--line); background: var(--surface);
+  transition: background .2s, color .2s, transform .15s var(--ease-out);
+}
+.tb-icon:hover { background: var(--surface-2); color: var(--ink); transform: translateY(-1px); }
+.tb-icon svg { width: 18px; height: 18px; }
+.tb-icon .dot {
+  position: absolute; top: 6px; right: 7px; width: 8px; height: 8px;
+  border-radius: 50%; background: var(--accent); border: 2px solid var(--paper);
+}
+[data-theme="light"] .ic-moon { display: none; }
+[data-theme="dark"] .ic-sun { display: none; }
+
+/* ================== 左侧门列表 ================== */
+#nav {
+  position: fixed; left: 20px; top: 50%; transform: translateY(-50%); z-index: 15;
+  display: flex; flex-direction: column; gap: 2px;
+  width: 172px; padding: 10px;
+  background: color-mix(in srgb, var(--paper) 80%, transparent);
+  backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+  border: 1px solid var(--line); border-radius: var(--r-lg);
+  box-shadow: var(--shadow-md);
+  max-height: calc(100vh - 160px); overflow-y: auto; scrollbar-width: none;
+}
+#nav::-webkit-scrollbar { display: none; }
+.nav-label { font-size: var(--fs-cap); color: var(--ink-3); letter-spacing: .08em; text-transform: uppercase; padding: 8px 10px 4px; }
+.nav-item {
+  display: flex; align-items: center; gap: 10px;
+  width: 100%; padding: 8px 10px; border-radius: var(--r-sm);
+  font-size: var(--fs-sm); font-weight: 500; color: var(--ink-2); text-align: left;
+  transition: background .18s var(--ease-out), color .18s;
+}
+.nav-item svg { width: 17px; height: 17px; flex: none; }
+.nav-item:hover { background: var(--surface-2); color: var(--ink); }
+.nav-item.active { background: var(--brand-soft); color: var(--brand-strong); font-weight: 600; }
+.nav-item.active svg { color: var(--brand); }
+.nav-item.accent.active { background: var(--accent-soft); color: var(--accent-strong); }
+.nav-item.dimmed { opacity: .3; }
+.nav-pos { margin-left: auto; font-size: var(--fs-cap); color: var(--ink-3); font-weight: 600; }
+.nav-sep { height: 1px; background: var(--line); margin: 8px 6px; }
+
+/* ================== 右侧内容面板 ================== */
+#panel {
+  position: fixed; top: 84px; right: 24px; bottom: 88px; z-index: 18;
+  width: 388px; max-width: calc(100vw - 48px);
+  display: flex; flex-direction: column;
+  background: color-mix(in srgb, var(--surface) 92%, transparent);
+  backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
+  border: 1px solid var(--line); border-radius: var(--r-xl);
+  box-shadow: var(--shadow-lg);
+  transform: translateX(calc(100% + 48px));
+  transition: transform .55s var(--ease-quart);
+}
+#panel.open { transform: translateX(0); }
+/* 沉浸模式（已走进门内）：面板悬浮于房间正中央，四周透出小房间 */
+#panel.immersive {
+  left: 50%; right: auto; top: 50%; bottom: auto;
+  width: min(660px, 92vw); max-height: min(74vh, 740px);
+  transform: translate(-50%, -46%) scale(.96); opacity: 0; pointer-events: none;
+  transition: transform .5s var(--ease-quart), opacity .35s var(--ease-out), width .45s var(--ease-quart);
+}
+#panel.open.immersive { transform: translate(-50%, -50%) scale(1); opacity: 1; pointer-events: auto; }
+/* 已进入门内：左侧导航让位，保持房间视野干净 */
+#nav { transition: opacity .3s var(--ease-out), transform .3s var(--ease-out); }
+body.inside #nav { opacity: 0; pointer-events: none; transform: translateY(-50%) translateX(-14px); }
+.panel-head { display: flex; align-items: center; gap: 12px; padding: 18px 20px 14px; border-bottom: 1px solid var(--line); }
+.panel-head .ic {
+  width: 44px; height: 44px; flex: none; border-radius: var(--r-md);
+  display: grid; place-items: center;
+  background: var(--brand-soft); color: var(--brand-strong);
+}
+.panel-head .ic svg { width: 22px; height: 22px; }
+.panel-head.accent .ic { background: var(--accent-soft); color: var(--accent-strong); }
+.panel-title { font-family: var(--font-display); font-weight: 600; font-size: var(--fs-h2); line-height: 1.15; }
+.panel-sub { font-size: var(--fs-xs); color: var(--ink-3); }
+.panel-close { margin-left: auto; width: 32px; height: 32px; border-radius: var(--r-pill); display: grid; place-items: center; color: var(--ink-3); transition: background .18s, color .18s; }
+.panel-close:hover { background: var(--surface-3); color: var(--ink); }
+.panel-close svg { width: 15px; height: 15px; }
+.panel-body { flex: 1; min-height: 0; overflow-y: auto; padding: 16px 20px 20px; scrollbar-width: thin; }
+.panel-body::-webkit-scrollbar { width: 5px; }
+.panel-body::-webkit-scrollbar-thumb { background: var(--line-strong); border-radius: 4px; }
+.panel-foot { padding: 14px 20px; border-top: 1px solid var(--line); }
+.panel-cta {
+  width: 100%; height: 42px; border-radius: var(--r-pill);
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  font-size: var(--fs-sm); font-weight: 600;
+  color: var(--brand-ink); background: var(--brand);
+  transition: background .18s, transform .18s var(--ease-out);
+}
+.panel-cta:hover { background: var(--brand-strong); transform: translateY(-1px); }
+.panel-cta svg { width: 15px; height: 15px; }
+.panel-cta.accent { background: var(--accent); color: var(--accent-ink); }
+.panel-cta.accent:hover { background: var(--accent-strong); }
+
+/* —— 面板内容组件（编辑风） —— */
+.pc-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.pc-stat { padding: 12px 14px; border: 1px solid var(--line); border-radius: var(--r-md); background: var(--surface); }
+.pc-stat b { display: block; font-family: var(--font-display); font-size: 1.35rem; font-weight: 600; line-height: 1.1; }
+.pc-stat span { font-size: var(--fs-xs); color: var(--ink-3); }
+.pc-sec { margin: 18px 0 10px; display: flex; align-items: center; gap: 8px; }
+.pc-sec b { font-size: var(--fs-sm); font-weight: 600; }
+.pc-sec span { font-size: var(--fs-cap); color: var(--ink-3); }
+.pc-card {
+  display: block; width: 100%; text-align: left; margin-bottom: 12px;
+  border: 1px solid var(--line); border-radius: var(--r-md); background: var(--surface);
+  overflow: hidden; transition: transform .2s var(--ease-out), box-shadow .2s, border-color .2s;
+}
+.pc-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); border-color: var(--brand-line); }
+.pc-card .pic { position: relative; height: 118px; overflow: hidden; }
+.pc-card .pic img { width: 100%; height: 100%; object-fit: cover; transition: transform .4s var(--ease-out); }
+.pc-card:hover .pic img { transform: scale(1.04); }
+.pc-card .body { padding: 12px 14px; }
+.pc-card .ttl { font-weight: 600; font-size: var(--fs-sm); line-height: 1.35; }
+.pc-card .meta { margin-top: 6px; display: flex; flex-wrap: wrap; gap: 6px 12px; font-size: var(--fs-xs); color: var(--ink-3); }
+.pc-badge { position: absolute; top: 10px; left: 10px; font-size: var(--fs-cap); font-weight: 600; padding: 3px 10px; border-radius: var(--r-pill); backdrop-filter: blur(6px); }
+.pc-badge.open { background: var(--success-soft); color: var(--success); }
+.pc-badge.full { background: var(--warning-soft); color: var(--warning); }
+.pc-badge.sign { background: var(--info-soft); color: var(--info-strong); }
+.pc-badge.ai { background: var(--accent-soft); color: var(--accent-strong); }
+.pc-badge.done { background: var(--success-soft); color: var(--success); }
+.pc-badge.match { background: var(--brand-soft); color: var(--brand-strong); }
+.pc-row {
+  display: flex; gap: 12px; align-items: center; width: 100%; text-align: left;
+  padding: 10px 12px; margin-bottom: 8px;
+  border: 1px solid var(--line); border-radius: var(--r-md); background: var(--surface);
+  transition: border-color .2s, background .2s;
+}
+.pc-row:hover { border-color: var(--brand-line); background: var(--surface-2); }
+.pc-row .thumb { width: 52px; height: 52px; flex: none; border-radius: var(--r-sm); overflow: hidden; background: var(--surface-3); }
+.pc-row .thumb img { width: 100%; height: 100%; object-fit: cover; }
+.pc-row .info { flex: 1; min-width: 0; }
+.pc-row .info b { display: block; font-size: var(--fs-sm); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.pc-row .info span { font-size: var(--fs-xs); color: var(--ink-3); }
+.pc-price { font-family: var(--font-display); font-weight: 600; color: var(--accent-strong); font-size: var(--fs-sm); white-space: nowrap; }
+.pc-note { font-size: var(--fs-xs); color: var(--ink-3); background: var(--surface-2); border: 1px solid var(--line); border-radius: var(--r-sm); padding: 8px 12px; line-height: 1.6; }
+.pc-note b { color: var(--accent-strong); }
+.pc-entry {
+  display: flex; align-items: center; gap: 12px; width: 100%; text-align: left;
+  padding: 12px 14px; margin-bottom: 10px;
+  border: 1px solid var(--line); border-radius: var(--r-md); background: var(--surface);
+  transition: border-color .2s, background .2s, transform .2s var(--ease-out);
+}
+.pc-entry:hover { border-color: var(--brand-line); transform: translateX(2px); }
+.pc-entry .eic { width: 38px; height: 38px; flex: none; border-radius: var(--r-sm); display: grid; place-items: center; background: var(--brand-soft); color: var(--brand-strong); }
+.pc-entry .eic svg { width: 18px; height: 18px; }
+.pc-entry b { display: block; font-size: var(--fs-sm); }
+.pc-entry span { font-size: var(--fs-xs); color: var(--ink-3); }
+.pc-entry .go { margin-left: auto; color: var(--ink-3); }
+.pc-entry .go svg { width: 15px; height: 15px; }
+.pc-code {
+  margin-bottom: 12px; padding: 14px 16px;
+  background: oklch(22% 0.015 95); border-radius: var(--r-md);
+  font-family: var(--font-mono); font-size: var(--fs-xs); line-height: 1.75;
+  color: oklch(88% 0.01 95); overflow-x: auto; white-space: pre;
+}
+.pc-code .ln { display: block; }
+.pc-code .del { color: oklch(70% 0.16 25); text-decoration: line-through; }
+.pc-code .add { color: oklch(82% 0.13 150); }
+.pc-code .cm { color: oklch(60% 0.01 95); }
+.pc-chat { display: flex; flex-direction: column; gap: 10px; margin-bottom: 12px; }
+.pc-bubble { max-width: 86%; padding: 10px 14px; border-radius: var(--r-md); font-size: var(--fs-sm); line-height: 1.55; }
+.pc-bubble.q { align-self: flex-end; background: var(--brand); color: var(--brand-ink); border-bottom-right-radius: 4px; }
+.pc-bubble.a { align-self: flex-start; background: var(--surface-2); border: 1px solid var(--line); border-bottom-left-radius: 4px; }
+
+/* ================== 底部 HUD ================== */
+#hud {
+  position: fixed; left: 50%; bottom: 20px; transform: translateX(-50%); z-index: 15;
+  display: flex; align-items: center; gap: 14px;
+  padding: 9px 10px 9px 20px;
+  background: color-mix(in srgb, var(--paper) 82%, transparent);
+  backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+  border: 1px solid var(--line); border-radius: var(--r-pill);
+  box-shadow: var(--shadow-md); font-size: var(--fs-xs); color: var(--ink-3); white-space: nowrap;
+}
+#hud kbd {
+  font-family: inherit; font-size: var(--fs-cap); font-weight: 600;
+  background: var(--surface-2); border: 1px solid var(--line-strong);
+  border-radius: 5px; padding: 1px 6px; color: var(--ink-2);
+}
+.hud-mode {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 5px 12px; border-radius: var(--r-pill);
+  background: var(--brand-soft); color: var(--brand-strong);
+  font-weight: 600;
+}
+.hud-mode.free, .hud-mode.inside { background: var(--accent-soft); color: var(--accent-strong); }
+.hud-mode .dotp { width: 6px; height: 6px; border-radius: 50%; background: currentColor; animation: pulse 1.6s infinite; }
+@keyframes pulse { 0%,100% { opacity: 1 } 50% { opacity: .35 } }
+.hud-switch {
+  display: inline-flex; align-items: center; gap: 6px;
+  height: 32px; padding: 0 14px 0 10px; border-radius: var(--r-pill);
+  border: 1px solid var(--line); background: var(--surface);
+  font-size: var(--fs-xs); font-weight: 600; color: var(--ink-2);
+  transition: border-color .2s, color .2s;
+}
+.hud-switch:hover { border-color: var(--brand); color: var(--brand-strong); }
+.hud-switch svg { width: 14px; height: 14px; }
+
+/* ================== 2D 平面降级 ================== */
+#grid2d { position: fixed; inset: 0; z-index: 10; overflow-y: auto; display: none; padding: 96px 32px 40px; }
+body[data-mode="2d"] #grid2d { display: block; }
+body[data-mode="2d"] #nav { display: none; }
+.g2d-inner { max-width: 1080px; margin: 0 auto; }
+.g2d-head { margin-bottom: 8px; }
+.g2d-title { font-family: var(--font-display); font-weight: 600; font-size: var(--fs-h1); }
+.g2d-sub { font-size: var(--fs-sm); color: var(--ink-2); margin-top: 6px; }
+.g2d-note {
+  display: inline-flex; align-items: center; gap: 8px; margin-top: 14px;
+  font-size: var(--fs-xs); color: var(--brand-strong);
+  background: var(--brand-soft); border: 1px solid var(--brand-line);
+  border-radius: var(--r-pill); padding: 6px 14px;
+}
+.g2d-group { margin-top: 28px; }
+.g2d-group > h3 { font-size: var(--fs-h3); font-family: var(--font-display); font-weight: 600; margin-bottom: 4px; }
+.g2d-group > p { font-size: var(--fs-xs); color: var(--ink-3); margin-bottom: 14px; }
+.g2d-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 16px; }
+.g2d-card {
+  display: block; text-align: left;
+  border: 1px solid var(--line); border-radius: var(--r-lg); background: var(--surface);
+  overflow: hidden; transition: transform .22s var(--ease-out), box-shadow .22s, border-color .22s;
+}
+.g2d-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); border-color: var(--brand-line); }
+.g2d-card .pic { height: 110px; position: relative; overflow: hidden; }
+.g2d-card .pic img { width: 100%; height: 100%; object-fit: cover; }
+.g2d-card .pic .fallback { width: 100%; height: 100%; display: grid; place-items: center; background: linear-gradient(135deg, var(--brand-soft), var(--surface-3)); color: var(--brand-strong); }
+.g2d-card .pic .fallback svg { width: 34px; height: 34px; }
+.g2d-card .pic.accent .fallback { background: linear-gradient(135deg, var(--accent-soft), var(--surface-3)); color: var(--accent-strong); }
+.g2d-card .body { padding: 12px 14px; }
+.g2d-card .body b { font-size: var(--fs-sm); }
+.g2d-card .body p { font-size: var(--fs-xs); color: var(--ink-3); margin-top: 3px; }
+.g2d-back {
+  position: fixed; right: 28px; bottom: 28px; z-index: 12;
+  display: inline-flex; align-items: center; gap: 8px;
+  height: 44px; padding: 0 20px; border-radius: var(--r-pill);
+  background: var(--brand); color: var(--brand-ink); font-weight: 600; font-size: var(--fs-sm);
+  box-shadow: var(--shadow-md); transition: background .18s, transform .18s var(--ease-out);
+}
+.g2d-back:hover { background: var(--brand-strong); transform: translateY(-1px); }
+.g2d-back svg { width: 16px; height: 16px; }
+
+/* ================== 准星（自由行走指向） ================== */
+#reticle {
+  position: fixed; left: 50%; top: 50%; z-index: 5; width: 5px; height: 5px;
+  transform: translate(-50%, -50%); border-radius: 50%;
+  background: color-mix(in srgb, var(--brand) 70%, transparent);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--brand) 18%, transparent);
+  opacity: 0; transition: opacity .3s; pointer-events: none;
+}
+#reticle.show { opacity: .9; }
+
+/* ================== 入场序幕 ================== */
+#intro {
+  position: fixed; inset: 0; z-index: 100;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  background: radial-gradient(1200px 500px at 50% -10%, var(--brand-soft), transparent 70%), var(--paper);
+  transition: opacity .8s var(--ease-out); text-align: center;
+}
+#intro.hide { opacity: 0; pointer-events: none; }
+.intro-mark {
+  width: 88px; height: 88px; border-radius: var(--r-lg);
+  display: grid; place-items: center;
+  font-family: var(--font-display); font-weight: 600; font-size: 2.6rem;
+  color: var(--brand-ink);
+  background: linear-gradient(140deg, var(--brand), var(--brand-strong));
+  box-shadow: var(--shadow-lg);
+  animation: introFloat 4s ease-in-out infinite;
+}
+@keyframes introFloat { 0%,100% { transform: translateY(0) } 50% { transform: translateY(-8px) } }
+.intro-kicker { margin-top: 28px; font-size: var(--fs-cap); letter-spacing: .35em; text-transform: uppercase; color: var(--ink-3); }
+#intro h1 { margin-top: 10px; font-family: var(--font-display); font-weight: 600; font-size: clamp(1.8rem, 1.2rem + 2.6vw, 2.8rem); line-height: 1.15; }
+#intro h1 em { font-style: normal; color: var(--brand); }
+.intro-sub { margin-top: 12px; max-width: 54ch; font-size: var(--fs-sm); color: var(--ink-2); line-height: 1.7; }
+.intro-actions { margin-top: 36px; display: flex; align-items: center; gap: 16px; flex-wrap: wrap; justify-content: center; }
+.intro-enter {
+  display: inline-flex; align-items: center; gap: 10px;
+  height: 52px; padding: 0 30px; border-radius: var(--r-pill);
+  font-size: var(--fs-body); font-weight: 600;
+  color: var(--brand-ink); background: var(--brand);
+  box-shadow: var(--shadow-md); transition: background .18s, transform .18s var(--ease-out);
+}
+.intro-enter:hover { background: var(--brand-strong); transform: translateY(-2px); }
+.intro-enter svg { width: 18px; height: 18px; }
+.intro-flat { font-size: var(--fs-sm); color: var(--ink-3); text-decoration: underline dotted var(--line-strong); text-underline-offset: 4px; }
+.intro-flat:hover { color: var(--ink-2); }
+.intro-tips { margin-top: 42px; display: flex; gap: 18px; flex-wrap: wrap; justify-content: center; font-size: var(--fs-xs); color: var(--ink-3); }
+.intro-tips span { display: inline-flex; gap: 6px; align-items: center; }
+.intro-tips svg { width: 13px; height: 13px; color: var(--brand); }
+
+/* ================== Toast ================== */
+#toast {
+  position: fixed; left: 50%; bottom: 84px; transform: translateX(-50%) translateY(16px); z-index: 200;
+  padding: 10px 20px; border-radius: var(--r-pill);
+  background: var(--ink); color: var(--paper);
+  font-size: var(--fs-sm); font-weight: 500; box-shadow: var(--shadow-lg);
+  opacity: 0; pointer-events: none;
+  transition: opacity .3s var(--ease-out), transform .3s var(--ease-out);
+  max-width: min(86vw, 480px); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+#toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+/* ================== 响应式 ================== */
+@media (max-width: 1080px) { #panel { width: 340px; } }
+@media (max-width: 860px) {
+  #nav {
+    left: 50%; top: auto; bottom: 74px; transform: translateX(-50%);
+    flex-direction: row; width: auto; max-width: calc(100vw - 24px); max-height: none;
+    overflow-x: auto; overflow-y: hidden; padding: 8px;
+  }
+  .nav-label, .nav-sep, .nav-pos { display: none; }
+  .nav-item { flex: none; padding: 8px 12px; border-radius: var(--r-pill); }
+  .nav-item .txt { display: none; }
+  .nav-item.active { box-shadow: inset 0 0 0 1px var(--brand-line); }
+  #panel { top: auto; left: 12px; right: 12px; bottom: 12px; width: auto; max-height: 58vh; transform: translateY(calc(100% + 24px)); }
+  #panel.open { transform: translateY(0); }
+  .tb-search { display: none; }
+  .tb-tag { display: none; }
+  .d-label .desc { display: none; }
+  #hud { bottom: 14px; gap: 8px; padding-left: 14px; }
+  .hud-tip { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  * { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+}
+</style>
+</head>
+<body data-mode="3d" data-boot="intro">
+
+<!-- ==================== 3D 舞台 ==================== -->
+<div id="stage" role="application" aria-label="梧桐校园 3D 走廊。W A S D 或方向键行走，拖拽转向，点击门自动走过去开门进入模块。"></div>
+<div id="labels" aria-hidden="true"><div id="tip3d"></div></div>
+<div id="reticle" aria-hidden="true"></div>
+<div id="fade" aria-hidden="true"></div>
+
+<!-- ==================== 顶栏 ==================== -->
+<header id="topbar">
+  <div class="tb-brand" id="tbBrand" title="回到大厅">
+    <div class="tb-mark">梧</div>
+    <div>
+      <div class="tb-name">梧桐校园</div>
+      <div class="tb-sub">Corridor Campus</div>
+    </div>
+  </div>
+  <span class="tb-tag" id="verTag">3D 走廊 · 枢纽大厅 · v9</span>
+  <form class="tb-search" id="searchForm" role="search">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+      <circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/>
+    </svg>
+    <input id="searchInput" type="search" placeholder="搜索门：活动 / 闲置 / 错题本…" aria-label="搜索门" />
+  </form>
+  <div class="tb-actions">
+    <button class="tb-icon" id="themeToggle" title="切换明暗主题" aria-label="切换明暗主题">
+      <svg class="ic-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+        <circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>
+      </svg>
+      <svg class="ic-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+        <path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/>
+      </svg>
+    </button>
+    <button class="tb-icon" id="bellBtn" title="消息中心（原型演示）" aria-label="消息中心">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+        <path d="M18 8a6 6 0 1 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/>
+      </svg>
+      <span class="dot"></span>
+    </button>
+  </div>
+</header>
+
+<!-- ==================== 左侧门列表（JS 渲染） ==================== -->
+<nav id="nav" aria-label="门导航"></nav>
+
+<!-- ==================== 右侧内容面板 ==================== -->
+<aside id="panel" aria-hidden="true">
+  <div class="panel-head" id="panelHead">
+    <div class="ic" id="panelIcon"></div>
+    <div>
+      <div class="panel-title" id="panelTitle">门</div>
+      <div class="panel-sub" id="panelSub"></div>
+    </div>
+    <button class="panel-close" id="panelClose" title="收起面板（Esc）" aria-label="收起面板">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true">
+        <path d="M18 6 6 18M6 6l12 12"/>
+      </svg>
+    </button>
+  </div>
+  <div class="panel-body" id="panelBody"></div>
+  <div class="panel-foot">
+    <button class="panel-cta" id="panelCta">进入模块
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+    </button>
+  </div>
+</aside>
+
+<!-- ==================== 底部 HUD ==================== -->
+<footer id="hud">
+  <span class="hud-mode" id="modeState"><span class="dotp"></span><span id="modeStateTxt">自动巡游</span></span>
+  <span class="hud-tip"><kbd>W A S D</kbd> 行走 · 拖拽转向 · 点击门走进去 · <kbd>Esc</kbd> 退出 / 回大厅</span>
+  <button class="hud-switch" id="modeToggle" title="切换 3D 走廊 / 平面网格">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+      <rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/>
+      <rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/>
+    </svg>
+    <span id="modeToggleTxt">切换平面模式</span>
+  </button>
+</footer>
+
+<!-- ==================== 2D 平面降级 ==================== -->
+<main id="grid2d">
+  <div class="g2d-inner">
+    <div class="g2d-head">
+      <div class="g2d-title">梧桐校园 · 平面模式</div>
+      <div class="g2d-sub">WebGL 不可用或主动切换时的降级形态 —— 与 3D 走廊共享同一套门数据与设计令牌。</div>
+      <div class="g2d-note">● 降级策略演示：保留全部功能门，仅去掉 3D 表现层</div>
+    </div>
+    <div id="g2dGroups"></div>
+  </div>
+  <button class="g2d-back" id="back3d">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+      <path d="M21 16V8l-9-5-9 5v8l9 5 9-5z"/><path d="M3.3 7.9 12 12.8l8.7-4.9M12 22.5V12.8"/>
+    </svg>
+    返回 3D 走廊
+  </button>
+</main>
+
+<!-- ==================== 入场序幕 ==================== -->
+<div id="intro">
+  <div class="intro-mark">梧</div>
+  <div class="intro-kicker">Corridor UI Prototype</div>
+  <h1>梧桐校园 · <em>3D 走廊</em></h1>
+  <p class="intro-sub">
+    枢纽大厅 + 三条支廊：中央梧桐树下看清全局，走进校园服务、社交信息、AI 学习三条走廊；每扇门都是一个功能模块 —— 点击门，走过去，门会为你打开。
+  </p>
+  <div class="intro-actions">
+    <button class="intro-enter" id="introEnter">进入校园
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+    </button>
+    <button class="intro-flat" id="introFlat">先看平面版（降级模式）</button>
+  </div>
+  <div class="intro-tips">
+    <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.5 8.5 0 0 1-12.5 7.5L3 21l2-5.5A8.5 8.5 0 1 1 21 11.5z"/></svg> 点击门自动寻路 · WASD 自由行走</span>
+    <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M18.4 5.6l-2.1 2.1M7.7 16.3l-2.1 2.1"/><circle cx="12" cy="12" r="3"/></svg> 大厅索引牌直达任意门</span>
+    <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M8 21h8"/></svg> WebGL 不可用自动降级</span>
+  </div>
+</div>
+
+<div id="toast" role="status" aria-live="polite"></div>
+
+<!-- ==================================================================
+     脚本一（经典脚本）：UI 层 —— 门数据、门列表、面板、主题、模式、降级
+     ================================================================== -->
+<script>
+(function () {
+  'use strict';
+
+  /* ---------------- 图标库 ---------------- */
+  var ICONS = {
+    home: '<path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/>',
+    calendar: '<rect x="3" y="4" width="18" height="17" rx="2"/><path d="M3 9h18M8 2v4M16 2v4"/>',
+    bag: '<path d="M3 7h18l-2 13H5z"/><path d="M3 7l-1-3H0M6 11v6M10 11v6M14 11v6M18 11v6"/>',
+    lost: '<circle cx="12" cy="8" r="5"/><path d="M9 13l-1.5 8L12 18l4.5 3L15 13"/>',
+    users: '<circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0M16 4.6a3.5 3.5 0 0 1 0 6.8M21.5 20a6.5 6.5 0 0 0-4.5-6.2"/>',
+    qa: '<path d="M5 19h9a7 7 0 0 0 0-14H8"/><path d="M8 8H5.5A2.5 2.5 0 0 0 3 10.5 2.5 2.5 0 0 0 5.5 13H8"/>',
+    chat: '<path d="M21 11.5a8.5 8.5 0 0 1-12.5 7.5L3 21l2-5.5A8.5 8.5 0 1 1 21 11.5z"/>',
+    megaphone: '<path d="M3 11l18-5v12L3 13zM11.6 16.8a3 3 0 1 1-5.8-1.6"/>',
+    bell: '<path d="M18 8a6 6 0 1 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/>',
+    spark: '<path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M18.4 5.6l-2.1 2.1M7.7 16.3l-2.1 2.1"/><circle cx="12" cy="12" r="3"/>',
+    code: '<path d="m8 9-4 3 4 3M16 9l4 3-4 3M13 6l-2 12"/>',
+    book: '<path d="M4 19V5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2zM17 3v16"/>'
+  };
+  function icon(name) {
+    return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">' + (ICONS[name] || ICONS.spark) + '</svg>';
+  }
+
+  /* ---------------- 门数据（与 3D 层 DOORS 对齐） ----------------
+     组：hub 枢纽 / service 校园服务廊 / social 社交信息廊 / ai AI 学习廊 */
+  var GROUPS = [
+    { id: 'hub',     name: '枢纽大厅', icon: 'home',     desc: '中央梧桐 · 环形索引' },
+    { id: 'service', name: '校园服务廊', icon: 'calendar', desc: '活动 · 闲置 · 失物 · 搭子' },
+    { id: 'social',  name: '社交信息廊', icon: 'chat',     desc: '问答 · 动态 · 公告 · 消息' },
+    { id: 'ai',      name: 'AI 学习廊',  icon: 'spark',    desc: '答疑 · 代码 · 错题本' }
+  ];
+  var DOORS_META = [
+    { id: 'portal',   group: 'hub',     name: '综合门户', icon: 'home',     desc: '校园动态一屏纵览', pos: '梧桐树下' },
+    { id: 'activity', group: 'service', name: '校园活动', icon: 'calendar', desc: '发布 · 报名 · 签到', pos: '左 01', meta: '12 场进行中' },
+    { id: 'idle',     group: 'service', name: '闲置互换', icon: 'bag',       desc: '预约 · 评价 · AI 估价', pos: '右 01' },
+    { id: 'partner',  group: 'service', name: '学习搭子', icon: 'users',    desc: 'AI 匹配撮合', pos: '左 02' },
+    { id: 'lost',     group: 'service', name: '失物招领', icon: 'lost',     desc: '发布 · 认领 · AI 匹配', pos: '右 02' },
+    { id: 'qa',       group: 'social',  name: '互助问答', icon: 'qa',       desc: '提问 · 采纳 · AI 参考', pos: '左 01' },
+    { id: 'square',   group: 'social',  name: '动态广场', icon: 'chat',     desc: '图文 · 点赞 · 评论', pos: '右 01' },
+    { id: 'notice',   group: 'social',  name: '校园公告', icon: 'megaphone', desc: '权威通知', pos: '左 02' },
+    { id: 'message',  group: 'social',  name: '消息中心', icon: 'bell',     desc: '站内信 + 实时私信', pos: '右 02' },
+    { id: 'aichat',   group: 'ai',      name: 'AI 答疑',  icon: 'spark',     desc: '多轮上下文对话', pos: '左 01', accent: true },
+    { id: 'code',     group: 'ai',      name: '代码纠错', icon: 'code',      desc: '高亮 diff 一键修复', pos: '右 01', accent: true },
+    { id: 'wrong',    group: 'ai',      name: '错题本',   icon: 'book',      desc: 'OCR 录入 · 复习计划', pos: '尽头双开门', accent: true }
+  ];
+  var DOOR_MAP = {};
+  DOORS_META.forEach(function (d) { DOOR_MAP[d.id] = d; });
+
+  /* ---------------- 面板内容 ---------------- */
+  function card(img, ttl, meta, badgeCls, badgeTxt) {
+    var badge = badgeTxt ? '<span class="pc-badge ' + badgeCls + '">' + badgeTxt + '</span>' : '';
+    return '<button class="pc-card"><span class="pic"><img src="images/' + img + '" alt="">' + badge + '</span>' +
+      '<span class="body"><span class="ttl">' + ttl + '</span><span class="meta">' + meta + '</span></span></button>';
+  }
+  function row(img, ttl, meta, badgeCls, badgeTxt) {
+    return '<button class="pc-row"><span class="thumb"><img src="images/' + img + '" alt=""></span>' +
+      '<span class="info"><b>' + ttl + '</b><span>' + meta + '</span></span>' +
+      (badgeTxt ? '<span class="pc-badge ' + badgeCls + '" style="position:static">' + badgeTxt + '</span>' : '') + '</button>';
+  }
+  function priceRow(img, ttl, meta, price) {
+    return '<button class="pc-row"><span class="thumb"><img src="images/' + img + '" alt=""></span>' +
+      '<span class="info"><b>' + ttl + '</b><span>' + meta + '</span></span><span class="pc-price">' + price + '</span></button>';
+  }
+  function txtRow(ttl, meta) {
+    return '<button class="pc-row"><span class="info"><b>' + ttl + '</b><span>' + meta + '</span></span></button>';
+  }
+  function entry(ic, ttl, desc) {
+    return '<button class="pc-entry"><span class="eic">' + icon(ic) + '</span>' +
+      '<span><b>' + ttl + '</b><span>' + desc + '</span></span>' +
+      '<span class="go"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="15" height="15"><path d="M9 6l6 6-6 6"/></svg></span></button>';
+  }
+  var PANELS = {
+    portal: {
+      body:
+        '<div class="pc-stats">' +
+        '<div class="pc-stat"><b>12</b><span>进行中活动</span></div>' +
+        '<div class="pc-stat"><b>48</b><span>今日新增动态</span></div>' +
+        '<div class="pc-stat"><b>5</b><span>待认领失物</span></div>' +
+        '<div class="pc-stat"><b>23</b><span>在线学习搭子</span></div></div>' +
+        '<div class="pc-sec"><b>为你推荐</b><span>基于专业与活跃度</span></div>' +
+        row('activity-card.jpg', '书香敬老院志愿服务 · 第三期', '报名中 · 周六 09:00', 'pc-badge open', '报名中') +
+        row('social-card.jpg', '今天的校园晚霞', '动态广场 · 128 赞', 'pc-badge ai', '热门') +
+        row('study-banner.jpg', '图书馆考研自习搭子', 'AI 匹配 · 匹配度 92%', 'pc-badge match', '搭子')
+    },
+    activity: {
+      body:
+        '<div class="pc-sec"><b>热门活动</b><span>按报名热度</span></div>' +
+        card('activity-card.jpg', '书香敬老院志愿服务 · 第三期', '周六 09:00 · 校外敬老院 · 名额 20 人', 'pc-badge open', '报名中') +
+        card('activity-card.jpg', '院系 3v3 篮球联赛', '周日 14:00 · 东区体育馆 · 名额 48 人', 'pc-badge full', '已满员') +
+        card('activity-card.jpg', '春日草坪音乐节', '5 月 2 日 · 大草坪 · 免票入场', 'pc-badge sign', '签到开启') +
+        '<div class="pc-note">✦ AI 智能推荐：近 30 天你偏好<b>运动类活动</b>，匹配度最高。</div>'
+    },
+    idle: {
+      body:
+        '<div class="pc-sec"><b>闲置好物</b><span>AI 智能估价</span></div>' +
+        priceRow('idle-card.jpg', '机械键盘 · 87 键红轴', '九成新 · 已消毒', '¥128') +
+        priceRow('idle-card.jpg', '山地自行车 · 26 寸', '毕业出 · 可试骑', '¥450') +
+        priceRow('idle-card.jpg', '银色 U 盘 · 64G', '读写正常', '¥35') +
+        priceRow('idle-card.jpg', '羽毛球拍 · 单拍', '手胶已换新', '¥88') +
+        '<div class="pc-note">✦ 发布闲置时 <b>AI 智能估价</b>参考成色与历史成交给出建议价。</div>'
+    },
+    lost: {
+      body:
+        '<div class="pc-sec"><b>失物招领</b><span>AI 智能匹配</span></div>' +
+        card('lost-card.jpg', '捡到：学生卡 · 张同学', '教学楼 B203 · 今天 14:20', 'pc-badge match', 'AI 匹配 2 条') +
+        card('lost-card.jpg', '寻物：图书馆借阅证', '可能落在三楼自习区', 'pc-badge open', '寻找中') +
+        '<div class="pc-note">✦ 发布后 <b>AI 智能匹配</b>自动比对时间、地点与物品特征。</div>'
+    },
+    partner: {
+      body:
+        '<div class="pc-sec"><b>学习搭子</b><span>AI 匹配撮合</span></div>' +
+        card('study-banner.jpg', '图书馆考研自习 · 早八型', '每天 08:00 · 四楼北区', 'pc-badge match', '匹配度 92%') +
+        card('study-banner.jpg', '操场夜跑搭子 · 21:30', '每周 3 次 · 配速 6\'00"', 'pc-badge match', '匹配度 87%') +
+        '<div class="pc-note">✦ AI 推荐理由：作息一致、目标相近，且都在<b>错题本</b>标记过高数薄弱点。</div>'
+    },
+    qa: {
+      body:
+        '<div class="pc-sec"><b>互助问答</b><span>最新提问</span></div>' +
+        txtRow('概率论 · 全概率公式什么时候用？', '3 回答 · 已采纳 · AI 参考回答') +
+        txtRow('Spring Boot 拦截器顺序怎么排？', '5 回答 · AI 参考回答') +
+        txtRow('校园卡消磁了去哪补办？', '2 回答 · 已采纳') +
+        '<div class="pc-note">✦ 每个问题可获取 <b>AI 参考回答</b>，采纳后同步提问者。</div>'
+    },
+    square: {
+      body:
+        '<div class="pc-sec"><b>动态广场</b><span>最新动态</span></div>' +
+        card('social-card.jpg', '今天的校园晚霞，太治愈了', '#校园晚霞 · 128 赞 · 36 评论', 'pc-badge ai', '热门') +
+        card('social-card.jpg', '图书馆四楼的窗边位测评', '动态广场 · 89 赞', '', '') +
+        '<div class="pc-note">✦ 发布支持 <b>AI 辅助起草</b>：草稿、润色、扩写一键完成。</div>'
+    },
+    notice: {
+      body:
+        '<div class="pc-sec"><b>校园公告</b><span>最近更新</span></div>' +
+        txtRow('关于系统维护暂停服务的通知', '05-12 · 重要') +
+        txtRow('春季运动会报名安排', '05-10 · 活动') +
+        txtRow('国家奖学金申请截止提醒', '05-08 · 事务') +
+        '<div class="pc-note">✦ 公告由管理端统一发布，支持上下线管理。</div>'
+    },
+    message: {
+      body:
+        '<div class="pc-sec"><b>站内消息</b><span>未读 3</span></div>' +
+        txtRow('活动报名审批通过', '「敬老院志愿服务」报名已通过 · 刚刚') +
+        txtRow('举报处理结果通知', '你举报的内容已被处理：下架 · 2 小时前') +
+        txtRow('系统维护公告', '本周六 02:00-06:00 升级维护 · 昨天') +
+        '<div class="pc-sec"><b>私信</b><span>WebSocket 实时</span></div>' +
+        txtRow('李四', '晚上图书馆见？ · 在线') +
+        txtRow('王五', 'U 盘还在吗？我想要 · 2 小时前')
+    },
+    aichat: {
+      body:
+        '<div class="pc-sec"><b>AI 答疑</b><span>DeepSeek 已接入</span></div>' +
+        '<div class="pc-chat">' +
+        '<div class="pc-bubble q">帮我总结线代「特征值」这一章的考点</div>' +
+        '<div class="pc-bubble a">好的，已按近三年真题整理出 5 个高频考点：特征值定义与性质、相似对角化判据、实对称矩阵正交化、秩与特征值关系、几何应用…</div>' +
+        '</div>' +
+        entry('spark', '快捷问题', '校园向导 · 学习规划 · 考点总结') +
+        '<div class="pc-note">✦ 多轮上下文记忆，支持 PDF 学习问答与大纲生成。</div>'
+    },
+    code: {
+      body:
+        '<div class="pc-sec"><b>代码纠错</b><span>高亮 diff</span></div>' +
+        '<div class="pc-code"><span class="cm">// 示例：空指针风险</span>\n<span class="ln del">User u = users.get(id);</span>\n<span class="ln del">return u.getName();</span>\n<span class="ln add">User u = users.get(id);</span>\n<span class="ln add">return u == null ? "未知用户" : u.getName();</span></div>' +
+        '<div class="pc-note">✦ 修复建议：<b>空值保护</b> · 一键复制完整修复代码，支持 Monaco 对照编辑。</div>'
+    },
+    wrong: {
+      body:
+        '<div class="pc-sec"><b>错题本</b><span>拍照 OCR 录入</span></div>' +
+        txtRow('高数 · 泰勒展开应用（错 3 次）', '薄弱点：余项估计 · 复习计划 D+3') +
+        txtRow('概率 · 全概率公式（错 2 次）', '薄弱点：事件划分 · 复习计划 D+7') +
+        txtRow('线代 · 相似对角化（错 1 次）', '已生成同类练习题 ×5') +
+        '<div class="pc-note">✦ 支持<b>拍照 OCR</b>智能整理，按薄弱点生成<b>复习计划</b>与<b>同类题</b>。</div>'
+    }
+  };
+
+  /* ---------------- DOM ---------------- */
+  var $ = function (id) { return document.getElementById(id); };
+  var els = {
+    nav: $('nav'), panel: $('panel'), panelHead: $('panelHead'), panelIcon: $('panelIcon'),
+    panelTitle: $('panelTitle'), panelSub: $('panelSub'), panelBody: $('panelBody'),
+    panelClose: $('panelClose'), panelCta: $('panelCta'), toast: $('toast'),
+    grid2d: $('g2dGroups'), modeState: $('modeState'), modeStateTxt: $('modeStateTxt'), reticle: $('reticle')
+  };
+  var state = { theme: 'light', mode: '3d', selected: null, entered: false };
+
+  /* ---------------- Toast ---------------- */
+  var toastTimer = null;
+  function toast(msg) {
+    els.toast.textContent = msg;
+    els.toast.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function () { els.toast.classList.remove('show'); }, 2400);
+  }
+
+  /* ---------------- 门列表（分组导航） ---------------- */
+  function renderNav() {
+    var html = '<div class="nav-label">门导航</div>';
+    GROUPS.forEach(function (g) {
+      html += '<div class="nav-label">' + g.name + '</div>';
+      DOORS_META.filter(function (d) { return d.group === g.id; }).forEach(function (d) {
+        html += '<button class="nav-item' + (d.accent ? ' accent' : '') + '" data-id="' + d.id + '" title="' + d.name + '">' +
+          icon(d.icon) + '<span class="txt">' + d.name + '</span>' +
+          (d.meta ? '<span class="nav-pos">' + d.meta + '</span>' : (d.pos ? '<span class="nav-pos">' + d.pos + '</span>' : '')) +
+          '</button>';
+      });
+    });
+    els.nav.innerHTML = html;
+    els.nav.querySelectorAll('.nav-item').forEach(function (btn) {
+      btn.addEventListener('click', function () { selectDoor(btn.dataset.id); });
+    });
+    syncNav();
+  }
+  function syncNav() {
+    els.nav.querySelectorAll('.nav-item').forEach(function (btn) {
+      btn.classList.toggle('active', state.selected === btn.dataset.id);
+    });
+  }
+  function selectDoor(id, skipPanel) {
+    var d = DOOR_MAP[id];
+    if (!d) return;
+    /* 切到另一扇门：先收起旧面板（退回与关门由 3D 层切门分支处理，避免双重触发） */
+    if (state.selected !== id && els.panel.classList.contains('open')) closePanel(true);
+    state.selected = id;
+    syncNav();
+    if (window.__three && window.__three.ready) window.__three.gotoDoor(id);
+    if (!skipPanel) { /* 面板由 3D 层在开门过场后调用 openPanel */ }
+  }
+  function goHall() {
+    state.selected = null;
+    syncNav();
+    closePanel();
+    if (window.__three && window.__three.ready) window.__three.gotoDoor('portal');
+  }
+  var uiFree = false;
+  window.__ui = {
+    selectDoor: selectDoor,
+    goHall: goHall,
+    toast: toast,
+    state: state,
+    openPanel: function (id, immersive) { openPanel(id, immersive); },
+    setWalkMode: function (free) {
+      uiFree = !!free;
+      els.modeState.classList.toggle('free', !!free);
+      els.modeStateTxt.textContent = free ? '自由行走' : '自动巡游';
+      els.reticle.classList.toggle('show', !!free);
+    },
+    setInside: function (id) {
+      els.modeState.classList.toggle('inside', !!id);
+      document.body.classList.toggle('inside', !!id);
+      if (id) els.modeStateTxt.textContent = '已进入 · ' + (DOOR_MAP[id] || { name: '模块' }).name + ' · Esc 返回';
+      else els.modeStateTxt.textContent = uiFree ? '自由行走' : '自动巡游';
+    }
+  };
+
+  /* ---------------- 面板 ---------------- */
+  function openPanel(id, immersive) {
+    var d = DOOR_MAP[id];
+    if (!d) return;
+    var g = GROUPS.find(function (x) { return x.id === d.group; });
+    els.panelHead.classList.toggle('accent', !!d.accent);
+    els.panelIcon.innerHTML = icon(d.icon);
+    els.panelTitle.textContent = d.name;
+    els.panelSub.textContent = g.name + ' · ' + d.pos + ' · ' + d.desc + (d.meta ? ' · ' + d.meta : '') + (immersive ? ' · 已进入，Esc 返回走廊' : '');
+    els.panelBody.innerHTML = (PANELS[id] && PANELS[id].body) || '<div class="pc-note">模块内容预留位。</div>';
+    els.panel.classList.add('open');
+    els.panel.classList.toggle('immersive', !!immersive);
+    els.panel.setAttribute('aria-hidden', 'false');
+    els.panelCta.classList.toggle('accent', !!d.accent);
+  }
+  function closePanel(skip3d) {
+    if (document.activeElement && els.panel.contains(document.activeElement)) document.activeElement.blur();
+    els.panel.classList.remove('open', 'immersive');
+    els.panel.setAttribute('aria-hidden', 'true');
+    if (!skip3d && window.__three && window.__three.ready) window.__three.closeDoor();
+  }
+  els.panelClose.addEventListener('click', function () { closePanel(); });
+  els.panelCta.addEventListener('click', function () {
+    toast('原型演示：进入「' + (DOOR_MAP[state.selected] || { name: '模块' }).name + '」完整页面');
+  });
+
+  /* ---------------- 主题 ---------------- */
+  function setTheme(t) {
+    state.theme = t;
+    document.documentElement.setAttribute('data-theme', t);
+    if (window.__three && window.__three.ready) window.__three.setTheme(t);
+  }
+  $('themeToggle').addEventListener('click', function () { setTheme(state.theme === 'light' ? 'dark' : 'light'); });
+  $('bellBtn').addEventListener('click', function () { selectDoor('message'); });
+  $('tbBrand').addEventListener('click', goHall);
+
+  /* ---------------- 搜索过滤 ---------------- */
+  var searchInput = $('searchInput');
+  searchInput.addEventListener('input', function () {
+    var q = searchInput.value.trim().toLowerCase();
+    els.nav.querySelectorAll('.nav-item').forEach(function (btn) {
+      var d = DOOR_MAP[btn.dataset.id];
+      var hit = !q || (d && (d.name + d.desc).toLowerCase().indexOf(q) >= 0);
+      btn.classList.toggle('dimmed', !hit);
+    });
+  });
+  $('searchForm').addEventListener('submit', function (e) {
+    e.preventDefault();
+    var first = els.nav.querySelector('.nav-item:not(.dimmed)');
+    if (first) { selectDoor(first.dataset.id); toast('已定位：' + DOOR_MAP[first.dataset.id].name); }
+    else toast('没有匹配的门');
+  });
+
+  /* ---------------- 模式切换 ---------------- */
+  function setMode(mode, silent) {
+    state.mode = mode;
+    document.body.setAttribute('data-mode', mode);
+    $('modeToggleTxt').textContent = mode === '3d' ? '切换平面模式' : '返回 3D 走廊';
+    if (window.__three && window.__three.ready) window.__three.setPaused(mode !== '3d');
+    if (!silent) toast(mode === '3d' ? '已进入 3D 走廊模式' : '已切换平面降级模式');
+  }
+  $('modeToggle').addEventListener('click', function () { setMode(state.mode === '3d' ? '2d' : '3d'); });
+  $('back3d').addEventListener('click', function () { setMode('3d'); });
+
+  /* ---------------- 2D 降级（分组网格） ---------------- */
+  var G2D_IMG = { portal: 'hero-campus.jpg', activity: 'activity-card.jpg', idle: 'idle-card.jpg', lost: 'lost-card.jpg', partner: 'study-banner.jpg', square: 'social-card.jpg', aichat: 'ai-bg.jpg' };
+  function renderGrid2d() {
+    var html = '';
+    GROUPS.forEach(function (g) {
+      html += '<div class="g2d-group"><h3>' + g.name + '</h3><p>' + g.desc + '</p><div class="g2d-grid">';
+      DOORS_META.filter(function (d) { return d.group === g.id; }).forEach(function (d) {
+        var img = G2D_IMG[d.id];
+        var pic = img
+          ? '<span class="pic"><img src="images/' + img + '" alt=""></span>'
+          : '<span class="pic' + (d.accent ? ' accent' : '') + '"><span class="fallback">' + icon(d.icon) + '</span></span>';
+        html += '<button class="g2d-card" data-id="' + d.id + '">' + pic +
+          '<span class="body"><b>' + d.name + '</b><p>' + d.desc + '</p></span></button>';
+      });
+      html += '</div></div>';
+    });
+    els.grid2d.innerHTML = html;
+    els.grid2d.querySelectorAll('.g2d-card').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        toast('原型演示：进入「' + DOOR_MAP[btn.dataset.id].name + '」');
+      });
+    });
+  }
+
+  /* ---------------- 键盘（Esc 交给 3D 层之外的基础处理） ---------------- */
+  document.addEventListener('keydown', function (e) {
+    if (e.target && (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA')) return;
+    if (e.key === 'Escape') {
+      if (els.panel.classList.contains('open')) closePanel();
+      else goHall();
+    }
+  });
+
+  /* ---------------- 入场 ---------------- */
+  function enterCampus() {
+    if (state.entered) return;
+    state.entered = true;
+    document.body.setAttribute('data-boot', 'ready');
+    var intro = $('intro');
+    intro.classList.add('hide');
+    setTimeout(function () { intro.style.display = 'none'; }, 900);
+    if (window.__three && window.__three.ready) window.__three.enterCampus();
+    else toast('正在加载 3D 走廊，请稍候…（失败将自动切换平面模式）');
+  }
+  $('introEnter').addEventListener('click', enterCampus);
+  $('introFlat').addEventListener('click', function () {
+    enterCampus();
+    setMode('2d', true);
+    toast('当前为平面降级模式，点击右下角返回 3D 走廊');
+  });
+
+  renderNav();
+  renderGrid2d();
+  window.__spatialSetMode = setMode;
+})();
+</script>
+
+<!-- ==================================================================
+     脚本二（ESM 模块）：Three.js 3D 走廊层
+     枢纽大厅（梧桐树 + 环形索引墙）+ 三条支廊 + 入口廊 + 12 扇门
+     第一人称（WASD + 拖拽转向）· 点击门自动寻路 · 开门白光过场
+     ================================================================== -->
+<script type="module">
+(async function () {
+  const CDN = 'https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js';
+  const MAX_WAIT = 12000;
+  let THREE = null;
+  const giveUp = (msg) => {
+    if (window.__three && window.__three.ready) return;
+    console.warn('[corridor] ' + msg);
+    if (window.__spatialSetMode) window.__spatialSetMode('2d', true);
+    const t = document.getElementById('toast');
+    if (t) { t.textContent = 'WebGL / Three.js 初始化失败，已切换平面模式'; t.classList.add('show'); setTimeout(() => t.classList.remove('show'), 2600); }
+  };
+  const timer = setTimeout(() => giveUp('CDN 加载超时'), MAX_WAIT);
+  try { THREE = await import(CDN); }
+  catch (e) { clearTimeout(timer); giveUp('CDN 加载失败'); return; }
+
+  /* ================= 基础 ================= */
+  const stage = document.getElementById('stage');
+  let renderer;
+  try { renderer = new THREE.WebGLRenderer({ antialias: true, powerPreference: 'high-performance' }); }
+  catch (e) { clearTimeout(timer); giveUp('WebGL 不可用'); return; }
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  stage.appendChild(renderer.domElement);
+
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(58, window.innerWidth / window.innerHeight, 0.1, 300);
+  const REDUCED = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const UI = window.__ui;
+
+  const EYE = 1.65;           // 第一人称眼高
+  const HALL_R = 14;           // 大厅半径
+  const COR_W = 8;             // 支廊净宽
+
+  /* ================= 主题 ================= */
+  const THEMES = {
+    light: {
+      sky: 0xf2ead9, fog: 0xf2ead9, fogDensity: 0.011,
+      hemiSky: 0xfff6e6, hemiGround: 0xcbb89a, hemiInt: 1.1,
+      dirColor: 0xffeecf, dirInt: 1.0,
+      hallLight: 0xffe2b0, hallInt: 20,
+      corLight: 0xffdfae, corInt: 13,
+      beam: 0xfff3d0, beamOp: 0.16
+    },
+    dark: {
+      sky: 0x0f1310, fog: 0x0f1310, fogDensity: 0.02,
+      hemiSky: 0x3d463c, hemiGround: 0x1c201a, hemiInt: 0.5,
+      dirColor: 0x9fb8d8, dirInt: 0.3,
+      hallLight: 0xffc98a, hallInt: 14,
+      corLight: 0xffbe7d, corInt: 9,
+      beam: 0xbfd8e8, beamOp: 0.1
+    }
+  };
+  let themeName = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
+  const hemi = new THREE.HemisphereLight(0xfff6e6, 0xcbb89a, 1.1);
+  const dir = new THREE.DirectionalLight(0xffeecf, 1.0);
+  dir.position.set(18, 40, 26);
+  scene.add(hemi, dir);
+  const hallLight = new THREE.PointLight(0xffe2b0, 20, 40, 1.8);
+  hallLight.position.set(0, 7.2, 0);
+  scene.add(hallLight);
+
+  /* ================= 材质 ================= */
+  const mat = (c, opt) => new THREE.MeshStandardMaterial(Object.assign({ color: c, flatShading: true, roughness: 0.9, metalness: 0 }, opt || {}));
+  const M = {
+    floorWood: mat(0xb08b5e), floorWood2: mat(0x9a7649),
+    wallCream: mat(0xeadfc6), wallDeep: mat(0x3f5a4c),       // 暖墙 + 梧桐绿墙裙
+    trim: mat(0x8f6a42),
+    doorWood: mat(0xa4713f), doorWood2: mat(0x8a5a30),
+    doorAI: mat(0xc46a4a), doorAI2: mat(0xa85438),
+    plaque: mat(0x0e8a63), plaqueAI: mat(0xe05a3e),
+    gold: mat(0xe8c268),
+    leaf: mat(0x64b98a), leaf2: mat(0x4f9e72),
+    glowWarm: new THREE.MeshBasicMaterial({ color: 0xfff3dc, side: THREE.BackSide })  // 门后溢光室
+  };
+  function emissivePlaque(color) {
+    return new THREE.MeshStandardMaterial({ color: color, emissive: color, emissiveIntensity: 0.35, flatShading: true, roughness: 0.6 });
+  }
+
+  /* ================= 几何工具 ================= */
+  const V3 = (x, y, z) => new THREE.Vector3(x, y, z);
+  function box(w, h, d, m, x = 0, y = 0, z = 0, ry = 0) {
+    const o = new THREE.Mesh(new THREE.BoxGeometry(w, h, d), m);
+    o.position.set(x, y, z); if (ry) o.rotation.y = ry; return o;
+  }
+  function cyl(rt, rb, h, m, x = 0, y = 0, z = 0, seg = 20) {
+    const o = new THREE.Mesh(new THREE.CylinderGeometry(rt, rb, h, seg), m);
+    o.position.set(x, y, z); return o;
+  }
+  function sph(r, m, x = 0, y = 0, z = 0, w = 12, h = 9) {
+    const o = new THREE.Mesh(new THREE.SphereGeometry(r, w, h), m);
+    o.position.set(x, y, z); return o;
+  }
+  function tor(r, t, m, x = 0, y = 0, z = 0, rx = Math.PI / 2) {
+    const o = new THREE.Mesh(new THREE.TorusGeometry(r, t, 10, 36), m);
+    o.position.set(x, y, z); o.rotation.x = rx; return o;
+  }
+
+  /* ================= 布局数据 ================= */
+  const CORRIDORS = [
+    { id: 'service', name: '校园服务廊', icon: 'calendar', rot: 0,           len: 32 },
+    { id: 'social',  name: '社交信息廊', icon: 'chat',     rot: Math.PI / 2,  len: 32 },
+    { id: 'ai',      name: 'AI 学习廊',  icon: 'spark',    rot: -Math.PI / 2, len: 28 }
+  ];
+  const ENTRY_LEN = 16;
+  /* 门（本地坐标：L=左墙 x=-COR_W/2 朝 +X；R=右墙 朝 -X；end=尽头中央 朝 +Z） */
+  const DOORS = [
+    { id: 'activity', cor: 'service', side: 'L', z: -20 },
+    { id: 'idle',     cor: 'service', side: 'R', z: -20 },
+    { id: 'partner',  cor: 'service', side: 'L', z: -32 },
+    { id: 'lost',     cor: 'service', side: 'R', z: -32 },
+    { id: 'qa',       cor: 'social',  side: 'L', z: -20 },
+    { id: 'square',   cor: 'social',  side: 'R', z: -20 },
+    { id: 'notice',   cor: 'social',  side: 'L', z: -32 },
+    { id: 'message',  cor: 'social',  side: 'R', z: -32 },
+    { id: 'aichat',   cor: 'ai',      side: 'L', z: -20 },
+    { id: 'code',     cor: 'ai',      side: 'R', z: -20 },
+    { id: 'wrong',    cor: 'ai',      side: 'end', z: -(HALL_R + 28) + 0.2 }
+  ];
+  const DOOR_W = 2.0, DOOR_H = 2.9, DOOR_T = 0.12;
+
+  /* ================= 木材条纹纹理（程序化） ================= */
+  function woodTexture(base, stripe) {
+    const c = document.createElement('canvas'); c.width = 256; c.height = 256;
+    const ctx = c.getContext('2d');
+    ctx.fillStyle = base; ctx.fillRect(0, 0, 256, 256);
+    ctx.fillStyle = stripe;
+    for (let i = 0; i < 16; i++) {
+      ctx.globalAlpha = 0.12 + (i % 3) * 0.06;
+      ctx.fillRect(0, i * 16, 256, 8);
+    }
+    ctx.globalAlpha = 0.08;
+    for (let i = 0; i < 40; i++) ctx.fillRect(Math.random() * 256, 0, 1, 256);
+    ctx.globalAlpha = 1;
+    const t = new THREE.CanvasTexture(c);
+    t.wrapS = t.wrapT = THREE.RepeatWrapping;
+    return t;
+  }
+  const floorTex = woodTexture('#b08b5e', '#9a7649');
+  const wallTex = woodTexture('#eadfc6', '#e0d2b4');
+  const floorMat = new THREE.MeshStandardMaterial({ map: floorTex, roughness: 0.92 });
+  const wallMatTex = new THREE.MeshStandardMaterial({ map: wallTex, roughness: 0.95 });
+
+  /* ================= 大厅 ================= */
+  const pickables = [];
+  const hall = new THREE.Group();
+  scene.add(hall);
+  {
+    /* 地板：暖木圆盘 + 梧桐绿环饰带 */
+    hall.add(cyl(HALL_R + 0.4, HALL_R + 0.4, 0.3, M.floorWood2, 0, -0.15, 0, 44));
+    const disc = cyl(HALL_R, HALL_R, 0.14, floorMat, 0, 0.06, 0, 44); disc.material = floorMat; hall.add(disc);
+    const band = tor(10.5, 0.16, M.wallDeep, 0, 0.14, 0); hall.add(band);
+    hall.add(tor(3.4, 0.1, mat(0x0e8a63), 0, 0.14, 0));
+    /* 天花：环形盘（中央开口 = 天窗） */
+    const ceil = new THREE.Mesh(new THREE.RingGeometry(2.8, HALL_R + 0.3, 44), mat(0x6b5b42));
+    ceil.rotation.x = -Math.PI / 2; ceil.position.y = 4.55; hall.add(ceil);
+    /* 环形墙：4 段弧（避开 4 个廊口）
+       口方向（θ 从 +Z 逆时针）：南 0 / 东 π/2 / 北 π / 西 3π/2
+       廊口半张角 0.30 ≈ 走廊半宽（4m @ r=14），弧墙端头吃进走廊侧墙（x 4.0~4.3）内，
+       不留侧缝——否则从大厅能斜看到走廊外墙与凸出的房间盒 */
+    const mouth = 0.30; // 廊口半张角
+    for (let k = 0; k < 4; k++) {
+      const a0 = k * Math.PI / 2 + mouth, a1 = (k + 1) * Math.PI / 2 - mouth;
+      const seg = new THREE.Mesh(
+        new THREE.CylinderGeometry(HALL_R, HALL_R, 4.4, 20, 1, true, a0, a1 - a0),
+        new THREE.MeshStandardMaterial({ map: wallTex, roughness: 0.95, side: THREE.BackSide })
+      );
+      seg.position.y = 2.2; hall.add(seg);
+      /* 墙裙 */
+      const skirt = new THREE.Mesh(
+        new THREE.CylinderGeometry(HALL_R - 0.06, HALL_R - 0.06, 1.1, 20, 1, true, a0, a1 - a0),
+        M.wallDeep
+      );
+      skirt.position.y = 0.55; hall.add(skirt);
+    }
+    /* 廊口门楣（四口横梁 + 珊瑚/品牌色内衬） */
+    const dirs = [0, Math.PI / 2, Math.PI, -Math.PI / 2]; // 南东西北（本地 -Z 廊朝向的世界角）
+    dirs.forEach(a => {
+      const lintel = box(COR_W + 1.2, 1.4, 0.5, M.trim,
+        Math.sin(a) * HALL_R, 3.9, Math.cos(a) * HALL_R, a);
+      hall.add(lintel);
+    });
+  }
+  /* 中央梧桐树（= 综合门户） */
+  const tree = new THREE.Group();
+  const treeGlow = new THREE.MeshBasicMaterial({ color: 0x9fe8c0 });
+  {
+    tree.add(cyl(1.5, 1.9, 0.55, mat(0x9a8468), 0, 0.27, 0, 22));
+    tree.add(cyl(0.34, 0.46, 3.4, M.trim, 0, 2.2, 0, 10));
+    tree.add(sph(1.65, M.leaf, 0, 4.15, 0, 14, 10));
+    tree.add(sph(1.25, M.leaf2, 1.0, 3.75, 0.45, 12, 9));
+    tree.add(sph(1.05, M.leaf, -0.95, 3.6, -0.55, 12, 9));
+    const halo = tor(2.5, 0.09, treeGlow, 0, 2.4, 0);
+    tree.add(halo); tree.userData.halo = halo;
+    tree.traverse(o => { o.userData.pickId = 'portal'; });
+    pickables.push(tree);
+    hall.add(tree);
+  }
+  /* 天窗光柱 */
+  const beamMat = new THREE.MeshBasicMaterial({ color: 0xfff3d0, transparent: true, opacity: 0.16, side: THREE.DoubleSide, depthWrite: false });
+  const beam = new THREE.Mesh(new THREE.CylinderGeometry(2.6, 3.3, 9.2, 26, 1, true), beamMat);
+  beam.position.y = 5.4; hall.add(beam);
+
+  /* ================= 环形索引墙牌 ================= */
+  const INDEX_SEQ = ['portal', 'activity', 'idle', 'partner', 'lost', 'qa', 'square', 'notice', 'message', 'aichat', 'code', 'wrong'];
+  const INDEX_NAME = { portal: '综合门户', activity: '校园活动', idle: '闲置互换', partner: '学习搭子', lost: '失物招领', qa: '互助问答', square: '动态广场', notice: '校园公告', message: '消息中心', aichat: 'AI 答疑', code: '代码纠错', wrong: '错题本' };
+  const indexPlaques = [];
+  {
+    const mouth = 0.60;
+    let seq = 0;
+    for (let k = 0; k < 4; k++) {
+      const a0 = k * Math.PI / 2 + mouth, a1 = (k + 1) * Math.PI / 2 - mouth;
+      for (let j = 0; j < 3; j++) {
+        const a = a0 + (a1 - a0) * (j + 0.5) / 3;
+        const id = INDEX_SEQ[seq++ % INDEX_SEQ.length];
+        const m = emissivePlaque(id === 'portal' ? 0x0e8a63 : (['aichat', 'code', 'wrong'].includes(id) ? 0xe05a3e : 0x0e8a63));
+        const p = box(1.15, 0.55, 0.1, m, Math.sin(a) * (HALL_R - 0.55), 2.05, Math.cos(a) * (HALL_R - 0.55), a + Math.PI);
+        p.userData.pickId = id;
+        p.userData.isIndex = true;
+        pickables.push(p);
+        hall.add(p);
+        indexPlaques.push({ id, mesh: p, mat: m });
+      }
+    }
+  }
+
+  /* ================= 支廊建造（分段墙 + 门 + 溢光室） ================= */
+  const doors3d = [];   // { id, hinge, doorMesh, plaqueMat, open, target, glow }
+  const corGroups = {};
+  function buildDoor(parent, dLocal, isAI) {
+    /* 门位置与朝向（本地坐标） */
+    let px, pz, nyaw; // nyaw = 门面朝向（本地）
+    if (dLocal.side === 'L') { px = -COR_W / 2; pz = dLocal.z; nyaw = Math.PI / 2; }
+    else if (dLocal.side === 'R') { px = COR_W / 2; pz = dLocal.z; nyaw = -Math.PI / 2; }
+    else { px = 0; pz = dLocal.z; nyaw = 0; }
+    const dw = dLocal.side === 'end' ? 3.2 : DOOR_W;
+    const isEnd = dLocal.side === 'end';
+    /* 门内小房间（可走入：暖白墙 + 木地板 + 绿墙裙 + 后墙发光主屏 + 悬浮晶体）
+       前缘与走廊墙内面齐平，门洞两侧墙由走廊墙内面担当，房内回头能看到门 */
+    const nx = Math.sin(nyaw), nz = Math.cos(nyaw);   // 朝廊内法线
+    const roomW = dw + 2.2, roomD = 3.8, roomH = 3.3;
+    const room = new THREE.Group();
+    room.position.set(px - nx * (roomD / 2), 0, pz - nz * (roomD / 2));
+    room.rotation.y = nyaw;   /* 局部 +z 朝门/走廊 */
+    parent.add(room);
+    const wallM = new THREE.MeshBasicMaterial({ color: 0xfff3dc, side: THREE.DoubleSide });
+    const rBasic = c => new THREE.MeshBasicMaterial({ color: c });
+    /* 四面围合（无前墙）+ 天花 */
+    room.add(box(roomW, roomH, 0.06, wallM, 0, roomH / 2, -(roomD / 2 - 0.03)));
+    room.add(box(0.06, roomH, roomD, wallM, -(roomW / 2 - 0.03), roomH / 2, 0));
+    room.add(box(0.06, roomH, roomD, wallM, roomW / 2 - 0.03, roomH / 2, 0));
+    room.add(box(roomW, 0.06, roomD, wallM, 0, roomH - 0.03, 0));
+    room.add(box(roomW - 0.1, 0.05, roomD - 0.1, rBasic(0xdcb787), 0, 0.03, 0));   /* 木地板 */
+    /* 绿墙裙（左右后三面） */
+    room.add(box(0.05, 1.05, roomD - 0.12, rBasic(0x527a66), -(roomW / 2 - 0.07), 0.56, 0));
+    room.add(box(0.05, 1.05, roomD - 0.12, rBasic(0x527a66), roomW / 2 - 0.07, 0.56, 0));
+    room.add(box(roomW - 0.1, 1.05, 0.05, rBasic(0x527a66), 0, 0.56, -(roomD / 2 - 0.07)));
+    /* 后墙发光主屏（模块内容位） */
+    room.add(box(roomW * 0.42, 1.25, 0.04, rBasic(0xffe9c0), 0, 1.9, -(roomD / 2 - 0.09)));
+    /* 房间开口收边：覆盖暖白端面，与走廊墙同色，消除门洞两侧/顶部的暖白亮线 */
+    const trimM = rBasic(0xeadfc6);
+    room.add(box(0.14, roomH, 0.06, trimM, -(roomW / 2 - 0.03), roomH / 2, roomD / 2 - 0.03));
+    room.add(box(0.14, roomH, 0.06, trimM, roomW / 2 - 0.03, roomH / 2, roomD / 2 - 0.03));
+    room.add(box(roomW, 0.14, 0.06, trimM, 0, roomH - 0.03, roomD / 2 - 0.03));
+    /* 房内悬浮模块晶体（AI 门珊瑚 / 其余品牌绿） */
+    const crystal = new THREE.Mesh(
+      new THREE.OctahedronGeometry(0.34),
+      new THREE.MeshBasicMaterial({ color: isAI ? 0xff8266 : 0x3dc28f })
+    );
+    crystal.position.set(px - nx * 2.6, 1.68, pz - nz * 2.6);
+    parent.add(crystal);
+    /* 门框（深色，与门扇形成对比） */
+    const frameM = M.doorWood2;
+    [-1, 1].forEach(s => {
+      const jamb = box(0.3, DOOR_H + 0.25, 0.42, frameM, px + Math.cos(nyaw) * s * (dw / 2 + 0.12), (DOOR_H + 0.25) / 2, pz - Math.sin(nyaw) * s * (dw / 2 + 0.12), nyaw);
+      parent.add(jamb);
+    });
+    /* 门楣：长边沿门宽方向（局部 x），平躺贴在墙上——勿把长边放 d，否则会垂直戳出墙面 */
+    /* 下沿贴门洞顶（DOOR_H），消除门洞顶与门楣间的墙面亮带 */
+    const head = box(dw + 0.5, 0.26, 0.4, frameM, px, DOOR_H + 0.13, pz, nyaw);
+    parent.add(head);
+    /* 匾额（悬停/选中时发光） */
+    const pqM = emissivePlaque(isAI ? 0xe05a3e : 0x0e8a63);
+    const plaque = box(dw + 0.35, 0.55, 0.16, pqM, px, DOOR_H + 0.85, pz, nyaw);
+    plaque.userData.pickId = dLocal.id;
+    pickables.push(plaque);
+    parent.add(plaque);
+    /* 门扇（铰链组：end 门为双扇） */
+    const leafM = isAI ? M.doorAI : M.doorWood;
+    const leaves = [];
+    /* 门宽方向向量（本地空间）：铰链须落在门洞侧梃上，不能放门中心 */
+    const wx = Math.cos(nyaw), wz = -Math.sin(nyaw);
+    /* jambOff: 铰链沿门宽方向相对门中心的偏移; dir: 门扇自铰链延伸方向 */
+    const mkLeaf = (w, jambOff, dir) => {
+      const hinge = new THREE.Group();
+      hinge.position.set(px + wx * jambOff, 0, pz + wz * jambOff);
+      hinge.rotation.y = nyaw;
+      hinge.userData.yaw0 = nyaw;   /* 基准朝向：开门动画以此为基，否则关门时门扇横挡门口 */
+      const leaf = box(w, DOOR_H - 0.03, DOOR_T, leafM, dir * w / 2, DOOR_H / 2, 0);
+      hinge.add(leaf);
+      /* 以下装饰均挂在 hinge（局部坐标），勿挂 leaf——leaf 自身带偏移会双重叠加 */
+      const insetM = isAI ? M.doorAI2 : M.doorWood2;
+      /* 门板嵌板（双面）：上小下大，让门读作“门” */
+      [-1, 1].forEach(f => {
+        hinge.add(box(w * 0.58, 0.74, 0.024, insetM, dir * w / 2, 1.66, f * (DOOR_T / 2 + 0.012)));
+        hinge.add(box(w * 0.58, 0.92, 0.024, insetM, dir * w / 2, 0.6, f * (DOOR_T / 2 + 0.012)));
+      });
+      /* 门上小窗（微透暖光） */
+      hinge.add(box(w - 0.7, 0.5, 0.03, new THREE.MeshBasicMaterial({ color: 0xffe9c0 }), dir * w / 2, DOOR_H - 0.62, DOOR_T / 2 + 0.02));
+      /* 门把手（靠开门边，及腰高） */
+      hinge.add(cyl(0.045, 0.045, 0.3, M.gold, dir * (w - 0.22), DOOR_H / 2 - 0.15, DOOR_T / 2 + 0.09, 8).rotateX(Math.PI / 2));
+      parent.add(hinge);
+      leaves.push(hinge);
+    };
+    if (isEnd) { mkLeaf(dw / 2, -dw / 2, 1); mkLeaf(dw / 2, dw / 2, -1); }
+    else mkLeaf(dw - 0.005, -(dw - 0.005) / 2, 1);
+    /* 门扇拾取 */
+    leaves.forEach(h => h.traverse(o => { o.userData.pickId = dLocal.id; }));
+    pickables.push(...leaves);
+    doors3d.push({ id: dLocal.id, leaves, plaqueMat: pqM, open: 0, target: 0, hingeSign: isEnd ? [1, -1] : [1], crystal, dw });
+  }
+
+  function buildCorridor(cor) {
+    const g = new THREE.Group();
+    g.rotation.y = cor.rot;
+    scene.add(g);
+    corGroups[cor.id] = g;
+    const zEnd = -(HALL_R + cor.len);
+    const isAI = cor.id === 'ai';
+    /* 地板与天花 */
+    const fl = box(COR_W, 0.24, cor.len + 0.8, floorMat, 0, -0.12, (zEnd - HALL_R) / 2);
+    g.add(fl);
+    const cl = box(COR_W, 0.3, cor.len + 0.8, mat(0x6b5b42), 0, 4.35, (zEnd - HALL_R) / 2);
+    g.add(cl);
+    /* 分段侧墙（在门洞处断开） */
+    const doorList = DOORS.filter(d => d.cor === cor.id);
+    [-1, 1].forEach(sideSign => {
+      const x = sideSign * (COR_W / 2 + 0.15);
+      /* 收集该侧墙的门洞边界 */
+      const holes = doorList.filter(d => (sideSign < 0 ? d.side === 'L' : d.side === 'R'))
+        .map(d => ({ a: d.z - (d.side === 'end' ? 1.7 : DOOR_W / 2), b: d.z + (d.side === 'end' ? 1.7 : DOOR_W / 2) }))
+        .sort((p, q) => q.b - p.b);
+      let cursor = -HALL_R + 0.7;
+      holes.forEach(hh => {
+        if (cursor - hh.b > 0.4) {
+          g.add(box(0.3, 4.4, cursor - hh.b, wallMatTex, x, 2.2, (cursor + hh.b) / 2));
+          g.add(box(0.08, 1.1, cursor - hh.b, M.wallDeep, x - sideSign * 0.19, 0.55, (cursor + hh.b) / 2));
+        }
+        /* 门洞过梁（下沿压到门扇顶以上 2cm，堵住透视缝） */
+        g.add(box(0.3, 4.4 - DOOR_H + 0.02, hh.b - hh.a, wallMatTex, x, DOOR_H - 0.02 + (4.4 - DOOR_H + 0.02) / 2, (hh.a + hh.b) / 2));
+        cursor = hh.a;
+      });
+      if (cursor - zEnd > 0.4) {
+        g.add(box(0.3, 4.4, cursor - zEnd + 0.2, wallMatTex, x, 2.2, (cursor + zEnd) / 2 + 0.1));
+        g.add(box(0.08, 1.1, cursor - zEnd + 0.2, M.wallDeep, x - sideSign * 0.19, 0.55, (cursor + zEnd) / 2 + 0.1));
+      }
+    });
+    /* 尽头墙（AI 廊尽头是错题本双开门，其余是装饰窗） */
+    if (isAI) {
+      [-1, 1].forEach(s => {
+        const segW = (COR_W - 3.2) / 2;
+        g.add(box(segW + 0.4, 4.4, 0.3, wallMatTex, s * (3.2 / 2 + segW / 2), 2.2, zEnd - 0.15));
+      });
+      /* 门洞过梁（放 forEach 外——在循环里会加两次，同位盒子 z-fighting） */
+      g.add(box(0.3, 4.4 - DOOR_H + 0.02, COR_W + 0.4, wallMatTex, 0, DOOR_H - 0.02 + (4.4 - DOOR_H + 0.02) / 2, zEnd - 0.15));
+    } else {
+      g.add(box(COR_W + 0.6, 4.4, 0.3, wallMatTex, 0, 2.2, zEnd - 0.15));
+      g.add(box(0.08, 1.1, COR_W + 0.6, M.wallDeep, 0, 0.55, zEnd - 0.28));
+      /* 尽头装饰窗（暖光面板） */
+      const win = box(COR_W - 2.4, 2.4, 0.08, new THREE.MeshBasicMaterial({ color: 0xffedc8 }), 0, 2.5, zEnd - 0.02);
+      g.add(win);
+      g.add(box(COR_W - 2.2, 0.14, 0.12, M.trim, 0, 3.78, zEnd - 0.06));
+      g.add(box(COR_W - 2.2, 0.14, 0.12, M.trim, 0, 1.22, zEnd - 0.06));
+    }
+    /* 廊内灯（PointLight 无阴影） */
+    const lamp = new THREE.PointLight(0xffdfae, 13, 26, 1.8);
+    lamp.position.set(0, 3.9, zEnd / 2 - 2);
+    g.add(lamp);
+    cor.lamp = lamp;
+    /* 门 */
+    doorList.forEach(d => buildDoor(g, d, isAI));
+  }
+  CORRIDORS.forEach(buildCorridor);
+
+  /* ================= 入口廊（南向短廊） ================= */
+  {
+    const g = new THREE.Group();
+    g.rotation.y = Math.PI;   // 本地 -Z → 世界 +Z（南）
+    scene.add(g);
+    corGroups.entry = g;
+    const zEnd = -(HALL_R + ENTRY_LEN);
+    g.add(box(COR_W, 0.24, ENTRY_LEN + 1.2, floorMat, 0, -0.12, (zEnd - HALL_R) / 2 + 0.2));
+    g.add(box(COR_W, 0.3, ENTRY_LEN + 1.2, mat(0x6b5b42), 0, 4.35, (zEnd - HALL_R) / 2 + 0.2));
+    [-1, 1].forEach(s => {
+      const x = s * (COR_W / 2 + 0.15);
+      g.add(box(0.3, 4.4, ENTRY_LEN + 1.0, wallMatTex, x, 2.2, (zEnd - HALL_R) / 2 + 0.2));
+      g.add(box(0.08, 1.1, ENTRY_LEN + 1.0, M.wallDeep, x - s * 0.19, 0.55, (zEnd - HALL_R) / 2 + 0.2));
+    });
+    g.add(box(COR_W + 0.6, 4.4, 0.3, wallMatTex, 0, 2.2, zEnd - 0.15));
+    const win = box(COR_W - 2.6, 2.2, 0.08, new THREE.MeshBasicMaterial({ color: 0xffedc8 }), 0, 2.4, zEnd - 0.02);
+    g.add(win);
+    const lamp = new THREE.PointLight(0xffdfae, 10, 22, 1.8);
+    lamp.position.set(0, 3.9, (zEnd + HALL_R) / 2);
+    g.add(lamp);
+    corGroups.entry.userData.lamp = lamp;
+  }
+
+  /* ================= 梧桐叶（室内少量） ================= */
+  function leafTexture() {
+    const c = document.createElement('canvas'); c.width = 64; c.height = 64;
+    const ctx = c.getContext('2d');
+    ctx.translate(32, 32); ctx.rotate(Math.PI / 4);
+    const grad = ctx.createLinearGradient(-18, 0, 18, 0);
+    grad.addColorStop(0, 'rgba(100,185,138,.95)'); grad.addColorStop(1, 'rgba(70,150,105,.9)');
+    ctx.fillStyle = grad;
+    ctx.beginPath(); ctx.moveTo(0, -20);
+    ctx.quadraticCurveTo(14, -6, 0, 18); ctx.quadraticCurveTo(-14, -6, 0, -20); ctx.fill();
+    return new THREE.CanvasTexture(c);
+  }
+  const LEAF_N = REDUCED ? 26 : 70;
+  const leafGeo = new THREE.BufferGeometry();
+  const leafPos = new Float32Array(LEAF_N * 3);
+  const leafData = [];
+  for (let i = 0; i < LEAF_N; i++) {
+    const a = Math.random() * Math.PI * 2, r = Math.random() * 12;
+    leafPos[i * 3] = Math.cos(a) * r;
+    leafPos[i * 3 + 1] = Math.random() * 8;
+    leafPos[i * 3 + 2] = Math.sin(a) * r;
+    leafData.push({ speed: 0.35 + Math.random() * 0.6, phase: Math.random() * Math.PI * 2, amp: 0.35 });
+  }
+  leafGeo.setAttribute('position', new THREE.BufferAttribute(leafPos, 3));
+  const leafMatPts = new THREE.PointsMaterial({ size: 0.24, map: leafTexture(), transparent: true, depthWrite: false, sizeAttenuation: true });
+  const leaves = new THREE.Points(leafGeo, leafMatPts);
+  scene.add(leaves);
+
+  /* ================= 世界坐标缓存（门 / 观看点 / 标签锚点） ================= */
+  scene.updateMatrixWorld(true);
+  const doorWorld = {};   // id -> { pos(门中心地面), view(观看点), anchor(标签锚点), yaw }
+  DOORS.forEach(d => {
+    const cor = CORRIDORS.find(c => c.id === d.cor);
+    const g = corGroups[cor.id];
+    let lx, lz, nyawL;
+    if (d.side === 'L') { lx = -COR_W / 2; lz = d.z; nyawL = Math.PI / 2; }
+    else if (d.side === 'R') { lx = COR_W / 2; lz = d.z; nyawL = -Math.PI / 2; }
+    else { lx = 0; lz = d.z; nyawL = 0; }
+    const world = V3(lx, 0, lz).applyMatrix4(g.matrixWorld);
+    /* 本地法线（朝廊内）→ 世界 */
+    const nl = V3(Math.sin(nyawL), 0, Math.cos(nyawL)).applyQuaternion(g.quaternion);
+    const dist = d.side === 'end' ? 5.4 : 5.0;
+    doorWorld[d.id] = {
+      pos: world,
+      view: world.clone().addScaledVector(nl, dist),
+      anchor: world.clone().addScaledVector(nl, 0.35).setY(DOOR_H + 0.55),
+      yaw: Math.atan2(-nl.x, -nl.z) + Math.PI,
+      normal: nl
+    };
+  });
+  /* 门户（树）观看点 */
+  doorWorld.portal = { pos: V3(0, 0, 0), view: V3(0, EYE, 5.6), anchor: V3(0, 5.9, 0), yaw: 0, normal: V3(0, 0, 1) };
+
+  /* ================= 可行走区域（碰撞） ================= */
+  function inCorridorLocal(cor, x, z) {
+    /* 世界 → 廊本地：绕 Y 旋转 -rot */
+    const c = Math.cos(-cor.rot), s = Math.sin(-cor.rot);
+    const lx = x * c + z * s, lz = -x * s + z * c;
+    const zEnd = -(HALL_R + cor.len);
+    return Math.abs(lx) <= COR_W / 2 - 0.45 && lz <= -HALL_R + 1.2 && lz >= zEnd + 0.9;
+  }
+  const entryCor = { rot: Math.PI, len: ENTRY_LEN };
+  function walkable(x, z) {
+    if (x * x + z * z <= (HALL_R - 0.8) * (HALL_R - 0.8)) {
+      /* 树干障碍 */
+      if (x * x + z * z < 2.4 * 2.4) return false;
+      return true;
+    }
+    for (const cor of CORRIDORS) if (inCorridorLocal(cor, x, z)) return true;
+    if (inCorridorLocal(entryCor, x, z)) return true;
+    /* 已打开的门内房间可走入（沿门法线负向为房内，限制门宽与进深） */
+    for (const d of doors3d) {
+      if (d.target < 0.5) continue;
+      const dw = doorWorld[d.id];
+      if (!dw || !dw.normal) continue;
+      const rx = x - dw.pos.x, rz = z - dw.pos.z;
+      const along = rx * dw.normal.x + rz * dw.normal.z;
+      const side = Math.abs(rx * dw.normal.z - rz * dw.normal.x);
+      if (along < 0.6 && along > -3.2 && side < d.dw / 2 + 0.6) return true;
+    }
+    return false;
+  }
+  function regionOf(x, z) {
+    if (x * x + z * z <= (HALL_R - 1) * (HALL_R - 1)) return 'hall';
+    for (const cor of CORRIDORS) if (inCorridorLocal(cor, x, z)) return cor.id;
+    if (inCorridorLocal(entryCor, x, z)) return 'entry';
+    return 'hall';
+  }
+
+  /* ================= 路径规划 ================= */
+  function corridorMouthWorld(cor) {
+    const d = V3(0, 0, -(HALL_R - 1.5));
+    d.applyAxisAngle(V3(0, 1, 0), cor.rot);
+    return d;
+  }
+  const mouthWorld = {};
+  CORRIDORS.forEach(c => { mouthWorld[c.id] = corridorMouthWorld(c); });
+  mouthWorld.entry = V3(0, 0, HALL_R - 1.5);
+  /* 线段到大树圆心的最近距离（防穿树判定） */
+  function segDistToCenter(ax, az, bx, bz) {
+    const dx = bx - ax, dz = bz - az;
+    const len2 = dx * dx + dz * dz;
+    let t = len2 ? ((-ax) * dx + (-az) * dz) / len2 : 0;
+    t = Math.max(0, Math.min(1, t));
+    return Math.hypot(ax + dx * t, az + dz * t);
+  }
+  /* 相邻点对若穿树，插入侧向绕行中转 */
+  function fixTreeCollisions(pts) {
+    for (let iter = 0; iter < 5; iter++) {
+      let ok = true;
+      for (let i = 0; i < pts.length - 1; i++) {
+        const a = pts[i], b = pts[i + 1];
+        if (segDistToCenter(a.x, a.z, b.x, b.z) < 2.7) {
+          const perp = V3(-(b.z - a.z), 0, b.x - a.x).normalize().multiplyScalar(4.4);
+          pts.splice(i + 1, 0, V3((a.x + b.x) / 2 + perp.x, EYE, (a.z + b.z) / 2 + perp.z));
+          ok = false; break;
+        }
+      }
+      if (ok) break;
+    }
+    return pts;
+  }
+  function computePath(from, to) {
+    const F = p => V3(p.x, EYE, p.z);
+    const ra = regionOf(from.x, from.z), rb = regionOf(to.x, to.z);
+    const pts = [F(from)];
+    if (ra === rb) {
+      pts.push(F({ x: (from.x + to.x) / 2, z: (from.z + to.z) / 2 }));
+    } else {
+      const mouthA = (ra !== 'hall' && ra !== 'entry') ? mouthWorld[ra] : null;
+      const mouthB = (rb !== 'hall' && rb !== 'entry') ? mouthWorld[rb] : null;
+      if (ra === 'entry') pts.push(V3(0, EYE, HALL_R - 1.5));
+      if (mouthA) pts.push(F(mouthA));
+      if (mouthB) {
+        /* 跨廊：在大厅内沿目标口方向的中转点（避开树心） */
+        const dB = mouthB.clone().setY(0).normalize();
+        if (mouthA) pts.push(dB.clone().multiplyScalar(6.2).setY(EYE));
+        pts.push(F(mouthB));
+      }
+    }
+    pts.push(F(to));
+    return fixTreeCollisions(pts);
+  }
+
+  /* ================= 第一人称控制 ================= */
+  const pos = V3(0, EYE, HALL_R + 9);   // 出生：入口廊内
+  let yaw = Math.PI, pitch = 0;          // 朝北（大厅）
+  const keys = {};
+  let walkMode = 'auto';                 // auto | free
+  let walking = null;                    // 寻路 tween
+  let lookTarget = null;                  // 朝向目标（门）
+  function applyLook() {
+    camera.rotation.set(pitch, yaw, 0, 'YXZ');
+    camera.position.copy(pos);
+  }
+  function yawToward(dx, dz) { return Math.atan2(dx, dz) + Math.PI; }
+  function lerpAngle(a, b, t) {
+    let d = (b - a) % (Math.PI * 2);
+    if (d > Math.PI) d -= Math.PI * 2;
+    if (d < -Math.PI) d += Math.PI * 2;
+    return a + d * t;
+  }
+  function setWalkMode(m) {
+    if (walkMode === m) return;
+    walkMode = m;
+    UI.setWalkMode(m === 'free');
+    if (m === 'free') walking = null;
+  }
+  window.addEventListener('keydown', (e) => {
+    if (e.target && (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA')) return;
+    const k = e.key.toLowerCase();
+    if (['w', 'a', 's', 'd', 'arrowup', 'arrowdown', 'arrowleft', 'arrowright'].includes(k)) {
+      keys[k] = true;
+      if (insideId) { UI.toast('已在门内 · 按 Esc 返回走廊'); return; }
+      /* 进门/退门过渡中不可打断，否则会卡在门口 */
+      if (walking && (walking.inside || walking.exit)) { UI.toast('正在过门 · 稍候片刻'); return; }
+      if (document.body.getAttribute('data-mode') === '3d') setWalkMode('free');
+      e.preventDefault();
+    }
+  });
+  window.addEventListener('keyup', (e) => { keys[e.key.toLowerCase()] = false; });
+
+  /* 拖拽转向（两种模式均可环视；寻路中忽略） */
+  const dom = renderer.domElement;
+  const labelsRootEl = document.getElementById('labels');
+  let dragging = false, lastX = 0, lastY = 0, downT = 0, moved = 0;
+  dom.addEventListener('pointerdown', (e) => {
+    dragging = true; moved = 0;
+    lastX = e.clientX; lastY = e.clientY; downT = performance.now();
+    try { dom.setPointerCapture(e.pointerId); } catch (err) { }
+  });
+  dom.addEventListener('pointermove', (e) => {
+    pointerNDC.set((e.clientX / window.innerWidth) * 2 - 1, -(e.clientY / window.innerHeight) * 2 + 1);
+    if (!dragging) { pick(); return; }
+    const dx = e.clientX - lastX, dy = e.clientY - lastY;
+    lastX = e.clientX; lastY = e.clientY;
+    moved += Math.abs(dx) + Math.abs(dy);
+    if (walking) return;
+    yaw -= dx * (REDUCED ? 0.0026 : 0.0042);
+    pitch = THREE.MathUtils.clamp(pitch - dy * 0.003, -0.55, 0.6);
+  });
+  dom.addEventListener('pointerup', (e) => {
+    dragging = false;
+    const quick = performance.now() - downT < 420, tiny = moved < 7;
+    pointerNDC.set((e.clientX / window.innerWidth) * 2 - 1, -(e.clientY / window.innerHeight) * 2 + 1);
+    if (quick && tiny) { pick(); if (hoveredId) UI.selectDoor(hoveredId); }
+  });
+  dom.addEventListener('pointerleave', () => { hoveredId = null; });
+  /* 滚轮：沿视线前后移动 */
+  dom.addEventListener('wheel', (e) => {
+    e.preventDefault();
+    if (walking) return;
+    const dir = V3(-Math.sin(yaw), 0, -Math.cos(yaw));  // 相机前向（水平）
+    const step = Math.sign(e.deltaY) * -0.75;
+    tryStep(dir.x * step, dir.z * step);
+    setWalkMode('free');
+  }, { passive: false });
+  function tryStep(dx, dz) {
+    if (walkable(pos.x + dx, pos.z + dz)) { pos.x += dx; pos.z += dz; }
+    else if (walkable(pos.x + dx, pos.z)) pos.x += dx;
+    else if (walkable(pos.x, pos.z + dz)) pos.z += dz;
+  }
+
+  /* ================= 拾取 ================= */
+  const raycaster = new THREE.Raycaster();
+  const pointerNDC = new THREE.Vector2(-2, -2);
+  let hoveredId = null;
+  function pick() {
+    raycaster.setFromCamera(pointerNDC, camera);
+    const hits = raycaster.intersectObjects(pickables, true);
+    hoveredId = hits.length ? (hits[0].object.userData.pickId || null) : null;
+  }
+
+  /* ================= HTML 标签（门牌 + 廊口匾） ================= */
+  const ICON_PATHS = {
+    home: '<path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/>',
+    calendar: '<rect x="3" y="4" width="18" height="17" rx="2"/><path d="M3 9h18M8 2v4M16 2v4"/>',
+    bag: '<path d="M3 7h18l-2 13H5z"/><path d="M3 7l-1-3H0M6 11v6M10 11v6M14 11v6M18 11v6"/>',
+    lost: '<circle cx="12" cy="8" r="5"/><path d="M9 13l-1.5 8L12 18l4.5 3L15 13"/>',
+    users: '<circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0M16 4.6a3.5 3.5 0 0 1 0 6.8M21.5 20a6.5 6.5 0 0 0-4.5-6.2"/>',
+    qa: '<path d="M5 19h9a7 7 0 0 0 0-14H8"/><path d="M8 8H5.5A2.5 2.5 0 0 0 3 10.5 2.5 2.5 0 0 0 5.5 13H8"/>',
+    chat: '<path d="M21 11.5a8.5 8.5 0 0 1-12.5 7.5L3 21l2-5.5A8.5 8.5 0 1 1 21 11.5z"/>',
+    megaphone: '<path d="M3 11l18-5v12L3 13zM11.6 16.8a3 3 0 1 1-5.8-1.6"/>',
+    bell: '<path d="M18 8a6 6 0 1 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/>',
+    spark: '<path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M18.4 5.6l-2.1 2.1M7.7 16.3l-2.1 2.1"/><circle cx="12" cy="12" r="3"/>',
+    code: '<path d="m8 9-4 3 4 3M16 9l4 3-4 3M13 6l-2 12"/>',
+    book: '<path d="M4 19V5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2zM17 3v16"/>'
+  };
+  const labelsRoot = document.getElementById('labels');
+  const DOOR_LABEL = {
+    portal: { name: '综合门户', icon: 'home', desc: '校园动态一屏纵览' },
+    activity: { name: '校园活动', icon: 'calendar', desc: '发布 · 报名 · 签到' },
+    idle: { name: '闲置互换', icon: 'bag', desc: 'AI 智能估价' },
+    partner: { name: '学习搭子', icon: 'users', desc: 'AI 匹配撮合' },
+    lost: { name: '失物招领', icon: 'lost', desc: 'AI 智能匹配' },
+    qa: { name: '互助问答', icon: 'qa', desc: 'AI 参考回答' },
+    square: { name: '动态广场', icon: 'chat', desc: '图文 · 点赞 · 评论' },
+    notice: { name: '校园公告', icon: 'megaphone', desc: '权威通知' },
+    message: { name: '消息中心', icon: 'bell', desc: '站内信 + 私信' },
+    aichat: { name: 'AI 答疑', icon: 'spark', desc: '多轮上下文对话', accent: true },
+    code: { name: '代码纠错', icon: 'code', desc: '高亮 diff 修复', accent: true },
+    wrong: { name: '错题本', icon: 'book', desc: 'OCR · 复习计划', accent: true }
+  };
+  const labelEls = {};
+  Object.keys(doorWorld).forEach(id => {
+    const m = DOOR_LABEL[id];
+    const el = document.createElement('button');
+    el.className = 'd-label' + (m.accent ? ' accent' : '');
+    el.setAttribute('aria-label', m.name);
+    el.innerHTML = '<span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">' + ICON_PATHS[m.icon] + '</svg></span>' +
+      '<span>' + m.name + '</span><span class="desc">' + m.desc + '</span>';
+    el.addEventListener('click', (e) => { e.stopPropagation(); UI.selectDoor(id); });
+    labelsRoot.appendChild(el);
+    labelEls[id] = el;
+  });
+  /* 廊口匾（大标签） */
+  const archLabels = [];
+  CORRIDORS.forEach(cor => {
+    const m = { service: ['校园服务廊', 'calendar'], social: ['社交信息廊', 'chat'], ai: ['AI 学习廊', 'spark'] }[cor.id];
+    const el = document.createElement('button');
+    el.className = 'd-label arch' + (cor.id === 'ai' ? ' accent' : '');
+    el.setAttribute('aria-label', m[0]);
+    el.innerHTML = '<span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">' + ICON_PATHS[m[1]] + '</svg></span><span>' + m[0] + '</span>';
+    el.addEventListener('click', (e) => {
+      e.stopPropagation();
+      /* 走到该廊第一扇门 */
+      UI.selectDoor(DOORS.find(d => d.cor === cor.id).id);
+    });
+    labelsRoot.appendChild(el);
+    const a = cor.rot;
+    archLabels.push({ el, pos: V3(Math.sin(a) * (HALL_R - 3.2), 5.1, -Math.cos(a) * (HALL_R - 3.2)).applyAxisAngle(V3(0, 1, 0), 0) });
+  });
+  /* 索引牌 tooltip */
+  const tip3d = document.getElementById('tip3d');
+
+  const _pv = new THREE.Vector3();
+  function projectTo(el, wp, extraScale) {
+    _pv.copy(wp).project(camera);
+    if (_pv.z > 1 || Math.abs(_pv.x) > 1.06 || Math.abs(_pv.y) > 1.15) { el.style.opacity = '0'; el.style.pointerEvents = 'none'; return false; }
+    const x = (_pv.x * 0.5 + 0.5) * window.innerWidth, y = (-_pv.y * 0.5 + 0.5) * window.innerHeight;
+    const dist = camera.position.distanceTo(wp);
+    const sc = THREE.MathUtils.clamp(9.5 / dist, 0.62, 1.05) * (extraScale || 1);
+    el.style.transform = 'translate(-50%,-100%) translate(' + x.toFixed(1) + 'px,' + y.toFixed(1) + 'px) scale(' + sc.toFixed(2) + ')';
+    el.style.opacity = String(THREE.MathUtils.clamp(1.5 - dist / 55, 0.3, 1));
+    el.style.pointerEvents = 'auto';
+    return true;
+  }
+  function updateLabels() {
+    Object.keys(labelEls).forEach(id => {
+      const el = labelEls[id];
+      /* 在门内小房间时隐藏全部门标签（标签无遮挡，会透墙飘进房间） */
+      const ok = !insideId && projectTo(el, doorWorld[id].anchor, id === 'portal' ? 1.12 : 1);
+      if (!insideId && ok) el.classList.toggle('active', UI.state.selected === id || hoveredId === id);
+      if (insideId) { el.style.opacity = '0'; el.style.pointerEvents = 'none'; }
+    });
+    archLabels.forEach(a => {
+      if (insideId) { a.el.style.opacity = '0'; a.el.style.pointerEvents = 'none'; return; }
+      projectTo(a.el, a.pos, 1.0);
+    });
+    /* 索引牌 tooltip */
+    if (hoveredId && indexPlaques.some(p => p.id === hoveredId)) {
+      const p = indexPlaques.find(q => q.id === hoveredId);
+      if (projectTo(tip3d, p.mesh.position.clone().setY(2.75), 1)) {
+        tip3d.textContent = INDEX_NAME[p.id];
+        tip3d.classList.add('show');
+      }
+    } else tip3d.classList.remove('show');
+  }
+
+  /* ================= 寻路 tween ================= */
+  function walkTo(target, viewId, dur) {
+    const path = computePath(pos, target);
+    const curve = new THREE.CatmullRomCurve3(path.map(p => V3(p.x, EYE, p.z)), false, 'catmullrom', 0.12);
+    const length = curve.getLength();
+    const d = dur !== undefined ? dur : (REDUCED ? 80 : Math.max(900, Math.min(5200, length * 300)));
+    walking = { t0: performance.now(), dur: d, curve, viewId };
+    lookTarget = viewId;
+    setWalkMode('auto');
+  }
+
+  /* ================= 选门流程（两段式：寻路到门口 → 开门推入门内） ================= */
+  let insideId = null;   // 当前所在门内
+  let enterSeq = 0;      // 入门过场序号：退出时使未完成的 openPanel 定时器失效
+  function openDoorAnim(id) {
+    const d = doors3d.find(x => x.id === id);
+    if (d) { d.target = 1; }
+  }
+  function closeDoorAnim() {
+    doors3d.forEach(d => { d.target = 0; });
+  }
+  const fadeEl = document.getElementById('fade');
+  /* 直线穿行（进门/退门用，不走寻路；isExit = 退回门口，到达后不触发开门推入） */
+  function directWalk(to, viewId, inside, dur, isExit) {
+    const path = [pos.clone(), V3(to.x, EYE, to.z)];
+    const curve = new THREE.CatmullRomCurve3(path, false, 'catmullrom', 0.1);
+    walking = { t0: performance.now(), dur: REDUCED ? 80 : dur, curve, viewId: viewId || null, inside: inside || null, exit: !!isExit };
+    lookTarget = viewId || null;
+    setWalkMode('auto');
+  }
+  function selectDoor3D(id) {
+    const dw = doorWorld[id];
+    if (!dw) return;
+    /* 进门/退门过渡中忽略新的选门请求，避免流程被打断卡在门口 */
+    if (walking && (walking.inside || walking.exit)) { UI.toast('正在过门 · 稍候片刻'); return; }
+    /* 在门内切到其它门：先退回门口（面向当前门），再出发 */
+    if (insideId && id !== insideId) {
+      const fromId = insideId, from = doorWorld[fromId];
+      insideId = null;
+      enterSeq++;
+      UI.setInside(null);
+      fadeEl.classList.add('on');
+      setTimeout(() => {
+        fadeEl.classList.remove('on');
+        directWalk(from.view, fromId, null, 950, true);
+        setTimeout(() => { closeDoorAnim(); selectDoor3D(id); }, REDUCED ? 90 : 1050);
+      }, REDUCED ? 30 : 430);
+      return;
+    }
+    closeDoorAnim();   /* 切换门时关上其它门 */
+    if (id === 'portal') {
+      walkTo(dw.view, null);
+      setTimeout(() => {
+        fadeEl.classList.add('on');
+        setTimeout(() => { UI.openPanel('portal', true); fadeEl.classList.remove('on'); }, REDUCED ? 30 : 480);
+      }, REDUCED ? 50 : 700);
+      return;
+    }
+    walkTo(dw.view, id);   /* 阶段 1：寻路到门口 */
+  }
+  /* 进入门内房间：标记 + 白光 + 沉浸面板（自动推入与手动走进共用） */
+  function enterDoor(id) {
+    insideId = id;
+    UI.setInside(id);
+    const seq = ++enterSeq;
+    fadeEl.classList.add('on');
+    setTimeout(() => {
+      if (seq !== enterSeq) return;   /* 期间已退出/换门，丢弃本次开面板 */
+      UI.openPanel(id, true);
+      fadeEl.classList.remove('on');
+    }, REDUCED ? 30 : 460);
+  }
+  function onArrive() {
+    if (!walking) return;
+    const w = walking; walking = null;
+    if (w.exit) return;                    /* 退回门口：不触发开门推入 */
+    if (w.inside) {
+      /* 阶段 2 完成：已站进门内，白光后开沉浸面板 */
+      enterDoor(w.inside);
+      return;
+    }
+    const id = w.viewId;
+    if (!id) return;
+    /* 阶段 1 完成：开门 → 推入门内 */
+    openDoorAnim(id);
+    setTimeout(() => {
+      const d = doorWorld[id];
+      directWalk(d.pos.clone().addScaledVector(d.normal, -1.55), id, id, 1150);
+    }, REDUCED ? 50 : 850);
+  }
+  /* 退出模块：退回门口（转身面向刚出来的门）并关门 */
+  function exitDoor() {
+    if (insideId) {
+      const id = insideId, dw = doorWorld[id];
+      insideId = null;
+      enterSeq++;              /* 作废进行中的入门过场 */
+      UI.setInside(null);
+      fadeEl.classList.add('on');
+      setTimeout(() => {
+        fadeEl.classList.remove('on');
+        if (!walking) directWalk(dw.view, id, null, 950, true);   /* 期间已有新寻路（如回大厅）则让位 */
+      }, REDUCED ? 30 : 440);
+      setTimeout(() => closeDoorAnim(), 900);
+    } else closeDoorAnim();
+  }
+
+  /* ================= 渲染循环 ================= */
+  let lastT = performance.now(), paused = false, tGlobal = 0;
+  function loop(now) {
+    requestAnimationFrame(loop);
+    if (paused) return;
+    const dt = Math.min((now - lastT) / 1000, 0.05); lastT = now;
+    tGlobal += dt;
+
+    /* —— 寻路行进 —— */
+    if (walking) {
+      let k = (now - walking.t0) / walking.dur;
+      if (k >= 1) {
+        k = 1;
+        const p = walking.curve.getPoint(1);
+        pos.set(p.x, EYE, p.z);
+        onArrive();
+      } else {
+        const e = k < 0.5 ? 2 * k * k : 1 - Math.pow(-2 * k + 2, 2) / 2;
+        const p = walking.curve.getPoint(e);
+        const ahead = walking.curve.getPoint(Math.min(1, e + 0.05));
+        let ty = yawToward(ahead.x - p.x, ahead.z - p.z);
+        /* 临近门：朝向门（推入/退出阶段除外——门在身后，避免甩尾自旋） */
+        if (walking.viewId && !walking.inside && !walking.exit) {
+          const dw = doorWorld[walking.viewId];
+          if (camera.position.distanceTo(dw.pos) < 9) ty = yawToward(dw.pos.x - p.x, dw.pos.z - p.z);
+        }
+        yaw = lerpAngle(yaw, ty, Math.min(1, dt * 5));
+        pitch *= 1 - Math.min(1, dt * 3);
+        pos.set(p.x, EYE, p.z);
+      }
+    } else if (!insideId) {
+      /* 按住移动键即切入自由行走（含过门结束后仍按住的情况） */
+      const anyKey = keys.w || keys.a || keys.s || keys.d || keys.arrowup || keys.arrowdown || keys.arrowleft || keys.arrowright;
+      if (anyKey && walkMode !== 'free') setWalkMode('free');
+      if (walkMode === 'free') {
+        /* —— WASD 自由行走 —— */
+        let mx = 0, mz = 0;
+        const f = V3(-Math.sin(yaw), 0, -Math.cos(yaw)), r = V3(Math.cos(yaw), 0, -Math.sin(yaw));
+        if (keys.w || keys.arrowup) mz += 1;
+        if (keys.s || keys.arrowdown) mz -= 1;
+        if (keys.a || keys.arrowleft) mx -= 1;
+        if (keys.d || keys.arrowright) mx += 1;
+        if (mx || mz) {
+          const sp = (keys.shift ? 5.4 : 3.1) * dt;
+          const len = Math.hypot(mx, mz);
+          tryStep((f.x * mz + r.x * mx) / len * sp, (f.z * mz + r.z * mx) / len * sp);
+        }
+      } else if (!REDUCED) {
+        /* —— 自动待机：轻微呼吸感 —— */
+        pitch += Math.sin(tGlobal * 0.4) * 0.00012;
+      }
+    }
+    /* —— 走近自动开门；走进打开的门即进入模块（过场白屏期间不触发，防 Esc 退出时被重新拉入） —— */
+    if (!walking && !insideId && !fadeEl.classList.contains('on')) {
+      for (const id in doorWorld) {
+        if (id === 'portal') continue;
+        const dw = doorWorld[id];
+        if (!dw.normal) continue;
+        const dd = doors3d.find(x => x.id === id);
+        if (!dd) continue;
+        const rx = pos.x - dw.pos.x, rz = pos.z - dw.pos.z;
+        const along = rx * dw.normal.x + rz * dw.normal.z;          /* 负值 = 房内 */
+        const side = Math.abs(rx * dw.normal.z - rz * dw.normal.x);
+        if (dd.target > 0.5) {
+          if (along < -0.85 && side < dd.dw / 2) { enterDoor(id); break; }   /* 走过门平面 → 进入 */
+        } else if (along > 0.1 && along < 2.3 && side < 1.6) {
+          openDoorAnim(id);                                          /* 走到门前 → 自动开门 */
+        }
+      }
+    }
+    /* 到达后朝目标门持续收敛（含开门与面板期间） */
+    if (lookTarget && walking === null && doorWorld[lookTarget]) {
+      const ty = doorWorld[lookTarget].yaw;
+      yaw = lerpAngle(yaw, ty, Math.min(1, dt * 4.5));
+      pitch += (0 - pitch) * Math.min(1, dt * 4);
+      let dAng = (ty - yaw) % (Math.PI * 2);
+      if (dAng > Math.PI) dAng -= Math.PI * 2;
+      if (dAng < -Math.PI) dAng += Math.PI * 2;
+      if (Math.abs(dAng) < 0.02 && Math.abs(pitch) < 0.02) lookTarget = null;
+    }
+
+    applyLook();
+
+    /* —— 门开合动画 + 门内晶体 —— */
+    doors3d.forEach(d => {
+      d.open += (d.target - d.open) * Math.min(1, dt * (REDUCED ? 30 : 4.2));
+      d.leaves.forEach((h, i) => { h.rotation.y = (h.userData.yaw0 || 0) + (d.hingeSign[i] || 1) * d.open * 1.9; });
+      const em = 0.35 + d.open * 0.6 + (hoveredId === d.id ? 0.5 : 0) + (UI.state.selected === d.id ? 0.8 : 0);
+      d.plaqueMat.emissiveIntensity = Math.min(2.2, em);
+      if (d.crystal) {
+        d.crystal.rotation.y += dt * 1.1;
+        d.crystal.position.y = 1.68 + Math.sin(tGlobal * 1.7) * 0.09;
+        d.crystal.rotation.x = Math.sin(tGlobal * 0.9) * 0.18;
+      }
+    });
+    /* —— 门状态自愈：开门流程意外中断（不在门内、无进行中行走）超 6 秒 → 自动关门 —— */
+    doors3d.forEach(d => {
+      if (d.target > 0.5) {
+        if (d.openSince === undefined) d.openSince = tGlobal;
+        if (!insideId && !walking && tGlobal - d.openSince > 6) { d.target = 0; d.openSince = undefined; }
+      } else d.openSince = undefined;
+    });
+    /* —— 索引牌呼吸 —— */
+    indexPlaques.forEach(p => {
+      const on = hoveredId === p.id || UI.state.selected === p.id;
+      p.mat.emissiveIntensity = on ? 1.6 : 0.5 + Math.sin(tGlobal * 1.4 + p.mesh.position.x) * 0.12;
+    });
+    /* —— 树光环 / 天窗 —— */
+    if (tree.userData.halo) tree.userData.halo.rotation.z += dt * 0.5;
+    beam.material.opacity = THEMES[themeName].beamOp * (0.85 + Math.sin(tGlobal * 0.8) * 0.15);
+    /* —— 叶落 —— */
+    const lp = leafGeo.attributes.position.array;
+    const spd = REDUCED ? 0.25 : 1;
+    for (let i = 0; i < LEAF_N; i++) {
+      const d = leafData[i];
+      lp[i * 3 + 1] -= d.speed * dt * spd;
+      lp[i * 3] += Math.sin(tGlobal * 0.7 + d.phase) * d.amp * dt * spd;
+      if (lp[i * 3 + 1] < 0.1) { lp[i * 3 + 1] = 7.5 + Math.random(); }
+    }
+    leafGeo.attributes.position.needsUpdate = true;
+
+    /* —— 光标 —— */
+    dom.style.cursor = dragging ? 'grabbing' : (hoveredId ? 'pointer' : 'default');
+
+    updateLabels();
+    renderer.render(scene, camera);
+  }
+
+  /* ================= 主题应用 ================= */
+  function applySceneTheme(name) {
+    themeName = name;
+    const t = THEMES[name];
+    scene.background = new THREE.Color(t.sky);
+    scene.fog = new THREE.FogExp2(t.fog, t.fogDensity);
+    hemi.color.set(t.hemiSky); hemi.groundColor.set(t.hemiGround); hemi.intensity = t.hemiInt;
+    dir.color.set(t.dirColor); dir.intensity = t.dirInt;
+    hallLight.color.set(t.hallLight); hallLight.intensity = t.hallInt;
+    CORRIDORS.forEach(c => { if (c.lamp) { c.lamp.color.set(t.corLight); c.lamp.intensity = t.corInt; } });
+    if (corGroups.entry.userData.lamp) { corGroups.entry.userData.lamp.color.set(t.corLight); corGroups.entry.userData.lamp.intensity = t.corInt; }
+    beam.material.color.set(t.beam);
+  }
+  applySceneTheme(themeName);
+
+  /* ================= 事件：resize ================= */
+  window.addEventListener('resize', () => {
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+  });
+
+  /* ================= 对 UI 层暴露 ================= */
+  window.__three = {
+    ready: true,
+    gotoDoor(id) { selectDoor3D(id); },
+    closeDoor() { exitDoor(); },
+    goHall() { selectDoor3D('portal'); },
+    enterCampus() {
+      /* 开场：从入口廊推入大厅，正对中央梧桐（终点退到 8m，树冠完整入画） */
+      pos.set(0, EYE, HALL_R + ENTRY_LEN - 1.5);
+      yaw = 0.18; pitch = 0.055;
+      const target = V3(0, EYE, 9.2);
+      const path = [pos.clone(), V3(0, EYE, HALL_R + 3), V3(0, EYE, 13), target];
+      const curve = new THREE.CatmullRomCurve3(path, false, 'catmullrom', 0.2);
+      walking = { t0: performance.now(), dur: REDUCED ? 80 : 3400, curve, viewId: null };
+    },
+    getDebug() { return { pos: pos.toArray().map(v => +v.toFixed(2)), yaw: +yaw.toFixed(3), pitch: +pitch.toFixed(3), walkMode, walking: !!walking }; },
+    setTheme(name) { applySceneTheme(name); },
+    setPaused(p) { paused = p; },
+    /* 临时调试：从相机穿过 NDC(nx,ny) 射线探测首个命中物体 */
+    probe(nx, ny) {
+      const rc = new THREE.Raycaster();
+      rc.setFromCamera(new THREE.Vector2(nx, ny), camera);
+      return rc.intersectObjects(scene.children, true).slice(0, 3).map(h => ({
+        d: +h.distance.toFixed(2),
+        geo: h.object.geometry && h.object.geometry.type,
+        col: h.object.material && h.object.material.color && h.object.material.color.getHexString(),
+        wpos: h.object.getWorldPosition(new THREE.Vector3()).toArray().map(v => +v.toFixed(1)),
+        params: h.object.geometry && h.object.geometry.parameters ? JSON.stringify(h.object.geometry.parameters) : ''
+      }));
+    }
+  };
+
+  applyLook();
+  clearTimeout(timer);
+  requestAnimationFrame(loop);
+  document.addEventListener('visibilitychange', () => { paused = document.hidden; });
+  if (document.body.getAttribute('data-boot') === 'ready') window.__three.enterCampus();
+})().catch(err => {
+  console.warn('[corridor] 3D 初始化异常', err);
+  if (window.__spatialSetMode) window.__spatialSetMode('2d', true);
+});
+</script>
+</body>
+</html>

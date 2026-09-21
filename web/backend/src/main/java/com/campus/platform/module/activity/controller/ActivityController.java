@@ -96,8 +96,12 @@ public class ActivityController {
     }
 
     @GetMapping("/{id}/members")
-    public R<List<MemberVO>> members(@PathVariable Long id) {
-        return R.ok(activityService.members(UserContext.getUid(), id));
+    public R<PageResult<MemberVO>> members(
+            @PathVariable Long id,
+            @RequestParam(defaultValue = "1") Integer pageNum,
+            @RequestParam(defaultValue = "10") Integer pageSize) {
+        int capped = Math.min(pageSize == null ? 10 : Math.max(1, pageSize), 100);
+        return R.ok(activityService.members(UserContext.getUid(), id, Math.max(1, pageNum == null ? 1 : pageNum), capped));
     }
 
     @PutMapping("/member/{memberId}/handle")

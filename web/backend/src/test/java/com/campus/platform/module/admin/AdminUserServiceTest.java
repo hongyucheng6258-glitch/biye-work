@@ -1,6 +1,7 @@
 package com.campus.platform.module.admin;
 
 import com.campus.platform.module.admin.service.AdminUserService;
+import com.campus.platform.module.admin.service.AdminPermissionService;
 import com.campus.platform.module.admin.mapper.AdminMapper;
 
 import com.campus.platform.module.auth.service.AuthService;
@@ -48,6 +49,8 @@ class AdminUserServiceTest {
     private AuthService authService;
     @Mock
     private RedisUtils redisUtils;
+    @Mock
+    private AdminPermissionService adminPermissionService;
 
     @InjectMocks
     private AdminUserService adminUserService;
@@ -170,6 +173,74 @@ class AdminUserServiceTest {
 
             verify(redisUtils, times(2)).set("auth:blacklist:student:42", "1");
             verify(redisUtils, times(1)).delete("auth:blacklist:student:42");
+        }
+    }
+
+    @Nested
+    @DisplayName("子管理员删除/降权后令牌撤销（P1）")
+    class AdminTokenRevocation {
+
+        private com.campus.platform.module.admin.entity.Admin existingAdmin(long id, String role) {
+            com.campus.platform.module.admin.entity.Admin a = new com.campus.platform.module.admin.entity.Admin();
+            a.setId(id);
+            a.setUsername("admin" + id);
+            a.setRole(role);
+            a.setStatus(0);
+            return a;
+        }
+
+        @Test
+        @DisplayName("删除管理员后必须撤销其存量令牌")
+        void deleteAdmin_shouldRevokeToken() {
+            when(adminMapper.selectById(7L)).thenReturn(existingAdmin(7L, "audit"));
+            when(adminMapper.selectCount(any())).thenReturn(5L);
+
+            adminUserService.deleteAdmin(7L, 1L);
+
+            verify(adminMapper).deleteById(7L);
+            verify(adminPermissionService).revokeToken(7L);
+        }
+
+        @Test
+        @DisplayName("修改角色（如 super 降为 audit）后必须撤销其存量令牌")
+        void updateAdmin_roleChanged_shouldRevokeToken() {
+            when(adminMapper.selectById(7L)).thenReturn(existingAdmin(7L, "super"));
+
+            com.campus.platform.module.admin.dto.AdminSaveDTO dto = new com.campus.platform.module.admin.dto.AdminSaveDTO();
+            dto.setUsername("admin7");
+            dto.setPassword("newpass");
+            dto.setRole("audit");
+            adminUserService.updateAdmin(7L, dto);
+
+            verify(adminPermissionService).revokeToken(7L);
+        }
+
+        @Test
+        @DisplayName("角色未变化时不触发令牌撤销")
+        void updateAdmin_roleUnchanged_shouldNotRevoke() {
+            when(adminMapper.selectById(7L)).thenReturn(existingAdmin(7L, "audit"));
+
+            com.campus.platform.module.admin.dto.AdminSaveDTO dto = new com.campus.platform.module.admin.dto.AdminSaveDTO();
+            dto.setUsername("admin7");
+            dto.setPassword("newpass");
+            dto.setRole("audit");
+            adminUserService.updateAdmin(7L, dto);
+
+            verify(adminPermissionService, never()).revokeToken(anyLong());
+        }
+
+        @Test
+        @DisplayName("不能删除最后一个超级管理员，且不得撤销令牌")
+        void deleteLastSuper_shouldBeRejected() {
+            when(adminMapper.selectById(7L)).thenReturn(existingAdmin(7L, "super"));
+            when(adminMapper.selectCount(any())).thenReturn(1L);
+
+            assertThatThrownBy(() -> adminUserService.deleteAdmin(7L, 1L))
+                    .isInstanceOf(BizException.class)
+                    .hasFieldOrPropertyWithValue("code", ResultCode.BAD_REQUEST.getCode());
+
+            verify(adminMapper, never()).deleteById(anyLong());
+            verify(adminPermissionService, never()).revokeToken(anyLong());
         }
     }
 }

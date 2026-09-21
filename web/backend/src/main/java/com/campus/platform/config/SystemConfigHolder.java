@@ -49,7 +49,8 @@ public class SystemConfigHolder {
             Map.entry("login_fail_lock_threshold", "5")
     );
 
-    private final Map<String, String> configCache = new ConcurrentHashMap<>();
+    // volatile + 整体换引用：refresh 期间读者要么看到完整旧快照，要么看到完整新快照，绝无中间态（缓存一致）
+    private volatile Map<String, String> configCache = new ConcurrentHashMap<>();
 
     @PostConstruct
     public void init() {
@@ -58,14 +59,16 @@ public class SystemConfigHolder {
 
     /** 从 DB 重新加载全部配置到缓存（修改配置后调用即生效） */
     public void refresh() {
-        configCache.clear();
+        Map<String, String> next = new ConcurrentHashMap<>();
         List<SystemConfig> configs = systemConfigMapper.selectList(null);
         for (SystemConfig config : configs) {
             if (StrUtil.isNotBlank(config.getConfigKey())) {
-                configCache.put(config.getConfigKey(),
+                next.put(config.getConfigKey(),
                         config.getConfigValue() == null ? "" : config.getConfigValue());
             }
         }
+        // 先构建完整快照再整体发布，避免 clear+put 过程中被读到半空缓存
+        configCache = next;
         log.info("SystemConfigHolder 已刷新，共加载 {} 项配置", configCache.size());
     }
 
@@ -76,6 +79,11 @@ public class SystemConfigHolder {
             return val;
         }
         return DEFAULTS.get(key);
+    }
+
+    /** R6：是否为内置关键配置键（内置键不可删除，只能改值） */
+    public boolean isBuiltinKey(String key) {
+        return key != null && DEFAULTS.containsKey(key);
     }
 
     /** 获取 int 配置，解析失败或不存在时返回默认值 */

@@ -25,8 +25,8 @@ export function cancelActivitySignup(id) {
   return request.delete(`/activity/${id}/signup`)
 }
 
-export function activityMembers(id) {
-  return request.get(`/activity/${id}/members`)
+export function activityMembers(id, params) {
+  return request.get(`/activity/${id}/members`, { params })
 }
 
 export function handleMember(id, approve) {

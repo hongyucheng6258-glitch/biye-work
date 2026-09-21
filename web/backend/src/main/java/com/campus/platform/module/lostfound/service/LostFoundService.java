@@ -26,6 +26,7 @@ import com.campus.platform.module.ai.gateway.SensitiveWordService;
 import com.campus.platform.module.user.mapper.UserMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -117,9 +118,16 @@ public class LostFoundService {
         return lf;
     }
 
-    /** 申请认领（仅招领信息，失主申请；发布者不能申请自己的） */
+    /**
+     * 申请认领（仅招领信息，失主申请；发布者不能申请自己的）。
+     * R3 复查修复：以父行 FOR UPDATE 作为事务内<b>第一条语句</b>（不再先普通 SELECT 建快照），
+     * 有效认领数用 SELECT ... FOR UPDATE 当前读——拿到父行锁后，前一个并发事务的认领
+     * 已提交，当前读必然可见，彻底消除 REPEATABLE READ 快照窗口。
+     */
+    @Transactional
     public LostFoundClaim claim(Long userId, Long lfId, ClaimDTO dto) {
-        LostFound lf = lostFoundMapper.selectById(lfId);
+        // 1) 第一时间锁父行：同一招领信息上的并发申请在此排队，且这是当前读
+        LostFound lf = lostFoundMapper.selectByIdForUpdate(lfId);
         if (lf == null || lf.getAuditStatus() != Constants.AUDIT_PASS || lf.getStatus() != Constants.LF_DOING) {
             throw new BizException(ResultCode.NOT_FOUND, "招领信息不存在或已处理");
         }
@@ -129,10 +137,9 @@ public class LostFoundService {
         if (lf.getUserId().equals(userId)) {
             throw new BizException(ResultCode.BAD_REQUEST, "不能认领自己发布的招领信息");
         }
-        Long existed = claimMapper.selectCount(new LambdaQueryWrapper<LostFoundClaim>()
-                .eq(LostFoundClaim::getLostFoundId, lfId)
-                .in(LostFoundClaim::getStatus, 0, 1));
-        if (existed != null && existed > 0) {
+        // 2) 当前读统计有效认领（FOR UPDATE 读已提交版本，不走事务快照）
+        long active = claimMapper.countActiveForUpdate(lfId);
+        if (active > 0) {
             throw new BizException(ResultCode.DUPLICATE_OPERATION, "该信息已有待处理的认领申请");
         }
         LostFoundClaim claim = new LostFoundClaim();
@@ -148,8 +155,8 @@ public class LostFoundService {
         return claim;
     }
 
-    /** 认领申请列表（仅发布者可见） */
-    public List<ClaimVO> claims(Long userId, Long lfId) {
+    /** 认领申请列表（仅发布者可见；第8项修复：分页返回） */
+    public PageResult<ClaimVO> claims(Long userId, Long lfId, int pageNum, int pageSize) {
         LostFound lf = lostFoundMapper.selectById(lfId);
         if (lf == null) {
             throw new BizException(ResultCode.NOT_FOUND, "信息不存在");
@@ -157,44 +164,43 @@ public class LostFoundService {
         if (!lf.getUserId().equals(userId)) {
             throw new BizException(ResultCode.FORBIDDEN, "只能查看自己发布信息的认领申请");
         }
-        List<LostFoundClaim> list = claimMapper.selectList(new LambdaQueryWrapper<LostFoundClaim>()
-                .eq(LostFoundClaim::getLostFoundId, lfId)
-                .orderByDesc(LostFoundClaim::getId));
-        return list.stream().map(c -> {
+        Page<LostFoundClaim> page = claimMapper.selectPage(new Page<>(pageNum, pageSize),
+                new LambdaQueryWrapper<LostFoundClaim>()
+                        .eq(LostFoundClaim::getLostFoundId, lfId)
+                        .orderByDesc(LostFoundClaim::getId));
+        return PageResult.of(page, c -> {
             ClaimVO vo = new ClaimVO();
             BeanUtil.copyProperties(c, vo);
             User u = userMapper.selectById(c.getClaimUserId());
             vo.setClaimNickname(u == null ? "" : u.getNickname());
             vo.setClaimAvatar(u == null ? null : u.getAvatar());
             return vo;
-        }).collect(java.util.stream.Collectors.toList());
+        });
     }
 
-    /** 处理认领申请（发布者同意/拒绝；同意后该信息其他待确认申请自动拒绝） */
+    /**
+     * 处理认领申请（发布者同意/拒绝；同意后该信息其他待确认申请自动拒绝）。
+     * P1 第6项修复：条件更新（WHERE status=0）原子化「同意/拒绝」，
+     * 并发双击只生效一次；同意后其余待确认申请用一条 UPDATE 原子驳回，避免逐条读改写。
+     */
+    @Transactional
     public void handleClaim(Long userId, Long claimId, boolean accept) {
         LostFoundClaim claim = claimMapper.selectById(claimId);
         if (claim == null) {
             throw new BizException(ResultCode.NOT_FOUND, "认领申请不存在");
         }
-        LostFound lf = lostFoundMapper.selectById(claim.getLostFoundId());
+        // R3：与 claim() 同一锁顺序——先锁父行，再做状态机转移
+        LostFound lf = lostFoundMapper.selectByIdForUpdate(claim.getLostFoundId());
         if (lf == null || !lf.getUserId().equals(userId)) {
             throw new BizException(ResultCode.FORBIDDEN, "只有发布者可以处理认领申请");
         }
-        if (claim.getStatus() != 0) {
+        int affected = claimMapper.updateStatusIfPending(claimId, accept ? 1 : 2);
+        if (affected == 0) {
             throw new BizException(ResultCode.DUPLICATE_OPERATION, "该申请已处理");
         }
-        claim.setStatus(accept ? 1 : 2);
-        claimMapper.updateById(claim);
         if (accept) {
-            // 同信息其他待确认申请自动拒绝
-            java.util.List<LostFoundClaim> others = claimMapper.selectList(new LambdaQueryWrapper<LostFoundClaim>()
-                    .eq(LostFoundClaim::getLostFoundId, claim.getLostFoundId())
-                    .eq(LostFoundClaim::getStatus, 0)
-                    .ne(LostFoundClaim::getId, claimId));
-            for (LostFoundClaim o : others) {
-                o.setStatus(2);
-                claimMapper.updateById(o);
-            }
+            // 同信息其他待确认申请自动拒绝（原子批量）
+            claimMapper.rejectOtherPending(claim.getLostFoundId(), claimId);
         }
         messageService.send(claim.getClaimUserId(), Constants.MSG_INTERACT,
                 accept ? "认领申请已通过" : "认领申请未通过",
@@ -203,11 +209,12 @@ public class LostFoundService {
                 Constants.BIZ_LOSTFOUND, claim.getLostFoundId());
     }
 
-    /** 当前用户对该信息的认领申请（无则返回 null） */
+    /** 当前用户对该信息的认领申请（无则返回 null；多次申请时取最新一条） */
     public ClaimVO myClaim(Long userId, Long lfId) {
         LostFoundClaim claim = claimMapper.selectOne(new LambdaQueryWrapper<LostFoundClaim>()
                 .eq(LostFoundClaim::getLostFoundId, lfId)
                 .eq(LostFoundClaim::getClaimUserId, userId)
+                .orderByDesc(LostFoundClaim::getId)
                 .last("LIMIT 1"));
         if (claim == null) {
             return null;
@@ -220,7 +227,11 @@ public class LostFoundService {
         return vo;
     }
 
-    /** 失主确认已找回（认领申请者确认；完成后招领信息标记完成） */
+    /**
+     * 失主确认已找回（认领申请者确认；完成后招领信息标记完成）。
+     * P1 第6项修复：条件更新（仅 status=1 可转 3）+ 条件更新招领状态，防并发重复完成。
+     */
+    @Transactional
     public void confirmReturn(Long userId, Long claimId) {
         LostFoundClaim claim = claimMapper.selectById(claimId);
         if (claim == null) {
@@ -229,19 +240,24 @@ public class LostFoundService {
         if (!claim.getClaimUserId().equals(userId)) {
             throw new BizException(ResultCode.FORBIDDEN, "只有认领申请者可以确认找回");
         }
+        // 快速拒绝已完成/已拒绝的申请，避免无意义的父行查询；最终仍由条件更新做并发裁决。
         if (claim.getStatus() != 1) {
             throw new BizException(ResultCode.BAD_REQUEST, "认领申请未处于已同意状态");
         }
-        claim.setStatus(3);
-        claimMapper.updateById(claim);
-        LostFound lf = lostFoundMapper.selectById(claim.getLostFoundId());
-        if (lf != null) {
-            lf.setStatus(Constants.LF_DONE);
-            lostFoundMapper.updateById(lf);
-            messageService.send(lf.getUserId(), Constants.MSG_INTERACT, "失物已确认找回",
-                    String.format("「%s」已被失主确认找回，感谢你的帮助！", lf.getTitle()),
-                    Constants.BIZ_LOSTFOUND, lf.getId());
+        // R3/R7：所有认领状态变更统一先锁父行，再更新子行，避免与 claim/handleClaim 反向持锁。
+        LostFound lf = lostFoundMapper.selectByIdForUpdate(claim.getLostFoundId());
+        if (lf == null) {
+            throw new BizException(ResultCode.NOT_FOUND, "失物信息不存在");
         }
+        int affected = claimMapper.updateReturnedIfAgreed(claimId);
+        if (affected == 0) {
+            throw new BizException(ResultCode.BAD_REQUEST, "认领申请未处于已同意状态");
+        }
+        lf.setStatus(Constants.LF_DONE);
+        lostFoundMapper.updateById(lf);
+        messageService.send(lf.getUserId(), Constants.MSG_INTERACT, "失物已确认找回",
+                String.format("「%s」已被失主确认找回，感谢你的帮助！", lf.getTitle()),
+                Constants.BIZ_LOSTFOUND, lf.getId());
     }
 
     /** 标记完成（仅本人） */

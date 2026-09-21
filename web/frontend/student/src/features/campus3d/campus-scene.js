@@ -106,15 +106,25 @@ export async function createCampusScene({ container, labels, services = SERVICES
     disposables.add(texture);
     return texture;
   }
-  function textBoard(parent, text, sub, color, w, h, x, y, z, rotation = 0) {
+  function textBoard(parent, text, sub, color, w, h, x, y, z, rotation = 0, overlay = false) {
     const texture = textureCanvas(1024, 320, (ctx, width, height) => {
-      ctx.fillStyle = '#f7fbff'; ctx.fillRect(0, 0, width, height);
-      ctx.fillStyle = color; ctx.fillRect(0, 0, 13, height);
-      ctx.fillStyle = '#254564'; ctx.font = '600 70px "Microsoft YaHei", sans-serif';
-      ctx.textBaseline = 'middle'; ctx.fillText(text, 57, 112);
-      ctx.fillStyle = '#6c8298'; ctx.font = '30px "Microsoft YaHei", sans-serif'; ctx.fillText(sub, 60, 224);
+      if (overlay) {
+        // 覆盖提示层：透明底 + 底部深色条带，海报替换材质后仍保持名称与“点击屏幕打开服务内容”可读
+        ctx.clearRect(0, 0, width, height);
+        ctx.fillStyle = 'rgba(10, 22, 38, 0.68)'; ctx.fillRect(0, height - 96, width, 96);
+        ctx.fillStyle = '#ffffff'; ctx.font = '600 52px "Microsoft YaHei", sans-serif';
+        ctx.textBaseline = 'middle'; ctx.fillText(text, 30, height - 58);
+        ctx.fillStyle = 'rgba(255,255,255,0.88)'; ctx.font = '26px "Microsoft YaHei", sans-serif';
+        ctx.fillText(sub, 32, height - 22);
+      } else {
+        ctx.fillStyle = '#f7fbff'; ctx.fillRect(0, 0, width, height);
+        ctx.fillStyle = color; ctx.fillRect(0, 0, 13, height);
+        ctx.fillStyle = '#254564'; ctx.font = '600 70px "Microsoft YaHei", sans-serif';
+        ctx.textBaseline = 'middle'; ctx.fillText(text, 57, 112);
+        ctx.fillStyle = '#6c8298'; ctx.font = '30px "Microsoft YaHei", sans-serif'; ctx.fillText(sub, 60, 224);
+      }
     });
-    const mat = new THREE.MeshBasicMaterial({ map: texture, side: THREE.DoubleSide });
+    const mat = new THREE.MeshBasicMaterial({ map: texture, side: THREE.DoubleSide, transparent: overlay, depthWrite: !overlay });
     disposables.add(mat);
     const board = mesh(new THREE.PlaneGeometry(w, h), mat, parent, x, y, z);
     board.rotation.y = rotation;
@@ -177,6 +187,9 @@ export async function createCampusScene({ container, labels, services = SERVICES
         disposables.add(imageMaterial);
         board.material = imageMaterial;
         board.userData.imageMaterial = imageMaterial;
+        // 第9项修复：海报不遮提示——叠加半透明深色条带提示层，房间名称与“点击屏幕打开服务内容”始终可读
+        const caption = textBoard(parent, service.name, '点击屏幕打开服务内容', color, 2.43, 1.22, 0, 2.12, z + 0.075 + 0.015, 0, true);
+        caption.renderOrder = 10;
       }, undefined, () => {
         // The text board is deliberately kept visible when a generated asset fails to load.
       });

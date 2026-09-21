@@ -21,6 +21,12 @@ public class AdminStatsController {
         return R.ok(statsService.overview());
     }
 
+    /** 各类型待办数（后端准确 COUNT；ai 为待审子集，不参与角标合计） */
+    @GetMapping("/pending-counts")
+    public R<Map<String, Long>> pendingCounts() {
+        return R.ok(statsService.pendingCounts());
+    }
+
     @GetMapping("/trend")
     public R<Map<String, Object>> trend() {
         return R.ok(statsService.trend());

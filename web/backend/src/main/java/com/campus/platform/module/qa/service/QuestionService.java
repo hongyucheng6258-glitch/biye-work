@@ -72,8 +72,8 @@ public class QuestionService {
         });
     }
 
-    /** 详情 + 回答列表（公开，浏览计数；已下架不可见） */
-    public Map<String, Object> detail(Long id, Long currentUid) {
+    /** 详情 + 回答列表（公开，浏览计数；已下架不可见；第8项修复：回答分页返回） */
+    public Map<String, Object> detail(Long id, Long currentUid, int pageNum, int pageSize) {
         CampusQuestion q = questionMapper.selectById(id);
         if (q == null) {
             throw new BizException(ResultCode.NOT_FOUND, "问题不存在");
@@ -87,10 +87,12 @@ public class QuestionService {
         QuestionVO qvo = toVO(q, currentUid);
         qvo.setViewCount(q.getViewCount());
 
-        List<CampusAnswer> answers = answerMapper.selectList(new LambdaQueryWrapper<CampusAnswer>()
-                .eq(CampusAnswer::getQuestionId, id)
-                .orderByDesc(CampusAnswer::getIsAccepted)
-                .orderByAsc(CampusAnswer::getId));
+        Page<CampusAnswer> answerPage = answerMapper.selectPage(new Page<>(pageNum, pageSize),
+                new LambdaQueryWrapper<CampusAnswer>()
+                        .eq(CampusAnswer::getQuestionId, id)
+                        .orderByDesc(CampusAnswer::getIsAccepted)
+                        .orderByAsc(CampusAnswer::getId));
+        List<CampusAnswer> answers = answerPage.getRecords();
         Map<Long, String> nickCache = new HashMap<>();
         Map<Long, String> avaCache = new HashMap<>();
         List<AnswerVO> answerVOs = answers.stream().map(a -> {
@@ -106,11 +108,16 @@ public class QuestionService {
             vo.setAnswererAvatar(u == null ? null : u.getAvatar());
             return vo;
         }).collect(Collectors.toList());
-        qvo.setAnswerCount((long) answerVOs.size());
+        qvo.setAnswerCount(answerPage.getTotal());
+
+        PageResult<AnswerVO> answerPageResult = new PageResult<>();
+        answerPageResult.setTotal(answerPage.getTotal());
+        answerPageResult.setPages(answerPage.getPages());
+        answerPageResult.setList(answerVOs);
 
         Map<String, Object> result = new LinkedHashMap<>();
         result.put("question", qvo);
-        result.put("answers", answerVOs);
+        result.put("answers", answerPageResult);
         return result;
     }
 

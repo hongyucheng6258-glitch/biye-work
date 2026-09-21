@@ -20,9 +20,21 @@
       </div>
     </el-card>
 
+    <!-- 分享直达：?post=id 置顶展示目标动态（即使不在第一页），下方保留正常列表 -->
+    <el-card v-if="targetPost" class="post-card share-target">
+      <div class="share-banner">
+        <span>🔗 正在查看分享的动态</span>
+        <button type="button" class="text-btn" @click="closeShare">返回动态列表</button>
+      </div>
+    </el-card>
+    <el-alert v-else-if="targetError" type="error" :closable="false" show-icon class="share-error">
+      <template #title>{{ targetError }}</template>
+      <button type="button" class="text-btn" @click="closeShare">返回动态列表</button>
+    </el-alert>
+
     <!-- 动态流 -->
     <div v-loading="loading">
-      <el-card v-for="p in list" :key="p.id" class="post-card">
+      <el-card v-for="p in displayed" :key="p.id" class="post-card">
         <div class="post-head">
           <el-avatar :size="40" :src="p.avatar" style="cursor:pointer" @click="goUser(p.userId)">{{ p.nickname?.charAt(0) }}</el-avatar>
           <div>
@@ -37,7 +49,7 @@
         <div class="post-content">{{ p.content }}</div>
         <div v-if="postImages(p).length" class="post-images">
           <el-image v-for="img in postImages(p)" :key="img" :src="img" fit="contain"
-                    class="post-img" :preview-src-list="postImages(p)" />
+                    class="post-img" :preview-src-list="postImages(p)" lazy @error="onImgError($event)" />
         </div>
         <div class="post-ops">
           <span class="op" :class="{ liked: p.liked }" @click="toggleLike(p)">
@@ -51,7 +63,7 @@
         </div>
         <!-- 评论区 -->
         <div v-if="expandedPostId === p.id" class="comment-area">
-          <CommentList :post-id="p.id" :comments="commentMap[p.id] || []" @commented="reloadComments(p)" />
+          <CommentList :post-id="p.id" @count-changed="(t) => (p.commentCount = t)" />
         </div>
       </el-card>
       <EmptyBox v-if="!loadError && !loading && !list.length" description="还没有动态，来发第一条吧" />
@@ -113,13 +125,13 @@ import UploadImg from '../../components/UploadImg.vue'
 import AiAssistPanel from '../../components/AiAssistPanel.vue'
 import CommentList from '../../components/CommentList.vue'
 import EmptyBox from '../../components/EmptyBox.vue'
-import { listPost, publishPost, likePost, unlikePost, listComments } from '../../api/post'
+import { listPost, postDetail, publishPost, likePost, unlikePost } from '../../api/post'
 import { submitReport } from '../../api/report'
 import { favorite, unfavorite } from '../../api/favorite'
 import { useUserStore } from '../../store/user'
 import { fromNow } from '../../utils/date'
 import { startChat } from '../../utils/startChat'
-import { firstContentImage } from '../../utils/content-assets.mjs'
+import { onImageError } from '../../utils/content-assets.mjs'
 
 const route = useRoute()
 const router = useRouter()
@@ -135,14 +147,21 @@ const newPost = ref('')
 const newImages = ref([])
 const publishing = ref(false)
 const expandedPostId = ref(null)
-const commentMap = ref({})
+const targetPost = ref(null)
+const targetError = ref('')
+const displayed = computed(() => (targetPost.value ? [targetPost.value, ...list.value] : list.value))
 const reportVisible = ref(false)
 const reportReasonType = ref('违规')
 const reportReason = ref('')
 const reportTarget = ref(null)
 
+
+function onImgError(event) {
+  onImageError(event, 'square')
+}
 function postImages(post) {
-  return post?.imageList?.length ? post.imageList : [firstContentImage(post, 'square')].filter(Boolean)
+  // 纯文字动态不强行补校园照片；有图才展示，加载失败时由 onImgError 换兜底图
+  return post?.imageList?.length ? post.imageList : []
 }
 
 /** 热门话题：从动态内容提取 #标签 并按出现次数聚合 */
@@ -170,14 +189,13 @@ const hotPosts = computed(() =>
 
 function searchTopic(tag) {
   keyword.value = tag
-  search()
 }
+
 
 function openPost(p) {
+  // 展开评论区：评论数据由 CommentList 组件内自包含分页加载
   expandedPostId.value = p.id
-  if (!commentMap.value[p.id]) reloadComments(p)
 }
-
 async function sharePost(p) {
   const url = `${location.origin}/social?post=${encodeURIComponent(p.id)}`
   try {
@@ -263,21 +281,6 @@ async function toggleLike(p) {
   }
 }
 
-async function toggleComments(p) {
-  if (expandedPostId.value === p.id) {
-    expandedPostId.value = null
-    return
-  }
-  expandedPostId.value = p.id
-  reloadComments(p)
-}
-
-async function reloadComments(p) {
-  const res = await listComments(p.id, { pageNum: 1, pageSize: 50 })
-  commentMap.value = { ...commentMap.value, [p.id]: res.list }
-  p.commentCount = res.total
-}
-
 function goUser(id) {
   if (!id) return
   if (Number(id) === Number(userStore.userInfo?.id)) router.push('/profile')
@@ -313,10 +316,34 @@ watch(
       pageNum.value = 1
     }
     initialSearchWatch = false
+    loadShareTarget()
     load()
   },
   { immediate: true }
 )
+
+async function loadShareTarget() {
+  const id = Number(route.query.post)
+  if (!id) {
+    targetPost.value = null
+    targetError.value = ''
+    return
+  }
+  try {
+    targetPost.value = await postDetail(id)
+    targetError.value = ''
+  } catch (e) {
+    targetPost.value = null
+    targetError.value = e?.message || '动态不存在或未通过审核'
+  }
+}
+
+function closeShare() {
+  targetPost.value = null
+  targetError.value = ''
+  // 保留搜索词 q，仅移除 post 参数，不重载列表（返回列表状态与普通入口一致）
+  router.replace({ query: route.query.q ? { q: route.query.q } : {} })
+}
 </script>
 
 <style scoped>
@@ -524,5 +551,26 @@ watch(
   margin-top: 12px;
   border-top: 1px solid #f0f0f0;
   padding-top: 12px;
+}
+</style>
+
+<style scoped>
+.share-banner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding-bottom: 10px;
+  margin-bottom: 4px;
+  border-bottom: 1px dashed #e5e7eb;
+  color: var(--brand-strong);
+  font-size: 13px;
+  font-weight: 600;
+}
+.share-target {
+  border: 1px solid var(--brand-strong);
+}
+.share-error {
+  margin-bottom: 12px;
 }
 </style>

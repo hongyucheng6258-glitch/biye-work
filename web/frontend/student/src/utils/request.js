@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { ElMessage } from 'element-plus'
 import router from '../router'
-import { requestRouter } from './request-navigation'
+import { requestRouter, handleAuthExpired } from './request-navigation'
 import { responseAction } from './request-policy.mjs'
 
 /**
@@ -59,12 +59,7 @@ function handleResponseAction(code, status) {
   const action = responseAction(code, status)
   const target = requestRouter(router)
   if (action === 'login') {
-    localStorage.removeItem('token')
-    localStorage.removeItem('userInfo')
-    window.dispatchEvent(new Event('auth-expired'))
-    if (target.currentRoute.value.path !== '/login') {
-      target.replace({ path: '/login', query: { redirect: target.currentRoute.value.fullPath } })
-    }
+    handleAuthExpired(target, target.currentRoute.value.fullPath)
   } else if (action === 'maintenance' && target.currentRoute.value.path !== '/maintenance') {
     target.replace('/maintenance')
   }

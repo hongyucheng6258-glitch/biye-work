@@ -5,7 +5,7 @@
       :hello="helloLine"
       title="课表之外，<br>还有整个校园。"
       description="找一场喜欢的活动，遇见同频的朋友。<br>学习和生活，在这里都有回应。"
-      photo="/images/campus-v2.png"
+      photo="/images/campus-v2.webp"
       photo-note="秋日校园 · 2026"
       :primary="{ label: '发现校园活动', to: '/activity' }"
       :secondary="{ label: '找 AI 帮忙', to: '/ai/chat' }"
@@ -120,7 +120,7 @@
             @click="go({ to: `/idle/detail/${i.id}` })"
           >
             <div class="cover">
-              <img v-if="firstContentImage(i, 'idle')" :src="firstContentImage(i, 'idle')" :alt="i.title" />
+              <img v-if="firstContentImage(i, 'idle', i.category)" :src="firstContentImage(i, 'idle', i.category)" :alt="i.title" />
               <div v-else class="cover-fallback">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 7h18l-2 13H5z"/><path d="M8 11v6M12 11v6M16 11v6"/></svg>
               </div>

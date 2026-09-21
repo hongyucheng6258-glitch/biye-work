@@ -18,6 +18,8 @@ import com.campus.platform.module.lostfound.mapper.LostFoundMapper;
 import com.campus.platform.module.post.mapper.PostMapper;
 import com.campus.platform.module.report.mapper.ReportMapper;
 import com.campus.platform.module.user.mapper.UserMapper;
+import com.campus.platform.module.partner.entity.StudyPartner;
+import com.campus.platform.module.partner.mapper.StudyPartnerMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -43,6 +45,47 @@ public class StatsService {
     private final LostFoundMapper lostFoundMapper;
     private final PostMapper postMapper;
     private final ReportMapper reportMapper;
+    private final StudyPartnerMapper studyPartnerMapper;
+
+    /**
+     * 管理端待办数（第3项修复：后端准确 COUNT，不再由前端翻页推算）。
+     * <p>口径：各审核类型 = 对应业务表 audit_status=0 的总数；report = 待处理举报数；
+     * ai = 待审内容中 ai_risk_level>=1 的子集（与业务数同源，相加会重复计数，
+     * 前端做待办角标合计时不得把 ai 再累加一遍）。
+     */
+    public Map<String, Long> pendingCounts() {
+        Map<String, Long> m = new HashMap<>();
+        m.put("idle", idleItemMapper.selectCount(new LambdaQueryWrapper<IdleItem>()
+                .eq(IdleItem::getAuditStatus, Constants.AUDIT_PENDING)));
+        m.put("activity", activityMapper.selectCount(new LambdaQueryWrapper<Activity>()
+                .eq(Activity::getAuditStatus, Constants.AUDIT_PENDING)));
+        m.put("lostfound", lostFoundMapper.selectCount(new LambdaQueryWrapper<LostFound>()
+                .eq(LostFound::getAuditStatus, Constants.AUDIT_PENDING)));
+        m.put("post", postMapper.selectCount(new LambdaQueryWrapper<Post>()
+                .eq(Post::getAuditStatus, Constants.AUDIT_PENDING)));
+        m.put("partner", studyPartnerMapper.selectCount(new LambdaQueryWrapper<StudyPartner>()
+                .eq(StudyPartner::getAuditStatus, Constants.AUDIT_PENDING)));
+        m.put("report", reportMapper.selectCount(new LambdaQueryWrapper<Report>()
+                .eq(Report::getStatus, Constants.REPORT_PENDING)));
+        long ai = 0;
+        ai += idleItemMapper.selectCount(new LambdaQueryWrapper<IdleItem>()
+                .eq(IdleItem::getAuditStatus, Constants.AUDIT_PENDING)
+                .ge(IdleItem::getAiRiskLevel, 1));
+        ai += activityMapper.selectCount(new LambdaQueryWrapper<Activity>()
+                .eq(Activity::getAuditStatus, Constants.AUDIT_PENDING)
+                .ge(Activity::getAiRiskLevel, 1));
+        ai += lostFoundMapper.selectCount(new LambdaQueryWrapper<LostFound>()
+                .eq(LostFound::getAuditStatus, Constants.AUDIT_PENDING)
+                .ge(LostFound::getAiRiskLevel, 1));
+        ai += postMapper.selectCount(new LambdaQueryWrapper<Post>()
+                .eq(Post::getAuditStatus, Constants.AUDIT_PENDING)
+                .ge(Post::getAiRiskLevel, 1));
+        ai += studyPartnerMapper.selectCount(new LambdaQueryWrapper<StudyPartner>()
+                .eq(StudyPartner::getAuditStatus, Constants.AUDIT_PENDING)
+                .ge(StudyPartner::getAiRiskLevel, 1));
+        m.put("ai", ai);
+        return m;
+    }
 
     /** 数字卡片：总用户/今日活跃/今日AI调用/待审核数 */
     public StatsOverviewVO overview() {

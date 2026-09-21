@@ -5,6 +5,10 @@ export function publishPost(data) {
   return request.post('/post', data)
 }
 
+export function postDetail(id) {
+  return request.get(`/post/${id}`)
+}
+
 export function listPost(params) {
   return request.get('/post/list', { params })
 }

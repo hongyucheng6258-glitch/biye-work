@@ -90,6 +90,17 @@
           </el-table-column>
         </el-table>
         <el-empty v-if="!memberLoading && !members.length" description="暂无报名" />
+        <div v-if="memberTotal > memberPageSize" class="member-pager">
+          <el-pagination
+            layout="prev, pager, next"
+            :total="memberTotal"
+            :page-size="memberPageSize"
+            :current-page="memberPage"
+            background
+            small
+            @current-change="onMemberPageChange"
+          />
+        </div>
       </template>
     </el-dialog>
   </div>
@@ -117,6 +128,9 @@ const memberDialog = ref(false)
 const memberLoading = ref(false)
 const memberActivity = ref(null)
 const members = ref([])
+const memberTotal = ref(0)
+const memberPage = ref(1)
+const memberPageSize = 10
 
 async function loadSignups() {
   loading.value = true
@@ -144,25 +158,34 @@ function editActivity(row) {
   router.push(`/activity/publish?id=${row.id}`)
 }
 
-async function openMembers(row) {
-  memberActivity.value = row
-  memberDialog.value = true
+async function loadMembers(page) {
+  if (!memberActivity.value) return
   memberLoading.value = true
   try {
-    const res = await activityMembers(row.id)
-    members.value = res
+    const res = await activityMembers(memberActivity.value.id, { pageNum: page, pageSize: memberPageSize })
+    members.value = res?.list || []
+    memberTotal.value = res?.total || 0
+    memberPage.value = page
   } finally {
     memberLoading.value = false
   }
 }
 
+function onMemberPageChange(page) {
+  loadMembers(page)
+}
+
+async function openMembers(row) {
+  memberActivity.value = row
+  memberDialog.value = true
+  await loadMembers(1)
+}
 async function handleMember(row, approve) {
   try {
     await handleMemberApi(row.id, approve)
     ElMessage.success(approve ? '已同意报名' : '已拒绝报名')
     if (memberActivity.value) {
-      const res = await activityMembers(memberActivity.value.id)
-      members.value = res
+      await loadMembers(memberPage.value)
     }
   } catch (e) {
     ElMessage.error(e.message || '操作失败')
@@ -174,3 +197,7 @@ onMounted(() => {
   loadPublished()
 })
 </script>
+
+<style scoped>
+.member-pager { display: flex; justify-content: center; margin-top: 12px; }
+</style>

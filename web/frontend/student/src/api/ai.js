@@ -79,21 +79,64 @@ export function aiGuideAsk(question) {
 
 /**
  * Web 端 SSE 流式答疑（POST + fetch 流读取，EventSource 不支持 POST/自定义Header）。
+ * 第11项修复：
+ *  - 区分 SSE 与 JSON：HTTP 200 但 code≠200（401/403/503 等业务错误）进入 onError 统一错误策略，不能到 EOF 就当成功；
+ *  - 支持 AbortController（options.signal）：取消时中断流并释放 reader/事件资源；
+ *  - SSE 分片、跨 chunk 行、CRLF、error/done、网络断开与取消分别处理。
  *
  * @param {Object} payload { sessionId, question }
  * @param {Object} handlers { onDelta(text), onDone(), onError(code,message) }
+ * @param {Object} options { signal }
  */
-export async function chatStream(payload, handlers) {
-  const resp = await fetch('/api/ai/chat/stream', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${getToken()}`
-    },
-    body: JSON.stringify(payload)
-  })
-  if (!resp.ok || !resp.body) {
-    handlers.onError(500, '连接AI服务失败')
+export async function chatStream(payload, handlers, options = {}) {
+  const { signal } = options
+  let resp
+  try {
+    resp = await fetch('/api/ai/chat/stream', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${getToken()}`
+      },
+      body: JSON.stringify(payload),
+      signal
+    })
+  } catch (error) {
+    if (error?.name === 'AbortError') return
+    handlers.onError(1002, error?.message || '连接AI服务失败')
+    return
+  }
+
+  const contentType = (resp.headers.get('content-type') || '').toLowerCase()
+  const isSse = contentType.includes('text/event-stream')
+
+  // HTTP 层错误：尝试解析 JSON 业务错误码/消息
+  if (!resp.ok) {
+    let code = resp.status
+    let message = 'AI服务调用失败'
+    try {
+      const j = await resp.json()
+      if (j && j.code) code = j.code
+      if (j && j.message) message = j.message
+    } catch { /* 非 JSON 错误体 */ }
+    handlers.onError(code, message)
+    return
+  }
+
+  // 非流式响应（JSON 兜底）：HTTP 200 但 code≠200 的业务错误必须进入统一错误策略
+  if (!isSse) {
+    try {
+      const j = await resp.json()
+      if (j && j.code === 200) {
+        const text = typeof j.data === 'string' ? j.data : (j.data?.answer ?? '')
+        if (text) handlers.onDelta(text)
+        handlers.onDone()
+      } else {
+        handlers.onError((j && j.code) || 200, (j && j.message) || 'AI服务调用失败')
+      }
+    } catch (error) {
+      handlers.onError(500, 'AI服务返回格式异常')
+    }
     return
   }
 
@@ -101,16 +144,23 @@ export async function chatStream(payload, handlers) {
   const decoder = new TextDecoder('utf-8')
   let buffer = ''
   let completed = false
+  let sawDone = false
+
+  const cleanup = () => {
+    try { reader.releaseLock?.() } catch { /* ignore */ }
+  }
 
   const finish = () => {
     if (completed) return
     completed = true
+    cleanup()
     handlers.onDone()
   }
 
   const fail = (code, message) => {
     if (completed) return
     completed = true
+    cleanup()
     handlers.onError(code, message)
   }
 
@@ -126,6 +176,7 @@ export async function chatStream(payload, handlers) {
     if (eventName === 'delta' || eventName === 'message') {
       if (data) handlers.onDelta(data)
     } else if (eventName === 'done') {
+      sawDone = true
       finish()
     } else if (eventName === 'error') {
       try {
@@ -154,14 +205,23 @@ export async function chatStream(payload, handlers) {
       if (done) {
         buffer += decoder.decode()
         consume(true)
-        if (!completed) finish()
+        // R4 修复：EOF 不等于成功——只有收到过 done 事件才 finish()；
+        // 中途 EOF（截断流）必须按错误处理，不能把半截回复当完整回答。
+        if (!completed) {
+          if (sawDone) finish()
+          else fail(500, 'AI响应未正常结束（连接中断或流被截断）')
+        }
         break
       }
       buffer += decoder.decode(value, { stream: true })
       consume()
     }
   } catch (error) {
-    if (error?.name === 'AbortError') return
+    if (error?.name === 'AbortError') {
+      try { await reader.cancel() } catch { /* ignore */ }
+      cleanup()
+      return
+    }
     fail(1002, error?.message || 'AI服务连接中断')
   }
 }

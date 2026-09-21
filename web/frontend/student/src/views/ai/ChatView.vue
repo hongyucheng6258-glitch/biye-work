@@ -101,8 +101,8 @@
 </template>
 
 <script setup>
-import { computed, nextTick, onMounted, ref, watch } from 'vue'
-import { useRoute } from 'vue-router'
+import { computed, nextTick, onMounted, onUnmounted, ref, watch } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import { MoreFilled } from '@element-plus/icons-vue'
 import ChatBubble from '../../components/ChatBubble.vue'
@@ -111,8 +111,11 @@ import WtTabs from '../../components/wt/WtTabs.vue'
 import WtEmptyState from '../../components/wt/WtEmptyState.vue'
 import { useUserStore } from '../../store/user'
 import * as aiApi from '../../api/ai'
+import { responseAction } from '../../utils/request-policy.mjs'
+import { handleAuthExpired } from '../../utils/request-navigation'
 
 const route = useRoute()
+const router = useRouter()
 const userStore = useUserStore()
 const tab = ref('chat')
 const sessions = ref([])
@@ -120,6 +123,16 @@ const currentSession = ref(null)
 const messages = ref([])
 const question = ref('')
 const asking = ref(false)
+// 第11项：流式取消与请求标识隔离——迟到/串会话响应一律丢弃
+const streamAbort = ref(null)
+let requestSeq = 0
+function cancelStream() {
+  if (streamAbort.value) {
+    streamAbort.value.abort()
+    streamAbort.value = null
+  }
+  requestSeq += 1
+}
 const msgBox = ref()
 // PDF 问答状态
 const pdfUploading = ref(false)
@@ -133,6 +146,8 @@ const sceneTabs = [
 
 const sceneOf = () => (tab.value === 'pdf' ? 'pdf' : 'chat')
 
+onUnmounted(() => cancelStream())
+
 onMounted(async () => {
   await loadSessions()
   const q = route.query.q
@@ -143,6 +158,7 @@ onMounted(async () => {
 })
 
 watch(tab, () => {
+  cancelStream()
   // 切换 Tab 重新加载对应场景会话，并清理另一场景的文档状态
   sessions.value = []
   currentSession.value = null
@@ -183,6 +199,7 @@ async function newSession() {
 }
 
 async function switchSession(s) {
+  cancelStream()
   currentSession.value = s
   await restorePdfDoc(s)
   const res = await aiApi.listMessages(s.id, 1, 50)
@@ -248,15 +265,34 @@ async function send() {
   }
   asking.value = true
   question.value = ''
+  const seq = ++requestSeq
+  if (streamAbort.value) streamAbort.value.abort()
+  const controller = new AbortController()
+  streamAbort.value = controller
   messages.value.push({ role: 'user', content: q, streaming: false })
-  const assistantMsg = { role: 'assistant', content: '', streaming: true }
-  messages.value.push(assistantMsg)
+  // R4 修复：普通对象 push 进 ref 数组后，Vue 只在「经数组代理访问」时把它包成响应式代理；
+  // 持原始对象引用改属性不会触发更新。这里取出数组代理上的同一消息对象，所有回调都改它。
+  const raw = { role: 'assistant', content: '', streaming: true }
+  messages.value.push(raw)
+  const msg = messages.value[messages.value.length - 1]
   scrollBottom()
 
+  // 仅当仍是最新一次发送时回调才生效（防迟到/串会话响应）
+  const isCurrent = () => seq === requestSeq
+  // R4 修复：统一业务错误策略——401 跳登录、503 跳维护页，与 request.js 拦截器一致；
+  // 其余错误才在页内弹提示。chat/guide/pdf 三个分支共用。
   const onError = (code, message) => {
-    assistantMsg.streaming = false
-    assistantMsg.content = assistantMsg.content || `⚠️ ${message}`
-    ElMessage.error(message)
+    if (!isCurrent()) return
+    msg.streaming = false
+    msg.content = msg.content || `⚠️ ${message}`
+    const action = responseAction(code)
+    if (action === 'login') {
+      handleAuthExpired(router, router.currentRoute.value.fullPath)
+    } else if (action === 'maintenance' && router.currentRoute.value.path !== '/maintenance') {
+      router.replace('/maintenance')
+    } else {
+      ElMessage.error(message)
+    }
     asking.value = false
   }
 
@@ -267,42 +303,41 @@ async function send() {
         { sessionId: currentSession.value?.id, question: q },
         {
           onDelta: (delta) => {
-            assistantMsg.content += delta
+            if (!isCurrent()) return
+            msg.content += delta
             scrollBottom()
           },
           onDone: () => {
-            assistantMsg.streaming = false
+            if (!isCurrent()) return
+            msg.streaming = false
             asking.value = false
             refreshSessionList()
           },
           onError
-        }
+        },
+        { signal: controller.signal }
       )
     } catch (e) {
       onError(1002, e.message || 'AI服务调用失败')
     } finally {
-      assistantMsg.streaming = false
-      asking.value = false
+      if (isCurrent()) {
+        msg.streaming = false
+        asking.value = false
+        streamAbort.value = null
+      }
     }
   } else if (tab.value === 'guide') {
-    // 校园向导：实时业务数据问答（一次性返回，原生 fetch 避免 axios 封装干扰）
+    // 校园向导：实时业务数据问答（复用 aiGuideAsk 统一错误策略，401/403/503 走 request 封装处理，避免裸 fetch）
     try {
-      const token = localStorage.getItem('token')
-      const resp = await fetch('/api/ai/guide/ask', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + token },
-        body: JSON.stringify({ question: q })
-      })
-      const j = await resp.json()
-      assistantMsg.content = j.code === 200 ? (j.data || '') : ('⚠️ ' + (j.message || 'AI服务调用失败'))
-      if (!assistantMsg.content) assistantMsg.content = '⚠️ 暂时没有检索到相关内容'
+      const answer = await aiApi.aiGuideAsk(q)
+      if (!isCurrent()) return
+      msg.content = answer || '⚠️ 暂时没有检索到相关内容'
     } catch (e) {
-      onError(1002, e.message || 'AI服务调用失败')
+      onError(e?.code || 1002, e?.message || 'AI服务调用失败')
     } finally {
-      assistantMsg.streaming = false
+      if (!isCurrent()) return
+      msg.streaming = false
       asking.value = false
-      // 强制整体替换消息数组，触发响应式更新（reactive 数组内直接改原对象不生效）
-      messages.value = [...messages.value]
     }
     scrollBottom()
   } else {
@@ -313,8 +348,9 @@ async function send() {
         sessionId: currentSession.value?.id,
         question: q
       })
-      assistantMsg.content = typeof res === 'string' ? res : res.answer
-      assistantMsg.streaming = false
+      if (!isCurrent()) return
+      msg.content = typeof res === 'string' ? res : res.answer
+      msg.streaming = false
       if (res?.sessionId) {
         currentSession.value = { ...currentSession.value, id: res.sessionId, docId: pdfDoc.value.docId }
       }
@@ -322,7 +358,10 @@ async function send() {
     } catch (e) {
       onError(1002, e.message || 'AI服务调用失败')
     } finally {
-      asking.value = false
+      if (isCurrent()) {
+        asking.value = false
+        streamAbort.value = null
+      }
     }
     scrollBottom()
   }

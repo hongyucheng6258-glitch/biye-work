@@ -147,12 +147,122 @@ class JwtInterceptorTest {
         }
     }
 
+    // ==================== 公开读取白名单（P2 第2项修复） ====================
+
+    @Nested
+    @DisplayName("公开读取白名单（方法+端点规则）")
+    class PublicRead {
+
+        private MockHttpServletRequest getRequest(String uri) {
+            MockHttpServletRequest req = new MockHttpServletRequest();
+            req.setMethod("GET");
+            req.setRequestURI(uri);
+            return req;
+        }
+
+        @Test
+        @DisplayName("匿名 GET 公开列表应放行且不设用户上下文")
+        void anonymousPublicList_shouldPassWithoutContext() throws Exception {
+            boolean pass = interceptor.preHandle(getRequest("/api/post/list"),
+                    new MockHttpServletResponse(), new Object());
+
+            assertThat(pass).isTrue();
+            assertThat(UserContext.get()).isNull();
+        }
+
+        @Test
+        @DisplayName("匿名 GET 公开详情（数字 id）应放行")
+        void anonymousPublicDetail_shouldPass() throws Exception {
+            boolean pass = interceptor.preHandle(getRequest("/api/activity/123"),
+                    new MockHttpServletResponse(), new Object());
+
+            assertThat(pass).isTrue();
+            assertThat(UserContext.get()).isNull();
+        }
+
+        @Test
+        @DisplayName("匿名 GET 公开评论列表应放行")
+        void anonymousPublicComments_shouldPass() throws Exception {
+            boolean pass = interceptor.preHandle(getRequest("/api/post/123/comments"),
+                    new MockHttpServletResponse(), new Object());
+
+            assertThat(pass).isTrue();
+        }
+
+        @Test
+        @DisplayName("匿名 POST 写操作必须拒绝（不能因公开路径误放开写接口）")
+        void anonymousWrite_shouldBeRejected() throws Exception {
+            MockHttpServletRequest req = getRequest("/api/post");
+            req.setMethod("POST");
+
+            MockHttpServletResponse resp = new MockHttpServletResponse();
+            boolean pass = interceptor.preHandle(req, resp, new Object());
+
+            assertThat(pass).isFalse();
+            assertThat(resp.getContentAsString()).contains("401");
+        }
+
+        @Test
+        @DisplayName("个人端点 /api/post/my 不属于公开读取，匿名应 401")
+        void anonymousMyEndpoint_shouldBeRejected() throws Exception {
+            MockHttpServletResponse resp = new MockHttpServletResponse();
+            boolean pass = interceptor.preHandle(getRequest("/api/post/my"), resp, new Object());
+
+            assertThat(pass).isFalse();
+            assertThat(resp.getContentAsString()).contains("401");
+        }
+
+        @Test
+        @DisplayName("带有效学生令牌访问公开列表仍解析用户上下文（个性化状态）")
+        void publicListWithValidToken_shouldSetContext() throws Exception {
+            MockHttpServletRequest req = getRequest("/api/post/list");
+            req.addHeader("Authorization", BEARER);
+            when(jwtUtils.getUid("TOKEN_X")).thenReturn(42L);
+            when(jwtUtils.getRole("TOKEN_X")).thenReturn(Constants.ROLE_STUDENT);
+            when(redisUtils.hasKey("auth:blacklist:student:42")).thenReturn(false);
+
+            boolean pass = interceptor.preHandle(req, new MockHttpServletResponse(), new Object());
+
+            assertThat(pass).isTrue();
+            assertThat(UserContext.getUid()).isEqualTo(42L);
+        }
+
+        @Test
+        @DisplayName("过期/非法令牌访问公开读取端点按匿名继续，不误清登录态")
+        void invalidTokenOnPublicRead_shouldPassAsAnonymous() throws Exception {
+            MockHttpServletRequest req = getRequest("/api/idle/list");
+            req.addHeader("Authorization", BEARER);
+            when(jwtUtils.getUid("TOKEN_X")).thenThrow(new RuntimeException("expired"));
+
+            MockHttpServletResponse resp = new MockHttpServletResponse();
+            boolean pass = interceptor.preHandle(req, resp, new Object());
+
+            assertThat(pass).as("公开页不能被过期 token 弹登录").isTrue();
+            assertThat(UserContext.get()).isNull();
+            assertThat(resp.getContentAsString()).doesNotContain("401");
+        }
+
+        @Test
+        @DisplayName("过期令牌访问受保护端点仍应 401 引导登录")
+        void invalidTokenOnProtected_shouldReturn401() throws Exception {
+            MockHttpServletRequest req = new MockHttpServletRequest();
+            req.setRequestURI("/api/chat/1/messages");
+            req.addHeader("Authorization", BEARER);
+            when(jwtUtils.getUid("TOKEN_X")).thenThrow(new RuntimeException("expired"));
+
+            MockHttpServletResponse resp = new MockHttpServletResponse();
+            boolean pass = interceptor.preHandle(req, resp, new Object());
+
+            assertThat(pass).isFalse();
+            assertThat(resp.getContentAsString()).contains("401");
+        }
+    }
+
     // ==================== 原有鉴权路径防退化 ====================
 
     @Nested
     @DisplayName("原有鉴权行为不退化")
     class NoRegression {
-
         @Test
         @DisplayName("无 Authorization 头应 401，且不查 Redis")
         void noToken_shouldReturn401WithoutRedisLookup() throws Exception {

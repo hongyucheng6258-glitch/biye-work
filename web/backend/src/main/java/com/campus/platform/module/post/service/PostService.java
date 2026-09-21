@@ -106,32 +106,51 @@ public class PostService {
         });
     }
 
-    /** 点赞（联合唯一索引防重复） */
+    /** 动态详情（仅审核通过、可见的动态；第10项修复：供分享直达 ?post=id 使用，找不到/删除/未过审统一 NOT_FOUND） */
+    public PostVO detail(Long currentUid, Long postId) {
+        Post post = checkVisible(postId);
+        PostVO vo = new PostVO();
+        BeanUtil.copyProperties(post, vo);
+        vo.setImageList(IdleService.parseJson(post.getImages()));
+        User u = userMapper.selectById(post.getUserId());
+        vo.setNickname(u == null ? "" : u.getNickname());
+        vo.setAvatar(u == null ? null : u.getAvatar());
+        if (currentUid != null) {
+            vo.setLiked(likeMapper.selectCount(new LambdaQueryWrapper<PostLike>()
+                    .eq(PostLike::getUserId, currentUid)
+                    .eq(PostLike::getPostId, postId)) > 0);
+            vo.setFavorited(favoriteMapper.selectCount(new LambdaQueryWrapper<Favorite>()
+                    .eq(Favorite::getUserId, currentUid)
+                    .eq(Favorite::getTargetType, Constants.BIZ_POST)
+                    .eq(Favorite::getTargetId, postId)) > 0);
+        }
+        return vo;
+    }
+
+    /** 点赞（联合唯一索引防重复；计数用原子自增，防并发丢失更新） */
     @Transactional
     public void like(Long userId, Long postId) {
-        Post post = checkVisible(postId);
-        Long exist = likeMapper.selectCount(new LambdaQueryWrapper<PostLike>()
-                .eq(PostLike::getPostId, postId).eq(PostLike::getUserId, userId));
-        if (exist > 0) {
-            throw new BizException(ResultCode.DUPLICATE_OPERATION, "你已点赞过该动态");
-        }
+        checkVisible(postId);
         PostLike like = new PostLike();
         like.setPostId(postId);
         like.setUserId(userId);
-        likeMapper.insert(like);
-        post.setLikeCount(post.getLikeCount() + 1);
-        postMapper.updateById(post);
+        try {
+            likeMapper.insert(like);
+        } catch (org.springframework.dao.DuplicateKeyException e) {
+            // 并发双击：唯一索引保证只落一条，重复插入即已点赞
+            throw new BizException(ResultCode.DUPLICATE_OPERATION, "你已点赞过该动态");
+        }
+        postMapper.incrLikeCount(postId, 1);
     }
 
-    /** 取消点赞 */
+    /** 取消点赞（删除成功才减计数，原子自减且不为负） */
     @Transactional
     public void unlike(Long userId, Long postId) {
-        Post post = checkVisible(postId);
+        checkVisible(postId);
         long deleted = likeMapper.delete(new LambdaQueryWrapper<PostLike>()
                 .eq(PostLike::getPostId, postId).eq(PostLike::getUserId, userId));
         if (deleted > 0) {
-            post.setLikeCount(Math.max(0, post.getLikeCount() - 1));
-            postMapper.updateById(post);
+            postMapper.incrLikeCount(postId, -1);
         }
     }
 
@@ -153,8 +172,8 @@ public class PostService {
         }
         comment.setStatus(Constants.COMMENT_NORMAL);
         commentMapper.insert(comment);
-        post.setCommentCount(post.getCommentCount() + 1);
-        postMapper.updateById(post);
+        // 原子自增评论数，避免并发下计数丢失
+        postMapper.incrCommentCount(postId, 1);
         // 被评论消息（P1 触发点）
         if (!post.getUserId().equals(userId)) {
             User from = userMapper.selectById(userId);

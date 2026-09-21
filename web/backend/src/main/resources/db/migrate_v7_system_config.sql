@@ -1,7 +1,10 @@
 -- ============================================================
 -- 通用系统配置表（管理端在线修改，立即生效，免重启）
 -- 执行方式：mysql -uroot -p ai_campus_platform < migrate_v7_system_config.sql
+-- 字符集：文件与连接统一 utf8mb4（中文/emoji 不丢失）
 -- ============================================================
+
+SET NAMES utf8mb4;
 
 CREATE TABLE IF NOT EXISTS `system_config` (
   `id`           BIGINT       NOT NULL AUTO_INCREMENT,
@@ -17,8 +20,12 @@ CREATE TABLE IF NOT EXISTS `system_config` (
   KEY `idx_category` (`category`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='通用系统配置表（热更新）';
 
--- 预置系统配置项
-INSERT INTO `system_config` (`config_key`, `config_value`, `value_type`, `description`, `category`, `sort`) VALUES
+-- 预置系统配置项。
+-- 修复说明（P1）：此前使用 ON DUPLICATE KEY UPDATE 会「覆盖」config_value，
+-- 重复执行迁移会把管理端在线保存的值（维护开关、上传限制、站点名称等）重置回默认值。
+-- 现改为 INSERT IGNORE：仅当 config_key 不存在时插入默认值；
+-- 已存在的记录（含用户修改过的值）保持原样，绝不覆盖。
+INSERT IGNORE INTO `system_config` (`config_key`, `config_value`, `value_type`, `description`, `category`, `sort`) VALUES
 -- 站点基础
 ('site_name', 'AI校园综合服务平台', 'string', '系统名称', 'site', 1),
 ('site_slogan', '智慧校园，一站式服务', 'string', '系统标语/副标题', 'site', 2),
@@ -40,10 +47,4 @@ INSERT INTO `system_config` (`config_key`, `config_value`, `value_type`, `descri
 ('upload_image_max_count', '9', 'int', '单次最多上传图片数量', 'upload', 2),
 -- 安全
 ('user_default_status', '0', 'int', '新用户默认状态（0正常 1禁用）', 'security', 1),
-('login_fail_lock_threshold', '5', 'int', '连续登录失败锁定阈值（0=不锁定）', 'security', 2)
-ON DUPLICATE KEY UPDATE
-  `config_value` = VALUES(`config_value`),
-  `value_type` = VALUES(`value_type`),
-  `description` = VALUES(`description`),
-  `category` = VALUES(`category`),
-  `sort` = VALUES(`sort`);
+('login_fail_lock_threshold', '5', 'int', '连续登录失败锁定阈值（0=不锁定）', 'security', 2);

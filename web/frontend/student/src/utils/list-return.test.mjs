@@ -32,6 +32,9 @@ for (const file of ['activity/List.vue', 'idle/List.vue', 'lostfound/List.vue', 
     vm.runInNewContext(watcher, {
       restoredListState: true, pageNum, keyword, route: { query: { q: 'campus' } },
       watch: (getter, cb) => { callback = cb; cb(getter()) }, load: () => loads++,
+      // PostSquare 分享直达相关状态/函数（watch 片段内 loadShareTarget 会引用）
+      targetPost: { value: null }, targetError: { value: '' },
+      postDetail: async () => null,
     })
     assert.equal(pageNum.value, 3)
     assert.equal(keyword.value, 'edited')

@@ -12,7 +12,7 @@
         <p class="auth-story-more">想参加活动、淘好物、找搭子？<br>这里都可以帮你</p>
       </div>
       <div class="auth-photo">
-        <img src="/images/campus-v2.png" alt="阳光下的大学校园" />
+        <img src="/images/campus-v2.webp" alt="阳光下的大学校园" />
         <span class="auth-photo-note">秋日校园 · 2026</span>
         <span class="auth-photo-caption">桐荫下，遇见</span>
       </div>

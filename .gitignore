@@ -7,6 +7,7 @@ Thumbs.db
 
 # Local assistant/workspace state
 .workbuddy/
+.worktrees/
 .trae-html-share-packages/
 .reasonix/
 reasonix.toml

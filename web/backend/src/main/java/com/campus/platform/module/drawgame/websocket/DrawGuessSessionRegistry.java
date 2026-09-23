@@ -92,6 +92,7 @@ public class DrawGuessSessionRegistry {
     }
 
     private void send(List<WebSocketSession> recipients, Object event) {
+        if (recipients.isEmpty()) return;
         final String json;
         try {
             json = objectMapper.writeValueAsString(event);

@@ -5,6 +5,7 @@ import com.campus.platform.common.BizException;
 import com.campus.platform.module.drawgame.dto.DrawGuessCreateRoomDTO;
 import com.campus.platform.module.drawgame.entity.DrawGuessMember;
 import com.campus.platform.module.drawgame.entity.DrawGuessRoom;
+import com.campus.platform.module.drawgame.entity.DrawGuessRound;
 import com.campus.platform.module.drawgame.mapper.DrawGuessMemberMapper;
 import com.campus.platform.module.drawgame.mapper.DrawGuessRoomMapper;
 import com.campus.platform.module.drawgame.mapper.DrawGuessRoundMapper;
@@ -13,14 +14,17 @@ import com.campus.platform.module.drawgame.vo.DrawGuessRoomVO;
 import com.campus.platform.module.drawgame.websocket.DrawGuessSessionRegistry;
 import com.campus.platform.module.upload.mapper.UploadResourceMapper;
 import com.campus.platform.module.upload.service.UploadService;
+import com.campus.platform.module.upload.vo.UploadVO;
 import com.campus.platform.module.user.entity.User;
 import com.campus.platform.module.user.mapper.UserMapper;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.mock.web.MockMultipartFile;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicLong;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -28,8 +32,11 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.ArgumentMatchers.argThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 class DrawGuessRoomServiceTest {
@@ -132,5 +139,83 @@ class DrawGuessRoomServiceTest {
         assertEquals(2, occupiedSeats.stream().distinct().count());
         assertTrue(occupiedSeats.contains(1));
         assertTrue(occupiedSeats.contains(2));
+    }
+
+    @Test
+    void playingRoomSnapshotIncludesTheCurrentRoundIdForTheDrawer() {
+        AtomicInteger membershipLookups = new AtomicInteger();
+        org.mockito.Mockito.doAnswer(invocation -> membershipLookups.getAndIncrement() == 0
+                ? null : members.get(0)).when(memberMapper).selectOne(any(QueryWrapper.class));
+        when(wordMapper.selectList(any(QueryWrapper.class))).thenReturn(List.of());
+        when(roundMapper.insert(any(DrawGuessRound.class))).thenAnswer(invocation -> {
+            DrawGuessRound round = invocation.getArgument(0);
+            round.setId(900L);
+            return 1;
+        });
+        DrawGuessRoomVO created = service.createRoom(7L, new DrawGuessCreateRoomDTO());
+        service.joinRoom(8L, created.roomCode(), null);
+
+        DrawGuessRoomVO playing = service.startRoom(created.id(), 7L);
+
+        assertEquals(900L, playing.currentRoundId());
+        assertTrue(playing.isDrawer());
+    }
+
+    @Test
+    void onlyTheRoundDrawerCanSaveOneSnapshotForThatRound() {
+        AtomicInteger membershipLookups = new AtomicInteger();
+        org.mockito.Mockito.doAnswer(invocation -> membershipLookups.getAndIncrement() == 0
+                ? null : members.get(0)).when(memberMapper).selectOne(any(QueryWrapper.class));
+        when(wordMapper.selectList(any(QueryWrapper.class))).thenReturn(List.of());
+        when(roundMapper.insert(any(DrawGuessRound.class))).thenAnswer(invocation -> {
+            DrawGuessRound round = invocation.getArgument(0);
+            round.setId(900L);
+            return 1;
+        });
+        MockMultipartFile image = new MockMultipartFile("file", "drawing.png", "image/png", new byte[]{1, 2, 3});
+        when(uploadService.uploadImage(7L, image)).thenReturn(new UploadVO(51L, "/uploads/drawing.png"));
+        DrawGuessRoomVO created = service.createRoom(7L, new DrawGuessCreateRoomDTO());
+        service.joinRoom(8L, created.roomCode(), null);
+        DrawGuessRoomVO playing = service.startRoom(created.id(), 7L);
+
+        service.uploadSnapshot(created.id(), playing.currentRoundId(), 7L, image);
+
+        assertThrows(BizException.class,
+                () -> service.uploadSnapshot(created.id(), playing.currentRoundId(), 8L, image));
+        assertThrows(BizException.class,
+                () -> service.uploadSnapshot(created.id(), playing.currentRoundId(), 7L, image));
+        verify(uploadService, times(1)).uploadImage(7L, image);
+        verify(roundMapper).updateById(argThat((DrawGuessRound round) -> Long.valueOf(900L).equals(round.getId())
+                && Long.valueOf(51L).equals(round.getSnapshotResourceId())));
+    }
+
+    @Test
+    void drawerCanSaveACompletedRoundAfterTheNextTurnHasStarted() throws Exception {
+        AtomicInteger membershipLookups = new AtomicInteger();
+        AtomicLong roundIds = new AtomicLong(899L);
+        List<DrawGuessRound> rounds = new ArrayList<>();
+        org.mockito.Mockito.doAnswer(invocation -> membershipLookups.getAndIncrement() == 0
+                ? null : members.get(0)).when(memberMapper).selectOne(any(QueryWrapper.class));
+        when(wordMapper.selectList(any(QueryWrapper.class))).thenReturn(List.of());
+        when(roundMapper.insert(any(DrawGuessRound.class))).thenAnswer(invocation -> {
+            DrawGuessRound round = invocation.getArgument(0);
+            round.setId(roundIds.incrementAndGet());
+            rounds.add(round);
+            return 1;
+        });
+        when(roundMapper.selectById(900L)).thenAnswer(invocation -> rounds.stream()
+                .filter(round -> Long.valueOf(900L).equals(round.getId())).findFirst().orElse(null));
+        MockMultipartFile image = new MockMultipartFile("file", "drawing.png", "image/png", new byte[]{1, 2, 3});
+        when(uploadService.uploadImage(7L, image)).thenReturn(new UploadVO(52L, "/uploads/drawing.png"));
+        DrawGuessRoomVO created = service.createRoom(7L, new DrawGuessCreateRoomDTO());
+        service.joinRoom(8L, created.roomCode(), null);
+        DrawGuessRoomVO playing = service.startRoom(created.id(), 7L);
+
+        service.handleSocketMessage(created.id(), 7L, new ObjectMapper().readTree("{\"type\":\"skip\"}"));
+        service.uploadSnapshot(created.id(), playing.currentRoundId(), 7L, image);
+
+        assertEquals("FINISHED", rounds.get(0).getStatus());
+        assertEquals(52L, rounds.get(0).getSnapshotResourceId());
+        verify(uploadService).uploadImage(7L, image);
     }
 }

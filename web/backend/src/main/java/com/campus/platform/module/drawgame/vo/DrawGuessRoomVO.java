@@ -10,4 +10,4 @@ public record DrawGuessRoomVO(Long id, String roomCode, String title, boolean pr
                               int remainingSeconds, int answerLength, boolean isOwner,
                               boolean isDrawer, List<DrawGuessPlayerVO> players,
                               List<Map<String, Object>> strokes,
-                              List<DrawGuessChatMessageVO> messages) { }
+                              List<DrawGuessChatMessageVO> messages, Long currentRoundId) { }

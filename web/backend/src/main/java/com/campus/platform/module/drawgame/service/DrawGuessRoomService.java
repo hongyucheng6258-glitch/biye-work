@@ -308,11 +308,16 @@ public class DrawGuessRoomService {
         RuntimeRoom runtime = requireRuntime(roomId);
         synchronized (runtime) {
             requireActiveMember(roomId, userId);
-            DrawGuessRound round = runtime.currentRound;
-            if (round == null || !round.getId().equals(roundId)
-                    || !round.getDrawerUserId().equals(userId)) {
-                throw forbidden("只有当前画手可以保存这张作品");
+            DrawGuessRound round = runtime.currentRound != null && runtime.currentRound.getId().equals(roundId)
+                    ? runtime.currentRound : roundMapper.selectById(roundId);
+            boolean activeRound = round != null && round == runtime.currentRound
+                    && "PLAYING".equals(round.getStatus());
+            boolean completedRound = round != null && "FINISHED".equals(round.getStatus());
+            if (round == null || !roomId.equals(round.getRoomId())
+                    || !round.getDrawerUserId().equals(userId) || (!activeRound && !completedRound)) {
+                throw forbidden("只有这回合的画手可以保存作品");
             }
+            if (round.getSnapshotResourceId() != null) throw badRequest("这回合的作品已经保存");
             UploadVO upload = uploadService.uploadImage(userId, file);
             round.setSnapshotResourceId(upload.getResourceId());
             roundMapper.updateById(round);
@@ -596,7 +601,8 @@ public class DrawGuessRoomService {
                 game.turnNumber(), game.totalTurns(), remaining, answerLength,
                 viewerUserId != null && viewerUserId == game.ownerUserId(),
                 viewerUserId != null && drawerUserId != null && viewerUserId.equals(drawerUserId),
-                players, List.copyOf(runtime.strokes), List.copyOf(runtime.messages));
+                players, List.copyOf(runtime.strokes), List.copyOf(runtime.messages),
+                runtime.currentRound == null ? null : runtime.currentRound.getId());
     }
 
     private RuntimeRoom requireRuntime(Long roomId) {
@@ -680,6 +686,7 @@ public class DrawGuessRoomService {
         runtime.entity.setUpdatedAt(LocalDateTime.now());
         sessionRegistry.broadcast(runtime.entity.getId(), event("round_ended",
                 "turnNumber", transition.finishedTurnNumber(),
+                "roundId", runtime.currentRound == null ? null : runtime.currentRound.getId(),
                 "drawerUserId", transition.finishedDrawerUserId(),
                 "answer", transition.revealedAnswer(),
                 "scores", runtime.game.scores(),

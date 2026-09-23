@@ -1,5 +1,6 @@
 -- Additive migration for the isolated draw-and-guess game module.
 -- Safe to run more than once on an existing AI Campus database.
+-- BEGIN draw guess schema
 CREATE TABLE IF NOT EXISTS `draw_game_room` (
   `id` BIGINT NOT NULL AUTO_INCREMENT,
   `room_code` VARCHAR(12) NOT NULL,
@@ -16,7 +17,8 @@ CREATE TABLE IF NOT EXISTS `draw_game_room` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `uk_draw_game_room_code` (`room_code`),
   KEY `idx_draw_game_room_status_created` (`status`, `private_room`, `created_at`),
-  KEY `idx_draw_game_room_owner` (`owner_user_id`)
+  KEY `idx_draw_game_room_owner` (`owner_user_id`),
+  CONSTRAINT `fk_draw_game_room_owner` FOREIGN KEY (`owner_user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='你画我猜房间';
 
 CREATE TABLE IF NOT EXISTS `draw_game_member` (
@@ -34,7 +36,9 @@ CREATE TABLE IF NOT EXISTS `draw_game_member` (
   UNIQUE KEY `uk_draw_game_member_room_user` (`room_id`, `user_id`),
   KEY `idx_draw_game_member_room_seat` (`room_id`, `seat_no`),
   KEY `idx_draw_game_member_recent` (`user_id`, `last_visited_at`),
-  KEY `idx_draw_game_member_active` (`room_id`, `active`)
+  KEY `idx_draw_game_member_active` (`room_id`, `active`),
+  CONSTRAINT `fk_draw_game_member_room` FOREIGN KEY (`room_id`) REFERENCES `draw_game_room` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `fk_draw_game_member_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='你画我猜房间成员';
 
 CREATE TABLE IF NOT EXISTS `draw_game_round` (
@@ -50,7 +54,11 @@ CREATE TABLE IF NOT EXISTS `draw_game_round` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `uk_draw_game_round_turn` (`room_id`, `turn_number`),
   KEY `idx_draw_game_round_gallery` (`status`, `ended_at`),
-  KEY `idx_draw_game_round_drawer` (`drawer_user_id`, `started_at`)
+  KEY `idx_draw_game_round_drawer` (`drawer_user_id`, `started_at`),
+  KEY `idx_draw_game_round_snapshot` (`snapshot_resource_id`),
+  CONSTRAINT `fk_draw_game_round_room` FOREIGN KEY (`room_id`) REFERENCES `draw_game_room` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `fk_draw_game_round_drawer` FOREIGN KEY (`drawer_user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `fk_draw_game_round_snapshot` FOREIGN KEY (`snapshot_resource_id`) REFERENCES `upload_resource` (`id`) ON DELETE SET NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='你画我猜回合与作品';
 
 CREATE TABLE IF NOT EXISTS `draw_game_word` (
@@ -76,3 +84,4 @@ INSERT INTO `draw_game_word` (`word`, `category`, `active`) VALUES
 ('机器人','想象世界',1),('火箭','想象世界',1),('宇航员','想象世界',1),('魔法棒','想象世界',1),
 ('彩虹','自然现象',1),('月亮','自然现象',1),('雪人','自然现象',1),('龙卷风','自然现象',1)
 ON DUPLICATE KEY UPDATE `category` = VALUES(`category`), `active` = VALUES(`active`);
+-- END draw guess schema

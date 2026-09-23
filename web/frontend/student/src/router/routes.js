@@ -57,6 +57,9 @@ export const routes = [
       { path: 'qa/detail/:id', name: 'QaDetail', component: () => import('../views/qa/Detail.vue'), meta: { public: true } },
       // 动态广场
       { path: 'social', name: 'PostSquare', component: () => import('../views/social/PostSquare.vue'), meta: { public: true } },
+      // 实时多人游戏（继续使用校园账号鉴权）
+      { path: 'draw-guess', name: 'DrawGuessLobby', component: () => import('../views/drawGuess/Lobby.vue') },
+      { path: 'draw-guess/room/:roomId', name: 'DrawGuessRoom', component: () => import('../views/drawGuess/Room.vue') },
       // 公告
       { path: 'notice', name: 'NoticeList', component: () => import('../views/notice/List.vue'), meta: { public: true } },
       { path: 'notice/detail/:id', name: 'NoticeDetail', component: () => import('../views/notice/Detail.vue'), meta: { public: true } },

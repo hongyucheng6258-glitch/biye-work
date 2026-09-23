@@ -34,8 +34,12 @@
 
       <div v-if="turnNotice" class="turn-notice" role="status">
         <span>{{ turnNotice }}</span>
-        <button v-if="canSaveCompletedRound" type="button" class="notice-save" :disabled="isRoundSaved(lastCompletedRound.roundId) || savingSnapshot" @click="saveSnapshot(lastCompletedRound.roundId)">
-          {{ isRoundSaved(lastCompletedRound.roundId) ? '作品已保存' : savingSnapshot ? '保存中…' : '保存这张画' }}
+      </div>
+      <div v-if="pendingCompletedArtworks.length" class="completed-artwork-actions" aria-label="已结束回合的待保存作品">
+        <span>本局有 {{ pendingCompletedArtworks.length }} 张画作待保存</span>
+        <button v-for="artwork in pendingCompletedArtworks" :key="artwork.roundId" type="button" class="notice-save"
+          :disabled="savingSnapshot" @click="saveSnapshot(artwork.roundId)">
+          {{ savingSnapshot ? '保存中…' : `保存第 ${artwork.turnNumber} 题的画` }}
         </button>
       </div>
 
@@ -147,6 +151,7 @@ import { createDrawGuessWsTicket, getDrawGuessRoom, leaveDrawGuessRoom, startDra
 import { useUserStore } from '../../store/user'
 import { DrawGuessSocketClient } from '../../features/drawGuess/drawGuessSocket.mjs'
 import { buildDrawMessage, limitStrokePoints, normalizeCanvasPoint } from '../../features/drawGuess/drawGuessProtocol.mjs'
+import { captureCompletedArtwork, dataUrlToBlob } from '../../features/drawGuess/completedArtwork.mjs'
 
 const route = useRoute()
 const router = useRouter()
@@ -162,7 +167,7 @@ const loadError = ref('')
 const socketState = ref('connecting')
 const privateAnswer = ref('')
 const turnNotice = ref('')
-const lastCompletedRound = ref(null)
+const pendingCompletedArtworks = ref([])
 const savedRoundIds = ref(new Set())
 const remainingSeconds = ref(0)
 const composerText = ref('')
@@ -174,7 +179,6 @@ const roomId = computed(() => String(route.params.roomId || ''))
 const myUserId = computed(() => Number(userStore.userInfo?.id || 0))
 const messages = computed(() => room.value?.messages || [])
 const drawerName = computed(() => room.value?.players?.find(player => Number(player.userId) === Number(room.value?.drawerUserId))?.nickname)
-const canSaveCompletedRound = computed(() => lastCompletedRound.value && Number(lastCompletedRound.value.drawerUserId) === myUserId.value)
 const socketLabel = computed(() => ({ connected: '实时已连接', connecting: '正在连接', disconnected: '正在重连', error: '连接中断' })[socketState.value] || '连接中')
 
 let socketClient = null
@@ -192,7 +196,8 @@ async function loadRoom() {
   room.value = null
   privateAnswer.value = ''
   turnNotice.value = ''
-  lastCompletedRound.value = null
+  pendingCompletedArtworks.value = []
+  savedRoundIds.value = new Set()
   loading.value = true
   loadError.value = ''
   try {
@@ -277,7 +282,13 @@ function handleEvent(event) {
       break
     case 'round_ended':
       turnNotice.value = `第 ${event.turnNumber} 题答案：${event.answer}`
-      lastCompletedRound.value = { roundId: event.roundId, drawerUserId: event.drawerUserId }
+      {
+        const artwork = captureCompletedArtwork(event, myUserId.value, canvasRef.value)
+        if (artwork && !isRoundSaved(artwork.roundId)
+            && !pendingCompletedArtworks.value.some(item => String(item.roundId) === String(artwork.roundId))) {
+          pendingCompletedArtworks.value = [...pendingCompletedArtworks.value, { ...artwork, turnNumber: event.turnNumber }]
+        }
+      }
       privateAnswer.value = ''
       break
     case 'room_ended':
@@ -439,11 +450,15 @@ async function saveSnapshot(roundId) {
   if (!canvas) return
   savingSnapshot.value = true
   try {
-    const blob = await new Promise(resolve => canvas.toBlob(resolve, 'image/png'))
+    const preservedArtwork = pendingCompletedArtworks.value.find(item => String(item.roundId) === String(roundId))
+    const blob = preservedArtwork
+      ? dataUrlToBlob(preservedArtwork.imageDataUrl)
+      : await new Promise(resolve => canvas.toBlob(resolve, 'image/png'))
     if (!blob) throw new Error('画作生成失败，请再试一次。')
     const file = new File([blob], `draw-guess-${room.value.id}-${roundId}.png`, { type: 'image/png' })
     await uploadDrawGuessSnapshot(room.value.id, roundId, file)
     savedRoundIds.value = new Set([...savedRoundIds.value, String(roundId)])
+    pendingCompletedArtworks.value = pendingCompletedArtworks.value.filter(item => String(item.roundId) !== String(roundId))
     ElMessage.success('作品已保存到校园画廊。')
   } catch (error) {
     ElMessage.error(error.message || '作品保存失败。')
@@ -509,6 +524,7 @@ onBeforeUnmount(() => {
 .connection-state { display: inline-flex; align-items: center; gap: 7px; flex: none; padding: 7px 10px; border: 1px solid var(--line); border-radius: 999px; background: var(--surface); color: var(--ink-3); font-size: 10px; }.connection-state i, .online-count i { width: 6px; height: 6px; border-radius: 50%; background: var(--ink-3); }.state-connected { color: var(--success); border-color: color-mix(in oklab, var(--success) 25%, var(--line)); }.state-connected i { background: var(--success); }.state-error { color: var(--error); }.state-error i { background: var(--error); }.room-error { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 14px 17px; border: 1px solid var(--error); border-radius: 12px; color: var(--error); background: var(--surface); font-size: 12px; }
 .room-status-bar { display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 74px; margin-bottom: 13px; padding: 12px 19px; border: 1px solid var(--line); border-radius: 15px; background: var(--surface); }.round-status { display: flex; align-items: center; gap: 12px; }.round-icon { width: 38px; height: 38px; display: grid; place-items: center; border-radius: 12px; background: var(--brand-soft); color: var(--brand); font-size: 18px; }.round-status b, .round-status small { display: block; }.round-status b { color: var(--ink); font-size: 13px; }.round-status small { margin-top: 2px; color: var(--ink-3); font-size: 10px; }.timer { min-width: 99px; display: flex; align-items: baseline; justify-content: center; gap: 5px; padding: 6px 12px; border: 1px solid var(--accent-line); border-radius: 11px; background: var(--accent-soft); color: var(--accent-ink); }.timer > span { font-size: 16px; }.timer b { font: 750 25px var(--font-mono); line-height: 1; }.timer small { font-size: 10px; }.timer.urgent { border-color: var(--error); background: var(--error-soft); color: var(--error); }.room-invite { display: flex; align-items: center; gap: 10px; color: var(--ink-3); font-size: 10px; }.room-invite b { margin-left: 4px; color: var(--brand-strong); font: 750 14px var(--font-mono); letter-spacing: .08em; }.room-invite button { min-height: 31px; padding: 0 10px; border: 1px solid var(--brand-line); border-radius: 8px; background: var(--brand-soft); color: var(--brand-strong); font: inherit; font-weight: 700; cursor: pointer; }
 .turn-notice { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 13px; padding: 10px 15px; border: 1px solid var(--accent-line); border-radius: 11px; background: var(--accent-soft); color: var(--accent-ink); font-size: 11px; font-weight: 650; }.notice-save { border: 0; background: transparent; color: var(--brand-strong); font: inherit; font-size: 10px; font-weight: 750; cursor: pointer; }
+.completed-artwork-actions { display: flex; align-items: center; flex-wrap: wrap; gap: 8px 15px; margin: -5px 0 13px; padding: 9px 13px; border: 1px solid var(--brand-line); border-radius: 10px; background: var(--brand-soft); color: var(--ink-2); font-size: 10px; }.completed-artwork-actions .notice-save { padding: 2px 0; }.completed-artwork-actions .notice-save:disabled { opacity: .6; cursor: wait; }
 .room-layout { display: grid; grid-template-columns: minmax(0, 1fr) 325px; align-items: start; gap: 14px; }.board-panel, .players-panel, .chat-panel { min-width: 0; overflow: hidden; border: 1px solid var(--line); border-radius: 15px; background: var(--surface); }.board-toolbar { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 11px; min-height: 68px; padding: 11px 15px; border-bottom: 1px solid var(--line); }.drawer-prompt { display: flex; align-items: center; gap: 10px; min-width: 160px; }.prompt-marker { width: 34px; height: 34px; display: grid; place-items: center; flex: none; border-radius: 10px; background: var(--surface-2); color: var(--ink-3); font-size: 17px; }.prompt-marker.active { background: var(--brand-soft); color: var(--brand); }.drawer-prompt b, .drawer-prompt strong, .drawer-prompt small { display: block; }.drawer-prompt b { color: var(--ink-2); font-size: 11px; }.drawer-prompt strong { margin-top: 1px; color: var(--brand-strong); font-size: 16px; letter-spacing: .1em; }.drawer-prompt small { margin-top: 2px; color: var(--ink-3); font-size: 9px; }.drawing-tools, .color-tools, .owner-tools { display: flex; align-items: center; gap: 7px; }.color-tools { gap: 5px; }.color-swatch { width: 19px; height: 19px; padding: 0; border: 2px solid var(--surface); border-radius: 50%; outline: 1px solid var(--line-strong); background: var(--swatch); cursor: pointer; }.color-swatch.selected { outline: 2px solid var(--brand); outline-offset: 2px; }.tool-button { min-height: 30px; padding: 0 8px; border: 1px solid var(--line); border-radius: 8px; background: var(--surface); color: var(--ink-2); font: inherit; font-size: 10px; cursor: pointer; }.tool-button.selected { border-color: var(--brand-line); background: var(--brand-soft); color: var(--brand-strong); }.clear-tool:hover { color: var(--error); border-color: var(--error); }.skip-tool { color: var(--ink-3); }.save-button { min-height: 30px; padding: 0 9px; border: 1px solid var(--brand-line); border-radius: 8px; background: var(--brand-soft); color: var(--brand-strong); font: inherit; font-size: 10px; font-weight: 700; cursor: pointer; }.save-button:disabled, .notice-save:disabled { opacity: .5; cursor: default; }.start-button { min-height: 35px; padding: 0 12px; border: 0; border-radius: 9px; background: var(--brand); color: #fff; font: inherit; font-size: 11px; font-weight: 750; cursor: pointer; }.start-button:disabled { opacity: .55; cursor: not-allowed; }.start-button span { padding-left: 7px; }
 .canvas-frame { position: relative; min-height: 455px; background-color: #fffdf8; background-image: radial-gradient(#e6e4de .65px, transparent .65px); background-size: 19px 19px; touch-action: none; }.draw-canvas { position: relative; z-index: 1; display: block; width: 100%; height: 455px; touch-action: none; outline: 0; }.draw-canvas:focus-visible { outline: 2px solid var(--brand); outline-offset: -3px; }.canvas-locked .draw-canvas { cursor: default; }.canvas-frame:not(.canvas-locked) .draw-canvas { cursor: crosshair; }.canvas-empty-hint { position: absolute; inset: 0; z-index: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 5px; color: #81889c; pointer-events: none; }.canvas-empty-hint > span { display: grid; width: 50px; height: 50px; place-items: center; margin-bottom: 4px; border-radius: 16px; background: #edf1fb; color: #4968ac; font-size: 24px; }.canvas-empty-hint b { color: #596177; font-size: 12px; }.canvas-empty-hint small { color: #858b9a; font-size: 10px; }.finished-hint > span { background: #fff3d7; color: #a37d28; }.board-footer { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 10px 14px; border-top: 1px solid var(--line); color: var(--ink-3); font-size: 9px; }.board-footer > span:first-child { display: inline-flex; align-items: center; gap: 6px; }.board-footer b { color: var(--ink-2); font: 700 10px var(--font-mono); letter-spacing: .08em; }.lock-indicator { width: 6px; height: 6px; border-radius: 50%; background: var(--success); }
 .side-panel { display: flex; flex-direction: column; gap: 13px; }.players-panel { padding: 15px 15px 12px; }.panel-heading { display: flex; align-items: end; justify-content: space-between; gap: 8px; }.panel-heading h2 { margin-top: 3px; color: var(--ink); font-size: 14px; }.panel-heading h2 small { margin-left: 3px; color: var(--ink-3); font-size: 9px; font-weight: 600; }.online-count { display: inline-flex; align-items: center; gap: 5px; color: var(--success); font-size: 9px; }.online-count i { width: 5px; height: 5px; background: var(--success); }.player-list { margin-top: 12px; }.player-row { display: flex; align-items: center; gap: 9px; padding: 8px 0; border-top: 1px solid var(--line); }.rank-number { width: 17px; color: var(--ink-3); font: 600 10px var(--font-mono); text-align: center; }.rank-number.winner { color: var(--gold-strong); }.player-avatar, .message-avatar { display: grid; width: 30px; height: 30px; place-items: center; flex: none; border-radius: 10px; background: var(--brand-soft); color: var(--brand-strong); font-size: 11px; font-weight: 750; }.avatar-tone-1 { background: var(--sage); color: var(--success); }.avatar-tone-2 { background: var(--accent-soft); color: var(--accent-ink); }.avatar-tone-3 { background: var(--purple-soft); color: var(--purple); }.player-details { min-width: 0; flex: 1; }.player-details b, .player-details > span { display: flex; align-items: center; gap: 5px; overflow: hidden; color: var(--ink-2); font-size: 10px; text-overflow: ellipsis; white-space: nowrap; }.player-details b { color: var(--ink); font-size: 11px; }.player-details b small { padding: 1px 5px; border-radius: 999px; background: var(--brand-soft); color: var(--brand-strong); font-size: 8px; font-weight: 700; }.player-details > span { margin-top: 2px; color: var(--ink-3); font-size: 9px; }.player-details > span i { width: 5px; height: 5px; border-radius: 50%; background: var(--line-strong); }.player-details > span i.online { background: var(--success); }.player-score { color: var(--brand-strong); font: 750 14px var(--font-mono); }.player-score small { margin-left: 2px; color: var(--ink-3); font: 500 8px var(--font-sans); }.waiting-note { margin-top: 7px; padding: 8px 9px; border-radius: 8px; background: var(--brand-soft); color: var(--brand-strong); font-size: 9px; }

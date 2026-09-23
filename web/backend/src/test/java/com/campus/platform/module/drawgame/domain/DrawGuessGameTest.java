@@ -55,6 +55,22 @@ class DrawGuessGameTest {
     }
 
     @Test
+    void rejectsDrawingAndGuessesAtTheTurnDeadline() {
+        DrawGuessGame game = waitingRoom(2);
+        game.start(1L, "图书馆", NOW);
+
+        assertTrue(game.canDraw(1L, NOW.plusSeconds(59)));
+        assertFalse(game.canDraw(1L, NOW.plusSeconds(60)));
+        DrawGuessGame.GuessResult expiredGuess = game.guess(2L, "图书馆", NOW.plusSeconds(60));
+
+        assertFalse(expiredGuess.accepted());
+        assertFalse(expiredGuess.correct());
+        assertEquals(Map.of(1L, 0, 2L, 0), game.scores());
+        assertThrows(IllegalStateException.class,
+                () -> game.skip(1L, NOW.plusSeconds(60), "操场"));
+    }
+
+    @Test
     void allGuessersCorrectSchedulesFiveSecondEarlyAdvance() {
         DrawGuessGame game = waitingRoom(3);
         game.start(1L, "纸飞机", NOW);

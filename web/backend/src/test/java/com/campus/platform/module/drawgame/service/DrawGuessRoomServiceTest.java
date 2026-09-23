@@ -22,6 +22,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.mock.web.MockMultipartFile;
+import org.mockito.ArgumentCaptor;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
@@ -120,6 +121,23 @@ class DrawGuessRoomServiceTest {
         assertEquals(0, afterLeave.playerCount());
         assertFalse(members.get(0).getActive());
         assertThrows(BizException.class, () -> service.getRoom(created.id(), 7L));
+    }
+
+    @Test
+    void recentRoomsIgnoreInactiveMembershipsAndFilterThemBeforeTheLimit() {
+        DrawGuessRoomVO created = service.createRoom(7L, new DrawGuessCreateRoomDTO());
+        DrawGuessMember inactiveMembership = new DrawGuessMember();
+        inactiveMembership.setRoomId(created.id());
+        inactiveMembership.setUserId(7L);
+        inactiveMembership.setActive(false);
+        when(memberMapper.selectList(any(QueryWrapper.class))).thenReturn(List.of(inactiveMembership));
+
+        List<DrawGuessRoomVO> recent = service.recentRooms(7L);
+
+        assertTrue(recent.isEmpty());
+        ArgumentCaptor<QueryWrapper<DrawGuessMember>> query = ArgumentCaptor.forClass(QueryWrapper.class);
+        verify(memberMapper).selectList(query.capture());
+        assertTrue(query.getValue().getSqlSegment().toLowerCase().contains("active"));
     }
 
     @Test

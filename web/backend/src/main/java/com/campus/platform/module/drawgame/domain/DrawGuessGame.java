@@ -117,6 +117,10 @@ public final class DrawGuessGame {
         return status == Status.PLAYING && drawerUserId != null && drawerUserId == userId;
     }
 
+    public boolean canDraw(long userId, Instant now) {
+        return canDraw(userId) && deadline != null && now != null && now.isBefore(deadline);
+    }
+
     /** The secret is deliberately returned only for the active drawer. */
     public String answerFor(long userId) {
         return canDraw(userId) ? answer : null;
@@ -124,6 +128,9 @@ public final class DrawGuessGame {
 
     public GuessResult guess(long userId, String submittedAnswer, Instant now) {
         requirePlaying();
+        if (deadline == null || now == null || !now.isBefore(deadline)) {
+            return new GuessResult(false, false, false, 0);
+        }
         if (!players.containsKey(userId) || canDraw(userId) || guessedUserIds.contains(userId)) {
             return new GuessResult(false, false, false, 0);
         }
@@ -145,6 +152,9 @@ public final class DrawGuessGame {
     public TurnTransition skip(long actorUserId, Instant now, String nextAnswer) {
         requirePlaying();
         if (!canDraw(actorUserId)) throw new IllegalStateException("只有当前画手可以跳过");
+        if (deadline == null || now == null || !now.isBefore(deadline)) {
+            throw new IllegalStateException("作画时间已结束");
+        }
         return finishTurn(now, nextAnswer);
     }
 

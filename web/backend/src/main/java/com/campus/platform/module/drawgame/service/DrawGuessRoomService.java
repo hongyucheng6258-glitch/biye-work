@@ -235,11 +235,13 @@ public class DrawGuessRoomService {
     public List<DrawGuessRoomVO> recentRooms(Long userId) {
         List<DrawGuessMember> recent = memberMapper.selectList(new QueryWrapper<DrawGuessMember>()
                 .eq("user_id", userId)
+                .eq("active", true)
                 .orderByDesc("last_visited_at")
                 .last("LIMIT 10"));
         List<DrawGuessRoomVO> result = new ArrayList<>();
         Set<Long> seen = ConcurrentHashMap.newKeySet();
         for (DrawGuessMember entry : recent) {
+            if (!Boolean.TRUE.equals(entry.getActive())) continue;
             if (!seen.add(entry.getRoomId())) continue;
             RuntimeRoom runtime = liveRooms.get(entry.getRoomId());
             if (runtime == null) continue;
@@ -401,7 +403,7 @@ public class DrawGuessRoomService {
     }
 
     private void draw(RuntimeRoom runtime, Long userId, JsonNode message) {
-        if (!runtime.game.canDraw(userId)) {
+        if (!runtime.game.canDraw(userId, Instant.now())) {
             sessionRegistry.sendToUser(runtime.entity.getId(), userId, event("error", "message", "现在不是你的作画回合"));
             return;
         }
@@ -416,7 +418,7 @@ public class DrawGuessRoomService {
     }
 
     private void clearCanvas(RuntimeRoom runtime, Long userId) {
-        if (!runtime.game.canDraw(userId)) {
+        if (!runtime.game.canDraw(userId, Instant.now())) {
             sessionRegistry.sendToUser(runtime.entity.getId(), userId, event("error", "message", "只有当前画手可以清空画布"));
             return;
         }

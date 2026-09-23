@@ -30,18 +30,22 @@ public class DrawGuessSessionRegistry {
 
     public void register(Long roomId, WebSocketSession session) {
         if (roomId == null || session == null) return;
-        sessionsByRoom.computeIfAbsent(roomId, ignored -> new ConcurrentHashMap<>())
-                .put(session.getId(), session);
+        sessionsByRoom.compute(roomId, (ignored, roomSessions) -> {
+            ConcurrentMap<String, WebSocketSession> target = roomSessions == null
+                    ? new ConcurrentHashMap<>() : roomSessions;
+            target.put(session.getId(), session);
+            return target;
+        });
     }
 
     public void unregister(WebSocketSession session) {
         if (session == null) return;
         Object roomValue = session.getAttributes().get(ROOM_ID_ATTRIBUTE);
         if (!(roomValue instanceof Number roomNumber)) return;
-        ConcurrentMap<String, WebSocketSession> roomSessions = sessionsByRoom.get(roomNumber.longValue());
-        if (roomSessions == null) return;
-        roomSessions.remove(session.getId(), session);
-        if (roomSessions.isEmpty()) sessionsByRoom.remove(roomNumber.longValue(), roomSessions);
+        sessionsByRoom.computeIfPresent(roomNumber.longValue(), (ignored, roomSessions) -> {
+            roomSessions.remove(session.getId(), session);
+            return roomSessions.isEmpty() ? null : roomSessions;
+        });
     }
 
     public void broadcast(Long roomId, Object event) {

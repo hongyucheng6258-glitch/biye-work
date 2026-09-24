@@ -84,3 +84,26 @@ export function renderStoredArtwork(strokes, width, height, pixelRatio, canvasFa
     return null
   }
 }
+
+export function restorePendingArtworks(entries, renderArtwork, excludedRoundIds = []) {
+  if (!Array.isArray(entries) || typeof renderArtwork !== 'function') return []
+  const excluded = new Set([...excludedRoundIds].map(roundId => String(roundId)))
+  const seen = new Set()
+  const restored = []
+
+  for (const entry of entries) {
+    const roundId = entry?.roundId
+    const key = roundId == null ? '' : String(roundId)
+    if (!key || excluded.has(key) || seen.has(key) || !Array.isArray(entry?.strokes) || !entry.strokes.length) continue
+    seen.add(key)
+    try {
+      const imageDataUrl = renderArtwork(entry.strokes)
+      if (typeof imageDataUrl !== 'string' || !imageDataUrl.startsWith('data:image/png;base64,')) continue
+      restored.push({ roundId, turnNumber: entry.turnNumber, imageDataUrl })
+    } catch {
+      // Skip a single bad artwork and keep the rest of the room usable.
+    }
+  }
+
+  return restored
+}

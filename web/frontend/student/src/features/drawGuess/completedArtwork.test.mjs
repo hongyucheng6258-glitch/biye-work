@@ -73,3 +73,29 @@ test('rejects malformed, empty, and unrenderable stored strokes', () => {
   assert.equal(completedArtwork.renderStoredArtwork([{ stroke: { points: [{ x: 0.5, y: 0.5 }] } }], 200, 100, 1,
     () => ({ getContext: () => null })), null)
 })
+
+test('maps only unique pending artworks that are not already saved', () => {
+  const entries = [
+    { roundId: 11, turnNumber: 1, strokes: [{ stroke: { points: [{ x: 0.2, y: 0.3 }] } }] },
+    { roundId: '12', turnNumber: 2, strokes: [{ stroke: { points: [{ x: 0.4, y: 0.6 }] } }] },
+    { roundId: 13, turnNumber: 3, strokes: [{ stroke: { points: [{ x: 0.5, y: 0.5 }] } }] },
+    { roundId: 14, turnNumber: 4, strokes: [] },
+    { roundId: 11, turnNumber: 1, strokes: [{ stroke: { points: [{ x: 0.9, y: 0.9 }] } }] },
+    { roundId: 15, turnNumber: 5, strokes: [{ stroke: { points: [{ x: 0.1, y: 0.1 }] } }] }
+  ]
+  const calls = []
+  const renderArtwork = (...args) => {
+    calls.push(args)
+    return args[0] === entries[0].strokes ? 'data:image/png;base64,AQID'
+      : args[0] === entries[1].strokes ? 'data:image/png;base64,BAUG'
+        : null
+  }
+
+  assert.equal(typeof completedArtwork.restorePendingArtworks, 'function')
+  assert.deepEqual(completedArtwork.restorePendingArtworks(entries, renderArtwork, new Set(['13'])), [
+    { roundId: 11, turnNumber: 1, imageDataUrl: 'data:image/png;base64,AQID' },
+    { roundId: '12', turnNumber: 2, imageDataUrl: 'data:image/png;base64,BAUG' }
+  ])
+  assert.deepEqual(calls.map(call => call[0]), [entries[0].strokes, entries[1].strokes, entries[5].strokes])
+  assert.equal(calls.every(call => call.length === 1), true)
+})

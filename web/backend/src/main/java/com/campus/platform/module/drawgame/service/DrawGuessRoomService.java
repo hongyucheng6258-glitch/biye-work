@@ -333,11 +333,8 @@ public class DrawGuessRoomService {
     }
 
     public List<DrawGuessRecordVO> listRecords() {
-        List<DrawGuessRound> rounds = roundMapper.selectList(new QueryWrapper<DrawGuessRound>()
-                .eq("status", "FINISHED")
-                .isNotNull("snapshot_resource_id")
-                .orderByDesc("ended_at")
-                .last("LIMIT 8"));
+        List<DrawGuessRound> rounds = roundMapper.selectPublicGalleryRounds(8);
+        if (rounds == null || rounds.isEmpty()) return List.of();
         List<DrawGuessRecordVO> records = new ArrayList<>();
         for (DrawGuessRound round : rounds) {
             DrawGuessRoom room = roomMapper.selectById(round.getRoomId());

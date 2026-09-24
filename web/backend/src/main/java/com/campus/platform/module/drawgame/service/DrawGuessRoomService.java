@@ -16,6 +16,7 @@ import com.campus.platform.module.drawgame.mapper.DrawGuessRoomMapper;
 import com.campus.platform.module.drawgame.mapper.DrawGuessRoundMapper;
 import com.campus.platform.module.drawgame.mapper.DrawGuessWordMapper;
 import com.campus.platform.module.drawgame.vo.DrawGuessChatMessageVO;
+import com.campus.platform.module.drawgame.vo.DrawGuessCompletedArtworkVO;
 import com.campus.platform.module.drawgame.vo.DrawGuessPlayerVO;
 import com.campus.platform.module.drawgame.vo.DrawGuessRecordVO;
 import com.campus.platform.module.drawgame.vo.DrawGuessRoomVO;
@@ -30,6 +31,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -600,6 +602,7 @@ public class DrawGuessRoomService {
         int answerLength = privateAnswer == null ? 0 : privateAnswer.codePointCount(0, privateAnswer.length());
         Instant deadline = game.deadline();
         int remaining = deadline == null ? 0 : (int) Math.max(0, Duration.between(Instant.now(), deadline).toSeconds());
+        List<DrawGuessCompletedArtworkVO> pendingArtworks = pendingCompletedArtworks(runtime, viewerUserId);
         return new DrawGuessRoomVO(runtime.entity.getId(), runtime.entity.getRoomCode(), runtime.entity.getTitle(),
                 Boolean.TRUE.equals(runtime.entity.getPrivateRoom()), game.status().name(), game.ownerUserId(),
                 drawerUserId, game.playerCount(), onlineUsers.size(), game.maxPlayers(), game.roundsPerPlayer(),
@@ -607,7 +610,42 @@ public class DrawGuessRoomService {
                 viewerUserId != null && viewerUserId == game.ownerUserId(),
                 viewerUserId != null && drawerUserId != null && viewerUserId.equals(drawerUserId),
                 players, List.copyOf(runtime.strokes), List.copyOf(runtime.messages),
-                runtime.currentRound == null ? null : runtime.currentRound.getId());
+                runtime.currentRound == null ? null : runtime.currentRound.getId(), pendingArtworks);
+    }
+
+    private List<DrawGuessCompletedArtworkVO> pendingCompletedArtworks(RuntimeRoom runtime, Long viewerUserId) {
+        if (viewerUserId == null || (runtime.game.status() != DrawGuessGame.Status.FINISHED
+                && runtime.game.turnNumber() <= 1)) return List.of();
+        Long roomId = runtime.entity.getId();
+        DrawGuessMember viewer = member(roomId, viewerUserId);
+        if (viewer == null || !Boolean.TRUE.equals(viewer.getActive())
+                || !viewerUserId.equals(viewer.getUserId())) return List.of();
+
+        List<DrawGuessRound> rounds = roundMapper.selectList(new QueryWrapper<DrawGuessRound>()
+                .eq("room_id", roomId)
+                .eq("drawer_user_id", viewerUserId)
+                .eq("status", "FINISHED")
+                .isNull("snapshot_resource_id")
+                .isNotNull("drawing_data")
+                .orderByAsc("turn_number"));
+        if (rounds == null || rounds.isEmpty()) return List.of();
+
+        List<DrawGuessCompletedArtworkVO> pending = new ArrayList<>();
+        for (DrawGuessRound round : rounds) {
+            if (!roomId.equals(round.getRoomId()) || !viewerUserId.equals(round.getDrawerUserId())
+                    || !"FINISHED".equals(round.getStatus()) || round.getSnapshotResourceId() != null
+                    || round.getDrawingData() == null) continue;
+            try {
+                List<Map<String, Object>> strokes = STROKE_JSON.readValue(round.getDrawingData(),
+                        new TypeReference<List<Map<String, Object>>>() { });
+                if (strokes != null) {
+                    pending.add(new DrawGuessCompletedArtworkVO(round.getId(), round.getTurnNumber(), strokes));
+                }
+            } catch (JsonProcessingException ignored) {
+                // One invalid payload must not prevent a member from loading the room.
+            }
+        }
+        return List.copyOf(pending);
     }
 
     private RuntimeRoom requireRuntime(Long roomId) {

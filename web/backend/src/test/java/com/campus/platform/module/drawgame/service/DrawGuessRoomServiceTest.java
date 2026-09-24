@@ -212,6 +212,58 @@ class DrawGuessRoomServiceTest {
     }
 
     @Test
+    void reloadedRoomRestoresOnlyTheDrawersUnsavedCompletedArtwork() throws Exception {
+        List<DrawGuessRound> insertedRounds = new ArrayList<>();
+        AtomicLong roundIds = new AtomicLong(899L);
+        AtomicInteger membershipLookups = new AtomicInteger();
+        org.mockito.Mockito.doAnswer(invocation -> membershipLookups.getAndIncrement() == 0
+                ? null : members.get(0)).when(memberMapper).selectOne(any(QueryWrapper.class));
+        when(wordMapper.selectList(any(QueryWrapper.class))).thenReturn(List.of());
+        when(roundMapper.insert(any(DrawGuessRound.class))).thenAnswer(invocation -> {
+            DrawGuessRound round = invocation.getArgument(0);
+            round.setId(roundIds.incrementAndGet());
+            insertedRounds.add(round);
+            return 1;
+        });
+        when(roundMapper.selectList(any(QueryWrapper.class))).thenAnswer(invocation -> insertedRounds.stream()
+                .filter(round -> "FINISHED".equals(round.getStatus())).toList());
+
+        DrawGuessRoomVO created = service.createRoom(7L, new DrawGuessCreateRoomDTO());
+        service.joinRoom(8L, created.roomCode(), null);
+        DrawGuessRoomVO playing = service.startRoom(created.id(), 7L);
+        Long drawerUserId = playing.drawerUserId();
+        Long otherUserId = drawerUserId.equals(7L) ? 8L : 7L;
+        String stroke = "{\"type\":\"draw\",\"points\":[{\"x\":0.25,\"y\":0.5}],"
+                + "\"color\":\"#304d99\",\"width\":4,\"tool\":\"pen\"}";
+        service.handleSocketMessage(created.id(), drawerUserId, new ObjectMapper().readTree(stroke));
+        service.handleSocketMessage(created.id(), drawerUserId, new ObjectMapper().readTree("{\"type\":\"skip\"}"));
+        DrawGuessRound completedRound = insertedRounds.get(0);
+        ObjectMapper json = new ObjectMapper().findAndRegisterModules();
+
+        JsonNode drawerView = json.valueToTree(service.getRoom(created.id(), drawerUserId));
+
+        JsonNode pending = drawerView.path("pendingArtworks");
+        assertTrue(pending.isArray());
+        assertEquals(1, pending.size());
+        assertEquals(completedRound.getId().longValue(), pending.get(0).path("roundId").asLong());
+        assertEquals(1, pending.get(0).path("strokes").size());
+        assertEquals(0.25, pending.get(0).path("strokes").get(0).path("stroke")
+                .path("points").get(0).path("x").asDouble());
+        assertFalse(pending.get(0).has("word"));
+        assertFalse(pending.get(0).has("answer"));
+
+        JsonNode otherView = json.valueToTree(service.getRoom(created.id(), otherUserId));
+        assertEquals(0, otherView.path("pendingArtworks").size());
+
+        completedRound.setSnapshotResourceId(99L);
+        JsonNode savedView = json.valueToTree(service.getRoom(created.id(), drawerUserId));
+        assertEquals(0, savedView.path("pendingArtworks").size());
+        completedRound.setSnapshotResourceId(null);
+        members.get(0).setActive(false);
+        assertThrows(BizException.class, () -> service.getRoom(created.id(), drawerUserId));
+    }
+
+    @Test
     void onlyTheRoundDrawerCanSaveOneSnapshotForThatRound() {
         AtomicInteger membershipLookups = new AtomicInteger();
         org.mockito.Mockito.doAnswer(invocation -> membershipLookups.getAndIncrement() == 0

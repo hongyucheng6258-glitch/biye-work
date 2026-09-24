@@ -1,6 +1,6 @@
 import { createMemoryHistory, createRouter } from 'vue-router'
 
-export const SERVICE_PATHS = Object.freeze({ portal: '/', activity: '/activity', idle: '/idle', partner: '/partner', lost: '/lostfound', qa: '/qa', square: '/social', notice: '/notice', message: '/message', aichat: '/ai/chat', code: '/ai/code', wrong: '/ai/wrong' })
+export const SERVICE_PATHS = Object.freeze({ portal: '/', activity: '/activity', idle: '/idle', partner: '/partner', lost: '/lostfound', qa: '/qa', square: '/social', drawgame: '/draw-guess', notice: '/notice', message: '/message', aichat: '/ai/chat', code: '/ai/code', wrong: '/ai/wrong' })
 
 // Reuse the exact student page components without mounting MainLayout or changing the address bar.
 export function createRoomRouter(records, serviceId, isLoggedIn) {

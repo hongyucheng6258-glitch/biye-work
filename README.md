@@ -18,7 +18,7 @@ AI校园综合服务平台是一套面向高校学生的综合服务系统，覆
 
 ### 3D 校园空间
 
-学生端提供独立的 3D 校园入口：`/campus-3d`。用户可以在梧桐中庭中行走、查看校园导览并进入 11 个服务房间。房间内容直接复用学生端页面和接口，活动报名、闲置交换、失物认领、问答、动态、公告、消息、私信和 AI 学习等操作都会在房间内完成，浏览器地址保持在 3D 校园页面。
+学生端提供独立的 3D 校园入口：`/campus-3d`。用户可以在梧桐中庭中行走、查看校园导览并进入 12 个服务房间。房间内容直接复用学生端页面和接口，活动报名、闲置交换、失物认领、问答、动态、公告、消息、私信、AI 学习和你画我猜等操作都会在房间内完成，浏览器地址保持在 3D 校园页面。
 
 3D 房间支持返回上一级、返回房间、全屏、画质切换、移动取消、加载重试和窄屏布局。进入服务后列表筛选与分页状态会在返回时保留，图片、Markdown、表单和 Element Plus 弹窗使用学生端的原有实现。
 
@@ -35,6 +35,7 @@ AI校园综合服务平台是一套面向高校学生的综合服务系统，覆
 | 互助问答 | 提问、回答、采纳、**AI 参考回答**、我的提问/回答 |
 | 动态广场 | 发布（AI 辅助起草）、详情、评论、点赞 |
 | 社交 | 站内消息、私信实时聊天（含频率限制）、拉黑、举报、**他人主页聚合（发布/动态/评价）** |
+| 游戏 | 你画我猜：2–6 人公开/私密房、实时画板、聊天猜词、服务端计分与计时、作品保存和画廊 |
 | AI 学习 | AI 对话、代码修复、PDF 学习问答、大纲生成、错题本（OCR 拍照录入/智能整理/讲解/同类题生成/复习计划/薄弱点分析） |
 | 用户 | 他人主页（作者名进入 TA 的发布/动态/评价聚合页） |
 
@@ -78,7 +79,7 @@ AI校园综合服务平台是一套面向高校学生的综合服务系统，覆
 ### 后端
 
 - Java 17、Spring Boot 3.2.5、Spring MVC、Spring Validation
-- Spring WebSocket（实时聊天）、Spring Scheduling（活动状态自动同步）
+- Spring WebSocket（私信和你画我猜独立端点）、Spring Scheduling（活动状态自动同步）
 - MyBatis-Plus 3.5.7、MySQL 8、Redis
 - JWT 双重校验（签名 + 角色声明，防学生 Token 访问管理端）
 - MinIO 兼容接口（图片已改为数据库 Base64 存储）
@@ -112,6 +113,7 @@ Ai-campus/
 │   │   │       ├── qa/               #   互助问答、AI 参考回答
 │   │   │       ├── post/             #   动态、评论、点赞
 │   │   │       ├── chat/             #   私信会话、实时聊天
+│   │   │       ├── drawgame/         #   你画我猜房间、回合、实时事件
 │   │   │       ├── message/          #   站内消息
 │   │   │       ├── notice/           #   公告
 │   │   │       ├── report/           #   举报
@@ -154,7 +156,11 @@ migrate_v6_all_uploads_to_db.sql      # 全部上传文件迁移至数据库
 migrate_v7_system_config.sql          # 系统配置表
 2026-08-05-chat-blocker-high-migration.sql   # 上传资源表/聊天拉黑升级
 2026-08-07-ai-content-audit-migration.sql    # 四类 UGC 增加 AI 审核字段
+migrate_v8_draw_guess.sql             # 你画我猜房间、成员、回合和词库
+migrate_v9_draw_guess_artwork.sql   # 你画我猜作品数据列
 ```
+
+`schema.sql` 与 Docker 首次安装脚本 `docker/mysql/02-app-extension.sql` 已包含 v8、v9 所需结构。已有数据库请先后执行 `migrate_v8_draw_guess.sql` 和 `migrate_v9_draw_guess_artwork.sql`；v8 可重复执行，v9 仅在 `drawing_data` 列尚不存在时执行一次。v8 新增四张 `draw_game_` 表，v9 为回合表增加作品数据列。作品图片复用 `upload_resource`，WebSocket 与 API 继续走现有后端端口。房间进行中的状态保存在后端内存中，服务重启会关闭等待/进行中的房间，已保存作品和完赛记录仍保留在数据库中。
 
 > 学习搭子（`study_partner`）、互助问答（`campus_question` / `campus_answer`）等社交模块表由应用启动时自动建表（MyBatis-Plus），或参照 `db` 目录新增迁移脚本同步。
 
@@ -271,7 +277,7 @@ cd web/frontend/admin && npm test
 
 ```powershell
 Copy-Item .env.example .env
-# 按需修改 .env 中的数据库密码和 AI_API_KEY
+# 在 .env 中为 MYSQL_ROOT_PASSWORD、REDIS_PASSWORD、JWT_SECRET 和 SIGNIN_SECRET 设置独立随机值；AI_API_KEY 按需填写
 docker compose up -d --build
 docker compose ps
 ```
@@ -309,83 +315,3 @@ docker compose up -d --build
 ## 部署说明
 
 完整的数据库、Redis、后端、前端部署流程与常见问题排查见 [部署说明.md](部署说明.md)。
-## 2026-09 系统审查修复记录（14 项）
-
-审查书 `SYSTEM_AUDIT_REPAIR_PROMPT_2026-09-21.md` 的 14 项修复全部落地，全量回归通过。
-
-| # | 审查项 | 修复要点 | 验证 |
-|---|---|---|---|
-| 1 | 管理员服务端权限 | 新增 AdminPermissionService（requireActive / requireSuper）；黑名单 key `auth:blacklist:admin:<id>` 与学生端一致；角色变更即撤销令牌；AdminLayout 角色文案 super/audit | 单测 20 项通过 |
-| 2 | 公开读取与登录态个性化 | JwtInterceptor 重写：GET + 白名单匿名放行不设 UserContext；有效学生 token 正常解析；无效 token 公开端点按匿名 / 受保护 401；管理员 token 拒绝 | 单测 18 项通过 |
-| 3 | 管理端导航 / 待办 | 新增 `GET /api/admin/stats/pending-counts`（ai 为待审子集不累加）；goNotice 去掉 /admin 前缀；admin_info JSON 容错 | admin 单测 10 项 + 构建通过 |
-| 4 | Docker 启动与部署配置 | compose 注入 JWT_SECRET / SIGNIN_SECRET；BUILD_VERSION 构建参数；nginx client_max_body_size 64m、SSE proxy_buffering off、SPA fallback；/healthz 就绪检查；version.json | `docker compose config` 校验通过 |
-| 5 | 数据库迁移与同步 | migrate_v7 改 INSERT IGNORE 幂等；SQL SET NAMES utf8mb4；sync-local-db-to-docker.ps1 + docs/db-ops.md；10 个 SQL 严格 UTF-8 字节校验全部通过（schema.sql 非 GBK，控制台乱码为显示层误报） | 字节校验 10/10 OK |
-| 6 | 失物认领并发 | claim @Transactional + 父行 FOR UPDATE 串行化；handleClaim/confirmReturn 条件更新；原子批量驳回 | 单测 9 项通过 |
-| 7 | 动态计数竞争 | PostMapper 原子 `incrLikeCount/incrCommentCount`（GREATEST 非负）；点赞唯一索引幂等 | 单测 5 项通过 |
-| 8 | 两层分页与参数保护 | PaginationInnerInterceptor setMaxLimit(100)；members/claims/answers 内层分页；CommentList 自包含分页；pageNum/pageSize 参数保护 | 单测 32 项通过 |
-| 9 | 图片完整性与显示语义 | 静态兜底转 WebP（7 张平均省 93%，原 PNG 保留）；闲置分类示意图（idle-schematic-*）；@error 防递归兜底；roomScreen 海报 overlay 提示层不遮房间名；纯文字动态不强配图；MAP_SERVICE_IMAGE 合并重复映射 | node 21 项 + 构建通过 |
-| 10 | 动态分享定位 | 新增 `GET /api/post/{id}`（仅审核通过可见）；PostSquare `?post=` 置顶直达、找不到/删除/未过审明确提示、closeShare 保留搜索词不重载列表；评论分页与普通入口一致 | mvn 7 项 + 构建通过 |
-| 11 | AI 流式错误 / 取消 / 会话隔离 | chatStream 区分 SSE/JSON，HTTP 200 + 业务 code（401/403/503 等）进统一错误策略；支持 AbortController + 请求标识隔离迟到响应；校园向导复用 aiGuideAsk 去除裸 fetch；增量渲染触发 Vue 响应式；SSE 分片/CRLF/error/done/断开/取消分别处理并释放 reader | 学生端 55 项测试 + 构建通过 |
-| 12 | 系统配置缓存一致 | SystemConfigHolder.refresh 改为先建快照再整体换引用（杜绝 clear+put 半空缓存）；DB→内置默认→null 回退链 | 单测 4 项通过 |
-| 13 | WebSocket 与扩展能力 | ChatSessionRegistry 每用户上限 5、下线注销、注册时清理关闭会话、推送只发在线会话；ChatRealtimePublisher afterCommit 推送 message/unread/read-receipt | 单测 5 项通过 |
-| 14 | 回归与联调 | 全量回归与验收矩阵见下 | clean 全量 237 项通过 |
-
-### 回归结果（2026-09-21）
-
-| 层 | 命令 | 结果 |
-|---|---|---|
-| 后端 | `cd web/backend && mvn clean test` | 237 项通过，0 失败（60 个 surefire 报告，clean 全量无残留） |
-| 学生端 | `cd web/frontend/student && node --test <全部 .test.mjs>` | 55 项通过 |
-| 学生端构建 | `cd web/frontend/student && npm run build` | 通过 |
-| 管理端构建 | `cd web/frontend/admin && npm run build` | 通过 |
-| Docker 配置 | `docker compose config` | 校验通过（JWT_SECRET/SIGNIN_SECRET/BUILD_VERSION 正确注入）；backend `/healthz` 为进程存活，`/readyz` 同时检查 MySQL/Redis |
-
-### 验收矩阵：已验证 vs 环境阻塞
-
-**已验证（构建 / 单测 / 静态校验）**
-- 14 项修复全部落地；后端 clean 全量 237 项、学生端 55 项、管理端构建通过。
-- Docker：密钥注入、nginx 上传上限 / SSE 缓冲 / SPA fallback、/healthz、构建版本均通过 `docker compose config` 与配置比对验证。
-- 图片资源：7 个 WebP + 4 张分类示意图字节完整，引用全部切换 .webp；原大 PNG 保留未删。
-- 数据库脚本：10 个 SQL 全部严格 UTF-8 合法；migrate_v7 幂等。
-
-**环境阻塞（需真实环境验证，非代码缺陷）**
-- 真实 AI 流式 / 校园向导最小调用：本机无 AI_API_KEY，需在已配置凭据的隔离环境跑通端到端（分片、中断、连续切会话场景由代码与单测覆盖，真实网关需凭据）。
-- `docker compose up` 全链路启动：本机 3306/8080/5173/5174 可能与本地开发服务冲突，未实际起栈；配置已通过 `docker compose config` 校验，建议在 CI 或独立机器首次启动。
-- 端到端浏览器联调（登录→发动态→分享直达→评论分页→3D 房间→私信）：需 MySQL+Redis+后端+前端全栈运行；`tests/browser/` 已覆盖拦截模式脚本。
-
-## 2026-09 第二轮复查修复记录（8 项，REPAIR_REVIEW_2026-09-21.md）
-
-复查报告列出的 8 项必须修复问题全部落地。
-
-| # | 级别 | 问题 | 修复要点 | 验证 |
-|---|---|---|---|---|
-| R1 | P1 | 同步脚本先 DROP 再因 `<` 重定向失败留空库 | 重写脚本：移除 Invoke-Expression/`<`；Start-Process -RedirectStandardInput 字节安全导入；导入前临时库验证备份可恢复；导入失败自动用目标库备份回滚；同实例保护；精确 COUNT(*)+CHECKSUM 校验（不用 information_schema 估算）；--ignore-table 排除环境表；备份目录入 .gitignore | 脚本 AST 语法通过；无 Docker 环境未实跑 |
-| R2 | P1 | 改角色后旧/新令牌全被拒、无法重登 | 黑名单改为「撤销时间 vs 令牌 iat」比较（auth:revoked-at:admin:<id>=epoch millis）；旧令牌 iat≤撤销时间拒绝，重登新令牌 iat 更晚自动放行；不清空 key；JwtUtils 增加 getIssuedAtMillis | 新回归：改角色→旧拒→重登新通→旧仍拒，单测全过 |
-| R3 | P1 | REPEATABLE READ 快照窗口 | claim() 第一条语句即父行 FOR UPDATE；有效认领用 countActiveForUpdate(...FOR UPDATE) 当前读；handleClaim/confirmReturn 统一锁父行 | 单测 9 项；真实双事务并发为环境阻塞 |
-| R4 | P2 | AI 增量不刷新/错误不统一/截断当成功 | 消息对象经数组代理更新触发响应式；onError 复用 responseAction（401 跳登录/503 跳维护页）；EOF 未收到 done 按错误处理 | 学生端 55 项 + 构建通过 |
-| R5 | P1/P2 | Docker 只修一半 | JWT_SECRET/SIGNIN_SECRET/REDIS_PASSWORD 用 compose `:?` 缺省拒启动 + 后端启动校验拒绝公开默认值；Redis requirepass 与健康检查一致；前端 depends_on service_healthy；nginx 静态资源 404 规则 | compose config 校验通过（缺变量即报错） |
-| R6 | P2 | 事务内刷新缓存+缺校验 | refresh 移到 afterCommit；键格式/值类型(int/bool/json)/范围校验；未知键拒绝；内置键禁删 | SystemConfigHolderTest 4 项通过 |
-| R7 | P2 | 回答后分页状态不一致 | 新增回答后 load(1)、采纳后 load(当前页)；标题用 answerTotal 总数 | 学生端构建通过 |
-| R8 | P2 | ws 注册竞争 | register/unregister 全部在 CHM compute/computeIfPresent 临界区内原子完成；注释说明单/多实例能力 | ChatWebSocketTest 5 项通过 |
-
-### 第二轮回归结果（2026-09-21）
-
-| 层 | 结果 |
-|---|---|
-| 后端 `mvn clean test` | 236 项通过，0 失败 0 错误 0 跳过 |
-| 学生端 node 测试 | 55/55 通过 |
-| 学生端生产构建 | 通过 |
-| `docker compose config` | 缺 REDIS_PASSWORD 时按设计报错；补齐必填变量后解析通过 |
-
-### 验收矩阵：已验证 vs 环境阻塞
-
-**已验证**
-- 8 项代码修复全部落地；后端 clean 全量 236 项、学生端 55 项通过；构建通过。
-- 同步脚本 AST 语法校验通过；compose `:?` 缺变量拒绝启动行为实测确认。
-
-**环境阻塞（本机 Docker/MySQL/Redis 不可用）**
-- 同步脚本真实端到端跑通（备份→临时库恢复→导入→CHECKSUM 比对）需可连 Docker MySQL。
-- R3 两个独立真实 DB 事务 + 同步屏障的并发验证（当前读消除快照窗口）需真实 MySQL REPEATABLE READ 环境；单测仅证明调用路径。
-- R8 高并发注册/交错注销的线程级压测；当前单测证明实现已原子化。
-- Docker 实际 `up` 起栈、Redis requirepass 连通、nginx 静态 404 与 readiness 生效。
-- AI 流式真实网关（截断流/401/503）与浏览器端逐段渲染的视觉回归。

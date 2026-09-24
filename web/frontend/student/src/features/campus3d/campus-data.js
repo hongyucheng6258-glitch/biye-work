@@ -19,6 +19,7 @@ const MAP_SERVICE_IMAGE = Object.freeze({
  partner: '/images/generated-study-partner.webp',
  lost: '/images/generated-lost-found.webp',
  social: '/images/generated-social-campus.webp',
+ drawgame: '/images/generated-social-campus.webp',
  notice: '/images/study-banner.jpg',
  ai: '/images/generated-ai-study.webp',
  wrong: '/images/wrong-bg.jpg'
@@ -31,6 +32,7 @@ export const SERVICES = [
  ['lost','service','失物招领','每一份遗失，都有回应','search','A104','寻物 认领 拾物 校园卡'],
  ['qa','social','互助问答','你的问题，总有人懂','help','B101','提问 回答 采纳'],
  ['square','social','动态广场','分享校园里的小美好','chat','B102','帖子 评论 点赞 朋友圈'],
+ ['drawgame','social','你画我猜','用画笔和灵感连起校园同伴','spark','B105','你画我猜 绘画 猜词 游戏 房间'],
  ['notice','social','校园公告','重要消息，不再错过','megaphone','B103','通知 奖学金 教务'],
  ['message','social','消息中心','让每一份联系，及时抵达','bell','B104','私信 通知 聊天 未读'],
  ['aichat','ai','AI 答疑','把不懂，变成恍然大悟','spark','C101','助手 聊天 人工智能 学习'],
@@ -47,6 +49,7 @@ export const ROOM_PROFILES = {
  lost: { type: '物品服务台', prompt: '登记、寻找并认领校园遗失物品', facilities: ['登记台', '定位屏', '招领柜'], accent: '#e0892d', floorTone: '#fbeedd' },
  qa: { type: '讨论空间', prompt: '提出问题，查看同学们的互助回答', facilities: ['问题墙', '回答台', '便签板'], accent: '#0f9d8c', floorTone: '#d7f1ec' },
  square: { type: '校园媒体墙', prompt: '浏览校园动态，分享你的精彩瞬间', facilities: ['图片墙', '动态屏', '互动展示区'], accent: '#22b07d', floorTone: '#dcf6ec' },
+ drawgame: { type: '你画我猜游戏室', prompt: '和校园同伴轮流作画、实时猜词', facilities: ['多人画板', '回合计时屏', '作品墙'], accent: '#4d79d8', floorTone: '#e1ebfb' },
  notice: { type: '信息公告室', prompt: '查看教务、奖学金与校园重要通知', facilities: ['公告栏', '通知屏', '重点灯箱'], accent: '#d39a1e', floorTone: '#faf2dd' },
  message: { type: '校园通信站', prompt: '打开会话列表，处理未读消息', facilities: ['消息终端', '未读灯', '会话屏'], accent: '#1982c4', floorTone: '#dcf0f9' },
  aichat: { type: '智能学习舱', prompt: '向 AI 助手提问，获得学习思路', facilities: ['助手屏', '问题卡', '对话终端'], accent: '#8470cf', floorTone: '#e9e4fc' },

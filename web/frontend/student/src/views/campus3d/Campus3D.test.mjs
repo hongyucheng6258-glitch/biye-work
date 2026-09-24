@@ -8,7 +8,7 @@ const read = (file) => fs.readFileSync(path.join(root, file), 'utf8')
 
 test('campus 3d route is public and points to Campus3D', () => {
   const router = read('src/router/routes.js')
-  assert.match(router, /path:\s*['"]\/?campus-3d['"]/) 
+  assert.match(router, /path:\s*['"]\/?campus-3d['"]/)
   assert.match(router, /Campus3D\.vue/)
   assert.match(router, /campus-3d[\s\S]*public:\s*true/)
 })

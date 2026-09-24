@@ -3,8 +3,8 @@
 
   <div class="profile">
     <!-- 渐变 Banner（对齐原型 profile-banner） -->
-    <div class="profile-banner">
-      <el-avatar :size="96" :src="user?.avatar" class="banner-avatar">{{ user?.nickname?.charAt(0) }}</el-avatar>
+    <section class="profile-banner" aria-label="个人资料">
+      <el-avatar :size="76" :src="user?.avatar" class="banner-avatar">{{ user?.nickname?.charAt(0) }}</el-avatar>
       <div class="banner-info">
         <h3>{{ user?.nickname }}</h3>
         <p class="banner-id">学号 {{ user?.studentNo || '未绑定' }} · {{ user?.phone ? '手机 ' + user?.phone : '未绑定手机' }}</p>
@@ -18,12 +18,28 @@
         <el-button @click="editVisible = true">编辑资料</el-button>
         <el-button @click="pwdVisible = true">修改密码</el-button>
       </div>
-    </div>
+    </section>
 
-    <div class="profile-grid">
-    <!-- 左栏：我的数据 Tab -->
-    <div class="profile-main">
-    <el-card>
+    <section class="profile-summary" aria-label="个人数据概览">
+      <div class="summary-group">
+        <h2>校园活动</h2>
+        <div class="summary-items">
+          <div class="summary-item"><span>我的闲置</span><b>{{ myIdle.length }}</b></div>
+          <div class="summary-item"><span>累计错题</span><b>{{ wrongStatsData.total ?? 0 }}</b></div>
+          <div class="summary-item"><span>AI 会话</span><b>{{ conversationCount }}</b></div>
+        </div>
+      </div>
+      <div class="summary-group">
+        <h2>学习进度</h2>
+        <div class="summary-items">
+          <div class="summary-item"><span>待复习</span><b>{{ wrongStatsData.pending ?? 0 }}</b></div>
+          <div class="summary-item"><span>已掌握</span><b>{{ wrongStatsData.mastered ?? 0 }}</b></div>
+          <div class="summary-item"><span>本周复习</span><b>{{ wrongStatsData.weekReviewCount ?? 0 }}</b></div>
+        </div>
+      </div>
+    </section>
+
+    <el-card class="profile-management">
       <el-tabs v-model="tab">
         <el-tab-pane label="我的闲置" name="idle">
           <el-table :data="myIdle" size="small">
@@ -86,41 +102,31 @@
             <EmptyBox v-else-if="!favLoading" description="还没有收藏内容，去逛逛吧" />
           </div>
         </el-tab-pane>
+        <el-tab-pane label="我的举报" name="report">
+          <div v-loading="reportLoading" style="min-height: 80px">
+            <el-table v-if="myReports.length" :data="myReports" size="small">
+              <el-table-column label="对象" min-width="150">
+                <template #default="{ row }">{{ reportTargetText(row) }}</template>
+              </el-table-column>
+              <el-table-column prop="reason" label="举报说明" min-width="180" show-overflow-tooltip />
+              <el-table-column label="状态" width="100">
+                <template #default="{ row }">
+                  <el-tag size="small" :type="row.status === 1 ? 'success' : 'warning'">{{ row.status === 1 ? '已处理' : '待处理' }}</el-tag>
+                </template>
+              </el-table-column>
+              <el-table-column prop="handleResult" label="处理结果" min-width="180" show-overflow-tooltip />
+              <el-table-column prop="createTime" label="提交时间" width="160">
+                <template #default="{ row }">{{ (row.createTime || '').replace('T', ' ').slice(0, 16) }}</template>
+              </el-table-column>
+            </el-table>
+            <EmptyBox v-else-if="!reportLoading" description="还没有举报记录" />
+          </div>
+        </el-tab-pane>
       </el-tabs>
     </el-card>
-    </div>
-
-    <!-- 右栏：真实数据统计 -->
-    <aside class="profile-rail">
-      <div class="rail-card card">
-        <div class="rail-title">我的数据</div>
-        <div class="rail-stat">
-          <span>我的闲置</span><b>{{ myIdle.length }}</b>
-        </div>
-        <div class="rail-stat">
-          <span>累计错题</span><b>{{ wrongStatsData.total ?? 0 }}</b>
-        </div>
-        <div class="rail-stat">
-          <span>AI 会话</span><b>{{ conversationCount }}</b>
-        </div>
-      </div>
-      <div class="rail-card card">
-        <div class="rail-title">学习进度</div>
-        <div class="rail-stat">
-          <span>待复习</span><b>{{ wrongStatsData.pending ?? 0 }}</b>
-        </div>
-        <div class="rail-stat">
-          <span>已掌握</span><b>{{ wrongStatsData.mastered ?? 0 }}</b>
-        </div>
-        <div class="rail-stat">
-          <span>本周复习</span><b>{{ wrongStatsData.weekReviewCount ?? 0 }}</b>
-        </div>
-      </div>
-    </aside>
-    </div>
 
     <!-- 编辑资料弹窗 -->
-    <el-dialog v-model="editVisible" title="编辑资料" width="440px">
+    <el-dialog v-model="editVisible" title="编辑资料" width="min(440px, calc(100vw - 32px))">
       <el-form :model="editForm" label-width="70px">
         <el-form-item label="昵称"><el-input v-model="editForm.nickname" maxlength="32" /></el-form-item>
         <el-form-item label="头像">
@@ -143,7 +149,7 @@
     </el-dialog>
 
     <!-- 修改密码弹窗 -->
-    <el-dialog v-model="pwdVisible" title="修改密码" width="440px">
+    <el-dialog v-model="pwdVisible" title="修改密码" width="min(440px, calc(100vw - 32px))">
       <el-form :model="pwdForm" label-width="80px">
         <el-form-item label="原密码"><el-input v-model="pwdForm.oldPassword" type="password" show-password /></el-form-item>
         <el-form-item label="新密码"><el-input v-model="pwdForm.newPassword" type="password" show-password /></el-form-item>
@@ -164,16 +170,19 @@ import UploadImg from '../../components/UploadImg.vue'
 import { useUserStore } from '../../store/user'
 import * as userApi from '../../api/user'
 import { myIdle as fetchMyIdle, offlineIdle as apiOfflineIdle, relistIdle as apiRelistIdle } from '../../api/idle'
-import { useRouter } from 'vue-router'
+import { useRouter, useRoute } from 'vue-router'
 import { wrongStats } from '../../api/wrong'
 import { listConversations } from '../../api/chat'
 import { myFavorites, unfavorite } from '../../api/favorite'
+import { myReports as fetchMyReports } from '../../api/report'
 import EmptyBox from '../../components/EmptyBox.vue'
 
 const router = useRouter()
+const route = useRoute()
 const userStore = useUserStore()
 const user = computed(() => userStore.userInfo)
-const tab = ref('idle')
+// 消息中心跳转审核结果时通过 ?tab=idle 定位到"我的闲置"标签
+const tab = ref(['idle', 'signup', 'wrong', 'favorite', 'report'].includes(route.query.tab) ? route.query.tab : 'idle')
 const myIdle = ref([])
 const wrongStatsData = ref({ total: 0, pending: 0, mastered: 0, weekReviewCount: 0 })
 const conversationCount = ref(0)
@@ -185,11 +194,14 @@ const avatarList = ref([])
 const pwdForm = reactive({ oldPassword: '', newPassword: '' })
 const myFavList = ref([])
 const favLoading = ref(false)
+const myReports = ref([])
+const reportLoading = ref(false)
 
 import { watch } from 'vue'
 
 watch(tab, (v) => {
   if (v === 'favorite') loadFavorites()
+  if (v === 'report') loadReports()
 })
 
 async function loadFavorites() {
@@ -208,6 +220,21 @@ async function removeFav(row) {
   loadFavorites()
 }
 
+async function loadReports() {
+  reportLoading.value = true
+  try {
+    const res = await fetchMyReports({ pageNum: 1, pageSize: 50 })
+    myReports.value = res.list || []
+  } finally {
+    reportLoading.value = false
+  }
+}
+
+function reportTargetText(row) {
+  const labels = { post: '动态', idle: '闲置', activity: '活动', lostfound: '失物', user: '用户', comment: '评论' }
+  return `${labels[row.targetType] || row.targetType || '内容'} #${row.targetId ?? '-'}`
+}
+
 onMounted(async () => {
   await userStore.refresh()
   Object.assign(editForm, {
@@ -218,6 +245,7 @@ onMounted(async () => {
   })
   avatarList.value = user.value?.avatar ? [user.value.avatar] : []
   loadMyIdle()
+  if (tab.value === 'report') loadReports()
   try {
     wrongStatsData.value = await wrongStats()
   } catch { /* 未登录等场景静默 */ }
@@ -280,160 +308,105 @@ async function savePassword() {
 
 <style scoped>
 .profile {
+  display: grid;
+  gap: var(--s-4);
   min-width: 0;
 }
 
-/* 渐变 Banner（对齐原型） */
 .profile-banner {
-  display: flex;
+  display: grid;
+  grid-template-columns: 76px minmax(0, 1fr) auto;
   align-items: center;
-  gap: var(--s-6);
-  padding: var(--s-7);
-  border-radius: var(--r-xl);
-  background:
-    linear-gradient(100deg,
-      oklch(38% 0.1 265 / .94) 0%,
-      oklch(44% 0.11 265 / .7) 42%,
-      oklch(55% 0.1 265 / .3) 68%,
-      oklch(62% 0.09 265 / .1) 84%,
-      transparent 96%),
-    url('/images/hero-bg.png') center/cover no-repeat;
+  gap: var(--s-4);
+  padding: 22px 28px;
+  border: 1px solid var(--brand-line);
+  border-radius: var(--r-lg);
   color: #fff;
-  margin-bottom: var(--s-5);
-  position: relative;
+  background:
+    linear-gradient(100deg, oklch(34% 0.12 265 / .94), oklch(42% 0.12 265 / .78) 48%, oklch(42% 0.12 265 / .3)),
+    url('/images/hero-bg.png') center 48% / cover no-repeat;
   overflow: hidden;
 }
-.profile-banner::after {
-  content: "";
-  position: absolute;
-  right: -60px;
-  top: -80px;
-  width: 260px;
-  height: 260px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
-}
+
 .banner-avatar {
-  border: 3px solid rgba(255, 255, 255, 0.35);
+  border: 3px solid rgb(255 255 255 / .55);
   background: linear-gradient(135deg, #fff 0%, var(--accent) 100%);
   color: var(--brand-strong);
-  font-weight: 600;
-  font-size: 2rem;
+  font-weight: 700;
   flex: none;
-  z-index: 1;
 }
-.banner-info {
-  flex: 1;
-  min-width: 0;
-  z-index: 1;
-}
-.banner-info h3 {
-  font-family: var(--font-display);
-  font-size: var(--fs-h1);
-  font-weight: 600;
-  margin: 0 0 6px;
-}
-.banner-id {
-  color: rgba(255, 255, 255, 0.8);
-  font-size: var(--fs-sm);
-  margin-bottom: var(--s-3);
-}
-.banner-tags {
-  display: flex;
-  gap: var(--s-2);
-  flex-wrap: wrap;
-}
+
+.banner-info { min-width: 0; }
+.banner-info h3 { margin: 0 0 6px; font-size: var(--fs-h2); font-weight: 700; }
+.banner-id { margin: 0 0 var(--s-2); color: rgb(255 255 255 / .84); font-size: var(--fs-sm); }
+.banner-tags, .banner-ops { display: flex; align-items: center; gap: var(--s-2); flex-wrap: wrap; }
 .banner-tag {
-  padding: 3px 12px;
+  padding: 3px 10px;
+  border: 1px solid rgb(255 255 255 / .24);
   border-radius: var(--r-pill);
+  background: rgb(255 255 255 / .14);
+  color: #fff;
   font-size: var(--fs-cap);
   font-weight: 600;
-  background: rgba(255, 255, 255, 0.16);
-  color: #fff;
 }
-.banner-ops {
-  display: flex;
-  gap: var(--s-2);
-  z-index: 1;
-}
-.banner-ops :deep(.el-button) {
-  border-radius: var(--r-pill);
-}
+.banner-ops { justify-content: flex-end; }
+.banner-ops :deep(.el-button) { border-radius: var(--r-pill); }
 
-/* 两栏 */
-.profile-grid {
+.profile-summary {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 280px;
-  gap: var(--s-5);
-  align-items: start;
-}
-.profile-main {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   min-width: 0;
-  display: flex;
-  flex-direction: column;
-  gap: var(--s-4);
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  background: var(--surface);
+  overflow: hidden;
 }
-.profile-rail {
-  display: flex;
-  flex-direction: column;
-  gap: var(--s-4);
-  position: sticky;
-  top: var(--s-6);
+.summary-group { min-width: 0; padding: 16px 20px; }
+.summary-group + .summary-group { border-left: 1px solid var(--line); }
+.summary-group h2 { margin: 0 0 var(--s-3); color: var(--ink-2); font-size: var(--fs-xs); font-weight: 700; }
+.summary-items { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.summary-item {
+  display: grid;
+  gap: 4px;
+  min-width: 0;
+  padding: 0 var(--s-3);
+  border-left: 1px solid var(--line);
 }
-.rail-card {
-  padding: var(--s-5);
-}
-.rail-title {
-  font-weight: 700;
-  font-size: var(--fs-sm);
-  margin-bottom: var(--s-3);
-  color: var(--ink);
-}
-.rail-stat {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 9px 0;
-  border-bottom: 1px dashed var(--line);
-  font-size: var(--fs-sm);
-  color: var(--ink-2);
-}
-.rail-stat:last-child {
-  border-bottom: none;
-}
-.rail-stat b {
-  font-family: var(--font-display);
-  font-size: var(--fs-lg);
-  color: var(--brand-strong);
+.summary-item:first-child { padding-left: 0; border-left: 0; }
+.summary-item span { color: var(--ink-3); font-size: var(--fs-xs); }
+.summary-item b { color: var(--brand-strong); font-size: var(--fs-h3); font-variant-numeric: tabular-nums; }
+
+.profile-management { min-width: 0; border-radius: var(--r-lg); }
+.profile-management :deep(.el-card__body) { min-width: 0; padding: 8px 20px 20px; }
+.profile-management :deep(.el-tabs__nav-wrap) { max-width: 100%; }
+.profile-management :deep(.el-tabs__content) { min-width: 0; }
+.profile-management :deep(.el-table) { max-width: 100%; }
+.profile-management :deep(.el-table__inner-wrapper) { min-width: 0; }
+
+@media (max-width: 900px) {
+  .profile-banner { grid-template-columns: 68px minmax(0, 1fr); padding: 18px 20px; }
+  .banner-avatar { width: 68px !important; height: 68px !important; }
+  .banner-ops { grid-column: 2; justify-content: flex-start; }
 }
 
-@media (max-width: 1080px) {
-  .profile-grid {
-    grid-template-columns: 1fr;
-  }
-  .profile-rail {
-    position: static;
-  }
-  .profile-banner {
-    flex-wrap: wrap;
-  }
-}<style scoped>
-.base {
-  display: flex;
-  gap: 16px;
-  align-items: center;
-}
-.base-info {
-  flex: 1;
-}
-.base-info h3 {
-  margin-bottom: 4px;
-}
-.base-info p {
-  font-size: 13px;
-  color: var(--ink-3);
-}
-.bio {
-  margin-top: 4px;
+@media (max-width: 640px) {
+  .profile { gap: var(--s-3); }
+  .profile-banner { grid-template-columns: 56px minmax(0, 1fr); gap: var(--s-3); padding: 16px; }
+  .banner-avatar { width: 56px !important; height: 56px !important; }
+  .banner-info h3 { font-size: var(--fs-h3); }
+  .banner-id { overflow-wrap: anywhere; }
+  .banner-ops { grid-column: 1 / -1; }
+  .profile-summary { grid-template-columns: 1fr; }
+  .summary-group { padding: 14px 16px; }
+  .summary-group + .summary-group { border-top: 1px solid var(--line); border-left: 0; }
+  .summary-items { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: var(--s-3); }
+  .summary-item { padding: 0 8px; }
+  .summary-item:nth-child(2n + 1) { padding-left: 0; border-left: 0; }
+  .summary-item b { font-size: var(--fs-body); }
+  .profile-management :deep(.el-card__body) { padding: 4px 12px 14px; }
+  .profile-management :deep(.el-tabs__nav) { min-width: max-content; white-space: nowrap; }
+  .profile-management :deep(.el-tabs__nav-scroll) { overflow-x: auto; scrollbar-width: none; }
+  .profile-management :deep(.el-tabs__nav-wrap::after) { display: none; }
+  .profile-management :deep(.el-table__body-wrapper) { overflow-x: auto; }
 }
 </style>

@@ -381,6 +381,13 @@ public class ActivityService {
         signin.setActivityId(dto.getActivityId());
         signin.setUserId(userId);
         signinMapper.insert(signin);
+        // 通知发布者：有人已扫码签到
+        User signer = userMapper.selectById(userId);
+        messageService.send(activity.getUserId(), Constants.MSG_INTERACT,
+                "成员已签到",
+                String.format("「%s」已扫码签到你的活动「%s」。",
+                        signer == null ? "有成员" : signer.getNickname(), activity.getTitle()),
+                Constants.BIZ_ACTIVITY, dto.getActivityId());
     }
 
     /** 我的发布 */

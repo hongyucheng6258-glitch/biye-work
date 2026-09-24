@@ -222,6 +222,7 @@ const desktopNav = [
   { to: '/idle', label: '闲置互换' },
   { to: '/lostfound', label: '失物招领' },
   { to: '/social', label: '校园动态' },
+  { to: '/draw-guess', label: '你画我猜' },
   { to: '/ai/chat', label: 'AI 学习', ai: true }
 ]
 
@@ -237,6 +238,7 @@ const navGroups = [
       { to: '/partner', label: '学习搭子', icon: 'spark' },
       { to: '/qa', label: '互助问答', icon: 'chat' },
       { to: '/social', label: '动态广场', icon: 'chat' },
+      { to: '/draw-guess', label: '你画我猜', icon: 'spark' },
       { to: '/notice', label: '校园公告', icon: 'megaphone' },
       { to: '/message', label: '消息中心', icon: 'bell' },
       { to: '/chat', label: '私信会话', icon: 'chat' }
@@ -267,6 +269,7 @@ const PAGE_TITLES = {
   '/qa': '互助问答',
   '/qa/publish': '发布提问',
   '/social': '动态广场',
+  '/draw-guess': '你画我猜',
   '/notice': '校园公告',
   '/message': '消息中心',
   '/chat': '私信',

@@ -1,62 +1,47 @@
 <template>
-  <div class="register-page">
-    <!-- 左：V2 故事区（校园蓝 + 校园摄影） -->
-    <div class="auth-story">
-      <div class="auth-brand">
-        <span class="brand-symbol" v-html="BRAND_MARK"></span>
-        <span><b>梧桐校园</b><small>Campus AI</small></span>
-      </div>
-      <div class="auth-story-copy">
-        <p class="hello">你好呀，新同学。</p>
-        <h2>从今天起，<br>校园生活有更多可能。</h2>
-        <p class="auth-story-more">报名喜欢的活动、交换闲置好物、<br>和 AI 一起整理错题。</p>
-      </div>
-      <div class="auth-photo">
-        <img src="/images/campus-v2.webp" alt="阳光下的大学校园" />
-        <span class="auth-photo-note">秋日校园 · 2026</span>
-        <span class="auth-photo-caption">梧桐树下，认识新朋友</span>
-      </div>
-    </div>
+  <AuthCampusShell compact-text="你好呀，新同学。">
+    <template #story>
+      <p class="hello">你好呀，新同学。</p>
+      <h2>从今天起，<br>校园生活有更多可能。</h2>
+      <p class="auth-story-more">报名喜欢的活动、交换闲置好物、<br>和 AI 一起整理错题。</p>
+    </template>
 
-    <!-- 右：注册表单 -->
-    <div class="register-form-wrap">
-      <div class="register-card">
-        <div class="auth-form-head">
-          <p>欢迎加入</p>
-          <h1>注册梧桐校园</h1>
-          <span class="muted">填写学号与昵称即可注册（毕设演示不做真认证）</span>
-        </div>
-        <el-form ref="formRef" :model="form" :rules="rules" size="large" @keyup.enter="submit">
-          <el-form-item prop="studentNo">
-            <el-input v-model="form.studentNo" placeholder="学号（6-20位数字）" :prefix-icon="User" />
-          </el-form-item>
-          <el-form-item prop="nickname">
-            <el-input v-model="form.nickname" placeholder="昵称" :prefix-icon="Avatar" />
-          </el-form-item>
-          <el-form-item prop="password">
-            <el-input v-model="form.password" type="password" placeholder="密码（6-32位）" show-password :prefix-icon="Lock" />
-          </el-form-item>
-          <el-form-item prop="confirm">
-            <el-input v-model="form.confirm" type="password" placeholder="确认密码" show-password :prefix-icon="Lock" />
-          </el-form-item>
-          <el-form-item prop="captchaCode">
-            <div class="captcha-row">
-              <el-input v-model="form.captchaCode"
-                        :placeholder="captchaMode === 'math' ? '输入运算结果' : '4位验证码'"
-                        :maxlength="captchaMode === 'math' ? 3 : 4" @keyup.enter="submit" />
-              <img v-if="captchaMode !== 'math'" class="captcha-img" :src="captchaImage"
-                   title="看不清？点击刷新" @click="loadCaptcha" />
-              <div v-else class="captcha-math" title="换一题" @click="loadCaptcha">{{ captchaExpression }}</div>
-            </div>
-          </el-form-item>
-          <el-button type="primary" class="submit" :loading="loading" @click="submit">注 册</el-button>
-        </el-form>
-        <div class="links">
-          已有账号？<router-link to="/login">去登录</router-link>
-        </div>
+    <div class="register-card">
+      <div class="auth-form-head">
+        <p>欢迎加入</p>
+        <h1>注册梧桐校园</h1>
+        <span class="muted">填写学号与昵称即可注册（毕设演示不做真认证）</span>
+      </div>
+      <el-form ref="formRef" :model="form" :rules="rules" size="large" @keyup.enter="submit">
+        <el-form-item prop="studentNo">
+          <el-input v-model="form.studentNo" placeholder="学号（6-20位数字）" :prefix-icon="User" />
+        </el-form-item>
+        <el-form-item prop="nickname">
+          <el-input v-model="form.nickname" placeholder="昵称" :prefix-icon="Avatar" />
+        </el-form-item>
+        <el-form-item prop="password">
+          <el-input v-model="form.password" type="password" placeholder="密码（6-32位）" show-password :prefix-icon="Lock" />
+        </el-form-item>
+        <el-form-item prop="confirm">
+          <el-input v-model="form.confirm" type="password" placeholder="确认密码" show-password :prefix-icon="Lock" />
+        </el-form-item>
+        <el-form-item prop="captchaCode">
+          <div class="captcha-row">
+            <el-input v-model="form.captchaCode"
+                      :placeholder="captchaMode === 'math' ? '输入运算结果' : '4位验证码'"
+                      :maxlength="captchaMode === 'math' ? 3 : 4" @keyup.enter="submit" />
+            <img v-if="captchaMode !== 'math'" class="captcha-img" :src="captchaImage"
+                 title="看不清？点击刷新" @click="loadCaptcha" />
+            <div v-else class="captcha-math" title="换一题" @click="loadCaptcha">{{ captchaExpression }}</div>
+          </div>
+        </el-form-item>
+        <el-button type="primary" class="submit" :loading="loading" @click="submit">注 册</el-button>
+      </el-form>
+      <div class="links">
+        已有账号？<router-link to="/login">去登录</router-link>
       </div>
     </div>
-  </div>
+  </AuthCampusShell>
 </template>
 
 <script setup>
@@ -64,6 +49,7 @@ import { reactive, ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { ElMessage } from 'element-plus'
 import { User, Lock, Avatar } from '@element-plus/icons-vue'
+import AuthCampusShell from '../../components/auth/AuthCampusShell.vue'
 import { register, getCaptcha } from '../../api/auth'
 import { useUserStore } from '../../store/user'
 
@@ -97,8 +83,6 @@ const rules = {
   ],
   captchaCode: [{ required: true, message: '请输入验证码', trigger: 'blur' }]
 }
-
-const BRAND_MARK = '<svg viewBox="0 0 40 40" aria-hidden="true"><path d="M4 5h13a3 3 0 0 1 3 3v12H8a4 4 0 0 1-4-4Z"/><path d="M23 4h13v12a4 4 0 0 1-4 4H23Z" opacity=".65"/><path d="M4 23h16v13H8a4 4 0 0 1-4-4Z" opacity=".65"/><path d="M23 23h13v13H23Z" opacity=".3"/></svg>'
 
 async function loadCaptcha() {
   const data = await getCaptcha()
@@ -135,75 +119,6 @@ onMounted(loadCaptcha)
 </script>
 
 <style scoped>
-.register-page {
-  min-height: 100vh;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-}
-
-/* —— 左：故事区（V2 校园蓝） —— */
-.auth-story {
-  position: relative;
-  overflow: hidden;
-  background: linear-gradient(160deg, oklch(34% 0.14 265) 0%, oklch(46% 0.15 268) 100%);
-  color: #fff;
-  display: flex;
-  flex-direction: column;
-  padding: 48px 54px 42px;
-}
-.auth-brand { display: flex; align-items: center; gap: 11px; }
-.auth-brand .brand-symbol { width: 40px; height: 40px; fill: #fff; display: inline-flex; }
-.auth-brand .brand-symbol :deep(svg) { width: 100%; height: 100%; }
-.auth-brand b { font-size: 20px; display: block; letter-spacing: .5px; }
-.auth-brand small { font-size: 9px; color: oklch(95% 0.01 250 / .7); letter-spacing: .12em; text-transform: uppercase; }
-.auth-story-copy { margin-top: 68px; position: relative; z-index: 2; }
-.auth-story-copy .hello { color: oklch(95% 0.01 250 / .8); font-size: 14px; }
-.auth-story-copy h2 {
-  font-size: 38px;
-  line-height: 1.5;
-  font-weight: 700;
-  margin: 16px 0 20px;
-  letter-spacing: -1px;
-}
-.auth-story-more { font-size: 14px; line-height: 1.9; color: oklch(95% 0.01 250 / .75); }
-.auth-photo {
-  margin-top: auto;
-  position: relative;
-  height: 200px;
-  border-radius: 17px;
-  overflow: hidden;
-  box-shadow: 0 16px 38px oklch(15% 0.05 265 / .3);
-}
-.auth-photo > img { width: 100%; height: 100%; object-fit: cover; object-position: 55% 45%; }
-.auth-photo-note {
-  position: absolute;
-  top: 13px;
-  right: 13px;
-  border: 1px solid oklch(100% 0 0 / .5);
-  background: oklch(100% 0 0 / .82);
-  backdrop-filter: blur(5px);
-  color: var(--ink-2);
-  border-radius: 50px;
-  padding: 4px 11px;
-  font-size: 10px;
-}
-.auth-photo-caption {
-  position: absolute;
-  left: 16px;
-  bottom: 13px;
-  font-size: 13px;
-  color: #fff;
-  text-shadow: 0 1px 6px oklch(10% 0.05 265 / .45);
-  font-weight: 550;
-}
-
-/* —— 右表单区 —— */
-.register-form-wrap {
-  display: grid;
-  place-items: center;
-  padding: var(--s-7);
-  background: var(--paper);
-}
 .register-card { width: 100%; max-width: 400px; }
 .auth-form-head { margin-bottom: 27px; }
 .auth-form-head p { color: var(--ink-3); font-size: 13px; }
@@ -229,13 +144,22 @@ onMounted(loadCaptcha)
   border-radius: var(--r-md);
   cursor: pointer;
   flex-shrink: 0;
-  background: linear-gradient(90deg, var(--brand-soft), var(--surface-3));
+  background:
+    radial-gradient(circle at 12% 24%, rgba(49, 91, 184, .28) 0 1px, transparent 2px),
+    radial-gradient(circle at 27% 76%, rgba(41, 166, 181, .28) 0 1px, transparent 2px),
+    radial-gradient(circle at 77% 23%, rgba(218, 91, 124, .22) 0 1px, transparent 2px),
+    radial-gradient(circle at 91% 69%, rgba(68, 160, 116, .26) 0 1.2px, transparent 2.2px),
+    repeating-linear-gradient(164deg, transparent 0 18px, rgba(49, 91, 184, .055) 18px 19px, transparent 19px 36px),
+    linear-gradient(120deg, #fbfcff 0%, #edf3ff 56%, #f3fbfc 100%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .8);
   color: var(--brand-strong);
   font-weight: 700;
   font-size: 16px;
   letter-spacing: 0.02em;
   user-select: none;
+  transition: border-color .18s ease, box-shadow .18s ease;
 }
+.captcha-math:hover { border-color: var(--brand-line); box-shadow: 0 3px 10px rgba(49, 91, 184, .1), inset 0 1px 0 rgba(255, 255, 255, .8); }
 .submit { width: 100%; height: 44px; margin-top: 8px; border-radius: var(--r-pill); font-weight: 600; }
 .links { margin-top: var(--s-5); text-align: center; font-size: var(--fs-sm); color: var(--ink-3); }
 .links a { color: var(--brand-strong); font-weight: 600; text-decoration: none; }
@@ -250,15 +174,4 @@ onMounted(loadCaptcha)
   --el-button-active-border-color: var(--brand-strong);
 }
 
-@media (max-width: 960px) {
-  .auth-story { padding: 34px 34px 30px; }
-  .auth-story-copy { margin-top: 48px; }
-  .auth-story-copy h2 { font-size: 31px; }
-  .auth-photo { height: 165px; }
-}
-@media (max-width: 820px) {
-  .register-page { grid-template-columns: 1fr; }
-  .auth-story { display: none; }
-  .register-form-wrap { padding: var(--s-5); min-height: 100vh; }
-}
 </style>

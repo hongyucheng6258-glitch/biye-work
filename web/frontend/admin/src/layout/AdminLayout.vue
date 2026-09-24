@@ -10,20 +10,37 @@
         </div>
       </div>
 
-      <template v-for="group in visibleGroups" :key="group.label">
-        <div class="nav-label">{{ group.label }}</div>
-        <router-link
-          v-for="item in group.items"
-          :key="item.to"
-          :to="item.to"
-          class="nav-item"
-          :class="{ active: isActive(item.to) }"
+      <div v-for="(group, groupIndex) in visibleGroups" :key="group.label" class="nav-group">
+        <button
+          type="button"
+          class="nav-label nav-group-toggle"
+          :aria-expanded="expandedGroup === group.label"
+          :aria-controls="`nav-group-items-${groupIndex}`"
+          @click="toggleGroup(group.label)"
         >
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" v-html="ICONS[item.icon]"></svg>
-          <span>{{ item.label }}</span>
-          <em v-if="item.countKey !== undefined" class="nav-count" :class="{ gold: item.gold }">{{ counts[item.countKey] ?? 0 }}</em>
-        </router-link>
-      </template>
+          <span>{{ group.label }}</span>
+          <svg class="nav-group-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" focusable="false">
+            <path d="m7 10 5 5 5-5" />
+          </svg>
+        </button>
+        <div
+          :id="`nav-group-items-${groupIndex}`"
+          class="nav-group-items"
+          :class="{ 'is-collapsed': expandedGroup !== group.label }"
+        >
+          <router-link
+            v-for="item in group.items"
+            :key="item.to"
+            :to="item.to"
+            class="nav-item"
+            :class="{ active: isActive(item.to) }"
+          >
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" v-html="ICONS[item.icon]"></svg>
+            <span>{{ item.label }}</span>
+            <em v-if="item.countKey !== undefined" class="nav-count" :class="{ gold: item.gold }">{{ counts[item.countKey] ?? 0 }}</em>
+          </router-link>
+        </div>
+      </div>
 
       <div class="sidebar-foot">
         <div class="side-user" @click="$router.push('/system/config')">
@@ -69,10 +86,16 @@
 </template>
 
 <script setup>
-import { computed, onMounted, onUnmounted, ref } from 'vue'
+import { computed, onMounted, onUnmounted, ref, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useAdminStore } from '../store/admin'
 import { statsPendingCounts } from '../api/stats'
+import {
+  findNavigationGroup,
+  matchesNavigationPath,
+  syncExpandedGroupForRoute,
+  toggleExpandedGroup
+} from './adminSidebarNavigation.mjs'
 
 const router = useRouter()
 const route = useRoute()
@@ -150,6 +173,17 @@ const visibleGroups = computed(() =>
     .filter((g) => g.items.length > 0)
 )
 
+const activeGroupLabel = computed(() => findNavigationGroup(visibleGroups.value, route.path))
+const expandedGroup = ref(activeGroupLabel.value)
+
+watch(activeGroupLabel, (label, previousLabel) => {
+  expandedGroup.value = syncExpandedGroupForRoute(expandedGroup.value, previousLabel, label)
+}, { immediate: true })
+
+function toggleGroup(label) {
+  expandedGroup.value = toggleExpandedGroup(expandedGroup.value, label)
+}
+
 const roleText = computed(() => {
   const role = adminStore.adminInfo?.role
   // 后端角色定义：super=超级管理员 / audit=审核员（与 AdminSaveDTO 角色约束一致）
@@ -163,11 +197,7 @@ const totalPending = computed(() => {
 })
 
 function isActive(to) {
-  if (to === '/dashboard') return route.path === '/dashboard'
-  // /system(管理员账号) 与 /system/config(系统配置) 是平级菜单：
-  // 前缀匹配会让 /system/config 时 /system 也高亮，这里精确匹配
-  if (to === '/system') return route.path === '/system'
-  return route.path === to || route.path.startsWith(to + '/')
+  return matchesNavigationPath(to, route.path)
 }
 
 function onGlobalSearch() {
@@ -300,12 +330,31 @@ onUnmounted(() => {
   text-transform: uppercase;
 }
 .nav-label {
-  font-size: var(--fs-cap);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  border: 0;
+  border-radius: var(--r-sm);
+  background: transparent;
   color: var(--side-ink-3);
-  letter-spacing: .1em;
+  font-family: inherit;
+  font-size: var(--fs-sm);
+  line-height: inherit;
+  letter-spacing: normal;
   padding: 14px 10px 5px;
   white-space: nowrap;
+  text-align: left;
+  cursor: pointer;
+  transition: background .18s, color .18s;
 }
+.nav-label:hover { background: var(--side-hover); color: var(--side-ink); }
+.nav-label:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.nav-group { display: flex; flex-direction: column; gap: 2px; }
+.nav-group-items { display: flex; flex-direction: column; gap: 2px; }
+.nav-group-items.is-collapsed { display: none; }
+.nav-group-chevron { width: 14px; height: 14px; flex: none; transition: transform .18s ease; }
+.nav-group-toggle[aria-expanded="true"] .nav-group-chevron { transform: rotate(180deg); }
 .nav-item {
   display: flex;
   align-items: center;
@@ -444,6 +493,8 @@ onUnmounted(() => {
   .admin-shell { grid-template-columns: 64px 1fr; }
   .sidebar { padding: 16px 10px; }
   .brand-name, .brand-sub, .nav-label, .nav-item span, .nav-count, .side-user-meta { display: none; }
+  .nav-group, .nav-group-items { display: contents; }
+  .nav-group-items.is-collapsed { display: contents; }
   .nav-item { justify-content: center; padding: 11px 0; }
   .nav-item.active::before { left: -10px; }
   .brand { justify-content: center; padding: 6px 0; }
@@ -454,5 +505,8 @@ onUnmounted(() => {
   .content { padding: var(--s-4); }
   .topbar { padding: 0 var(--s-4); }
   .topbar-search { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .nav-group-chevron { transition: none; }
 }
 </style>

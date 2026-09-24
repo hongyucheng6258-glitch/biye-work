@@ -6,8 +6,7 @@
 从仓库根目录运行：
 
 ```powershell
-# Playwright 已安装时可通过环境变量指定它的模块目录
-$env:PLAYWRIGHT_PATH = 'E:/work/毕业设计UI原型/.local-browser/node_modules/playwright'
+# 如需指定 Playwright，可设置 PLAYWRIGHT_PATH 指向其模块目录
 node tests/browser/system-interactions.cjs
 node tests/browser/system-all-rooms.cjs
 node tests/browser/system-auth.cjs
@@ -20,3 +19,5 @@ node tests/browser/system-admin.cjs
 - admin：失败不能伪装为空待办、重试恢复数据、图表适应窄屏。
 
 这些检查验证前端交互与请求约定，不替代真实数据库、文件上传、AI 服务、WebSocket 收发及审批并发的联调。
+
+串行 E2E 脚本从本地环境读取 E2E_TEST_PASSWORD；管理端场景还需设置 ADMIN_PASSWORD。这些变量必须与隔离测试库中的账号匹配，请勿提交实际值。

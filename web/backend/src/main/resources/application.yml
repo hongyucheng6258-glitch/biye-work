@@ -22,7 +22,7 @@ spring:
     # 服务端库表已是 utf8mb4，客户端用 UTF-8 即可完整支持中文与 emoji。
     url: jdbc:mysql://${MYSQL_HOST:localhost}:${MYSQL_PORT:3306}/${MYSQL_DB:ai_campus_platform}?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&useSSL=false&allowPublicKeyRetrieval=true
     username: ${MYSQL_USER:root}
-    password: ${MYSQL_PASSWORD:666666}
+    password: ${MYSQL_PASSWORD}
   # ---- Redis（限流计数 / AI配置缓存 / 会话上下文缓存） ----
   data:
     redis:
@@ -76,7 +76,7 @@ minio:
 
 # ---- JWT 鉴权（共享约定：claims={uid,role}，有效期7天） ----
 jwt:
-  secret: ${JWT_SECRET:campus-platform-jwt-secret-key-2024-graduation-project-must-be-long-enough}
+  secret: ${JWT_SECRET}
   expire-days: 7
 
 # ---- AI 网关（DeepSeek OpenAI兼容协议） ----
@@ -88,7 +88,7 @@ jwt:
 # 不要把真实 Key 写入源码或提交到仓库；请通过环境变量或安全配置中心提供。
 ai:
   base-url: ${AI_BASE_URL:https://api.deepseek.com}
-  api-key: ${AI_API_KEY:sk-xxx}          # 占位符：真实Key在 ai_config 表；也可用环境变量兜底
+  api-key: ${AI_API_KEY:}          # 占位符：真实Key在 ai_config 表；也可用环境变量兜底
   model-name: ${AI_MODEL:deepseek-chat}
   temperature: 0.7
   max-tokens: 2048
@@ -98,7 +98,7 @@ ai:
 
 # ---- 活动签到二维码 HMAC 密钥 ----
 signin:
-  secret: ${SIGNIN_SECRET:campus-activity-signin-hmac-secret}
+  secret: ${SIGNIN_SECRET}
 
 # REST CORS 与 WebSocket 握手共用可信 Origin 白名单，生产环境通过 TRUSTED_ORIGINS 逗号分隔覆盖
 security:

@@ -204,6 +204,7 @@ public class AiChatService {
                     throw new BizException(ResultCode.BAD_REQUEST, "请先勾选要生成提纲的错题");
                 }
                 params.put("subject", "选中错题(" + list.size() + "道)");
+                params.put("topic", "选中错题归纳");
                 params.put("question_list", buildOutlineContext(list));
                 return aiGatewayService.chat(userId, Constants.SCENE_OUTLINE,
                         "请根据以下选中的错题归纳高频知识点、容易混淆的概念、需要优先复习的内容、推荐复习顺序与自测问题。", null, params);
@@ -214,6 +215,7 @@ public class AiChatService {
                     throw new BizException(ResultCode.BAD_REQUEST, "错题本为空，请先收录错题");
                 }
                 params.put("subject", "全部错题(" + list.size() + "道)");
+                params.put("topic", "全部错题薄弱点报告");
                 params.put("question_list", buildOutlineContext(list));
                 return aiGatewayService.chat(userId, Constants.SCENE_OUTLINE,
                         "请根据以下全部错题生成学习薄弱点报告：高频知识点、容易混淆的概念、需要优先复习的内容与自测问题。", null, params);
@@ -225,7 +227,10 @@ public class AiChatService {
                 String subjectWithChapter = dto.getSubject()
                         + (StrUtil.isBlank(dto.getChapter()) ? "" : " " + dto.getChapter());
                 params.put("subject", subjectWithChapter);
-                params.put("topic", dto.getTopic());
+                String topic = StrUtil.isBlank(dto.getTopic())
+                        ? "本学科错题归纳"
+                        : dto.getTopic().trim();
+                params.put("topic", topic);
                 if (StrUtil.isBlank(dto.getTopic())) {
                     // 未指定主题：基于该学科错题生成
                     java.util.List<WrongQuestion> list =

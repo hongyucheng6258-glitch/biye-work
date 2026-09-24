@@ -143,13 +143,22 @@ onMounted(() => {
   border-radius: 4px;
   cursor: pointer;
   flex-shrink: 0;
-  background: var(--brand-soft, #eaf6f0);
+  background:
+    radial-gradient(circle at 12% 24%, rgba(22, 112, 83, .24) 0 1px, transparent 2px),
+    radial-gradient(circle at 27% 76%, rgba(41, 166, 181, .25) 0 1px, transparent 2px),
+    radial-gradient(circle at 77% 23%, rgba(218, 91, 124, .2) 0 1px, transparent 2px),
+    radial-gradient(circle at 91% 69%, rgba(68, 160, 116, .25) 0 1.2px, transparent 2.2px),
+    repeating-linear-gradient(164deg, transparent 0 18px, rgba(22, 112, 83, .055) 18px 19px, transparent 19px 36px),
+    linear-gradient(120deg, #fcfffd 0%, #edf7f2 56%, #f3fafb 100%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .85);
   color: var(--brand, #0d5c3f);
   font-weight: 700;
   font-size: 16px;
   letter-spacing: 0.02em;
   user-select: none;
+  transition: border-color .18s ease, box-shadow .18s ease;
 }
+.captcha-math:hover { border-color: var(--brand, #0d5c3f); box-shadow: 0 3px 10px rgba(22, 112, 83, .1), inset 0 1px 0 rgba(255, 255, 255, .85); }
 .login-row {
   display: flex;
   align-items: center;

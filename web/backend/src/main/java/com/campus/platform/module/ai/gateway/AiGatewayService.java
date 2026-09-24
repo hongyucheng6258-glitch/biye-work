@@ -369,7 +369,8 @@ public class AiGatewayService {
             String content = tpl.getContent();
             if (params != null) {
                 for (Map.Entry<String, String> entry : params.entrySet()) {
-                    content = content.replace("{" + entry.getKey() + "}", entry.getValue());
+                    content = content.replace("{" + entry.getKey() + "}",
+                            entry.getValue() == null ? "" : entry.getValue());
                 }
             }
             content = content.replace("{question}", "");

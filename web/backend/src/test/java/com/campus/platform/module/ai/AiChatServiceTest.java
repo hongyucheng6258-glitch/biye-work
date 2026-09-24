@@ -12,6 +12,7 @@ import com.campus.platform.module.ai.entity.WrongQuestion;
 import com.campus.platform.module.ai.entity.PdfDocument;
 import com.campus.platform.module.ai.entity.AiSession;
 import com.campus.platform.module.ai.dto.PdfAskDTO;
+import com.campus.platform.module.ai.dto.OutlineDTO;
 import com.campus.platform.module.ai.dto.QuizDTO;
 
 import com.campus.platform.module.ai.gateway.AiGatewayService;
@@ -161,6 +162,58 @@ class AiChatServiceTest {
         dto.setForce(true);
 
         assertThat(service.quiz(USER_ID, dto)).isEqualTo("新题");
+    }
+
+    @Test
+    @DisplayName("本学科错题提纲未指定主题时应填充安全默认主题")
+    void outline_subjectModeWithoutTopic_shouldUseDefaultTopic() {
+        when(aiGatewayService.isAiConfigured()).thenReturn(true);
+        WrongQuestion wrongQuestion = new WrongQuestion();
+        wrongQuestion.setId(1L);
+        wrongQuestion.setQuestion("二分查找的时间复杂度是什么？");
+        when(wrongQuestionService.listOwnedBySubject(USER_ID, "数据结构"))
+                .thenReturn(List.of(wrongQuestion));
+        when(aiGatewayService.chat(eq(USER_ID), eq(Constants.SCENE_OUTLINE), any(), isNull(), anyMap()))
+                .thenReturn("复习提纲");
+        OutlineDTO dto = new OutlineDTO();
+        dto.setMode(Constants.OUTLINE_MODE_SUBJECT);
+        dto.setSubject("数据结构");
+
+        assertThat(service.outline(USER_ID, dto)).isEqualTo("复习提纲");
+
+        org.mockito.ArgumentCaptor<Map<String, String>> params =
+                org.mockito.ArgumentCaptor.forClass(Map.class);
+        verify(aiGatewayService).chat(eq(USER_ID), eq(Constants.SCENE_OUTLINE), any(), isNull(), params.capture());
+        assertThat(params.getValue()).containsEntry("topic", "本学科错题归纳");
+        assertThat(params.getValue().get("question_list")).contains("二分查找");
+    }
+
+    @Test
+    @DisplayName("选中错题和全部错题提纲都应填充主题参数")
+    void outline_selectedAndAllModes_shouldUseSpecificTopics() {
+        when(aiGatewayService.isAiConfigured()).thenReturn(true);
+        WrongQuestion wrongQuestion = new WrongQuestion();
+        wrongQuestion.setId(1L);
+        wrongQuestion.setQuestion("二分查找的时间复杂度是什么？");
+        when(wrongQuestionService.listOwnedByIds(USER_ID, List.of(1L))).thenReturn(List.of(wrongQuestion));
+        when(wrongQuestionService.listOwnedAll(USER_ID)).thenReturn(List.of(wrongQuestion));
+        when(aiGatewayService.chat(eq(USER_ID), eq(Constants.SCENE_OUTLINE), any(), isNull(), anyMap()))
+                .thenReturn("复习提纲");
+
+        OutlineDTO selected = new OutlineDTO();
+        selected.setMode(Constants.OUTLINE_MODE_SELECTED);
+        selected.setWrongQuestionIds(List.of(1L));
+        service.outline(USER_ID, selected);
+        OutlineDTO all = new OutlineDTO();
+        all.setMode(Constants.OUTLINE_MODE_ALL);
+        service.outline(USER_ID, all);
+
+        org.mockito.ArgumentCaptor<Map<String, String>> params =
+                org.mockito.ArgumentCaptor.forClass(Map.class);
+        verify(aiGatewayService, org.mockito.Mockito.times(2)).chat(
+                eq(USER_ID), eq(Constants.SCENE_OUTLINE), any(), isNull(), params.capture());
+        assertThat(params.getAllValues()).extracting(values -> values.get("topic"))
+                .containsExactly("选中错题归纳", "全部错题薄弱点报告");
     }
 
     // ---------- 第二阶段：AI 智能整理 / 讲解 / 复习计划 ----------

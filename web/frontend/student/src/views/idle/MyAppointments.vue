@@ -68,11 +68,14 @@
 
 <script setup>
 import { onMounted, reactive, ref } from 'vue'
+import { useRoute } from 'vue-router'
 import WtPageHeader from '../../components/wt/WtPageHeader.vue'
 import { ElMessage } from 'element-plus'
 import { myAppointments, handleAppoint, finishAppoint, reviewAppoint } from '../../api/idle'
 
-const role = ref('buyer')
+const route = useRoute()
+// 从消息中心跳转时通过 ?role=buyer/seller 指定初始标签
+const role = ref(route.query.role === 'seller' ? 'seller' : 'buyer')
 const list = ref([])
 const pageNum = ref(1)
 const total = ref(0)

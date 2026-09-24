@@ -11,7 +11,8 @@ import java.util.List;
 @Mapper
 public interface DrawGuessRoundMapper extends BaseMapper<DrawGuessRound> {
     @Select("""
-            SELECT r.*
+            SELECT r.id, r.room_id, r.turn_number, r.drawer_user_id, r.word,
+                   r.snapshot_resource_id, r.ended_at
             FROM draw_game_round r
             INNER JOIN draw_game_room room ON room.id = r.room_id
             WHERE r.status = 'FINISHED'

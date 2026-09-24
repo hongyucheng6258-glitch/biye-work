@@ -25,6 +25,7 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.RETURNS_DEFAULTS;
@@ -43,6 +44,10 @@ class DrawGuessGalleryQueryTest {
         Select select = query.getAnnotation(Select.class);
         assertNotNull(select, "The public gallery filter must run in SQL");
         String sql = String.join(" ", select.value()).replaceAll("\\s+", " ").toLowerCase();
+        String selectedColumns = sql.substring(0, sql.indexOf(" from "));
+        assertFalse(selectedColumns.contains(".*"), "Gallery queries must not load the large drawing_data column");
+        assertFalse(selectedColumns.contains("drawing_data"));
+        assertTrue(selectedColumns.contains("r.id"));
         assertTrue(sql.contains("join draw_game_room room on room.id = r.room_id"));
         assertTrue(sql.contains("room.private_room = 0"));
         assertTrue(sql.contains("r.status = 'finished'"));

@@ -38,7 +38,7 @@ Use the existing leave endpoint for both test participants in the two acceptance
 
 1. **Browser-only storage:** easier to add, but does not survive a different browser, cleared site data, or reconnecting on another device. It also cannot reliably restore a round after leaving the page.
 2. **Keep strokes only in server memory:** survives a tab reload while the process remains alive, but fails after a backend restart and duplicates transient state without improving persistence.
-3. **Persist completed strokes by round (recommended):** supports reload, reconnect, and process restart, with a small additive schema change and ownership-scoped responses.
+3. **Persist completed strokes by round (recommended):** lets the active room restore artwork after a browser reload or WebSocket reconnect, with a small additive schema change and ownership-scoped responses. Restoring room runtime and membership after a backend process restart is outside this change.
 
 ## Safety and compatibility
 

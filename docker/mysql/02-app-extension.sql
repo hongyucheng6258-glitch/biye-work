@@ -122,6 +122,7 @@ CREATE TABLE IF NOT EXISTS `draw_game_round` (
   `drawer_user_id` BIGINT NOT NULL,
   `word` VARCHAR(40) NOT NULL,
   `snapshot_resource_id` BIGINT DEFAULT NULL,
+  `drawing_data` MEDIUMTEXT DEFAULT NULL,
   `status` VARCHAR(16) NOT NULL DEFAULT 'PLAYING',
   `started_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `ended_at` DATETIME DEFAULT NULL,

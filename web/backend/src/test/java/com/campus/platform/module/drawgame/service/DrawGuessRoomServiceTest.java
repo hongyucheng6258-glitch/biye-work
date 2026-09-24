@@ -17,6 +17,7 @@ import com.campus.platform.module.upload.service.UploadService;
 import com.campus.platform.module.upload.vo.UploadVO;
 import com.campus.platform.module.user.entity.User;
 import com.campus.platform.module.user.mapper.UserMapper;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -70,6 +71,7 @@ class DrawGuessRoomServiceTest {
         when(userMapper.selectById(8L)).thenReturn(returningPlayer);
         when(roomMapper.selectCount(any(QueryWrapper.class))).thenReturn(0L);
         when(roomMapper.selectOne(any(QueryWrapper.class))).thenAnswer(invocation -> insertedRoom);
+        when(roundMapper.selectList(any(QueryWrapper.class))).thenReturn(List.of());
         when(roomMapper.insert(any(DrawGuessRoom.class))).thenAnswer(invocation -> {
             insertedRoom = invocation.getArgument(0);
             insertedRoom.setId(88L);
@@ -177,6 +179,36 @@ class DrawGuessRoomServiceTest {
 
         assertEquals(900L, playing.currentRoundId());
         assertTrue(playing.isDrawer());
+    }
+
+    @Test
+    void completedRoundPersistsItsDrawingStrokesBeforeTheNextTurnStarts() throws Exception {
+        List<DrawGuessRound> insertedRounds = new ArrayList<>();
+        AtomicLong roundIds = new AtomicLong(899L);
+        AtomicInteger membershipLookups = new AtomicInteger();
+        org.mockito.Mockito.doAnswer(invocation -> membershipLookups.getAndIncrement() == 0
+                ? null : members.get(0)).when(memberMapper).selectOne(any(QueryWrapper.class));
+        when(wordMapper.selectList(any(QueryWrapper.class))).thenReturn(List.of());
+        when(roundMapper.insert(any(DrawGuessRound.class))).thenAnswer(invocation -> {
+            DrawGuessRound round = invocation.getArgument(0);
+            round.setId(roundIds.incrementAndGet());
+            insertedRounds.add(round);
+            return 1;
+        });
+
+        DrawGuessRoomVO created = service.createRoom(7L, new DrawGuessCreateRoomDTO());
+        service.joinRoom(8L, created.roomCode(), null);
+        DrawGuessRoomVO playing = service.startRoom(created.id(), 7L);
+        String stroke = "{\"type\":\"draw\",\"points\":[{\"x\":0.25,\"y\":0.5}],"
+                + "\"color\":\"#304d99\",\"width\":4,\"tool\":\"pen\"}";
+
+        service.handleSocketMessage(created.id(), playing.drawerUserId(), new ObjectMapper().readTree(stroke));
+        service.handleSocketMessage(created.id(), playing.drawerUserId(), new ObjectMapper().readTree("{\"type\":\"skip\"}"));
+
+        JsonNode savedRound = new ObjectMapper().findAndRegisterModules().valueToTree(insertedRounds.get(0));
+        assertTrue(savedRound.has("drawingData"));
+        assertTrue(savedRound.get("drawingData").asText().contains("\"x\":0.25"));
+        assertTrue(savedRound.get("drawingData").asText().contains("\"y\":0.5"));
     }
 
     @Test

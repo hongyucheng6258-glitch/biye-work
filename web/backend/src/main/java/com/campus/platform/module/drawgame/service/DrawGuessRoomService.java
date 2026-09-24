@@ -29,7 +29,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import jakarta.annotation.PostConstruct;
 import jakarta.annotation.PreDestroy;
@@ -64,6 +66,7 @@ public class DrawGuessRoomService {
     private static final int MAX_STROKES_PER_ROOM = 2400;
     private static final int MAX_CHAT_MESSAGES = 100;
     private static final int MAX_SOCKET_MESSAGES_PER_10_SECONDS = 40;
+    private static final ObjectMapper STROKE_JSON = new ObjectMapper();
 
     private final DrawGuessRoomMapper roomMapper;
     private final DrawGuessMemberMapper memberMapper;
@@ -412,7 +415,7 @@ public class DrawGuessRoomService {
             sessionRegistry.sendToUser(runtime.entity.getId(), userId, event("error", "message", "这一回合笔画太多，请清空画布后继续"));
             return;
         }
-        Map<String, Object> stored = event("userId", userId, "stroke", stroke);
+        Map<String, Object> stored = Map.of("userId", userId, "stroke", stroke);
         runtime.strokes.add(stored);
         sessionRegistry.broadcast(runtime.entity.getId(), event("stroke", "userId", userId, "stroke", stroke));
     }
@@ -676,6 +679,11 @@ public class DrawGuessRoomService {
 
     private void finishCurrentRound(RuntimeRoom runtime) {
         if (runtime.currentRound == null) return;
+        try {
+            runtime.currentRound.setDrawingData(STROKE_JSON.writeValueAsString(runtime.strokes));
+        } catch (JsonProcessingException exception) {
+            throw new IllegalStateException("无法保存本回合画作数据", exception);
+        }
         runtime.currentRound.setStatus("FINISHED");
         runtime.currentRound.setEndedAt(LocalDateTime.now());
         roundMapper.updateById(runtime.currentRound);

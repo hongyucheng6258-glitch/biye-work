@@ -3,6 +3,7 @@ import assert from 'node:assert/strict'
 import {
   findNavigationGroup,
   matchesNavigationPath,
+  syncExpandedGroupForRoute,
   toggleExpandedGroup
 } from './adminSidebarNavigation.mjs'
 
@@ -33,4 +34,9 @@ test('opens a selected group and collapses it when selected again', () => {
   assert.equal(toggleExpandedGroup(null, '内容审核'), '内容审核')
   assert.equal(toggleExpandedGroup('内容审核', '系统'), '系统')
   assert.equal(toggleExpandedGroup('内容审核', '内容审核'), null)
+})
+
+test('opens a new route group without reopening a manually collapsed current group', () => {
+  assert.equal(syncExpandedGroupForRoute(null, '内容审核', '内容审核'), null)
+  assert.equal(syncExpandedGroupForRoute(null, '内容审核', '系统'), '系统')
 })

@@ -12,3 +12,8 @@ export function findNavigationGroup(groups, path) {
 export function toggleExpandedGroup(currentGroup, targetGroup) {
   return currentGroup === targetGroup ? null : targetGroup
 }
+
+export function syncExpandedGroupForRoute(expandedGroup, previousRouteGroup, nextRouteGroup) {
+  if (!nextRouteGroup || nextRouteGroup === previousRouteGroup) return expandedGroup
+  return nextRouteGroup
+}

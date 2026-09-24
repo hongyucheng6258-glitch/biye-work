@@ -339,9 +339,9 @@ onUnmounted(() => {
   background: transparent;
   color: var(--side-ink-3);
   font-family: inherit;
-  font-size: var(--fs-cap);
+  font-size: var(--fs-sm);
   line-height: inherit;
-  letter-spacing: .1em;
+  letter-spacing: normal;
   padding: 14px 10px 5px;
   white-space: nowrap;
   text-align: left;

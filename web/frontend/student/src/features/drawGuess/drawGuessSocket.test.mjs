@@ -91,3 +91,32 @@ test('reconnects with a new ticket and user close cancels further reconnects', a
   await scheduled.at(-1)()
   assert.equal(tickets.length, reconnectCount)
 })
+
+test('invokes browser timer functions with the global receiver', async () => {
+  FakeSocket.instances = []
+  const calls = []
+  const scheduled = []
+  const hostFunction = (name, result) => function (...args) {
+    if (this !== globalThis) throw new TypeError('Illegal invocation')
+    calls.push(name)
+    return typeof result === 'function' ? result(...args) : result
+  }
+  const { client } = makeClient({
+    setTimeoutFn: hostFunction('setTimeout', (callback) => {
+      scheduled.push(callback)
+      return scheduled.length
+    }),
+    clearTimeoutFn: hostFunction('clearTimeout'),
+    setIntervalFn: hostFunction('setInterval', 1),
+    clearIntervalFn: hostFunction('clearInterval')
+  })
+
+  await client.connect()
+  FakeSocket.instances[0].open()
+  FakeSocket.instances[0].disconnect()
+  client.close()
+
+  assert.deepEqual(calls, [
+    'clearTimeout', 'setInterval', 'clearInterval', 'clearTimeout', 'setTimeout', 'clearTimeout'
+  ])
+})

@@ -11,10 +11,10 @@ export class DrawGuessSocketClient {
     this.onState = onState
     this.WebSocketCtor = WebSocketCtor
     this.locationLike = locationLike
-    this.setTimeoutFn = setTimeoutFn
-    this.clearTimeoutFn = clearTimeoutFn
-    this.setIntervalFn = setIntervalFn
-    this.clearIntervalFn = clearIntervalFn
+    this.setTimeoutFn = setTimeoutFn.bind(globalThis)
+    this.clearTimeoutFn = clearTimeoutFn.bind(globalThis)
+    this.setIntervalFn = setIntervalFn.bind(globalThis)
+    this.clearIntervalFn = clearIntervalFn.bind(globalThis)
     this.random = random
     this.socket = null
     this.heartbeat = null

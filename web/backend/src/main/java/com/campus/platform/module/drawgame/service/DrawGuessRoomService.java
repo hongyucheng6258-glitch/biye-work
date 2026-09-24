@@ -16,6 +16,7 @@ import com.campus.platform.module.drawgame.mapper.DrawGuessRoomMapper;
 import com.campus.platform.module.drawgame.mapper.DrawGuessRoundMapper;
 import com.campus.platform.module.drawgame.mapper.DrawGuessWordMapper;
 import com.campus.platform.module.drawgame.vo.DrawGuessChatMessageVO;
+import com.campus.platform.module.drawgame.vo.DrawGuessCompletedArtworkVO;
 import com.campus.platform.module.drawgame.vo.DrawGuessPlayerVO;
 import com.campus.platform.module.drawgame.vo.DrawGuessRecordVO;
 import com.campus.platform.module.drawgame.vo.DrawGuessRoomVO;
@@ -29,7 +30,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import jakarta.annotation.PostConstruct;
 import jakarta.annotation.PreDestroy;
@@ -64,6 +68,7 @@ public class DrawGuessRoomService {
     private static final int MAX_STROKES_PER_ROOM = 2400;
     private static final int MAX_CHAT_MESSAGES = 100;
     private static final int MAX_SOCKET_MESSAGES_PER_10_SECONDS = 40;
+    private static final ObjectMapper STROKE_JSON = new ObjectMapper();
 
     private final DrawGuessRoomMapper roomMapper;
     private final DrawGuessMemberMapper memberMapper;
@@ -282,6 +287,17 @@ public class DrawGuessRoomService {
                 return roomView(runtime, userId);
             }
 
+            if (runtime.game.status() == DrawGuessGame.Status.FINISHED) {
+                // A completed game keeps its roster and owner for the result view; leaving only
+                // marks this membership inactive and must not run waiting-room seat operations.
+                sessionRegistry.closeUserSessions(roomId, userId);
+                member.setActive(false);
+                member.setLastVisitedAt(LocalDateTime.now());
+                memberMapper.updateById(member);
+                broadcastRoomState(runtime);
+                return roomView(runtime, userId);
+            }
+
             if (userId == runtime.game.ownerUserId() && runtime.game.playerCount() > 1) {
                 Long nextOwner = runtime.game.players().stream().map(DrawGuessGame.PlayerView::userId)
                         .filter(id -> !id.equals(userId)).findFirst().orElseThrow();
@@ -328,11 +344,8 @@ public class DrawGuessRoomService {
     }
 
     public List<DrawGuessRecordVO> listRecords() {
-        List<DrawGuessRound> rounds = roundMapper.selectList(new QueryWrapper<DrawGuessRound>()
-                .eq("status", "FINISHED")
-                .isNotNull("snapshot_resource_id")
-                .orderByDesc("ended_at")
-                .last("LIMIT 8"));
+        List<DrawGuessRound> rounds = roundMapper.selectPublicGalleryRounds(8);
+        if (rounds == null || rounds.isEmpty()) return List.of();
         List<DrawGuessRecordVO> records = new ArrayList<>();
         for (DrawGuessRound round : rounds) {
             DrawGuessRoom room = roomMapper.selectById(round.getRoomId());
@@ -412,7 +425,7 @@ public class DrawGuessRoomService {
             sessionRegistry.sendToUser(runtime.entity.getId(), userId, event("error", "message", "这一回合笔画太多，请清空画布后继续"));
             return;
         }
-        Map<String, Object> stored = event("userId", userId, "stroke", stroke);
+        Map<String, Object> stored = Map.of("userId", userId, "stroke", stroke);
         runtime.strokes.add(stored);
         sessionRegistry.broadcast(runtime.entity.getId(), event("stroke", "userId", userId, "stroke", stroke));
     }
@@ -597,6 +610,7 @@ public class DrawGuessRoomService {
         int answerLength = privateAnswer == null ? 0 : privateAnswer.codePointCount(0, privateAnswer.length());
         Instant deadline = game.deadline();
         int remaining = deadline == null ? 0 : (int) Math.max(0, Duration.between(Instant.now(), deadline).toSeconds());
+        List<DrawGuessCompletedArtworkVO> pendingArtworks = pendingCompletedArtworks(runtime, viewerUserId);
         return new DrawGuessRoomVO(runtime.entity.getId(), runtime.entity.getRoomCode(), runtime.entity.getTitle(),
                 Boolean.TRUE.equals(runtime.entity.getPrivateRoom()), game.status().name(), game.ownerUserId(),
                 drawerUserId, game.playerCount(), onlineUsers.size(), game.maxPlayers(), game.roundsPerPlayer(),
@@ -604,7 +618,42 @@ public class DrawGuessRoomService {
                 viewerUserId != null && viewerUserId == game.ownerUserId(),
                 viewerUserId != null && drawerUserId != null && viewerUserId.equals(drawerUserId),
                 players, List.copyOf(runtime.strokes), List.copyOf(runtime.messages),
-                runtime.currentRound == null ? null : runtime.currentRound.getId());
+                runtime.currentRound == null ? null : runtime.currentRound.getId(), pendingArtworks);
+    }
+
+    private List<DrawGuessCompletedArtworkVO> pendingCompletedArtworks(RuntimeRoom runtime, Long viewerUserId) {
+        if (viewerUserId == null || (runtime.game.status() != DrawGuessGame.Status.FINISHED
+                && runtime.game.turnNumber() <= 1)) return List.of();
+        Long roomId = runtime.entity.getId();
+        DrawGuessMember viewer = member(roomId, viewerUserId);
+        if (viewer == null || !Boolean.TRUE.equals(viewer.getActive())
+                || !viewerUserId.equals(viewer.getUserId())) return List.of();
+
+        List<DrawGuessRound> rounds = roundMapper.selectList(new QueryWrapper<DrawGuessRound>()
+                .eq("room_id", roomId)
+                .eq("drawer_user_id", viewerUserId)
+                .eq("status", "FINISHED")
+                .isNull("snapshot_resource_id")
+                .isNotNull("drawing_data")
+                .orderByAsc("turn_number"));
+        if (rounds == null || rounds.isEmpty()) return List.of();
+
+        List<DrawGuessCompletedArtworkVO> pending = new ArrayList<>();
+        for (DrawGuessRound round : rounds) {
+            if (!roomId.equals(round.getRoomId()) || !viewerUserId.equals(round.getDrawerUserId())
+                    || !"FINISHED".equals(round.getStatus()) || round.getSnapshotResourceId() != null
+                    || round.getDrawingData() == null) continue;
+            try {
+                List<Map<String, Object>> strokes = STROKE_JSON.readValue(round.getDrawingData(),
+                        new TypeReference<List<Map<String, Object>>>() { });
+                if (strokes != null) {
+                    pending.add(new DrawGuessCompletedArtworkVO(round.getId(), round.getTurnNumber(), strokes));
+                }
+            } catch (JsonProcessingException ignored) {
+                // One invalid payload must not prevent a member from loading the room.
+            }
+        }
+        return List.copyOf(pending);
     }
 
     private RuntimeRoom requireRuntime(Long roomId) {
@@ -676,6 +725,11 @@ public class DrawGuessRoomService {
 
     private void finishCurrentRound(RuntimeRoom runtime) {
         if (runtime.currentRound == null) return;
+        try {
+            runtime.currentRound.setDrawingData(STROKE_JSON.writeValueAsString(runtime.strokes));
+        } catch (JsonProcessingException exception) {
+            throw new IllegalStateException("无法保存本回合画作数据", exception);
+        }
         runtime.currentRound.setStatus("FINISHED");
         runtime.currentRound.setEndedAt(LocalDateTime.now());
         roundMapper.updateById(runtime.currentRound);

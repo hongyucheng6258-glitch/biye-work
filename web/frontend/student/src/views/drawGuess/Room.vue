@@ -151,7 +151,7 @@ import { createDrawGuessWsTicket, getDrawGuessRoom, leaveDrawGuessRoom, startDra
 import { useUserStore } from '../../store/user'
 import { DrawGuessSocketClient } from '../../features/drawGuess/drawGuessSocket.mjs'
 import { buildDrawMessage, limitStrokePoints, normalizeCanvasPoint } from '../../features/drawGuess/drawGuessProtocol.mjs'
-import { captureCompletedArtwork, dataUrlToBlob } from '../../features/drawGuess/completedArtwork.mjs'
+import { captureCompletedArtwork, dataUrlToBlob, renderStoredArtwork, restorePendingArtworks } from '../../features/drawGuess/completedArtwork.mjs'
 
 const route = useRoute()
 const router = useRouter()
@@ -208,6 +208,14 @@ async function loadRoom() {
     privateAnswer.value = ''
     await nextTick()
     redrawCanvas()
+    const board = canvasRef.value
+    const pixelRatio = Math.max(1, window.devicePixelRatio || 1)
+    pendingCompletedArtworks.value = restorePendingArtworks(
+      data.pendingArtworks,
+      strokes => renderStoredArtwork(strokes, board?.clientWidth, board?.clientHeight, pixelRatio,
+        () => document.createElement('canvas')),
+      savedRoundIds.value
+    )
     attachResizeObserver()
     connectSocket(roomId.value)
   } catch (error) {

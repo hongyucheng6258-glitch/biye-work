@@ -17,6 +17,7 @@ public class DrawGuessRound {
     private Long drawerUserId;
     private String word;
     private Long snapshotResourceId;
+    private String drawingData;
     private String status;
     private LocalDateTime startedAt;
     private LocalDateTime endedAt;

@@ -1,5 +1,6 @@
 const assert = require('node:assert/strict');
 const { test } = require('node:test');
+const os = require('node:os');
 const path = require('node:path');
 const { resolveEndpoints, resolveTestAssetPath } = require('./config.cjs');
 
@@ -28,5 +29,6 @@ test('uses a repository-relative directory for local E2E image fixtures', () => 
 });
 
 test('allows E2E image fixtures to live outside the repository', () => {
-  assert.equal(resolveTestAssetPath('05-校园晚霞.png', { E2E_TEST_ASSET_DIR: 'C:\\e2e-assets' }), path.join('C:\\e2e-assets', '05-校园晚霞.png'));
+  const externalAssetDir = path.resolve(os.tmpdir(), 'e2e-assets');
+  assert.equal(resolveTestAssetPath('05-校园晚霞.png', { E2E_TEST_ASSET_DIR: externalAssetDir }), path.join(externalAssetDir, '05-校园晚霞.png'));
 });

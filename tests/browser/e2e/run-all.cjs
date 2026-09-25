@@ -2,7 +2,6 @@
  * E2E 测试主运行器
  * 按顺序执行所有测试类别，收集结果，生成报告
  */
-const h = require('./helpers.cjs');
 const { getExitCode, resolveOnlyCategories } = require('./run-status.cjs');
 
 let only;
@@ -12,6 +11,7 @@ try {
   console.error(error.message);
   process.exit(2);
 }
+const h = require('./helpers.cjs');
 function shouldRun(category) {
   return !only || only.has(category);
 }

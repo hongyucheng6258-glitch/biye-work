@@ -26,6 +26,7 @@ import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -168,6 +169,22 @@ class AiGatewayServiceTest {
         assertThat(messages.get(3).path("content").asText()).isEqualTo("当前问题");
         verify(chatMemoryService).saveMessage(88L, "user", "当前问题", null);
         verify(chatMemoryService).saveMessage(88L, "assistant", "答案", 22);
+    }
+
+    @Test
+    @DisplayName("提示词参数为 null 时应安全替换为空串")
+    void chat_shouldSafelyReplaceNullPromptParameter() throws Exception {
+        PromptTemplate template = new PromptTemplate();
+        template.setContent("科目：{subject}；主题：{topic}");
+        when(promptTemplateMapper.selectOne(any())).thenReturn(template);
+        Map<String, String> params = new HashMap<>();
+        params.put("subject", "Java");
+        params.put("topic", null);
+
+        gateway.chat(UID, Constants.SCENE_OUTLINE, "生成提纲", null, params);
+
+        JsonNode messages = OBJECT_MAPPER.readTree(requestBody.get()).path("messages");
+        assertThat(messages.get(0).path("content").asText()).isEqualTo("科目：Java；主题：");
     }
 
     @Test

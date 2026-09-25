@@ -20,6 +20,7 @@ import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.json.JSONUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.campus.platform.common.BizException;
 import com.campus.platform.common.Constants;
@@ -218,6 +219,15 @@ public class IdleService {
         if (item.getStatus() != Constants.IDLE_ON_SHELF) {
             throw new BizException(ResultCode.DUPLICATE_OPERATION, "该物品已被预约或交易完成");
         }
+        int claimed = idleItemMapper.update(null, new UpdateWrapper<IdleItem>()
+                .eq("id", itemId)
+                .eq("audit_status", Constants.AUDIT_PASS)
+                .eq("status", Constants.IDLE_ON_SHELF)
+                .set("status", Constants.IDLE_RESERVED));
+        if (claimed != 1) {
+            throw new BizException(ResultCode.DUPLICATE_OPERATION, "该物品已被其他同学预约，请刷新后重试");
+        }
+
         IdleAppointment appointment = new IdleAppointment();
         appointment.setItemId(itemId);
         appointment.setBuyerId(userId);
@@ -225,9 +235,6 @@ public class IdleService {
         appointment.setMessage(dto.getMessage());
         appointment.setStatus(Constants.APPOINT_PENDING);
         appointmentMapper.insert(appointment);
-
-        item.setStatus(Constants.IDLE_RESERVED);
-        idleItemMapper.updateById(item);
 
         User buyer = userMapper.selectById(userId);
         messageService.send(item.getUserId(), Constants.MSG_INTERACT,

@@ -327,8 +327,7 @@ public class IdleService {
         review.setContent(dto.getContent());
         reviewMapper.insert(review);
         messageService.send(toUserId, Constants.MSG_INTERACT, "收到新的互评",
-                String.format("收到互评：%d星 - %s", dto.getScore(),
-                        dto.getContent() == null ? "" : dto.getContent()),
+                "你收到了一条闲置互换评价，快去查看对方的反馈吧。",
                 Constants.BIZ_IDLE, appointment.getItemId());
     }
 

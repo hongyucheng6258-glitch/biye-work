@@ -8,7 +8,7 @@ const path = require('path');
 const os = require('os');
 const fs = require('fs');
 
-const { resolveEndpoints } = require('./config.cjs');
+const { resolveEndpoints, resolveTestAssetPath } = require('./config.cjs');
 const { BACKEND, STUDENT_WEB, ADMIN_WEB } = resolveEndpoints();
 const SHOT_DIR = process.env.E2E_SHOT_DIR || path.join(os.tmpdir(), 'ai-campus-e2e-shots');
 
@@ -184,6 +184,7 @@ module.exports = {
   chromium, launchBrowser, studentLogin, studentLogout,
   apiLoginStudent, apiRegisterStudent, apiLoginAdmin, apiWithToken,
   screenshot, injectStudentAuth, assertApi,
+  testAssetPath: resolveTestAssetPath,
   unwrapPage, unwrapList, messageMatches,
   record, results,
   BACKEND, STUDENT_WEB, ADMIN_WEB, SHOT_DIR,

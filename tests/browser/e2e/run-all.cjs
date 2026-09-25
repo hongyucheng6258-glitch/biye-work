@@ -3,10 +3,15 @@
  * 按顺序执行所有测试类别，收集结果，生成报告
  */
 const h = require('./helpers.cjs');
-const { getExitCode } = require('./run-status.cjs');
+const { getExitCode, resolveOnlyCategories } = require('./run-status.cjs');
 
-const onlyArg = process.argv.find(arg => arg.startsWith('--only='));
-const only = onlyArg ? new Set(onlyArg.slice('--only='.length).split(',').map(v => v.trim()).filter(Boolean)) : null;
+let only;
+try {
+  only = resolveOnlyCategories(process.argv);
+} catch (error) {
+  console.error(error.message);
+  process.exit(2);
+}
 function shouldRun(category) {
   return !only || only.has(category);
 }

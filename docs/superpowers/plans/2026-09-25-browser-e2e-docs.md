@@ -109,9 +109,9 @@ const { BACKEND, STUDENT_WEB, ADMIN_WEB } = resolveEndpoints();
 
 - [x] **Step 4: Verify the endpoint tests pass**
 
-Run: `node --test tests/browser/e2e/config.test.cjs`
+Run: `node --test tests/browser/e2e/config.test.cjs tests/browser/e2e/run-status.test.cjs`
 
-Expected: 2 tests pass.
+Expected: endpoint resolution, fixture path resolution, and category filter/exit behavior tests pass.
 
 - [x] **Step 5: Commit the E2E endpoint configuration**
 
@@ -191,10 +191,15 @@ git commit -m "docs: clarify deployment and browser test workflow"
 **Files:**
 - Create: `tests/browser/e2e/run-status.cjs`
 - Create: `tests/browser/e2e/run-status.test.cjs`
+- Modify: `tests/browser/e2e/config.cjs`
+- Modify: `tests/browser/e2e/config.test.cjs`
+- Modify: `tests/browser/e2e/helpers.cjs`
 - Modify: `tests/browser/e2e/run-all.cjs`
+- Modify: `tests/browser/e2e/test-08-social.cjs`
 - Modify: `tests/browser/e2e/test-03-idle-appoint.cjs`
 - Modify: `tests/browser/e2e/test-05-lostfound.cjs`
 - Modify: `tests/browser/e2e/test-13-chat.cjs`
+- Modify: `tests/browser/e2e/test-14-upload.cjs`
 - Modify: `tests/browser/e2e/test-18-campus3d.cjs`
 - Modify: `tests/browser/README.md`
 
@@ -202,7 +207,7 @@ git commit -m "docs: clarify deployment and browser test workflow"
 
 Run: `node --test tests/browser/e2e/config.test.cjs`
 
-Expected: 2 tests pass.
+Expected: endpoint defaults, overrides, and local fixture path tests pass.
 
 - [x] **Step 2: Launch only the isolated Compose project**
 
@@ -220,6 +225,7 @@ $env:BACKEND_PORT = '18080'
 $env:STUDENT_PORT = '15173'
 $env:ADMIN_PORT = '15174'
 $env:TRUSTED_ORIGINS = 'http://localhost,http://localhost:15173,http://localhost:15174,http://127.0.0.1:15173,http://127.0.0.1:15174'
+$env:E2E_TEST_ASSET_DIR = (Join-Path (Get-Location) '测试素材')
 $env:E2E_BACKEND_URL = 'http://localhost:18080'
 $env:E2E_STUDENT_WEB_URL = 'http://localhost:15173'
 $env:E2E_ADMIN_WEB_URL = 'http://localhost:15174'
@@ -241,7 +247,9 @@ $onlyCoreE2e = '01,02,03,04,05,06,07,08,09,10,11,12,13,14,16,17,18,19,20'
 node tests/browser/e2e/run-all.cjs "--only=$onlyCoreE2e"
 ```
 
-Expected: the runner writes its JSON result to the OS temporary directory and reports each category's actual PASS, FAIL, BLOCK, or UNCOVERED results. FAIL, BLOCK, and category runtime exceptions produce a non-zero exit code. Category 15 is not run.
+Expected: the runner writes its JSON result to the OS temporary directory and reports each category's actual PASS, FAIL, BLOCK, or UNCOVERED results. FAIL, BLOCK, category runtime exceptions, empty filters, and unknown category IDs fail the run. Category 15 is not run.
+
+Observed: the first full isolated run reported 134 PASS, 0 FAIL, 0 BLOCK, and 1 UNCOVERED (the AI configuration fault branch). After review fixes, the affected registration, social image, chat image, upload, and 3D categories reported 40 PASS, 0 FAIL, 0 BLOCK, and 0 UNCOVERED.
 
 - [x] **Step 4: Run the existing API-mocked browser regression scripts**
 
@@ -259,7 +267,7 @@ Expected: each script reports its own assertions; these scripts intercept API re
 
 Observed: interactions, all-rooms, auth, and admin passed. `system-scene-and-fallback.cjs` still fails its existing “离开服务后 3D 场景仍在” assertion (line 116); the same failure was present in the baseline run.
 
-- [ ] **Step 5: Confirm the original stack is unchanged and remove only E2E resources**
+- [x] **Step 5: Confirm the original stack is unchanged and remove only E2E resources**
 
 Capture `docker compose ps` for both project names. Then stop and delete only the isolated E2E project's containers and volumes:
 
@@ -268,6 +276,8 @@ docker compose -p $e2eProject -f docker-compose.yml -f docker-compose.e2e.yml do
 ```
 
 Expected: the `ai-campus` services remain running; only resources prefixed for `ai-campus-e2e` are removed.
+
+Observed: all five original `ai-campus` containers remained up and the isolated project's containers, network, and volumes were removed after each run.
 
 - [ ] **Step 6: Commit and integrate the implementation branch**
 

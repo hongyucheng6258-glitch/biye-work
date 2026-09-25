@@ -1,6 +1,7 @@
 const assert = require('node:assert/strict');
 const { test } = require('node:test');
-const { resolveEndpoints } = require('./config.cjs');
+const path = require('node:path');
+const { resolveEndpoints, resolveTestAssetPath } = require('./config.cjs');
 
 test('uses the existing localhost addresses by default', () => {
   assert.deepEqual(resolveEndpoints({}), {
@@ -20,4 +21,12 @@ test('allows an isolated browser environment to override every address', () => {
     STUDENT_WEB: 'http://localhost:15173',
     ADMIN_WEB: 'http://localhost:15174'
   });
+});
+
+test('uses a repository-relative directory for local E2E image fixtures', () => {
+  assert.equal(resolveTestAssetPath('02-机械键盘.png', {}), path.resolve(__dirname, '../../../测试素材/02-机械键盘.png'));
+});
+
+test('allows E2E image fixtures to live outside the repository', () => {
+  assert.equal(resolveTestAssetPath('05-校园晚霞.png', { E2E_TEST_ASSET_DIR: 'C:\\e2e-assets' }), path.join('C:\\e2e-assets', '05-校园晚霞.png'));
 });

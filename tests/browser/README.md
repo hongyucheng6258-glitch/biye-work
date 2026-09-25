@@ -23,6 +23,8 @@ node tests/browser/system-scene-and-fallback.cjs
 - `admin`：请求失败与空待办的区分、重试、图表窄屏适配。
 - `scene-and-fallback`：3D 场景与异常回退。
 
+已知问题：当前 `system-scene-and-fallback.cjs` 在“离开服务后 3D 场景仍在”断言处失败；其余交互回归脚本可独立执行。
+
 这些检查验证页面交互和请求约定，不替代真实数据库、文件上传、AI 服务、WebSocket 或并发验证。
 
 ## 隔离 Docker 真实 E2E
@@ -34,7 +36,7 @@ node tests/browser/system-scene-and-fallback.cjs
 - Docker Compose v2、Node.js、Playwright 和 Chrome。
 - 本机可用端口：后端 18080、学生端 15173、管理端 15174。若端口被占用，改端口变量时同步改对应的 `E2E_*_URL`。
 - 本地 Playwright 未加入 Node 模块搜索路径时，设置 `PLAYWRIGHT_PATH` 为 Playwright 模块目录；可通过 `PLAYWRIGHT_CHROMIUM_EXECUTABLE` 指定 Chrome/Chromium 可执行文件。
-- E2E 上传类别使用仓库工作区本地测试图片 `测试素材/02-机械键盘.png` 和 `测试素材/03-山地自行车.png`。如果素材不存在，该类别会报告阻塞。
+- E2E 图片流程需要本机测试图片：`测试素材/02-机械键盘.png`、`测试素材/03-山地自行车.png`、`测试素材/05-校园晚霞.png`。默认目录是仓库根目录下的 `测试素材`；图片目录在其他位置时设置 `E2E_TEST_ASSET_DIR`。图片素材未随源码提交；缺少素材会明确报告阻塞。
 
 在 PowerShell 中，从仓库根目录执行以下内容。变量仅存在于当前 PowerShell 进程，不会写入 `.env` 或仓库：
 
@@ -50,6 +52,7 @@ $env:BACKEND_PORT = '18080'
 $env:STUDENT_PORT = '15173'
 $env:ADMIN_PORT = '15174'
 $env:TRUSTED_ORIGINS = 'http://localhost,http://localhost:15173,http://localhost:15174,http://127.0.0.1:15173,http://127.0.0.1:15174'
+$env:E2E_TEST_ASSET_DIR = (Join-Path (Get-Location) '测试素材')
 $env:E2E_BACKEND_URL = 'http://localhost:18080'
 $env:E2E_STUDENT_WEB_URL = 'http://localhost:15173'
 $env:E2E_ADMIN_WEB_URL = 'http://localhost:15174'

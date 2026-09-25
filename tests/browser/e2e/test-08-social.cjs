@@ -17,7 +17,7 @@ async function run(browser, request, ctx) {
 
   // 1. 发布动态（带图，用测试素材）
   // 先上传图片
-  const imgPath = 'E:/work/毕业设计UI原型/Ai-campus/测试素材/05-校园晚霞.png';
+  const imgPath = h.testAssetPath('05-校园晚霞.png');
   const fs = require('fs');
   let imageUrl = '';
   if (fs.existsSync(imgPath)) {
@@ -33,6 +33,8 @@ async function run(browser, request, ctx) {
     } else {
       h.record(C, '上传动态图片', 'FAIL', upBody.message);
     }
+  } else {
+    h.record(C, '上传动态图片', 'BLOCK', '测试图片不存在');
   }
 
   // 2. 发布动态
@@ -43,7 +45,7 @@ async function run(browser, request, ctx) {
   let postId;
   if (postRes.code === 200) {
     postId = postRes.data.id || postRes.data;
-    h.record(C, '发布带图动态', 'PASS', `id=${postId}`);
+    h.record(C, imageUrl ? '发布带图动态' : '发布动态（无测试图片）', 'PASS', `id=${postId}`);
   } else {
     h.record(C, '发布带图动态', 'FAIL', postRes.message);
   }

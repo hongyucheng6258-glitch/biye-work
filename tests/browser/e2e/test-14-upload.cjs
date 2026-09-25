@@ -13,7 +13,7 @@ async function run(browser, request, ctx) {
 
   // 1. 上传合法图片（jpg/png）
   const fs = require('fs');
-  const imgPath = 'E:/work/毕业设计UI原型/Ai-campus/测试素材/02-机械键盘.png';
+  const imgPath = h.testAssetPath('02-机械键盘.png');
   if (fs.existsSync(imgPath)) {
     const buf = fs.readFileSync(imgPath);
     const resp = await request.post(`${h.BACKEND}/api/upload/image`, {
@@ -63,7 +63,7 @@ async function run(browser, request, ctx) {
 
   // 4. 上传资源持久化（刷新后仍可见 - 通过 API 重新获取已上传的图片）
   // 这里验证上传后返回的 URL 可访问
-  const imgPath2 = 'E:/work/毕业设计UI原型/Ai-campus/测试素材/03-山地自行车.png';
+  const imgPath2 = h.testAssetPath('03-山地自行车.png');
   if (fs.existsSync(imgPath2)) {
     const buf2 = fs.readFileSync(imgPath2);
     const up2 = await request.post(`${h.BACKEND}/api/upload/image`, {
@@ -79,7 +79,11 @@ async function run(browser, request, ctx) {
       } else {
         h.record(C, '上传资源持久化可访问', 'FAIL', '返回 URL 为空');
       }
+    } else {
+      h.record(C, '上传资源持久化可访问', 'FAIL', up2Body.message);
     }
+  } else {
+    h.record(C, '上传资源持久化可访问', 'BLOCK', '持久化测试图片不存在');
   }
 
   // UI 截图

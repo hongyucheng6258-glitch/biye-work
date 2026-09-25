@@ -38,7 +38,7 @@ async function run(browser, request, ctx) {
 
     // 3. 发送图片消息
     const fs = require('fs');
-    const imgPath = 'E:/work/毕业设计UI原型/Ai-campus/测试素材/05-校园晚霞.png';
+    const imgPath = h.testAssetPath('05-校园晚霞.png');
     if (fs.existsSync(imgPath)) {
       const buf = fs.readFileSync(imgPath);
       const upResp = await request.post(`${h.BACKEND}/api/upload/image`, {
@@ -60,7 +60,11 @@ async function run(browser, request, ctx) {
         } else {
           h.record(C, '发送图片消息', 'FAIL', imgMsg.message);
         }
+      } else {
+        h.record(C, '发送图片消息', 'FAIL', upBody.message);
       }
+    } else {
+      h.record(C, '发送图片消息', 'BLOCK', '测试图片不存在');
     }
 
     // 4. 对方收到消息

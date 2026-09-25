@@ -8,9 +8,8 @@ const path = require('path');
 const os = require('os');
 const fs = require('fs');
 
-const BACKEND = 'http://localhost:8080';
-const STUDENT_WEB = 'http://localhost:5173';
-const ADMIN_WEB = 'http://localhost:5174';
+const { resolveEndpoints } = require('./config.cjs');
+const { BACKEND, STUDENT_WEB, ADMIN_WEB } = resolveEndpoints();
 const SHOT_DIR = process.env.E2E_SHOT_DIR || path.join(os.tmpdir(), 'ai-campus-e2e-shots');
 
 // 测试账号；管理员密码从本机环境变量读取，不写入仓库。

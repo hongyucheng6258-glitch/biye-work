@@ -63,3 +63,8 @@ overview.md
 **/playwright-report/
 **/.tmp-browser/
 /.local-browser/
+# Generated UI prototype QA screenshots and reports
+/ui-prototype/qa/**/*.png
+/ui-prototype/qa/**/*.json
+/前端UI-原型-HTML版/qa/**/*.png
+/前端UI-原型-HTML版/qa/**/*.json

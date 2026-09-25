@@ -14,7 +14,8 @@ const ADMIN_WEB = 'http://localhost:5174';
 const SHOT_DIR = process.env.E2E_SHOT_DIR || path.join(os.tmpdir(), 'ai-campus-e2e-shots');
 
 // 测试账号；管理员密码从本机环境变量读取，不写入仓库。
-const TEST_PASSWORD = process.env.E2E_TEST_PASSWORD || 'Test@123456';
+const TEST_PASSWORD = process.env.E2E_TEST_PASSWORD;
+if (!TEST_PASSWORD) throw new Error('Set E2E_TEST_PASSWORD to the password used by the seeded browser-test accounts.');
 const TEST_ACCOUNTS = {
   seller: { studentNo: 'E2E_2201', password: TEST_PASSWORD, nickname: 'E2E卖家' },
   buyer:  { studentNo: 'E2E_2202', password: TEST_PASSWORD, nickname: 'E2E买家' },

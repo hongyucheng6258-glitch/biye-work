@@ -37,8 +37,10 @@ async function run(browser, request, ctx) {
   const zoneBtn = page.locator('.map-zone button').first();
   if (await zoneBtn.count() > 0) {
     await zoneBtn.click();
-    await page.waitForTimeout(1000);
-    const openBtn = page.locator('button:has-text("打开服务内容"), button:has-text("打开")').first();
+    const roomPrompt = page.locator('.room-prompt');
+    // SwiftShader can advance the 3D navigation timeline much more slowly than a GPU.
+    await roomPrompt.waitFor({ state: 'visible', timeout: 45000 }).catch(() => {});
+    const openBtn = roomPrompt.getByRole('button', { name: /打开服务内容/ });
     if (await openBtn.count() > 0) {
       h.record(C, '进入房间后内容默认隐藏', 'PASS', '房间提示与手动打开按钮可见');
       await openBtn.click();
@@ -69,13 +71,13 @@ async function run(browser, request, ctx) {
     await fullscreenButton.click();
     await page.waitForTimeout(500);
     const expanded = await page.locator('.campus3d-frame.scene-expanded').count();
-    const exitButton = page.getByRole('button', { name: /退出全屏/ }).first();
+    const exitButton = page.locator('.campus3d-frame .scene-bottomline').getByRole('button', { name: /退出全屏/ });
     if (expanded === 0 || await exitButton.count() === 0) throw new Error('点击后未进入应用全屏状态');
     await exitButton.click();
     await page.waitForTimeout(500);
     h.record(C, '全屏 / 退出全屏操作', await page.locator('.campus3d-frame.scene-expanded').count() === 0 ? 'PASS' : 'FAIL');
   } catch (e) {
-    h.record(C, '全屏 / Esc 操作', 'FAIL', e.message);
+    h.record(C, '全屏 / 退出全屏操作', 'FAIL', e.message);
   }
 
   // 5. 小地图

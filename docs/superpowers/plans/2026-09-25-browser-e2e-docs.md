@@ -15,7 +15,7 @@
 **Files:**
 - No project files changed by workspace creation.
 
-- [ ] **Step 1: Create the feature worktree from the plan commit**
+- [x] **Step 1: Create the feature worktree from the plan commit**
 
 Run from the repository root:
 
@@ -25,7 +25,7 @@ git worktree add .worktrees/browser-e2e-docs -b docs/browser-e2e-docs
 
 Expected: a new branch `docs/browser-e2e-docs` at the current plan commit; existing root working changes remain untouched.
 
-- [ ] **Step 2: Confirm the worktree and ignored location**
+- [x] **Step 2: Confirm the worktree and ignored location**
 
 Run:
 
@@ -43,7 +43,7 @@ Expected: `.worktrees` is ignored and the new worktree has no uncommitted change
 - Create: `tests/browser/e2e/config.test.cjs`
 - Modify: `tests/browser/e2e/helpers.cjs`
 
-- [ ] **Step 1: Write tests for default and overridden endpoints**
+- [x] **Step 1: Write tests for default and overridden endpoints**
 
 Create `tests/browser/e2e/config.test.cjs`:
 
@@ -73,13 +73,13 @@ test('allows an isolated browser environment to override every address', () => {
 });
 ```
 
-- [ ] **Step 2: Verify the endpoint tests fail before implementation**
+- [x] **Step 2: Verify the endpoint tests fail before implementation**
 
 Run: `node --test tests/browser/e2e/config.test.cjs`
 
 Expected: failure because `config.cjs` does not exist yet.
 
-- [ ] **Step 3: Implement the endpoint resolver and connect the helper**
+- [x] **Step 3: Implement the endpoint resolver and connect the helper**
 
 Create `tests/browser/e2e/config.cjs`:
 
@@ -107,13 +107,13 @@ const { resolveEndpoints } = require('./config.cjs');
 const { BACKEND, STUDENT_WEB, ADMIN_WEB } = resolveEndpoints();
 ```
 
-- [ ] **Step 4: Verify the endpoint tests pass**
+- [x] **Step 4: Verify the endpoint tests pass**
 
 Run: `node --test tests/browser/e2e/config.test.cjs`
 
 Expected: 2 tests pass.
 
-- [ ] **Step 5: Commit the E2E endpoint configuration**
+- [x] **Step 5: Commit the E2E endpoint configuration**
 
 ```powershell
 git add tests/browser/e2e/config.cjs tests/browser/e2e/config.test.cjs tests/browser/e2e/helpers.cjs
@@ -125,7 +125,7 @@ git commit -m "test: allow isolated browser e2e targets"
 **Files:**
 - Create: `docker-compose.e2e.yml`
 
-- [ ] **Step 1: Add the override without changing the default Compose stack**
+- [x] **Step 1: Add the override without changing the default Compose stack**
 
 Create `docker-compose.e2e.yml`:
 
@@ -139,7 +139,7 @@ services:
 
 The base Compose file continues to control ports and project resources. Run it with project name `ai-campus-e2e` and alternate ports so all containers and named volumes receive an isolated project prefix.
 
-- [ ] **Step 2: Validate Compose service resolution without printing secrets**
+- [x] **Step 2: Validate Compose service resolution without printing secrets**
 
 Run with the test environment variables assigned in the shell:
 
@@ -149,7 +149,7 @@ docker compose -p ai-campus-e2e -f docker-compose.yml -f docker-compose.e2e.yml 
 
 Expected: `mysql`, `redis`, `backend`, `student`, and `admin`; no rendered environment values are printed.
 
-- [ ] **Step 3: Commit the isolated Compose override**
+- [x] **Step 3: Commit the isolated Compose override**
 
 ```powershell
 git add docker-compose.e2e.yml
@@ -163,19 +163,19 @@ git commit -m "test: isolate browser e2e runtime settings"
 - Modify: `部署说明.md`
 - Modify: `tests/browser/README.md`
 
-- [ ] **Step 1: Correct the README project status and production-data warning**
+- [x] **Step 1: Correct the README project status and production-data warning**
 
 Replace the stale “前端功能已完成，等待后端环境联调” banner with a concise statement that the student web app, admin app, and Spring Boot backend are integrated and Docker Compose deployment is available. State that AI provider calls require a configured key. In the Docker section and test account section, make clear that the automatic seed SQL is development/demo data, must not be used in production, and should be removed from the production Compose initialization mounts.
 
-- [ ] **Step 2: Document isolated real-browser E2E commands**
+- [x] **Step 2: Document isolated real-browser E2E commands**
 
 In `tests/browser/README.md`, document the configurable URLs `E2E_BACKEND_URL`, `E2E_STUDENT_WEB_URL`, and `E2E_ADMIN_WEB_URL`, the isolated Compose file, required temporary environment variables, the test categories to run, and the project-scoped cleanup command. Note that category `15` is excluded because it calls an external AI provider. State that the project's main Compose services and database are not targets for this run.
 
-- [ ] **Step 3: Align deployment guidance and link test details**
+- [x] **Step 3: Align deployment guidance and link test details**
 
 In `部署说明.md`, clarify that Docker's test-data SQL runs only on first initialization of a fresh named volume, distinguish `down` from project-scoped `down -v`, and link to `tests/browser/README.md` for isolated browser testing. Keep production instructions explicit: remove the seed SQL mount before first production initialization and never apply the reset/test-data script to an existing database.
 
-- [ ] **Step 4: Review the documentation diff and commit it**
+- [x] **Step 4: Review the documentation diff and commit it**
 
 Run: `git diff --check`
 
@@ -189,15 +189,22 @@ git commit -m "docs: clarify deployment and browser test workflow"
 ### Task 5: Run regression checks and isolated browser flows
 
 **Files:**
-- No additional source files changed.
+- Create: `tests/browser/e2e/run-status.cjs`
+- Create: `tests/browser/e2e/run-status.test.cjs`
+- Modify: `tests/browser/e2e/run-all.cjs`
+- Modify: `tests/browser/e2e/test-03-idle-appoint.cjs`
+- Modify: `tests/browser/e2e/test-05-lostfound.cjs`
+- Modify: `tests/browser/e2e/test-13-chat.cjs`
+- Modify: `tests/browser/e2e/test-18-campus3d.cjs`
+- Modify: `tests/browser/README.md`
 
-- [ ] **Step 1: Run the endpoint resolver tests**
+- [x] **Step 1: Run the endpoint resolver tests**
 
 Run: `node --test tests/browser/e2e/config.test.cjs`
 
 Expected: 2 tests pass.
 
-- [ ] **Step 2: Launch only the isolated Compose project**
+- [x] **Step 2: Launch only the isolated Compose project**
 
 Set process-local values so this run gets a unique Compose project, random secrets, alternate ports, and matching test URLs. Use the default database name `ai_campus_platform`: `reset_and_testdata.sql` selects that database explicitly, while the unique Compose project gives MySQL its own isolated container and volume. The seeded test admin password is `admin123`. Then run:
 
@@ -225,7 +232,7 @@ docker compose -p $e2eProject -f docker-compose.yml -f docker-compose.e2e.yml ps
 
 Expected: only the new E2E project is started; MySQL, Redis, and backend are healthy, student/admin web containers are running, and the original `ai-campus` project remains up.
 
-- [ ] **Step 3: Run real browser workflows, excluding external AI calls**
+- [x] **Step 3: Run real browser workflows, excluding external AI calls**
 
 Run:
 
@@ -234,9 +241,9 @@ $onlyCoreE2e = '01,02,03,04,05,06,07,08,09,10,11,12,13,14,16,17,18,19,20'
 node tests/browser/e2e/run-all.cjs "--only=$onlyCoreE2e"
 ```
 
-Expected: the runner writes its JSON result to the OS temporary directory and reports each category's actual PASS, FAIL, BLOCK, or UNCOVERED results. Category 15 is not run.
+Expected: the runner writes its JSON result to the OS temporary directory and reports each category's actual PASS, FAIL, BLOCK, or UNCOVERED results. FAIL, BLOCK, and category runtime exceptions produce a non-zero exit code. Category 15 is not run.
 
-- [ ] **Step 4: Run the existing API-mocked browser regression scripts**
+- [x] **Step 4: Run the existing API-mocked browser regression scripts**
 
 Run each script against the already-running student/admin pages:
 
@@ -249,6 +256,8 @@ node tests/browser/system-scene-and-fallback.cjs
 ```
 
 Expected: each script reports its own assertions; these scripts intercept API requests and do not write application data.
+
+Observed: interactions, all-rooms, auth, and admin passed. `system-scene-and-fallback.cjs` still fails its existing “离开服务后 3D 场景仍在” assertion (line 116); the same failure was present in the baseline run.
 
 - [ ] **Step 5: Confirm the original stack is unchanged and remove only E2E resources**
 

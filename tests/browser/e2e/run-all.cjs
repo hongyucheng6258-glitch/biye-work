@@ -3,6 +3,7 @@
  * 按顺序执行所有测试类别，收集结果，生成报告
  */
 const h = require('./helpers.cjs');
+const { getExitCode } = require('./run-status.cjs');
 
 const onlyArg = process.argv.find(arg => arg.startsWith('--only='));
 const only = onlyArg ? new Set(onlyArg.slice('--only='.length).split(',').map(v => v.trim()).filter(Boolean)) : null;
@@ -22,6 +23,7 @@ function shouldRun(category) {
   const request = ctx.request;
 
   const context = {};
+  let runtimeError = false;
 
   try {
     // 类别 1: 注册登录权限
@@ -90,7 +92,9 @@ function shouldRun(category) {
     if (shouldRun('20')) await require('./test-20-concurrency.cjs').run(browser, request, context);
 
   } catch (e) {
+    runtimeError = true;
     console.error('测试运行异常:', e);
+    h.record('E2E运行器', '分类执行异常', 'FAIL', e.message);
   } finally {
     await browser.close();
   }
@@ -108,4 +112,5 @@ function shouldRun(category) {
   const outPath = process.env.E2E_RESULT_PATH || require('path').join(require('os').tmpdir(), 'ai-campus-e2e-results.json');
   fs.writeFileSync(outPath, JSON.stringify(h.results, null, 2), 'utf-8');
   console.log(`结果已保存: ${outPath}`);
+  process.exitCode = getExitCode(h.results, runtimeError);
 })().catch(e => { console.error(e); process.exit(1); });

@@ -42,7 +42,8 @@ async function run(browser, request, ctx) {
   if (sellerMsgs.code === 200) {
     const hasAppointMsg = h.unwrapList(sellerMsgs).some(m =>
       String(m.type).toLowerCase() === 'interact' && String(m.bizType).toLowerCase() === 'idle'
-      && String(m.bizId) === String(idleId) && String(m.content || '').includes('预约')
+      && String(m.bizId) === String(idleId)
+      && (String(m.title || '').includes('预约') || String(m.content || '').includes('预约'))
     );
     if (hasAppointMsg) {
       h.record(C, '卖家收到预约通知', 'PASS');

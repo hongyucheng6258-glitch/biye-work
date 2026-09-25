@@ -72,6 +72,7 @@ node tests/browser/e2e/run-all.cjs "--only=$onlyCoreE2e"
 ```
 
 Playwright 截图和 JSON 结果默认写入系统临时目录。结果状态为 `PASS`、`FAIL`、`BLOCK` 或 `UNCOVERED`；不要把未运行的类别报告为通过。
+只要有 `FAIL`、`BLOCK` 或类别运行时异常，脚本就会以非零状态退出，便于自动化环境识别未通过或未完成的运行。`UNCOVERED` 会保留在报告中，但不单独判为失败。
 
 ### 清理隔离服务
 

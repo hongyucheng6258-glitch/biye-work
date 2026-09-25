@@ -38,8 +38,15 @@ async function run(browser, request, ctx) {
     const claimRes = await buyer.post(`/lostfound/${lfId}/claim`, { content: `${h.PREFIX}我捡到了，特征匹配` });
     let claimId;
     if (claimRes.code === 200) {
-      claimId = claimRes.data.id || claimRes.data;
-      h.record(C, '发起认领', 'PASS', `claimId=${claimId}`);
+      // POST /claim intentionally returns R<Void>; query the authenticated user's
+      // claim record to obtain its id for the subsequent handle/confirm steps.
+      const myClaimRes = await buyer.get(`/lostfound/${lfId}/my-claim`);
+      if (myClaimRes.code === 200 && myClaimRes.data?.id != null) {
+        claimId = myClaimRes.data.id;
+        h.record(C, '发起认领', 'PASS', `claimId=${claimId}`);
+      } else {
+        h.record(C, '发起认领', 'FAIL', `申请已提交但无法读取认领记录: code=${myClaimRes.code} msg=${myClaimRes.message}`);
+      }
     } else {
       h.record(C, '发起认领', 'FAIL', claimRes.message);
     }
@@ -62,7 +69,7 @@ async function run(browser, request, ctx) {
         h.record(C, '认领者收到处理结果通知', resultMessage ? 'PASS' : 'FAIL', resultMessage ? `messageId=${resultMessage.id}` : `未找到 lostfoundId=${lfId} 的处理通知`);
       }
       // 5. 归还确认
-      const confirmRes = await seller.put(`/lostfound/claim/${claimId}/confirm`);
+      const confirmRes = await buyer.put(`/lostfound/claim/${claimId}/confirm`);
       if (confirmRes.code === 200) {
         h.record(C, '归还确认', 'PASS');
       } else {
@@ -70,7 +77,7 @@ async function run(browser, request, ctx) {
       }
       // 最终状态为已完成
       const detail = await buyer.get(`/lostfound/${lfId}`);
-      if (detail.code === 200 && (detail.data.status === 3 || detail.data.status === 'completed' || detail.data.status === 2)) {
+      if (detail.code === 200 && (detail.data.status === 1 || detail.data.status === 'completed')) {
         h.record(C, '失物状态为已完成', 'PASS', `status=${detail.data.status}`);
       } else {
         h.record(C, '失物状态为已完成', 'FAIL', `status=${detail.data?.status}`);

@@ -48,7 +48,7 @@ async function run(browser, request, ctx) {
       const upBody = await upResp.json();
       if (upBody.code === 200) {
         const imgUrl = upBody.data.url || upBody.data;
-        const resourceId = upBody.data.id;
+        const resourceId = upBody.data.resourceId;
         const imgMsg = await buyer.post(`/chat/conversations/${convId}/messages`, {
           clientMessageId: 'e2e-img-001',
           messageType: 'image',

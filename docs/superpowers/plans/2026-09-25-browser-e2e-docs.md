@@ -279,6 +279,8 @@ Expected: the `ai-campus` services remain running; only resources prefixed for `
 
 Observed: all five original `ai-campus` containers remained up and the isolated project's containers, network, and volumes were removed after each run.
 
-- [ ] **Step 6: Commit and integrate the implementation branch**
+- [x] **Step 6: Commit and integrate the implementation branch**
 
 Commit test evidence only if it is a source artifact requested by the user; do not add passwords, `.env` files, screenshots, or raw logs. Merge the implementation commits back into `feat/v2-visual-upgrade` by fast-forward/cherry-pick while preserving the pre-existing `application.yml` edit and untracked files.
+
+Observed: implementation branch `docs/browser-e2e-docs` was fast-forwarded into `feat/v2-visual-upgrade` at `3b8c00e`; the pre-existing working-tree changes remained untouched.

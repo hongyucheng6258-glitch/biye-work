@@ -1,6 +1,6 @@
 # AI校园综合服务平台
 
-> **开发状态：前端功能已完成，等待后端环境联调** — 学生端、管理端和 3D 校园前端已完成，后端需按部署说明配置数据库、Redis 及相关服务后运行完整联调。
+> **项目状态：前后端已集成** — 学生端、管理后台与 Spring Boot 后端提供本地和 Docker Compose 运行方式。数据库、Redis 与 AI 服务需按部署说明配置；AI 能力需要有效的服务密钥。
 
 AI校园综合服务平台是一套面向高校学生的综合服务系统，覆盖**校园信息、AI 学习辅助、社交互动、物品交易、内容治理**等完整闭环：
 
@@ -164,7 +164,7 @@ migrate_v9_draw_guess_artwork.sql   # 你画我猜作品数据列
 
 > 学习搭子（`study_partner`）、互助问答（`campus_question` / `campus_answer`）等社交模块表由应用启动时自动建表（MyBatis-Plus），或参照 `db` 目录新增迁移脚本同步。
 
-4. 开发测试环境可执行 `reset_and_testdata.sql` 导入测试数据。
+4. 开发或隔离测试环境可执行 `reset_and_testdata.sql` 导入演示数据。脚本会清空目标数据库中的业务数据，只能用于可丢弃的空测试库；不得对已有数据或生产数据库执行。
 
 数据库连接信息建议通过环境变量配置，不要把真实密码提交到仓库：
 
@@ -235,7 +235,7 @@ AI 密钥支持环境变量与管理后台「AI 配置」页（数据库 `ai_con
 
 ## 测试账号
 
-执行 `reset_and_testdata.sql` 后可用（密码均为 `admin123`）：
+仅在开发/演示环境执行 `reset_and_testdata.sql` 后可用（密码均为 `admin123`）。生产环境不得导入这些固定账号：
 
 | 类型 | 账号 | 说明 |
 |---|---|---|
@@ -245,6 +245,7 @@ AI 密钥支持环境变量与管理后台「AI 配置」页（数据库 `ai_con
 ## 安全说明
 
 - 生产部署前替换所有数据库、Redis、JWT、签到、AI 密钥；密钥通过环境变量或密钥管理服务注入，不写入源码。
+- Docker 首次初始化会挂载 `reset_and_testdata.sql` 并创建演示账号。生产首次初始化前须从 Compose 配置移除此挂载，并使用未导入演示数据的独立数据库；不要对已有数据库运行重置脚本。
 - JWT 拦截器同时校验签名与角色声明，学生 Token 无法访问管理端接口。
 - 内容发布经过本地风险词规则 + AI 语义分级审核，低风险自动放行、中高风险人工复核。
 - 限制 MySQL/Redis/MinIO 网络访问范围，管理后台启用 HTTPS。
@@ -257,9 +258,7 @@ cd web/frontend/student && npm test
 cd web/frontend/admin && npm test
 ```
 
-浏览器交互检查脚本位于 `tests/browser/`，覆盖 3D 房间进入、真实学生端组件、活动报名、房间内私信、全屏弹窗、窄屏布局、401/403、管理端失败重试和全部服务房间加载。脚本使用拦截接口，不会修改真实数据库；真实后端联调仍需要启动 MySQL、Redis、后端服务和可选的 AI/WebSocket 服务。
-
-当前回归结果（2026-09-21）：后端 `mvn clean test` 237 项通过；学生端 node 测试 55 项通过；两端生产构建通过。完整 14 项修复记录与验收矩阵见文末「2026-09 系统审查修复记录」。
+浏览器回归分为两类：`tests/browser/` 中的交互脚本拦截 API，不写入业务数据库；`tests/browser/e2e/` 中的真实流程会创建业务数据，应按 [浏览器测试说明](tests/browser/README.md) 在独立 Compose 项目中执行。真实 AI 调用单独管理，默认 E2E 流程跳过会访问外部模型的类别。
 
 ## 默认服务地址
 
@@ -273,7 +272,7 @@ cd web/frontend/admin && npm test
 
 ## Docker 一键部署
 
-项目根目录已提供 `docker-compose.yml`，会启动 MySQL、Redis、Spring Boot 后端、学生端和管理端。首次启动会在新的 Docker 数据卷中初始化数据库并导入演示账号，不会读取或覆盖本机已有的 MySQL/Redis 数据。
+项目根目录已提供 `docker-compose.yml`，会启动 MySQL、Redis、Spring Boot 后端、学生端和管理端。首次启动会在新的 Docker 数据卷中初始化数据库并导入演示账号，不会读取或覆盖本机已有的 MySQL/Redis 数据。该初始化数据仅供开发和演示；生产环境须在首次初始化前移除 `docker-compose.yml` 中 `reset_and_testdata.sql` 的挂载，并使用新的生产数据库卷。
 
 ```powershell
 Copy-Item .env.example .env
@@ -302,15 +301,14 @@ docker compose down -v               # 停止并删除 Docker 数据（会清空
 docker compose logs mysql --tail=200
 ```
 
-确认这是全新的演示环境后，可删除未完成初始化的数据卷再重试（会清空该 Docker 数据卷）：
+仅在确认这是可丢弃的本地演示环境且其中没有需要保留的数据时，才可删除当前 Compose 项目的数据卷并重试：
 
 ```powershell
-docker compose down
-docker volume rm ai-campus_mysql_data
+docker compose down -v
 docker compose up -d --build
 ```
 
-生产环境请移除 compose 中 `99-testdata.sql` 的初始化挂载，并使用独立的数据库备份与密钥管理方案。
+`docker compose down` 保留数据库和 Redis 数据卷；`docker compose down -v` 会删除当前 Compose 项目的卷。不要在生产环境运行带 `-v` 的命令。生产环境请移除 Compose 中 `99-testdata.sql` 的初始化挂载，并使用独立的数据库备份与密钥管理方案。
 
 ## 部署说明
 

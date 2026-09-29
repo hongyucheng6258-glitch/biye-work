@@ -1,0 +1,1266 @@
+{
+  "phase": "after",
+  "checks": [
+    {
+      "label": "list-bottom-390",
+      "path": "/idle",
+      "y": 4118,
+      "height": 5018,
+      "viewport": 900,
+      "focus": "",
+      "scrollCalls": [
+        [
+          {
+            "left": 0,
+            "top": 0,
+            "behavior": "instant"
+          }
+        ],
+        [
+          0,
+          5018
+        ]
+      ]
+    },
+    {
+      "label": "list-before-opening-390",
+      "path": "/idle",
+      "y": 4079,
+      "height": 5018,
+      "viewport": 900,
+      "focus": "",
+      "scrollCalls": [
+        [
+          {
+            "left": 0,
+            "top": 0,
+            "behavior": "instant"
+          }
+        ],
+        [
+          0,
+          5018
+        ]
+      ]
+    },
+    {
+      "label": "list-to-detail-390",
+      "path": "/idle/detail/1",
+      "y": 0,
+      "height": 1950,
+      "viewport": 900,
+      "focus": "",
+      "scrollCalls": [
+        [
+          {
+            "left": 0,
+            "top": 0,
+            "behavior": "instant"
+          }
+        ],
+        [
+          0,
+          5018
+        ],
+        [
+          {
+            "left": 0,
+            "top": 0,
+            "behavior": "instant"
+          }
+        ]
+      ]
+    },
+    {
+      "label": "back-restores-list-390",
+      "path": "/idle",
+      "y": 4079,
+      "height": 5018,
+      "viewport": 900,
+      "focus": "",
+      "scrollCalls": [
+        [
+          {
+            "left": 0,
+            "top": 0,
+            "behavior": "instant"
+          }
+        ],
+        [
+          0,
+          5018
+        ],
+        [
+          {
+            "left": 0,
+            "top": 0,
+            "behavior": "instant"
+          }
+        ],
+        [
+          {
+            "left": 0,
+            "top": 4079,
+            "behavior": "instant"
+          }
+        ]
+      ]
+    },
+    {
+      "label": "dock-/activity-390",
+      "path": "/activity",
+      "y": 0,
+      "height": 2390,
+      "viewport": 900,
+      "focus": "router-link-active router-link-exact-active active",
+      "scrollCalls": [
+        [
+          {
+            "left": 0,
+            "top": 0,
+            "behavior": "instant"
+          }
+        ],
+        [
+          0,
+          5018
+        ],
+        [
+          {
+            "left": 0,
+            "top": 0,
+            "behavior": "instant"
+          }
+        ],
+        [
+          {
+            "left": 0,
+            "top": 4079,
+            "behavior": "instant"
+          }
+        ],
+        [
+          0,
+          5018
+        ],
+        [
+          {
+            "left": 0,
+            "top": 0,
+            "behavior": "instant"
+          }
+        ]
+      ]
+    },
+    {
+      "label": "dock-/profile-390",
+      "path": "/profile",
+      "y": 0,
+      "height": 1788,
+      "viewport": 900,
+      "focus": "router-link-active router-link-exact-active active",
+      "scrollCalls": [
+        [
+          {
+            "left": 0,
+            "top": 0,
+            "behavior": "instant"
+          }
+        ],
+        [
+          0,
+          5018
+        ],
+        [
+          {
+            "left": 0,
+            "top": 0,
+            "behavior": "instant"
+          }
+        ],
+        [
+          {
+            "left": 0,
+            "top": 4079,
+            "behavior": "instant"
+          }
+        ],
+        [
+          0,
+          5018
+        ],
+        [
+          {
+            "left": 0,
+            "top": 0,
+            "behavior": "instant"
+          }
+        ],
+        [
+          0,
+          2390
+        ],
+        [
+          {
+            "left": 0,
+            "top": 0,
+            "behavior": "instant"
+          }
+        ]
+      ]
+    },
+    {
+      "label": "dock-/idle-390",
+      "path": "/idle",
+      "y": 0,
+      "height": 5018,
+      "viewport": 900,
+      "focus": "router-link-active router-link-exact-active active",
+      "scrollCalls": [
+        [
+          {
+            "left": 0,
+            "top": 0,
+            "behavior": "instant"
+          }
+        ],
+        [
+          0,
+          5018
+        ],
+        [
+          {
+            "left": 0,
+            "top": 0,
+            "behavior": "instant"
+          }
+        ],
+        [
+          {
+            "left": 0,
+            "top": 4079,
+            "behavior": "instant"
+          }
+        ],
+        [
+          0,
+          5018
+        ],
+        [
+          {
+            "left": 0,
+            "top": 0,
+            "behavior": "instant"
+          }
+        ],
+        [
+          0,
+          2390
+        ],
+        [
+          {
+            "left": 0,
+            "top": 0,
+            "behavior": "instant"
+          }
+        ],
+        [
+          0,
+          1788
+        ],
+        [
+          {
+            "left": 0,
+            "top": 0,
+            "behavior": "instant"
+          }
+        ]
+      ]
+    },
+    {
+      "label": "before-navigation-dialog-390",
+      "path": "/idle",
+      "y": 350,
+      "height": 5018,
+      "viewport": 900,
+      "focus": "router-link-active router-link-exact-active active",
+      "scrollCalls": [
+        [
+          {
+            "left": 0,
+            "top": 0,
+            "behavior": "instant"
+          }
+        ],
+        [
+          0,
+          5018
+        ],
+        [
+          {
+            "left": 0,
+            "top": 0,
+            "behavior": "instant"
+          }
+        ],
+        [
+          {
+            "left": 0,
+            "top": 4079,
+            "behavior": "instant"
+          }
+        ],
+        [
+          0,
+          5018
+        ],
+        [
+          {
+            "left": 0,
+            "top": 0,
+            "behavior": "instant"
+          }
+        ],
+        [
+          0,
+          2390
+        ],
+        [
+          {
+            "left": 0,
+            "top": 0,
+            "behavior": "instant"
+          }
+        ],
+        [
+          0,
+          1788
+        ],
+        [
+          {
+            "left": 0,
+            "top": 0,
+            "behavior": "instant"
+          }
+        ],
+        [
+          0,
+          350
+        ]
+      ]
+    },
+    {
+      "label": "after-navigation-dialog-390",
+      "path": "/idle",
+      "y": 350,
+      "height": 5018,
+      "viewport": 900,
+      "focus": "tp-dock-all",
+      "scrollCalls": [
+        [
+          {
+            "left": 0,
+            "top": 0,
+            "behavior": "instant"
+          }
+        ],
+        [
+          0,
+          5018
+        ],
+        [
+          {
+            "left": 0,
+            "top": 0,
+            "behavior": "instant"
+          }
+        ],
+        [
+          {
+            "left": 0,
+            "top": 4079,
+            "behavior": "instant"
+          }
+        ],
+        [
+          0,
+          5018
+        ],
+        [
+          {
+            "left": 0,
+            "top": 0,
+            "behavior": "instant"
+          }
+        ],
+        [
+          0,
+          2390
+        ],
+        [
+          {
+            "left": 0,
+            "top": 0,
+            "behavior": "instant"
+          }
+        ],
+        [
+          0,
+          1788
+        ],
+        [
+          {
+            "left": 0,
+            "top": 0,
+            "behavior": "instant"
+          }
+        ],
+        [
+          0,
+          350
+        ]
+      ]
+    },
+    {
+      "label": "list-bottom-1440",
+      "path": "/idle",
+      "y": 1181,
+      "height": 2081,
+      "viewport": 900,
+      "focus": "",
+      "scrollCalls": [
+        [
+          {
+            "left": 0,
+            "top": 0,
+            "behavior": "instant"
+          }
+        ],
+        [
+          0,
+          2081
+        ]
+      ]
+    },
+    {
+      "label": "list-before-opening-1440",
+      "path": "/idle",
+      "y": 1181,
+      "height": 2081,
+      "viewport": 900,
+      "focus": "",
+      "scrollCalls": [
+        [
+          {
+            "left": 0,
+            "top": 0,
+            "behavior": "instant"
+          }
+        ],
+        [
+          0,
+          2081
+        ]
+      ]
+    },
+    {
+      "label": "list-to-detail-1440",
+      "path": "/idle/detail/1",
+      "y": 0,
+      "height": 1610,
+      "viewport": 900,
+      "focus": "",
+      "scrollCalls": [
+        [
+          {
+            "left": 0,
+            "top": 0,
+            "behavior": "instant"
+          }
+        ],
+        [
+          0,
+          2081
+        ],
+        [
+          {
+            "left": 0,
+            "top": 0,
+            "behavior": "instant"
+          }
+        ]
+      ]
+    },
+    {
+      "label": "back-restores-list-1440",
+      "path": "/idle",
+      "y": 1181,
+      "height": 2081,
+      "viewport": 900,
+      "focus": "",
+      "scrollCalls": [
+        [
+          {
+            "left": 0,
+            "top": 0,
+            "behavior": "instant"
+          }
+        ],
+        [
+          0,
+          2081
+        ],
+        [
+          {
+            "left": 0,
+            "top": 0,
+            "behavior": "instant"
+          }
+        ],
+        [
+          {
+            "left": 0,
+            "top": 1181,
+            "behavior": "instant"
+          }
+        ]
+      ]
+    },
+    {
+      "label": "dock-/activity-1440",
+      "path": "/activity",
+      "y": 0,
+      "height": 1602,
+      "viewport": 900,
+      "focus": "router-link-active router-link-exact-active active",
+      "scrollCalls": [
+        [
+          {
+            "left": 0,
+            "top": 0,
+            "behavior": "instant"
+          }
+        ],
+        [
+          0,
+          2081
+        ],
+        [
+          {
+            "left": 0,
+            "top": 0,
+            "behavior": "instant"
+          }
+        ],
+        [
+          {
+            "left": 0,
+            "top": 1181,
+            "behavior": "instant"
+          }
+        ],
+        [
+          0,
+          2081
+        ],
+        [
+          {
+            "left": 0,
+            "top": 0,
+            "behavior": "instant"
+          }
+        ]
+      ]
+    },
+    {
+      "label": "dock-/profile-1440",
+      "path": "/profile",
+      "y": 0,
+      "height": 1256,
+      "viewport": 900,
+      "focus": "router-link-active router-link-exact-active active",
+      "scrollCalls": [
+        [
+          {
+            "left": 0,
+            "top": 0,
+            "behavior": "instant"
+          }
+        ],
+        [
+          0,
+          2081
+        ],
+        [
+          {
+            "left": 0,
+            "top": 0,
+            "behavior": "instant"
+          }
+        ],
+        [
+          {
+            "left": 0,
+            "top": 1181,
+            "behavior": "instant"
+          }
+        ],
+        [
+          0,
+          2081
+        ],
+        [
+          {
+            "left": 0,
+            "top": 0,
+            "behavior": "instant"
+          }
+        ],
+        [
+          0,
+          1602
+        ],
+        [
+          {
+            "left": 0,
+            "top": 0,
+            "behavior": "instant"
+          }
+        ]
+      ]
+    },
+    {
+      "label": "dock-/idle-1440",
+      "path": "/idle",
+      "y": 0,
+      "height": 2081,
+      "viewport": 900,
+      "focus": "router-link-active router-link-exact-active active",
+      "scrollCalls": [
+        [
+          {
+            "left": 0,
+            "top": 0,
+            "behavior": "instant"
+          }
+        ],
+        [
+          0,
+          2081
+        ],
+        [
+          {
+            "left": 0,
+            "top": 0,
+            "behavior": "instant"
+          }
+        ],
+        [
+          {
+            "left": 0,
+            "top": 1181,
+            "behavior": "instant"
+          }
+        ],
+        [
+          0,
+          2081
+        ],
+        [
+          {
+            "left": 0,
+            "top": 0,
+            "behavior": "instant"
+          }
+        ],
+        [
+          0,
+          1602
+        ],
+        [
+          {
+            "left": 0,
+            "top": 0,
+            "behavior": "instant"
+          }
+        ],
+        [
+          0,
+          1256
+        ],
+        [
+          {
+            "left": 0,
+            "top": 0,
+            "behavior": "instant"
+          }
+        ]
+      ]
+    },
+    {
+      "label": "before-navigation-dialog-1440",
+      "path": "/idle",
+      "y": 350,
+      "height": 2081,
+      "viewport": 900,
+      "focus": "router-link-active router-link-exact-active active",
+      "scrollCalls": [
+        [
+          {
+            "left": 0,
+            "top": 0,
+            "behavior": "instant"
+          }
+        ],
+        [
+          0,
+          2081
+        ],
+        [
+          {
+            "left": 0,
+            "top": 0,
+            "behavior": "instant"
+          }
+        ],
+        [
+          {
+            "left": 0,
+            "top": 1181,
+            "behavior": "instant"
+          }
+        ],
+        [
+          0,
+          2081
+        ],
+        [
+          {
+            "left": 0,
+            "top": 0,
+            "behavior": "instant"
+          }
+        ],
+        [
+          0,
+          1602
+        ],
+        [
+          {
+            "left": 0,
+            "top": 0,
+            "behavior": "instant"
+          }
+        ],
+        [
+          0,
+          1256
+        ],
+        [
+          {
+            "left": 0,
+            "top": 0,
+            "behavior": "instant"
+          }
+        ],
+        [
+          0,
+          350
+        ]
+      ]
+    },
+    {
+      "label": "after-navigation-dialog-1440",
+      "path": "/idle",
+      "y": 350,
+      "height": 2081,
+      "viewport": 900,
+      "focus": "tp-dock-all",
+      "scrollCalls": [
+        [
+          {
+            "left": 0,
+            "top": 0,
+            "behavior": "instant"
+          }
+        ],
+        [
+          0,
+          2081
+        ],
+        [
+          {
+            "left": 0,
+            "top": 0,
+            "behavior": "instant"
+          }
+        ],
+        [
+          {
+            "left": 0,
+            "top": 1181,
+            "behavior": "instant"
+          }
+        ],
+        [
+          0,
+          2081
+        ],
+        [
+          {
+            "left": 0,
+            "top": 0,
+            "behavior": "instant"
+          }
+        ],
+        [
+          0,
+          1602
+        ],
+        [
+          {
+            "left": 0,
+            "top": 0,
+            "behavior": "instant"
+          }
+        ],
+        [
+          0,
+          1256
+        ],
+        [
+          {
+            "left": 0,
+            "top": 0,
+            "behavior": "instant"
+          }
+        ],
+        [
+          0,
+          350
+        ]
+      ]
+    },
+    {
+      "label": "list-bottom-1920",
+      "path": "/idle",
+      "y": 1181,
+      "height": 2081,
+      "viewport": 900,
+      "focus": "",
+      "scrollCalls": [
+        [
+          {
+            "left": 0,
+            "top": 0,
+            "behavior": "instant"
+          }
+        ],
+        [
+          0,
+          2081
+        ]
+      ]
+    },
+    {
+      "label": "list-before-opening-1920",
+      "path": "/idle",
+      "y": 1181,
+      "height": 2081,
+      "viewport": 900,
+      "focus": "",
+      "scrollCalls": [
+        [
+          {
+            "left": 0,
+            "top": 0,
+            "behavior": "instant"
+          }
+        ],
+        [
+          0,
+          2081
+        ]
+      ]
+    },
+    {
+      "label": "list-to-detail-1920",
+      "path": "/idle/detail/1",
+      "y": 0,
+      "height": 1610,
+      "viewport": 900,
+      "focus": "",
+      "scrollCalls": [
+        [
+          {
+            "left": 0,
+            "top": 0,
+            "behavior": "instant"
+          }
+        ],
+        [
+          0,
+          2081
+        ],
+        [
+          {
+            "left": 0,
+            "top": 0,
+            "behavior": "instant"
+          }
+        ]
+      ]
+    },
+    {
+      "label": "back-restores-list-1920",
+      "path": "/idle",
+      "y": 1181,
+      "height": 2081,
+      "viewport": 900,
+      "focus": "",
+      "scrollCalls": [
+        [
+          {
+            "left": 0,
+            "top": 0,
+            "behavior": "instant"
+          }
+        ],
+        [
+          0,
+          2081
+        ],
+        [
+          {
+            "left": 0,
+            "top": 0,
+            "behavior": "instant"
+          }
+        ],
+        [
+          {
+            "left": 0,
+            "top": 1181,
+            "behavior": "instant"
+          }
+        ]
+      ]
+    },
+    {
+      "label": "dock-/activity-1920",
+      "path": "/activity",
+      "y": 0,
+      "height": 1602,
+      "viewport": 900,
+      "focus": "router-link-active router-link-exact-active active",
+      "scrollCalls": [
+        [
+          {
+            "left": 0,
+            "top": 0,
+            "behavior": "instant"
+          }
+        ],
+        [
+          0,
+          2081
+        ],
+        [
+          {
+            "left": 0,
+            "top": 0,
+            "behavior": "instant"
+          }
+        ],
+        [
+          {
+            "left": 0,
+            "top": 1181,
+            "behavior": "instant"
+          }
+        ],
+        [
+          0,
+          2081
+        ],
+        [
+          {
+            "left": 0,
+            "top": 0,
+            "behavior": "instant"
+          }
+        ]
+      ]
+    },
+    {
+      "label": "dock-/profile-1920",
+      "path": "/profile",
+      "y": 0,
+      "height": 1256,
+      "viewport": 900,
+      "focus": "router-link-active router-link-exact-active active",
+      "scrollCalls": [
+        [
+          {
+            "left": 0,
+            "top": 0,
+            "behavior": "instant"
+          }
+        ],
+        [
+          0,
+          2081
+        ],
+        [
+          {
+            "left": 0,
+            "top": 0,
+            "behavior": "instant"
+          }
+        ],
+        [
+          {
+            "left": 0,
+            "top": 1181,
+            "behavior": "instant"
+          }
+        ],
+        [
+          0,
+          2081
+        ],
+        [
+          {
+            "left": 0,
+            "top": 0,
+            "behavior": "instant"
+          }
+        ],
+        [
+          0,
+          1602
+        ],
+        [
+          {
+            "left": 0,
+            "top": 0,
+            "behavior": "instant"
+          }
+        ]
+      ]
+    },
+    {
+      "label": "dock-/idle-1920",
+      "path": "/idle",
+      "y": 0,
+      "height": 2081,
+      "viewport": 900,
+      "focus": "router-link-active router-link-exact-active active",
+      "scrollCalls": [
+        [
+          {
+            "left": 0,
+            "top": 0,
+            "behavior": "instant"
+          }
+        ],
+        [
+          0,
+          2081
+        ],
+        [
+          {
+            "left": 0,
+            "top": 0,
+            "behavior": "instant"
+          }
+        ],
+        [
+          {
+            "left": 0,
+            "top": 1181,
+            "behavior": "instant"
+          }
+        ],
+        [
+          0,
+          2081
+        ],
+        [
+          {
+            "left": 0,
+            "top": 0,
+            "behavior": "instant"
+          }
+        ],
+        [
+          0,
+          1602
+        ],
+        [
+          {
+            "left": 0,
+            "top": 0,
+            "behavior": "instant"
+          }
+        ],
+        [
+          0,
+          1256
+        ],
+        [
+          {
+            "left": 0,
+            "top": 0,
+            "behavior": "instant"
+          }
+        ]
+      ]
+    },
+    {
+      "label": "before-navigation-dialog-1920",
+      "path": "/idle",
+      "y": 350,
+      "height": 2081,
+      "viewport": 900,
+      "focus": "router-link-active router-link-exact-active active",
+      "scrollCalls": [
+        [
+          {
+            "left": 0,
+            "top": 0,
+            "behavior": "instant"
+          }
+        ],
+        [
+          0,
+          2081
+        ],
+        [
+          {
+            "left": 0,
+            "top": 0,
+            "behavior": "instant"
+          }
+        ],
+        [
+          {
+            "left": 0,
+            "top": 1181,
+            "behavior": "instant"
+          }
+        ],
+        [
+          0,
+          2081
+        ],
+        [
+          {
+            "left": 0,
+            "top": 0,
+            "behavior": "instant"
+          }
+        ],
+        [
+          0,
+          1602
+        ],
+        [
+          {
+            "left": 0,
+            "top": 0,
+            "behavior": "instant"
+          }
+        ],
+        [
+          0,
+          1256
+        ],
+        [
+          {
+            "left": 0,
+            "top": 0,
+            "behavior": "instant"
+          }
+        ],
+        [
+          0,
+          350
+        ]
+      ]
+    },
+    {
+      "label": "after-navigation-dialog-1920",
+      "path": "/idle",
+      "y": 350,
+      "height": 2081,
+      "viewport": 900,
+      "focus": "tp-dock-all",
+      "scrollCalls": [
+        [
+          {
+            "left": 0,
+            "top": 0,
+            "behavior": "instant"
+          }
+        ],
+        [
+          0,
+          2081
+        ],
+        [
+          {
+            "left": 0,
+            "top": 0,
+            "behavior": "instant"
+          }
+        ],
+        [
+          {
+            "left": 0,
+            "top": 1181,
+            "behavior": "instant"
+          }
+        ],
+        [
+          0,
+          2081
+        ],
+        [
+          {
+            "left": 0,
+            "top": 0,
+            "behavior": "instant"
+          }
+        ],
+        [
+          0,
+          1602
+        ],
+        [
+          {
+            "left": 0,
+            "top": 0,
+            "behavior": "instant"
+          }
+        ],
+        [
+          0,
+          1256
+        ],
+        [
+          {
+            "left": 0,
+            "top": 0,
+            "behavior": "instant"
+          }
+        ],
+        [
+          0,
+          350
+        ]
+      ]
+    }
+  ],
+  "errors": []
+}

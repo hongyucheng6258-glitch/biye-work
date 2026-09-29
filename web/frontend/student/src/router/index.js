@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import { isLoggedIn } from '../utils/auth'
+import { routeScroll } from '../ui/route-scroll.mjs'
 
 /**
  * 路由表 + 登录守卫（A1：未登录访问受限页面自动跳转登录页）。
@@ -8,7 +9,8 @@ import { routes } from './routes'
 
 const router = createRouter({
   history: createWebHistory(),
-  routes
+  routes,
+  scrollBehavior: routeScroll
 })
 
 // 登录守卫：非 public 页面必须登录

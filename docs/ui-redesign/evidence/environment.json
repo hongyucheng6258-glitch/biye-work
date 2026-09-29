@@ -1,0 +1,25 @@
+{
+  "recordedAt": "2026-09-29T02:53:02.468Z",
+  "branch": "feat/tongpin-ui-redesign",
+  "businessBase": "91214e0d090ea3691c5890e55e89043b1c3102c9",
+  "node": "v24.19.0",
+  "studentUrl": "http://127.0.0.1:5173",
+  "adminUrl": "http://127.0.0.1:5174/admin",
+  "browser": "Local Chrome with external Playwright",
+  "playwrightPath": "E:/work/毕业设计UI原型/.local-browser/node_modules/playwright",
+  "uiRequests": "Browser-isolated fixtures; no live API mutations",
+  "realE2E": {
+    "status": "BLOCK",
+    "executed": false,
+    "reason": "Docker daemon initially unavailable. Started Docker Desktop; subsequent info probe timed out, bounded final probe exceeded 8 seconds.",
+    "externalAiCalled": false,
+    "liveDatabaseUsed": false
+  },
+  "verification": {
+    "measurements": 464,
+    "overflowFailures": 0,
+    "actions": 24,
+    "actionFailures": 0,
+    "pageErrors": 0
+  }
+}

@@ -8,7 +8,8 @@
         <el-tab-pane label="我发起的（买家）" name="buyer" />
         <el-tab-pane label="我收到的（卖家）" name="seller" />
       </el-tabs>
-      <el-table :data="list" v-loading="loading">
+      <div class="tp-table-scroll">
+<el-table :data="list" v-loading="loading">
         <el-table-column label="物品" min-width="180">
           <template #default="{ row }">
             <div class="item-cell">
@@ -41,6 +42,7 @@
           </template>
         </el-table-column>
       </el-table>
+</div>
       <el-pagination
         v-model:current-page="pageNum"
         :total="total"
@@ -154,5 +156,37 @@ onMounted(load)
 .done-text {
   font-size: 12px;
   color: var(--ink-3);
+}
+/* 同频校园：本页展示布局，业务绑定保持原样 */
+:deep(.el-card) {
+  border-radius: 26px;
+}
+:deep(.el-table) {
+  width: 100%;
+}
+:deep(.el-tabs__header) {
+  margin-bottom: 24px;
+}
+:deep(.el-tabs__nav-wrap) {
+  min-width: 0;
+}
+.member-pager,.claim-pager,.pager {
+  margin-top: 20px;
+}
+.done-text {
+  color: var(--success);
+  font-size: 13px;
+}
+.rate-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+}
+.item-cell {
+  min-width: 0;
+}
+.item-cell span {
+  overflow-wrap: anywhere;
 }
 </style>

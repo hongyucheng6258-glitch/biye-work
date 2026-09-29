@@ -1,0 +1,1 @@
+{"passed":["real scene entry","shared activity images","signup form and single request","filter retained","private chat in room","return to same room","fullscreen dialog","Escape closes only dialog","mobile no horizontal overflow"],"errors":[],"writes":[{"p":"/api/activity/42/signup","m":"POST","data":{"remark":"计科班，参加摄影活动"}}]}

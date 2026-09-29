@@ -38,18 +38,100 @@ const emit = defineEmits(['action'])
 </template>
 
 <style scoped>
-.wt-empty { display: flex; flex-direction: column; align-items: center; gap: var(--s-3); padding: var(--s-7) var(--s-4); text-align: center; }
-.wt-empty__icon { width: 48px; height: 48px; color: var(--ink-3); }
-.wt-empty__icon :deep(svg) { width: 100%; height: 100%; }
-.wt-empty__title { margin: 0; font-size: var(--fs-body); font-weight: 600; color: var(--ink); }
-.wt-empty__desc { margin: 0; font-size: var(--fs-sm); color: var(--ink-3); max-width: 42ch; }
-
+.wt-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--s-3);
+  padding: var(--s-7) var(--s-4);
+  text-align: center;
+}
+.wt-empty__icon {
+  width: 48px;
+  height: 48px;
+  color: var(--ink-3);
+}
+.wt-empty__icon :deep(svg) {
+  width: 100%;
+  height: 100%;
+}
+.wt-empty__title {
+  margin: 0;
+  font-size: var(--fs-body);
+  font-weight: 600;
+  color: var(--ink);
+}
+.wt-empty__desc {
+  margin: 0;
+  font-size: var(--fs-sm);
+  color: var(--ink-3);
+  max-width: 42ch;
+}
 /* 骨架屏 */
-.wt-skel { width: 100%; max-width: 420px; display: flex; flex-direction: column; gap: 12px; align-items: flex-start; }
-.wt-skel__thumb { width: 96px; height: 96px; border-radius: var(--r-sm); }
-.wt-skel__line { height: 12px; border-radius: 999px; }
-.wt-skel__line.w1 { width: 80%; } .wt-skel__line.w2 { width: 60%; } .wt-skel__line.w3 { width: 40%; }
-.wt-skel > * { background: linear-gradient(90deg, var(--surface-3) 25%, var(--surface-2) 37%, var(--surface-3) 63%); background-size: 400% 100%; animation: wt-shimmer 1.4s ease infinite; }
-@keyframes wt-shimmer { 0% { background-position: 100% 0; } 100% { background-position: -100% 0; } }
-@media (prefers-reduced-motion: reduce) { .wt-skel > * { animation: none; } }
+.wt-skel {
+  width: 100%;
+  max-width: 420px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: flex-start;
+}
+.wt-skel__thumb {
+  width: 96px;
+  height: 96px;
+  border-radius: var(--r-sm);
+}
+.wt-skel__line {
+  height: 12px;
+  border-radius: 999px;
+}
+.wt-skel__line.w1 {
+  width: 80%;
+}
+.wt-skel__line.w2 {
+  width: 60%;
+}
+.wt-skel__line.w3 {
+  width: 40%;
+}
+.wt-skel > * {
+  background: linear-gradient(90deg, var(--surface-3) 25%, var(--surface-2) 37%, var(--surface-3) 63%);
+  background-size: 400% 100%;
+  animation: wt-shimmer 1.4s ease infinite;
+}
+@keyframes wt-shimmer {
+  0% {
+    background-position: 100% 0;
+  }
+  100% {
+    background-position: -100% 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .wt-skel > * {
+    animation: none;
+  }
+}
+/* 同频校园：本页展示布局，业务绑定保持原样 */
+.wt-empty {
+  padding: 36px 20px;
+  color: var(--ink-3);
+}
+.wt-empty__title {
+  font-size: 17px;
+  color: var(--ink);
+}
+.wt-empty__desc {
+  font-size: 14px;
+  max-width: 48ch;
+  overflow-wrap: anywhere;
+}
+.wt-empty__icon {
+  background: var(--surface-2);
+  color: var(--brand);
+  border-radius: 22px;
+}
+.wt-skel {
+  border-radius: 20px;
+}
 </style>

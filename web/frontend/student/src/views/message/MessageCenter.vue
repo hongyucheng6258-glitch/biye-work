@@ -199,7 +199,8 @@ onMounted(load)
   border: 1px solid var(--line);
   border-radius: var(--r-lg);
   padding: var(--s-3) var(--s-5);
-}<style scoped>
+}
+\3c style scoped>
 .msg-item {
   display: flex;
   gap: 12px;
@@ -229,5 +230,77 @@ onMounted(load)
 .m-time {
   font-size: 12px;
   color: var(--ink-3);
+}
+/* 同频校园：本页展示布局，业务绑定保持原样 */
+.message-center {
+  display: grid;
+  grid-template-columns: minmax(0,1fr);
+  gap: 24px;
+}
+.msg-sidebar {
+  position: static;
+  width: auto;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  padding: 18px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 22px;
+}
+.msg-sidebar-title {
+  width: 100%;
+  font-size: 14px;
+  padding: 0 4px 8px;
+}
+.msg-side-item {
+  width: auto;
+  min-height: 44px;
+  padding: 10px 16px;
+  border-radius: var(--r-pill);
+  gap: 10px;
+}
+.msg-side-item.active {
+  background: var(--brand);
+  color: var(--brand-ink);
+}
+.msg-detail {
+  padding: 24px;
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  background: var(--surface);
+  min-width: 0;
+}
+.msg-detail-head {
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.msg-item {
+  border-radius: 16px;
+  padding: 18px;
+  gap: 14px;
+}
+.m-body {
+  min-width: 0;
+}
+.m-title,.m-content {
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+.m-time {
+  font-size: 12px;
+}
+@media (max-width:600px) {
+  .msg-detail {
+    padding: 18px;
+  }
+  .msg-item {
+    flex-wrap: wrap;
+  }
+  .m-time {
+    width: 100%;
+    padding-left: 46px;
+  }
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <el-drawer
+  <el-drawer class="tp-learning-sheet"
     v-model="visible"
     :title="title"
     size="560px"
@@ -323,7 +323,7 @@ function finish() {
   font-size: 13px;
 }
 .lv-desc {
-  font-size: 11px;
+  font-size: 12px;
   color: var(--ink-3, #909399);
 }
 .result-alert {
@@ -334,5 +334,82 @@ function finish() {
   justify-content: flex-end;
   gap: 8px;
   margin-top: 8px;
+}
+/* 同频校园：本页展示布局，业务绑定保持原样 */
+.sec,.practice,.ref {
+  min-width: 0;
+  padding: 20px;
+  background: var(--surface-2);
+  border-radius: 18px;
+  margin-bottom: 18px;
+}
+.sec-title {
+  color: var(--brand);
+  font-size: 15px;
+}
+.q-text {
+  overflow-wrap: anywhere;
+  line-height: 1.85;
+}
+.q-img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 14px;
+}
+.kv,.q-tags,.ai-line,.q-head {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.option,.level-btn {
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: var(--surface);
+  padding: 16px;
+  white-space: normal;
+}
+.level-btn.active,.option.selected {
+  border-color: var(--brand);
+  background: var(--brand-soft);
+}
+.levels {
+  display: grid;
+  grid-template-columns: repeat(2,minmax(0,1fr));
+  gap: 12px;
+}
+.analysis,.correct-ans {
+  background: var(--accent-soft);
+  border-radius: 16px;
+  padding: 18px;
+}
+.drawer-footer,.ops,.err-ops {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+}
+.drawer-footer :deep(.el-button) {
+  margin-left: 0;
+}
+.err-box {
+  padding: 24px;
+  border-radius: 18px;
+  background: var(--error-soft);
+}
+.md-body,.explain-body {
+  line-height: 1.85;
+  overflow-wrap: anywhere;
+}
+.md-body :deep(pre),.explain-body :deep(pre) {
+  max-width: 100%;
+  overflow-x: auto;
+}
+@media (max-width:600px) {
+  .sec,.practice,.ref {
+    padding: 16px;
+  }
+  .levels {
+    grid-template-columns: minmax(0,1fr);
+  }
 }
 </style>

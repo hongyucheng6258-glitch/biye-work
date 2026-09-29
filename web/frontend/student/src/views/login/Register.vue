@@ -119,12 +119,35 @@ onMounted(loadCaptcha)
 </script>
 
 <style scoped>
-.register-card { width: 100%; max-width: 400px; }
-.auth-form-head { margin-bottom: 27px; }
-.auth-form-head p { color: var(--ink-3); font-size: 13px; }
-.auth-form-head h1 { font-size: 25px; font-weight: 700; margin: 7px 0 5px; color: var(--ink); letter-spacing: -.4px; }
-.auth-form-head .muted { color: var(--ink-3); font-size: 12px; line-height: 1.7; }
-.captcha-row { display: flex; width: 100%; gap: var(--s-3); align-items: center; }
+.register-card {
+  width: 100%;
+  max-width: 400px;
+}
+.auth-form-head {
+  margin-bottom: 27px;
+}
+.auth-form-head p {
+  color: var(--ink-3);
+  font-size: 13px;
+}
+.auth-form-head h1 {
+  font-size: 25px;
+  font-weight: 700;
+  margin: 7px 0 5px;
+  color: var(--ink);
+  letter-spacing: -.4px;
+}
+.auth-form-head .muted {
+  color: var(--ink-3);
+  font-size: 12px;
+  line-height: 1.7;
+}
+.captcha-row {
+  display: flex;
+  width: 100%;
+  gap: var(--s-3);
+  align-items: center;
+}
 .captcha-img {
   width: 120px;
   height: 44px;
@@ -144,8 +167,7 @@ onMounted(loadCaptcha)
   border-radius: var(--r-md);
   cursor: pointer;
   flex-shrink: 0;
-  background:
-    radial-gradient(circle at 12% 24%, rgba(49, 91, 184, .28) 0 1px, transparent 2px),
+  background: radial-gradient(circle at 12% 24%, rgba(49, 91, 184, .28) 0 1px, transparent 2px),
     radial-gradient(circle at 27% 76%, rgba(41, 166, 181, .28) 0 1px, transparent 2px),
     radial-gradient(circle at 77% 23%, rgba(218, 91, 124, .22) 0 1px, transparent 2px),
     radial-gradient(circle at 91% 69%, rgba(68, 160, 116, .26) 0 1.2px, transparent 2.2px),
@@ -159,12 +181,31 @@ onMounted(loadCaptcha)
   user-select: none;
   transition: border-color .18s ease, box-shadow .18s ease;
 }
-.captcha-math:hover { border-color: var(--brand-line); box-shadow: 0 3px 10px rgba(49, 91, 184, .1), inset 0 1px 0 rgba(255, 255, 255, .8); }
-.submit { width: 100%; height: 44px; margin-top: 8px; border-radius: var(--r-pill); font-weight: 600; }
-.links { margin-top: var(--s-5); text-align: center; font-size: var(--fs-sm); color: var(--ink-3); }
-.links a { color: var(--brand-strong); font-weight: 600; text-decoration: none; }
-
-.register-card :deep(.el-input__wrapper) { border-radius: var(--r-md); }
+.captcha-math:hover {
+  border-color: var(--brand-line);
+  box-shadow: 0 3px 10px rgba(49, 91, 184, .1), inset 0 1px 0 rgba(255, 255, 255, .8);
+}
+.submit {
+  width: 100%;
+  height: 44px;
+  margin-top: 8px;
+  border-radius: var(--r-pill);
+  font-weight: 600;
+}
+.links {
+  margin-top: var(--s-5);
+  text-align: center;
+  font-size: var(--fs-sm);
+  color: var(--ink-3);
+}
+.links a {
+  color: var(--brand-strong);
+  font-weight: 600;
+  text-decoration: none;
+}
+.register-card :deep(.el-input__wrapper) {
+  border-radius: var(--r-md);
+}
 .register-card :deep(.el-button--primary) {
   --el-button-bg-color: var(--brand);
   --el-button-border-color: var(--brand);
@@ -173,5 +214,56 @@ onMounted(loadCaptcha)
   --el-button-active-bg-color: var(--brand-strong);
   --el-button-active-border-color: var(--brand-strong);
 }
-
+/* 同频校园：本页展示布局，业务绑定保持原样 */
+.login-card,.register-card {
+  width: 100%;
+  background: var(--surface);
+  color: var(--ink);
+  border: 1px solid var(--line);
+  border-radius: 26px;
+  padding: 32px;
+}
+.auth-form-head h1,.auth-form-head h2 {
+  color: var(--ink);
+  font-size: 28px;
+}
+.captcha-row {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  min-width: 0;
+}
+.captcha-row :deep(.el-input) {
+  flex: 1;
+  min-width: 130px;
+}
+.captcha-img,.captcha-math {
+  border-radius: 12px;
+  border: 1px solid var(--accent-line);
+  background: var(--accent-soft);
+  max-width: 100%;
+}
+.submit {
+  min-height: 46px;
+  border-radius: var(--r-pill);
+}
+.login-foot,.links {
+  font-size: 13px;
+  flex-wrap: wrap;
+}
+.muted {
+  font-size: 13px;
+  color: var(--ink-2);
+}
+:deep(.el-form-item__label) {
+  font-size: 14px;
+}
+@media (max-width:600px) {
+  .login-card,.register-card {
+    padding: 24px 20px;
+  }
+  .captcha-row {
+    gap: 10px;
+  }
+}
 </style>

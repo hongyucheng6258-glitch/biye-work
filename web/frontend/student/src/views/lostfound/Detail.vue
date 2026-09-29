@@ -71,7 +71,8 @@
 
     <!-- 认领申请管理弹窗（发布者） -->
     <el-dialog v-model="claimsVisible" title="认领申请管理" width="680px" destroy-on-close>
-      <el-table :data="claims" v-loading="claimsLoading" size="small">
+      <div class="tp-table-scroll">
+<el-table :data="claims" v-loading="claimsLoading" size="small">
         <el-table-column prop="claimNickname" label="申请人" width="100" />
         <el-table-column prop="message" label="认领说明" min-width="160" show-overflow-tooltip />
         <el-table-column prop="contact" label="联系方式" width="120" show-overflow-tooltip />
@@ -94,6 +95,7 @@
           </template>
         </el-table-column>
       </el-table>
+</div>
       <el-empty v-if="!claimsLoading && !claims.length" description="暂无认领申请" />
       <div v-if="claimTotal > claimPageSize" class="claim-pager">
         <el-pagination
@@ -325,5 +327,87 @@ onMounted(load)
 </style>
 
 <style scoped>
-.claim-pager { display: flex; justify-content: center; margin-top: 12px; }
+.claim-pager {
+  display: flex;
+  justify-content: center;
+  margin-top: 12px;
+}
+/* 同频校园：本页展示布局，业务绑定保持原样 */
+.detail {
+  min-width: 0;
+}
+.layout {
+  display: grid;
+  grid-template-columns: minmax(0,1fr);
+  gap: 24px;
+}
+.gallery {
+  max-width: 100%;
+  min-width: 0;
+  border-radius: 24px;
+  overflow: hidden;
+}
+.gallery :deep(.el-image) {
+  width: 100%;
+  max-height: 460px;
+}
+.gallery :deep(.el-image__inner) {
+  object-fit: contain;
+}
+.info {
+  padding: 28px;
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  background: var(--surface);
+  min-width: 0;
+}
+.info h1,.desc {
+  overflow-wrap: anywhere;
+}
+.desc {
+  line-height: 1.85;
+}
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.actions :deep(.el-button) {
+  margin-left: 0;
+}
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.rate-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+}
+.kv {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 24px;
+}
+.contact {
+  padding: 18px;
+  background: var(--accent-soft);
+  border-radius: 16px;
+}
+.publisher {
+  width: 100%;
+}
+@media (max-width:600px) {
+  .info {
+    padding: 20px;
+  }
+  .gallery :deep(.el-image) {
+    max-height: 300px;
+  }
+  .actions :deep(.el-button) {
+    min-height: 42px;
+  }
+}
 </style>

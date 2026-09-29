@@ -8,7 +8,8 @@
         <el-button type="primary" @click="$router.push('/notice/edit')">＋ 新建公告</el-button>
       </div>
     </template>
-    <el-table :data="list" v-loading="loading">
+    <div class="tp-table-scroll">
+<el-table :data="list" v-loading="loading">
       <el-table-column prop="id" label="ID" width="60" />
       <el-table-column prop="title" label="标题" min-width="220" show-overflow-tooltip />
       <el-table-column label="状态" width="100">
@@ -33,6 +34,7 @@
         </template>
       </el-table-column>
     </el-table>
+</div>
     <el-pagination v-model:current-page="pageNum" :total="total" :page-size="10"
                    layout="total, prev, pager, next" style="margin-top: 16px" @current-change="load" />
   </el-card>
@@ -88,5 +90,67 @@ onMounted(load)
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+/* 同频校园：本页展示布局，业务绑定保持原样 */
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+}
+.toolbar>* {
+  min-width: 0;
+}
+.toolbar .el-button+ .el-button {
+  margin-left: 0;
+}
+@media (max-width:600px) {
+  .toolbar>:deep(.el-input),.toolbar>:deep(.el-select) {
+    width: 100%;
+  }
+}
+.head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 18px;
+}
+.head .sub {
+  font-size: 13px;
+  color: var(--ink-3);
+}
+.toolbar {
+  margin-bottom: 20px;
+}
+:deep(.el-table__fixed-right .cell) {
+  padding-inline: 10px;
+}
+:deep(.el-table .el-button) {
+  padding: 8px 10px;
+  min-height: 32px;
+}
+:deep(.el-table .cell) {
+  font-size: 14px;
+  line-height: 1.7;
+}
+:deep(.el-table__cell) {
+  padding-block: 14px;
+}
+:deep(.el-pagination) {
+  margin-top: 20px !important;
+}
+:deep(.el-dialog .el-form-item__label) {
+  font-size: 14px;
+}
+@media (max-width:600px) {
+  .toolbar :deep(.el-input-number) {
+    width: 100%;
+  }
+  .toolbar :deep(.el-select) {
+    width: 100% !important;
+  }
 }
 </style>

@@ -1,0 +1,4 @@
+WARN web/frontend/admin/src/views/login/Login.vue: 2 new nodes contract(s): review visibility, permissions, and UI-only scope
+WARN web/frontend/student/src/components/wt/WtHero.vue: 5 new nodes contract(s): review visibility, permissions, and UI-only scope
+WARN web/frontend/student/src/layout/MainLayout.vue: 25 new nodes contract(s): review visibility, permissions, and UI-only scope
+PASS contract audit: 506 protected files, 83 Vue files; 0 error(s), 3 warning(s). Baseline 91214e0d090ea3691c5890e55e89043b1c3102c9. Manual E2E still required.

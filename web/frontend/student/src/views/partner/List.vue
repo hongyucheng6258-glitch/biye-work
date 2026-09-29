@@ -3,7 +3,7 @@
   <WtPageHeader title="学习搭子" subtitle="找个人一起学，更有动力" eyebrow="校园服务" />
 
   <div class="partner-list">
-    <div class="toolbar">
+    <div class="toolbar tp-page-tools">
       <el-input v-model="keyword" placeholder="搜索科目/目标/介绍…" clearable style="width: 260px" @keyup.enter="search" @clear="search">
         <template #append><el-button @click="search">搜索</el-button></template>
       </el-input>
@@ -160,5 +160,102 @@ load()
   gap: 12px;
   font-size: var(--fs-cap);
   color: var(--ink-3);
+}
+/* 同频校园：本页展示布局，业务绑定保持原样 */
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  margin: 0 0 24px;
+  min-width: 0;
+}
+.toolbar>:deep(.el-input) {
+  max-width: 100%;
+}
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  min-width: 0;
+}
+.chip {
+  display: inline-flex;
+  align-items: center;
+  min-height: 40px;
+  padding: 8px 16px;
+  border-radius: var(--r-pill);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  font-size: 13px;
+  color: var(--ink-2);
+  cursor: pointer;
+}
+.chip.active {
+  background: var(--brand);
+  border-color: var(--brand);
+  color: var(--brand-ink);
+}
+.grid {
+  gap: 20px;
+  min-width: 0;
+}
+.page-bar {
+  margin-top: 24px;
+}
+.spacer {
+  min-width: 0;
+}
+@media (max-width:600px) {
+  .toolbar {
+    gap: 10px;
+  }
+  .toolbar>.el-input {
+    width: 100% !important;
+  }
+  .spacer {
+    display: none;
+  }
+  .grid {
+    grid-template-columns: minmax(0,1fr);
+  }
+  .chip {
+    font-size: 12px;
+    padding: 8px 12px;
+  }
+}
+/* 同频校园：本页展示布局，业务绑定保持原样 */
+.p-card {
+  min-width: 0;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--r-xl);
+  padding: clamp(18px,2.4vw,28px);
+  box-shadow: none;
+}
+.p-card {
+  background: var(--atlas-sky);
+}
+.p-card__head {
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.goal {
+  background: var(--accent-soft);
+  color: var(--accent-ink);
+  border-radius: var(--r-pill);
+  padding: 5px 12px;
+}
+.intro {
+  line-height: 1.8;
+  overflow-wrap: anywhere;
+}
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+}
+.p-card h3 {
+  font-size: 22px;
 }
 </style>

@@ -41,13 +41,37 @@ const colorCls = computed(() => props.color || COLOR_MAP[Math.min(Math.max(props
   font-family: var(--font-sans);
   transition: background-color .18s;
 }
-.quick-service:hover { background: var(--brand-soft); }
-.quick-service:last-child { border-right: 0; }
-.quick-service__text { min-width: 0; }
-.quick-service b { font-size: 14px; display: block; font-weight: 600; color: var(--ink); }
-.quick-service small { display: block; font-size: 11px; color: var(--ink-3); margin-top: 3px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.quick-service__arrow { width: 14px; height: 14px; margin-left: auto; color: var(--ink-3); flex: none; }
-
+.quick-service:hover {
+  background: var(--brand-soft);
+}
+.quick-service:last-child {
+  border-right: 0;
+}
+.quick-service__text {
+  min-width: 0;
+}
+.quick-service b {
+  font-size: 14px;
+  display: block;
+  font-weight: 600;
+  color: var(--ink);
+}
+.quick-service small {
+  display: block;
+  font-size: 12px;
+  color: var(--ink-3);
+  margin-top: 3px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.quick-service__arrow {
+  width: 14px;
+  height: 14px;
+  margin-left: auto;
+  color: var(--ink-3);
+  flex: none;
+}
 .service-icon {
   width: 43px;
   height: 43px;
@@ -58,10 +82,66 @@ const colorCls = computed(() => props.color || COLOR_MAP[Math.min(Math.max(props
   background: var(--brand-soft);
   color: var(--brand);
 }
-.service-icon.blue { background: var(--info-soft); color: var(--info-strong); }
-.service-icon.peach { background: var(--peach); color: var(--accent-strong); }
-.service-icon.sage { background: var(--sage); color: var(--success); }
-.service-icon.lavender { background: var(--purple-soft); color: var(--purple-strong); }
-.service-icon.neutral { background: var(--surface-3); color: var(--ink-2); }
-.service-icon :deep(svg) { width: 21px; height: 21px; }
+.service-icon.blue {
+  background: var(--info-soft);
+  color: var(--info-strong);
+}
+.service-icon.peach {
+  background: var(--peach);
+  color: var(--accent-strong);
+}
+.service-icon.sage {
+  background: var(--sage);
+  color: var(--success);
+}
+.service-icon.lavender {
+  background: var(--purple-soft);
+  color: var(--purple-strong);
+}
+.service-icon.neutral {
+  background: var(--surface-3);
+  color: var(--ink-2);
+}
+.service-icon :deep(svg) {
+  width: 21px;
+  height: 21px;
+}
+/* 同频校园：本页展示布局，业务绑定保持原样 */
+.quick-service {
+  border-radius: 18px;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  min-height: 110px;
+  padding: 20px;
+  gap: 14px;
+}
+.service-icon {
+  border-radius: 14px;
+  background: var(--atlas-sky);
+  color: var(--brand);
+}
+.quick-service__text {
+  min-width: 0;
+}
+.quick-service__text b {
+  font-size: 16px;
+}
+.quick-service__text small {
+  font-size: 12px;
+  line-height: 1.7;
+  white-space: normal;
+}
+.quick-service__arrow {
+  color: var(--brand);
+}
+@media (max-width:600px) {
+  .quick-service {
+    padding: 16px;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .quick-service__arrow {
+    margin-left: auto;
+  }
+}
 </style>

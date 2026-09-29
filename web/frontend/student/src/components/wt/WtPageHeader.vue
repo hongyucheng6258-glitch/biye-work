@@ -34,7 +34,9 @@ defineProps({
   margin-bottom: var(--s-5);
   border-bottom: 1px solid var(--line);
 }
-.wt-ph-text { min-width: 0; }
+.wt-ph-text {
+  min-width: 0;
+}
 .wt-ph-eyebrow {
   display: inline-block;
   font-size: var(--fs-cap);
@@ -64,7 +66,62 @@ defineProps({
   flex-wrap: wrap;
 }
 @media (max-width: 640px) {
-  .wt-page-header { flex-direction: column; align-items: flex-start; }
-  .wt-ph-actions { width: 100%; }
+  .wt-page-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .wt-ph-actions {
+    width: 100%;
+  }
+}
+/* 同频校园：本页展示布局，业务绑定保持原样 */
+.wt-page-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 20px;
+  padding: 8px 0 28px;
+  border-bottom: 0;
+}
+.wt-ph-text {
+  flex: 1;
+  min-width: 0;
+}
+.wt-ph-eyebrow {
+  display: inline-flex;
+  background: var(--accent-soft);
+  color: var(--accent-ink);
+  font-size: 12px;
+  letter-spacing: 0;
+  border-radius: var(--r-pill);
+  padding: 4px 12px;
+  margin-bottom: 12px;
+}
+.wt-ph-title {
+  font-size: clamp(26px,3vw,34px);
+  line-height: 1.4;
+  color: var(--ink);
+  overflow-wrap: anywhere;
+}
+.wt-ph-sub {
+  font-size: 14px;
+  color: var(--ink-2);
+  line-height: 1.8;
+}
+.wt-ph-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.wt-ph-actions :deep(.el-button) {
+  margin-left: 0;
+}
+@media (max-width:600px) {
+  .wt-ph-actions {
+    width: 100%;
+  }
+  .wt-page-header {
+    padding-bottom: 22px;
+  }
 }
 </style>

@@ -7,7 +7,8 @@
       <el-tabs v-model="tab">
         <!-- 我的报名 -->
         <el-tab-pane label="我的报名" name="signup">
-          <el-table :data="signups" v-loading="loading">
+          <div class="tp-table-scroll">
+<el-table :data="signups" v-loading="loading">
             <el-table-column prop="activityTitle" label="活动" min-width="180" show-overflow-tooltip>
               <template #default="{ row }">
                 <router-link :to="`/activity/detail/${row.activityId}`">{{ row.activityTitle }}</router-link>
@@ -25,12 +26,14 @@
               </template>
             </el-table-column>
           </el-table>
+</div>
           <el-pagination v-model:current-page="signupPage" :total="signupTotal" :page-size="10"
                          layout="prev, pager, next" style="margin-top: 16px" @current-change="loadSignups" />
         </el-tab-pane>
         <!-- 我的发布 -->
         <el-tab-pane label="我的发布" name="published">
-          <el-table :data="published" v-loading="loading">
+          <div class="tp-table-scroll">
+<el-table :data="published" v-loading="loading">
             <el-table-column prop="title" label="活动" min-width="180" show-overflow-tooltip>
               <template #default="{ row }">
                 <router-link :to="`/activity/detail/${row.id}`">{{ row.title }}</router-link>
@@ -58,6 +61,7 @@
               </template>
             </el-table-column>
           </el-table>
+</div>
           <el-pagination v-model:current-page="pubPage" :total="pubTotal" :page-size="10"
                          layout="prev, pager, next" style="margin-top: 16px" @current-change="loadPublished" />
         </el-tab-pane>
@@ -68,7 +72,8 @@
     <el-dialog v-model="memberDialog" title="报名管理" width="640px" destroy-on-close>
       <template v-if="memberActivity">
         <div style="margin-bottom: 12px; font-weight: 600">{{ memberActivity.title }}</div>
-        <el-table :data="members" v-loading="memberLoading" size="small">
+        <div class="tp-table-scroll">
+<el-table :data="members" v-loading="memberLoading" size="small">
           <el-table-column prop="nickname" label="报名人" width="110" />
           <el-table-column prop="remark" label="报名说明" min-width="140" show-overflow-tooltip />
           <el-table-column label="报名时间" width="150">
@@ -89,6 +94,7 @@
             </template>
           </el-table-column>
         </el-table>
+</div>
         <el-empty v-if="!memberLoading && !members.length" description="暂无报名" />
         <div v-if="memberTotal > memberPageSize" class="member-pager">
           <el-pagination
@@ -199,5 +205,41 @@ onMounted(() => {
 </script>
 
 <style scoped>
-.member-pager { display: flex; justify-content: center; margin-top: 12px; }
+.member-pager {
+  display: flex;
+  justify-content: center;
+  margin-top: 12px;
+}
+/* 同频校园：本页展示布局，业务绑定保持原样 */
+:deep(.el-card) {
+  border-radius: 26px;
+}
+:deep(.el-table) {
+  width: 100%;
+}
+:deep(.el-tabs__header) {
+  margin-bottom: 24px;
+}
+:deep(.el-tabs__nav-wrap) {
+  min-width: 0;
+}
+.member-pager,.claim-pager,.pager {
+  margin-top: 20px;
+}
+.done-text {
+  color: var(--success);
+  font-size: 13px;
+}
+.rate-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+}
+.item-cell {
+  min-width: 0;
+}
+.item-cell span {
+  overflow-wrap: anywhere;
+}
 </style>

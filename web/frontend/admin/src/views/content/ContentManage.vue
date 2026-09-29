@@ -14,7 +14,8 @@
         <el-tab-pane label="学习搭子" name="partner" />
         <el-tab-pane label="互助问答" name="qa" />
       </el-tabs>
-      <el-table :data="list" v-loading="loading">
+      <div class="tp-table-scroll">
+<el-table :data="list" v-loading="loading">
         <el-table-column label="标题" min-width="200" show-overflow-tooltip>
           <template #default="{ row }">{{ titleOf(row) }}</template>
         </el-table-column>
@@ -43,6 +44,7 @@
           </template>
         </el-table-column>
       </el-table>
+</div>
       <el-pagination v-model:current-page="pageNum" :total="total" :page-size="10"
                      layout="prev, pager, next" style="margin-top: 16px" @current-change="load" />
     </el-card>
@@ -62,7 +64,8 @@
           <div class="sum-item"><b>{{ report.signinCount }}</b><span>已签到</span></div>
           <div class="sum-item"><b>{{ report.signinRate }}%</b><span>签到率</span></div>
         </div>
-        <el-table :data="report.members" size="small" max-height="360">
+        <div class="tp-table-scroll">
+<el-table :data="report.members" size="small" max-height="360">
           <el-table-column prop="nickname" label="学生" width="120" />
           <el-table-column label="报名状态" width="100">
             <template #default="{ row }">
@@ -80,6 +83,7 @@
         <template #default="{ row }">{{ formatTime(row.signTime) }}</template>
       </el-table-column>
         </el-table>
+</div>
       </template>
     </el-dialog>
   </div>
@@ -206,5 +210,103 @@ onMounted(load)
 .sum-item span {
   font-size: 12px;
   color: var(--ink-3);
+}
+/* 同频校园：本页展示布局，业务绑定保持原样 */
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+}
+.toolbar>* {
+  min-width: 0;
+}
+.toolbar .el-button+ .el-button {
+  margin-left: 0;
+}
+@media (max-width:600px) {
+  .toolbar>:deep(.el-input),.toolbar>:deep(.el-select) {
+    width: 100%;
+  }
+}
+.head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 18px;
+}
+.head .sub {
+  font-size: 13px;
+  color: var(--ink-3);
+}
+.toolbar {
+  margin-bottom: 20px;
+}
+:deep(.el-table__fixed-right .cell) {
+  padding-inline: 10px;
+}
+:deep(.el-table .el-button) {
+  padding: 8px 10px;
+  min-height: 32px;
+}
+:deep(.el-table .cell) {
+  font-size: 14px;
+  line-height: 1.7;
+}
+:deep(.el-table__cell) {
+  padding-block: 14px;
+}
+:deep(.el-pagination) {
+  margin-top: 20px !important;
+}
+:deep(.el-dialog .el-form-item__label) {
+  font-size: 14px;
+}
+@media (max-width:600px) {
+  .toolbar :deep(.el-input-number) {
+    width: 100%;
+  }
+  .toolbar :deep(.el-select) {
+    width: 100% !important;
+  }
+}
+/* 同频校园：本页展示布局，业务绑定保持原样 */
+.content-manage {
+  min-width: 0;
+}
+.report-summary {
+  display: grid;
+  grid-template-columns: repeat(3,minmax(0,1fr));
+  gap: 14px;
+  margin-block: 20px;
+}
+.sum-item {
+  background: var(--surface-2);
+  border-radius: 16px;
+  padding: 18px;
+}
+.sub {
+  overflow-wrap: anywhere;
+  font-size: 13px;
+}
+:deep(.el-dialog__header) {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+:deep(.el-dialog__header .el-button) {
+  float: none !important;
+  margin: 8px 8px 0 0 !important;
+}
+:deep(.el-dialog__title) {
+  width: 100%;
+}
+@media (max-width:600px) {
+  .report-summary {
+    grid-template-columns: minmax(0,1fr);
+  }
 }
 </style>

@@ -217,19 +217,154 @@ watch(keyword, load, { immediate: true })
   text-align: center;
   color: var(--ink-3);
   font-size: var(--fs-sm);
-}<style scoped>
-.result-sections { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s-5); }
-.result-section { padding: var(--s-5); border: 1px solid var(--line); border-radius: var(--r-lg); background: var(--surface); }
-.result-section header { display: flex; align-items: center; justify-content: space-between; gap: var(--s-4); margin-bottom: var(--s-4); }
-.result-section h2 { margin: 0 0 3px; color: var(--ink); font-size: var(--fs-lg); }
-.result-section header span { color: var(--ink-3); font-size: var(--fs-xs); }
-.result-section header button { border: 0; background: transparent; color: var(--brand-strong); font-weight: 600; cursor: pointer; }
-.result-list { display: grid; }
-.result-list button { display: flex; align-items: center; justify-content: space-between; gap: var(--s-4); min-width: 0; padding: 12px 0; border: 0; border-bottom: 1px solid var(--line); background: transparent; text-align: left; cursor: pointer; }
-.result-list button:last-child { border-bottom: 0; }
-.result-list button:hover strong { color: var(--brand-strong); }
-.result-list strong { overflow: hidden; color: var(--ink); font-size: var(--fs-sm); text-overflow: ellipsis; white-space: nowrap; }
-.result-list span { flex: none; color: var(--ink-3); font-size: var(--fs-xs); }
-.search-empty { padding: 64px; color: var(--ink-3); text-align: center; }
-@media (max-width: 820px) { .result-sections { grid-template-columns: 1fr; } }
+}
+\3c style scoped>
+.result-sections {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--s-5);
+}
+.result-section {
+  padding: var(--s-5);
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  background: var(--surface);
+}
+.result-section header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s-4);
+  margin-bottom: var(--s-4);
+}
+.result-section h2 {
+  margin: 0 0 3px;
+  color: var(--ink);
+  font-size: var(--fs-lg);
+}
+.result-section header span {
+  color: var(--ink-3);
+  font-size: var(--fs-xs);
+}
+.result-section header button {
+  border: 0;
+  background: transparent;
+  color: var(--brand-strong);
+  font-weight: 600;
+  cursor: pointer;
+}
+.result-list {
+  display: grid;
+}
+.result-list button {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s-4);
+  min-width: 0;
+  padding: 12px 0;
+  border: 0;
+  border-bottom: 1px solid var(--line);
+  background: transparent;
+  text-align: left;
+  cursor: pointer;
+}
+.result-list button:last-child {
+  border-bottom: 0;
+}
+.result-list button:hover strong {
+  color: var(--brand-strong);
+}
+.result-list strong {
+  overflow: hidden;
+  color: var(--ink);
+  font-size: var(--fs-sm);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.result-list span {
+  flex: none;
+  color: var(--ink-3);
+  font-size: var(--fs-xs);
+}
+.search-empty {
+  padding: 64px;
+  color: var(--ink-3);
+  text-align: center;
+}
+@media (max-width: 820px) {
+  .result-sections {
+    grid-template-columns: 1fr;
+  }
+}
+/* 同频校园：本页展示布局，业务绑定保持原样 */
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 24px;
+}
+.chip {
+  border-radius: var(--r-pill);
+  padding: 9px 16px;
+  min-height: 40px;
+}
+.chip.active {
+  background: var(--brand);
+  color: var(--brand-ink);
+}
+.result-sections {
+  display: grid;
+  grid-template-columns: minmax(0,1fr);
+  gap: 24px;
+}
+.result-section {
+  padding: 24px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  min-width: 0;
+}
+.result-list {
+  display: grid;
+  gap: 12px;
+}
+.result-section :deep(mark) {
+  background: var(--accent);
+  color: var(--accent-ink);
+  padding: 1px 3px;
+  border-radius: 4px;
+}
+@media (max-width:600px) {
+  .result-section {
+    padding: 18px;
+  }
+  .result-section :deep(h3) {
+    overflow-wrap: anywhere;
+  }
+}
+.result-list button {
+  min-width: 0;
+  width: 100%;
+  flex-wrap: wrap;
+  align-items: flex-start;
+}
+.result-list strong {
+  min-width: 0;
+  max-width: 100%;
+  white-space: normal;
+  overflow: visible;
+  overflow-wrap: anywhere;
+  flex: 1 1 240px;
+}
+.result-list span {
+  min-width: 0;
+  max-width: 100%;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  flex: 0 1 auto;
+}
+.result-section header {
+  flex-wrap: wrap;
+}
 </style>

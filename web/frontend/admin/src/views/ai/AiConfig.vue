@@ -5,7 +5,7 @@
     <!-- 模型参数配置 -->
     <el-card v-loading="loading">
       <template #header>AI 参数配置</template>
-      <el-form label-width="160px" style="max-width: 640px">
+      <el-form class="tp-ai-connection-form" label-width="160px" style="max-width: 640px">
         <el-form-item label="模型服务地址">
           <el-input v-model="configs.base_url" placeholder="https://api.deepseek.com" />
         </el-form-item>
@@ -45,7 +45,8 @@
           <el-button type="primary" size="small" @click="openEdit()">＋ 新建模板</el-button>
         </div>
       </template>
-      <el-table :data="prompts">
+      <div class="tp-table-scroll">
+<el-table :data="prompts">
         <el-table-column prop="scene" label="场景" width="110">
           <template #default="{ row }"><el-tag size="small">{{ row.scene }}</el-tag></template>
         </el-table-column>
@@ -64,6 +65,7 @@
           </template>
         </el-table-column>
       </el-table>
+</div>
     </el-card>
 
     <!-- 模板编辑弹窗 -->
@@ -166,5 +168,112 @@ async function savePrompt() {
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+/* 同频校园：本页展示布局，业务绑定保持原样 */
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+}
+.toolbar>* {
+  min-width: 0;
+}
+.toolbar .el-button+ .el-button {
+  margin-left: 0;
+}
+@media (max-width:600px) {
+  .toolbar>:deep(.el-input),.toolbar>:deep(.el-select) {
+    width: 100%;
+  }
+}
+.head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 18px;
+}
+.head .sub {
+  font-size: 13px;
+  color: var(--ink-3);
+}
+.toolbar {
+  margin-bottom: 20px;
+}
+:deep(.el-table__fixed-right .cell) {
+  padding-inline: 10px;
+}
+:deep(.el-table .el-button) {
+  padding: 8px 10px;
+  min-height: 32px;
+}
+:deep(.el-table .cell) {
+  font-size: 14px;
+  line-height: 1.7;
+}
+:deep(.el-table__cell) {
+  padding-block: 14px;
+}
+:deep(.el-pagination) {
+  margin-top: 20px !important;
+}
+:deep(.el-dialog .el-form-item__label) {
+  font-size: 14px;
+}
+@media (max-width:600px) {
+  .toolbar :deep(.el-input-number) {
+    width: 100%;
+  }
+  .toolbar :deep(.el-select) {
+    width: 100% !important;
+  }
+}
+/* 同频校园：本页展示布局，业务绑定保持原样 */
+:deep(.el-card)+:deep(.el-card) {
+  margin-top: 24px !important;
+}
+:deep(.el-form) {
+  max-width: 900px !important;
+  width: 100%;
+}
+:deep(.el-form-item__content) {
+  min-width: 0;
+}
+:deep(.el-input-number) {
+  max-width: 100%;
+}
+@media (max-width:600px) {
+  :deep(.el-form-item) {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+  }
+  :deep(.el-form-item__label) {
+    width: auto !important;
+    justify-content: flex-start;
+    padding-bottom: 6px;
+  }
+  :deep(.el-form-item__content) {
+    margin-left: 0 !important;
+  }
+  :deep(.el-input-number) {
+    width: 100%;
+  }
+}
+:deep(.tp-ai-connection-form) {
+  display: grid;
+  grid-template-columns: repeat(2,minmax(0,1fr));
+  gap: 0 24px;
+}
+:deep(.tp-ai-connection-form > .el-form-item:nth-child(-n+3)),:deep(.tp-ai-connection-form > .el-form-item:last-child) {
+  grid-column: 1/-1;
+}
+@media (max-width:900px) {
+  :deep(.tp-ai-connection-form) {
+    grid-template-columns: minmax(0,1fr);
+  }
 }
 </style>

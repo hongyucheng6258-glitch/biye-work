@@ -3,7 +3,7 @@
   <WtPageHeader title="失物招领" subtitle="遗失与拾获，都在这里相遇" eyebrow="校园服务" />
 
   <div class="lf-list">
-    <div class="toolbar">
+    <div class="toolbar tp-page-tools">
       <div class="chips">
         <span class="chip" :class="{ active: type === undefined }" @click="selectType(undefined)">全部</span>
         <span class="chip" :class="{ active: type === 0 }" @click="selectType(0)">寻物</span>
@@ -165,13 +165,91 @@ watch(
   font-weight: 600;
   letter-spacing: 0.02em;
 }
-.tag-error { background: var(--error-soft); color: var(--error); }
-.tag-success { background: var(--success-soft); color: var(--success); }
+.tag-error {
+  background: var(--error-soft);
+  color: var(--error);
+}
+.tag-success {
+  background: var(--success-soft);
+  color: var(--success);
+}
 .card-footer {
   display: flex;
   justify-content: space-between;
   align-items: center;
   font-size: 12px;
   color: var(--ink-3);
+}
+/* 同频校园：本页展示布局，业务绑定保持原样 */
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  margin: 0 0 24px;
+  min-width: 0;
+}
+.toolbar>:deep(.el-input) {
+  max-width: 100%;
+}
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  min-width: 0;
+}
+.chip {
+  display: inline-flex;
+  align-items: center;
+  min-height: 40px;
+  padding: 8px 16px;
+  border-radius: var(--r-pill);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  font-size: 13px;
+  color: var(--ink-2);
+  cursor: pointer;
+}
+.chip.active {
+  background: var(--brand);
+  border-color: var(--brand);
+  color: var(--brand-ink);
+}
+.grid {
+  gap: 20px;
+  min-width: 0;
+}
+.page-bar {
+  margin-top: 24px;
+}
+.spacer {
+  min-width: 0;
+}
+@media (max-width:600px) {
+  .toolbar {
+    gap: 10px;
+  }
+  .toolbar>.el-input {
+    width: 100% !important;
+  }
+  .spacer {
+    display: none;
+  }
+  .grid {
+    grid-template-columns: minmax(0,1fr);
+  }
+  .chip {
+    font-size: 12px;
+    padding: 8px 12px;
+  }
+}
+/* 同频校园：本页展示布局，业务绑定保持原样 */
+.card-footer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.badge-tag {
+  border-radius: var(--r-pill);
 }
 </style>

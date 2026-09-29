@@ -1,0 +1,1 @@
+PASS self-test: mutations, duplicates, wrappers, scripts, CRLF, comments, quoted >, directives, refs, static props, additions, protected scope

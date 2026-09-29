@@ -104,33 +104,207 @@ onBeforeUnmount(() => { disposed = true; generation++; document.removeEventListe
 </script>
 
 <style scoped>
-.room-workspace { position: absolute; inset: 12px; z-index: 42; display: flex; flex-direction: column; min-width: 0; overflow: hidden; border: 1px solid var(--line); border-radius: 20px; background: var(--paper); box-shadow: 0 20px 70px #18345326; }
-.room-workspace-header { flex: none; display: flex; align-items: center; gap: 14px; padding: 18px 24px; background: var(--surface); border-bottom: 1px solid var(--line); }
-.room-service-icon { width: 44px; height: 44px; padding: 10px; background: var(--brand-soft); color: var(--brand); border-radius: 14px; flex: none; }
-.room-service-icon :deep(svg) { width: 100%; height: 100%; }
-.room-service-heading small { color: var(--ink-3); font-size: 12px; }
-.room-service-heading h2 { margin: 3px 0 0; font-size: 21px; }
-.room-shared-data { font-size: 12px; color: var(--ink-3); }
-.room-return { margin-left: auto; color: var(--brand); border: 1px solid var(--brand-line); border-radius: 10px; background: var(--surface); padding: 10px 15px; font: inherit; font-weight: 600; cursor: pointer; white-space: nowrap; }
-.room-return kbd { margin-left: 8px; font-size: 11px; color: var(--ink-3); }
-.room-workspace-nav { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; padding: 10px 24px; border-bottom: 1px solid var(--line); background: var(--surface); }
-.room-workspace-nav button, .room-workspace-error button { border: 0; border-radius: 6px; padding: 7px 10px; background: var(--brand-soft); color: var(--brand); cursor: pointer; }
-.room-workspace-nav button:disabled { opacity: .45; cursor: default; }
-.room-workspace-nav span { margin-left: auto; color: var(--ink-3); font-size: 12px; }
-.room-page-host { flex: 1; min-height: 0; overflow: auto; overscroll-behavior: contain; scrollbar-gutter: stable; padding: clamp(16px, 2.3vw, 32px); }
-.room-page-host :deep(> *) { max-width: 1440px; margin-inline: auto; min-width: 0; }
-.room-page-host :deep(.el-pagination) { flex-wrap: wrap; gap: 8px; }
-.room-page-host :deep(img) { max-width: 100%; }
-.room-workspace-error { margin: auto; padding: 24px; text-align: center; }
-button:focus-visible { outline: 3px solid var(--brand); outline-offset: 3px; }
-@media(max-width: 700px) {
- .room-workspace { inset: 0; border-radius: 0; }
- .room-workspace-header { padding: 12px; gap: 9px; }
- .room-shared-data, .room-return kbd, .room-workspace-nav span { display: none; }
- .room-service-heading h2 { font-size: 17px; }
- .room-return { padding: 9px; font-size: 13px; }
- .room-workspace-nav { padding: 8px 12px; }
- .room-page-host :deep(.toolbar) { flex-wrap: wrap; }
- .room-page-host :deep(.grid) { grid-template-columns: minmax(0, 1fr); }
+.room-workspace {
+  position: absolute;
+  inset: 12px;
+  z-index: 42;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  background: var(--paper);
+  box-shadow: 0 20px 70px #18345326;
+}
+.room-workspace-header {
+  flex: none;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 18px 24px;
+  background: var(--surface);
+  border-bottom: 1px solid var(--line);
+}
+.room-service-icon {
+  width: 44px;
+  height: 44px;
+  padding: 10px;
+  background: var(--brand-soft);
+  color: var(--brand);
+  border-radius: 14px;
+  flex: none;
+}
+.room-service-icon :deep(svg) {
+  width: 100%;
+  height: 100%;
+}
+.room-service-heading small {
+  color: var(--ink-3);
+  font-size: 12px;
+}
+.room-service-heading h2 {
+  margin: 3px 0 0;
+  font-size: 21px;
+}
+.room-shared-data {
+  font-size: 12px;
+  color: var(--ink-3);
+}
+.room-return {
+  margin-left: auto;
+  color: var(--brand);
+  border: 1px solid var(--brand-line);
+  border-radius: 10px;
+  background: var(--surface);
+  padding: 10px 15px;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.room-return kbd {
+  margin-left: 8px;
+  font-size: 12px;
+  color: var(--ink-3);
+}
+.room-workspace-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+  padding: 10px 24px;
+  border-bottom: 1px solid var(--line);
+  background: var(--surface);
+}
+.room-workspace-nav button, .room-workspace-error button {
+  border: 0;
+  border-radius: 6px;
+  padding: 7px 10px;
+  background: var(--brand-soft);
+  color: var(--brand);
+  cursor: pointer;
+}
+.room-workspace-nav button:disabled {
+  opacity: .45;
+  cursor: default;
+}
+.room-workspace-nav span {
+  margin-left: auto;
+  color: var(--ink-3);
+  font-size: 12px;
+}
+.room-page-host {
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+  overscroll-behavior: contain;
+  scrollbar-gutter: stable;
+  padding: clamp(16px, 2.3vw, 32px);
+}
+.room-page-host :deep(> *) {
+  max-width: 1440px;
+  margin-inline: auto;
+  min-width: 0;
+}
+.room-page-host :deep(.el-pagination) {
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.room-page-host :deep(img) {
+  max-width: 100%;
+}
+.room-workspace-error {
+  margin: auto;
+  padding: 24px;
+  text-align: center;
+}
+button:focus-visible {
+  outline: 3px solid var(--brand);
+  outline-offset: 3px;
+}
+@media (max-width: 700px) {
+  .room-workspace {
+    inset: 0;
+    border-radius: 0;
+  }
+  .room-workspace-header {
+    padding: 12px;
+    gap: 9px;
+  }
+  .room-shared-data, .room-return kbd, .room-workspace-nav span {
+    display: none;
+  }
+  .room-service-heading h2 {
+    font-size: 17px;
+  }
+  .room-return {
+    padding: 9px;
+    font-size: 13px;
+  }
+  .room-workspace-nav {
+    padding: 8px 12px;
+  }
+  .room-page-host :deep(.toolbar) {
+    flex-wrap: wrap;
+  }
+  .room-page-host :deep(.grid) {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+/* 同频校园：本页展示布局，业务绑定保持原样 */
+.room-workspace {
+  border-radius: 24px;
+  background: var(--paper);
+  color: var(--ink);
+  border: 1px solid var(--line);
+}
+.room-workspace-header {
+  background: var(--surface);
+  border-color: var(--line);
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.room-service-icon {
+  background: var(--accent);
+  color: var(--accent-ink);
+}
+.room-service-heading {
+  min-width: 0;
+}
+.room-service-heading h2 {
+  overflow-wrap: anywhere;
+}
+.room-return {
+  border-radius: var(--r-pill);
+  min-height: 42px;
+}
+.room-workspace-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  background: var(--surface-2);
+}
+.room-page-host {
+  min-width: 0;
+  overflow: auto;
+  padding: 24px 24px 40px;
+}
+.room-page-host :deep(.ai-layout) {
+  height: auto;
+}
+.room-page-host :deep(.room) {
+  max-height: calc(100dvh - 230px);
+}
+@media (max-width:600px) {
+  .room-workspace-header {
+    padding: 16px;
+  }
+  .room-page-host {
+    padding: 18px 16px 32px;
+  }
+  .room-return {
+    margin-left: 0;
+  }
 }
 </style>

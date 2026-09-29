@@ -33,19 +33,71 @@ const emit = defineEmits(['update:modelValue'])
 </template>
 
 <style scoped>
-.wt-field { display: flex; flex-direction: column; gap: 6px; }
-.wt-label { font-size: var(--fs-sm); font-weight: 600; color: var(--ink-2); }
+.wt-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.wt-label {
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  color: var(--ink-2);
+}
 .wt-input {
-  width: 100%; padding: var(--s-3);
-  border-radius: var(--r-sm); border: 1px solid var(--line-strong);
-  background: var(--surface-2); color: var(--ink);
-  font-family: var(--font-sans); font-size: var(--fs-sm);
+  width: 100%;
+  padding: var(--s-3);
+  border-radius: var(--r-sm);
+  border: 1px solid var(--line-strong);
+  background: var(--surface-2);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-size: var(--fs-sm);
   transition: border-color .2s, box-shadow .2s, background .2s;
 }
-.wt-field--sm .wt-input { padding: 8px 12px; font-size: var(--fs-xs); }
-.wt-input::placeholder { color: var(--ink-3); }
-.wt-input:focus { outline: none; border-color: var(--brand); background: var(--surface); box-shadow: 0 0 0 4px var(--brand-soft); }
-.wt-input:disabled { opacity: .6; cursor: not-allowed; }
-.wt-input.has-error { border-color: var(--error); box-shadow: 0 0 0 4px var(--error-soft); }
-.wt-err { margin: 0; font-size: var(--fs-xs); color: var(--error); }
+.wt-field--sm .wt-input {
+  padding: 8px 12px;
+  font-size: var(--fs-xs);
+}
+.wt-input::placeholder {
+  color: var(--ink-3);
+}
+.wt-input:focus {
+  outline: none;
+  border-color: var(--brand);
+  background: var(--surface);
+  box-shadow: 0 0 0 4px var(--brand-soft);
+}
+.wt-input:disabled {
+  opacity: .6;
+  cursor: not-allowed;
+}
+.wt-input.has-error {
+  border-color: var(--error);
+  box-shadow: 0 0 0 4px var(--error-soft);
+}
+.wt-err {
+  margin: 0;
+  font-size: var(--fs-xs);
+  color: var(--error);
+}
+/* 同频校园：本页展示布局，业务绑定保持原样 */
+.wt-label {
+  font-size: 14px;
+  color: var(--ink-2);
+  font-weight: 600;
+}
+.wt-input {
+  border-radius: 12px;
+  background: var(--surface);
+  min-height: 44px;
+  font-size: 16px;
+  border-color: var(--line-strong);
+}
+.wt-input:focus {
+  border-color: var(--brand);
+}
+.wt-err {
+  font-size: 12px;
+  color: var(--error);
+}
 </style>

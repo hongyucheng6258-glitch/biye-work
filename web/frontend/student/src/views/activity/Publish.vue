@@ -119,4 +119,89 @@ async function submit() {
   font-size: 12px;
   color: var(--ink-3);
 }
+/* 同频校园：本页展示布局，业务绑定保持原样 */
+.publish {
+  max-width: 1040px;
+  margin: 0 auto;
+  min-width: 0;
+}
+.publish>:deep(.el-card) {
+  border-radius: 26px;
+}
+.publish :deep(.el-form) {
+  width: 100%;
+  max-width: none !important;
+}
+.publish :deep(.el-form-item) {
+  margin-bottom: 24px;
+}
+.publish :deep(.el-form-item__label) {
+  color: var(--ink-2);
+  font-weight: 600;
+}
+.publish :deep(.el-input),.publish :deep(.el-select),.publish :deep(.el-date-editor) {
+  max-width: 100%;
+}
+.publish :deep(.el-alert) {
+  background: var(--atlas-sky);
+  border-radius: 14px;
+}
+.tip {
+  font-size: 12px;
+  white-space: normal;
+  color: var(--ink-3);
+}
+.match-head,.est-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+}
+.match-list {
+  display: grid;
+  gap: 14px;
+}
+.match-card,.est-card {
+  border: 1px solid var(--accent-line);
+  background: var(--accent-soft);
+  border-radius: 18px;
+  padding: 20px;
+  min-width: 0;
+}
+.match-card__main,.est-line {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.match-reason,.match-meta {
+  overflow-wrap: anywhere;
+}
+.match-tip,.est-tip {
+  font-size: 13px;
+}
+@media (max-width:600px) {
+  .publish :deep(.el-form-item) {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .publish :deep(.el-form-item__label) {
+    width: auto !important;
+    text-align: left;
+    padding-bottom: 8px;
+  }
+  .publish :deep(.el-form-item__content) {
+    margin-left: 0 !important;
+    width: 100%;
+  }
+  .publish :deep(.el-date-editor) {
+    width: 100%;
+  }
+  .publish :deep(.el-form-item__content)>.el-button {
+    margin: 0 8px 8px 0;
+  }
+  .publish :deep(.el-input-number) {
+    max-width: 100%;
+  }
+}
 </style>

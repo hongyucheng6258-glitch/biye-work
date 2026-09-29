@@ -111,5 +111,44 @@ onMounted(load)
   font-weight: 600;
   letter-spacing: 0.02em;
 }
-.tag-brand { background: var(--brand-soft); color: var(--brand-strong); }
+.tag-brand {
+  background: var(--brand-soft);
+  color: var(--brand-strong);
+}
+/* 同频校园：本页展示布局，业务绑定保持原样 */
+.list-page {
+  display: grid;
+  gap: 14px;
+}
+.notice-card {
+  padding: 22px;
+  border: 1px solid var(--line);
+  border-radius: 22px;
+  background: var(--surface);
+  gap: 16px;
+}
+.notice-main {
+  min-width: 0;
+}
+.n-title {
+  white-space: normal;
+  overflow-wrap: anywhere;
+  font-size: 17px;
+}
+.n-meta {
+  font-size: 13px;
+}
+.tag-brand {
+  background: var(--brand-soft);
+  color: var(--brand);
+}
+@media (max-width:600px) {
+  .notice-card {
+    padding: 18px;
+    flex-wrap: wrap;
+  }
+  .n-arrow {
+    margin-left: auto;
+  }
+}
 </style>

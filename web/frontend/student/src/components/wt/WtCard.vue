@@ -26,6 +26,23 @@ defineProps({
   box-shadow: var(--shadow-sm);
   transition: transform .25s var(--ease-out), box-shadow .25s var(--ease-out), border-color .2s;
 }
-.wt-card--hover:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); }
-.wt-card--flush { padding: 0; overflow: hidden; }
+.wt-card--hover:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
+}
+.wt-card--flush {
+  padding: 0;
+  overflow: hidden;
+}
+/* 同频校园：本页展示布局，业务绑定保持原样 */
+.wt-card {
+  border-radius: 24px;
+  border-color: var(--line);
+  background: var(--surface);
+  box-shadow: none;
+}
+.wt-card--hover:hover {
+  box-shadow: var(--shadow-sm);
+  transform: translateY(-2px);
+}
 </style>

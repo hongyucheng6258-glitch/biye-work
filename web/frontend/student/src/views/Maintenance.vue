@@ -65,4 +65,30 @@ h1 {
   margin: 0 0 24px;
   line-height: 1.6;
 }
+/* 同频校园：本页展示布局，业务绑定保持原样 */
+.maintenance-page {
+  background: var(--atlas-sky);
+  padding: 24px;
+}
+.maintenance-card {
+  background: var(--surface);
+  color: var(--ink);
+  border: 1px solid var(--line);
+  border-radius: 26px;
+  max-width: 640px;
+  width: 100%;
+  padding: 40px;
+}
+.maintenance-card h1 {
+  font-size: 30px;
+}
+.subtitle,.desc {
+  overflow-wrap: anywhere;
+  font-size: 14px;
+}
+@media (max-width:600px) {
+  .maintenance-card {
+    padding: 28px;
+  }
+}
 </style>

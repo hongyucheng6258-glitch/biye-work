@@ -72,10 +72,100 @@ onBeforeUnmount(() => { chatStore.activeConversationId = null })
 </script>
 
 <style scoped>
-.room { height:calc(100vh - 132px); min-height:620px; display:grid; grid-template-rows:auto auto 1fr auto; overflow:hidden; border:1px solid var(--line); border-radius:24px; background:var(--surface-2); box-shadow:var(--shadow-md); }
-.room > header { display:flex; align-items:center; gap:12px; padding:14px 18px; border-bottom:1px solid var(--line); background:var(--surface); }
-header h2 { margin:0; font-family:var(--font-display); font-size:18px; } header span { color:var(--ink-3); font-size:12px; } .more { margin-left:auto; }
-main { overflow-y:auto; padding:8px 24px 24px; scroll-behavior:smooth; } main > .el-button { display:flex; margin:8px auto; }
-.history-end { text-align:center; padding:10px; color:var(--ink-3); font-size:12px; }
-@media(max-width:820px){ .room{height:calc(100vh - 110px);min-height:540px;border-radius:16px} main{padding:8px 12px 18px} }
+.room {
+  height: calc(100vh - 132px);
+  min-height: 620px;
+  display: grid;
+  grid-template-rows: auto auto 1fr auto;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  background: var(--surface-2);
+  box-shadow: var(--shadow-md);
+}
+.room > header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 18px;
+  border-bottom: 1px solid var(--line);
+  background: var(--surface);
+}
+header h2 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 18px;
+}
+header span {
+  color: var(--ink-3);
+  font-size: 12px;
+}
+.more {
+  margin-left: auto;
+}
+main {
+  overflow-y: auto;
+  padding: 8px 24px 24px;
+  scroll-behavior: smooth;
+}
+main > .el-button {
+  display: flex;
+  margin: 8px auto;
+}
+.history-end {
+  text-align: center;
+  padding: 10px;
+  color: var(--ink-3);
+  font-size: 12px;
+}
+@media (max-width:820px) {
+  .room {
+    height: calc(100vh - 110px);
+    min-height: 540px;
+    border-radius: 16px;
+  }
+  main {
+    padding: 8px 12px 18px;
+  }
+}
+/* 同频校园：本页展示布局，业务绑定保持原样 */
+.room {
+  max-width: 1100px;
+  margin: 0 auto;
+  min-width: 0;
+  min-height: 0;
+  height: clamp(540px,75dvh,800px);
+  border: 1px solid var(--line);
+  border-radius: 26px;
+  background: var(--surface);
+  overflow: hidden;
+}
+.room>header {
+  background: var(--atlas-sky);
+  flex-wrap: wrap;
+  gap: 12px;
+  padding: 20px;
+}
+.room>main {
+  min-height: 0;
+  overflow: auto;
+  padding: 22px;
+}
+.more,.history-end {
+  font-size: 12px;
+}
+@media (max-width:600px) {
+  .room {
+    height: 660px;
+    max-height: calc(100dvh - 120px);
+    min-height: 480px;
+    border-radius: 22px;
+  }
+  .room>header {
+    padding: 16px;
+  }
+  .room>main {
+    padding: 16px;
+  }
+}
 </style>

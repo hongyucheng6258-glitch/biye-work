@@ -3,7 +3,7 @@
 
   <el-card>
     <template #header>AI 调用日志</template>
-    <div class="toolbar">
+    <div class="toolbar tp-page-tools">
       <el-input-number v-model="userId" placeholder="用户ID" :controls="false" style="width: 120px" />
       <el-select v-model="scene" placeholder="全部场景" clearable style="width: 150px" @change="search">
         <el-option label="答疑 chat" value="chat" />
@@ -18,7 +18,8 @@
       </el-select>
       <el-button type="primary" @click="search">查询</el-button>
     </div>
-    <el-table :data="list" v-loading="loading">
+    <div class="tp-table-scroll">
+<el-table :data="list" v-loading="loading">
       <el-table-column prop="id" label="ID" width="70" />
       <el-table-column prop="userId" label="用户ID" width="80" />
       <el-table-column prop="scene" label="场景" width="100">
@@ -43,6 +44,7 @@
         <template #default="{ row }">{{ formatTime(row.createTime) }}</template>
       </el-table-column>
     </el-table>
+</div>
     <el-pagination v-model:current-page="pageNum" :total="total" :page-size="10"
                    layout="total, prev, pager, next" style="margin-top: 16px" @current-change="load" />
   </el-card>
@@ -92,5 +94,67 @@ onMounted(load)
   display: flex;
   gap: 12px;
   margin-bottom: 16px;
+}
+/* 同频校园：本页展示布局，业务绑定保持原样 */
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+}
+.toolbar>* {
+  min-width: 0;
+}
+.toolbar .el-button+ .el-button {
+  margin-left: 0;
+}
+@media (max-width:600px) {
+  .toolbar>:deep(.el-input),.toolbar>:deep(.el-select) {
+    width: 100%;
+  }
+}
+.head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 18px;
+}
+.head .sub {
+  font-size: 13px;
+  color: var(--ink-3);
+}
+.toolbar {
+  margin-bottom: 20px;
+}
+:deep(.el-table__fixed-right .cell) {
+  padding-inline: 10px;
+}
+:deep(.el-table .el-button) {
+  padding: 8px 10px;
+  min-height: 32px;
+}
+:deep(.el-table .cell) {
+  font-size: 14px;
+  line-height: 1.7;
+}
+:deep(.el-table__cell) {
+  padding-block: 14px;
+}
+:deep(.el-pagination) {
+  margin-top: 20px !important;
+}
+:deep(.el-dialog .el-form-item__label) {
+  font-size: 14px;
+}
+@media (max-width:600px) {
+  .toolbar :deep(.el-input-number) {
+    width: 100%;
+  }
+  .toolbar :deep(.el-select) {
+    width: 100% !important;
+  }
 }
 </style>

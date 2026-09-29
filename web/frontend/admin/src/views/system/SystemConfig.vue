@@ -3,7 +3,7 @@
 
   <div v-loading="loading">
     <!-- 操作栏 -->
-    <div class="toolbar">
+    <div class="toolbar tp-page-tools">
       <el-radio-group v-model="activeCategory" @change="onCategoryChange">
         <el-radio-button label="">全部分组</el-radio-button>
         <el-radio-button v-for="c in categories" :key="c.key" :label="c.key">
@@ -205,5 +205,84 @@ onMounted(loadData)
   font-size: 12px;
   color: var(--ink-3);
   font-family: monospace;
+}
+/* 同频校园：本页展示布局，业务绑定保持原样 */
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+}
+.toolbar>* {
+  min-width: 0;
+}
+.toolbar .el-button+ .el-button {
+  margin-left: 0;
+}
+@media (max-width:600px) {
+  .toolbar>:deep(.el-input),.toolbar>:deep(.el-select) {
+    width: 100%;
+  }
+}
+.toolbar {
+  margin-bottom: 24px;
+}
+.config-card {
+  border-radius: 24px;
+  margin-bottom: 24px;
+}
+.card-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+}
+.group-title {
+  font-size: 18px;
+  color: var(--ink);
+}
+.config-key-hint {
+  font-size: 12px;
+  color: var(--ink-3);
+  overflow-wrap: anywhere;
+}
+:deep(.el-form-item) {
+  padding-block: 12px;
+  border-bottom: 1px solid var(--line);
+  margin-bottom: 12px;
+}
+:deep(.el-form-item__label) {
+  height: auto;
+  line-height: 1.8;
+  white-space: normal;
+  padding-right: 24px;
+}
+:deep(.el-form-item__content) {
+  min-width: 0;
+}
+:deep(.el-input-number) {
+  max-width: 100%;
+}
+@media (max-width:600px) {
+  :deep(.el-form-item) {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+  }
+  :deep(.el-form-item__label) {
+    width: auto !important;
+    padding-bottom: 8px;
+    justify-content: flex-start;
+  }
+  :deep(.el-form-item__content) {
+    margin-left: 0 !important;
+  }
+  .spacer {
+    display: none;
+  }
+  .toolbar :deep(.el-radio-group) {
+    gap: 8px;
+  }
 }
 </style>

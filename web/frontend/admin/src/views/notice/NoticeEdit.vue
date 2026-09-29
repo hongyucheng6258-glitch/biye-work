@@ -109,4 +109,61 @@ async function save(andPublish) {
   border-radius: 4px;
   overflow-x: auto;
 }
+/* 同频校园：本页展示布局，业务绑定保持原样 */
+.editor-row {
+  display: grid;
+  grid-template-columns: repeat(2,minmax(0,1fr));
+  gap: 24px;
+  min-width: 0;
+}
+.md-editor,.md-preview {
+  min-width: 0;
+  border-radius: 16px;
+  overflow: hidden;
+}
+.md-preview {
+  padding: 24px;
+  background: var(--surface-2);
+  border: 1px solid var(--line);
+  line-height: 1.85;
+  overflow-wrap: anywhere;
+}
+.md-preview :deep(pre) {
+  background: var(--surface);
+  border-radius: 12px;
+  padding: 18px;
+  max-width: 100%;
+  overflow: auto;
+}
+.md-preview :deep(img) {
+  max-width: 100%;
+  height: auto;
+}
+.md-preview :deep(table) {
+  display: block;
+  max-width: 100%;
+  overflow: auto;
+}
+.md-preview :deep(ul) {
+  list-style: disc;
+  padding-left: 24px;
+}
+.md-preview :deep(ol) {
+  list-style: decimal;
+  padding-left: 24px;
+}
+.md-preview :deep(h1),.md-preview :deep(h2),.md-preview :deep(h3) {
+  margin-block: 20px 12px;
+}
+.md-preview :deep(p) {
+  margin-bottom: 14px;
+}
+@media (max-width:900px) {
+  .editor-row {
+    grid-template-columns: minmax(0,1fr);
+  }
+  .md-preview {
+    min-height: 240px;
+  }
+}
 </style>

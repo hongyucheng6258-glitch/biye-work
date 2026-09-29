@@ -32,7 +32,7 @@
 | 原十个服务房间回归 | PASS：十个房间均可打开，0 页面异常 | [房间回归](evidence/after/system-all-rooms.log) |
 | 原场景与故障回退回归 | PASS：Monaco 失败/挂起降级、503 恢复、重复进出 3D、三档画质及窗口缩放 | [场景回归](evidence/after/system-scene-and-fallback.log) |
 | 独立代码审查 | Critical 0；遗留 Important 0；遗留 Minor 0 | [审查记录](evidence/review.md) |
-| 真实数据库/后端完整 E2E | **BLOCK，未执行**：Docker daemon 未就绪，启动 Desktop 后限时探测仍超时 | [环境记录](evidence/environment.json) |
+| 真实数据库/后端核心 E2E | 已补跑：134 PASS、0 FAIL、0 BLOCK、1 UNCOVERED；运行器退出码 0。外部 AI 类别未执行 | [补充报告](real-e2e-report.md)、[真实结果](evidence/real-e2e/results.json) |
 
 尺寸检查覆盖 360、390、768、1024、1440、1920 宽的浅色，以及 390、1440 宽的深色。动作检查涵盖完整导航、搜索、活动报名、资料/密码弹窗、错题收录/复习/练习/计划/报告、PDF 上传入口、六个后台弹窗、两类管理员、游客跳转、两种验证码、3D 顶部按钮点击命中、地图实际加载、AI 历史排列、主题按钮和名片文字对比、登录布局及 200% 缩放等效宽度。
 
@@ -57,7 +57,9 @@
 
 ## 限制与复现
 
-**本轮没有据此声明“全部真实业务 E2E 已通过”。** 浏览器回归使用隔离请求响应，验证原页面、绑定、请求形状和交互可达性；真实数据库持久化、实际上传/OCR、AI 流式成功响应、多用户 WebSocket 同步和并发成功链路仍需隔离后端。不得将这些未执行项标成 PASS。Docker 可用后，应按 `tests/browser/README.md` 用独立 Compose 项目执行核心 E2E，避免演示 SQL 触及原数据库；外部付费模型调用仍需单独配置。
+**不声明“全部真实业务 E2E 已通过”。** 首轮浏览器回归使用隔离请求响应；随后用户开启 Docker，已在新建独立 Compose 项目补跑真实核心 E2E，覆盖实际业务接口、持久化、图片上传、3D、响应式及并发预约等流程，结果为 134 PASS、0 FAIL、0 BLOCK、1 UNCOVERED。原开发数据库未参与测试。
+
+真实 AI 成功响应、OCR、多用户 WebSocket 推送仍未覆盖，原类别 16 的 AI 限额/未配置错误提示仍为 UNCOVERED；外部付费模型类别 15 未执行。许多核心业务动作通过真实 API 检查，不能将页面截图解释为每个按钮都完成了真实用户操作。详见 [真实 E2E 验证边界](real-e2e-report.md)。
 
 复查命令（从当前 worktree 根目录运行，先启动原两端 Vite 服务）：
 
@@ -72,7 +74,7 @@ $env:CAMPUS_TEST_OUTPUT = Join-Path (Get-Location) '.superpowers/tongpin-impleme
 node scripts/tongpin-ui-browser-check.cjs
 ```
 
-当前预览地址：学生 `http://127.0.0.1:5173`，后台 `http://127.0.0.1:5174/admin/login`。页面使用原后端接口；预览时没有后端会按原逻辑显示加载失败或登录提示，不会展示验收脚本的数据。
+改版的真实后端测试预览地址：学生 `http://localhost:15173`，后台 `http://localhost:15174/admin/login`。独立测试容器暂时保留供核对，使用 E2E 新建的数据。`5173/5174` 目前是原 `ai-campus` Docker 项目的端口，本轮未重建该项目，不将其当作本分支改版预览。之前 API 拦截检查的模拟响应不会进入生产应用。
 
 ## 执行取舍
 

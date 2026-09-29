@@ -9,11 +9,26 @@
   "playwrightPath": "E:/work/毕业设计UI原型/.local-browser/node_modules/playwright",
   "uiRequests": "Browser-isolated fixtures; no live API mutations",
   "realE2E": {
-    "status": "BLOCK",
-    "executed": false,
-    "reason": "Docker daemon initially unavailable. Started Docker Desktop; subsequent info probe timed out, bounded final probe exceeded 8 seconds.",
+    "status": "CORE_CHECKS_PASS_WITH_UNCOVERED_ITEM",
+    "executed": true,
+    "counts": {
+      "PASS": 134,
+      "FAIL": 0,
+      "BLOCK": 0,
+      "UNCOVERED": 1
+    },
+    "initialAttempt": {
+      "status": "BLOCK",
+      "executed": false,
+      "reason": "Docker daemon initially unavailable. Started Docker Desktop; subsequent info probe timed out, bounded final probe exceeded 8 seconds.",
+      "externalAiCalled": false,
+      "liveDatabaseUsed": false
+    },
     "externalAiCalled": false,
-    "liveDatabaseUsed": false
+    "realIsolatedDatabaseUsed": true,
+    "originalDevelopmentDatabaseUsed": false,
+    "summary": "real-e2e/summary.json",
+    "project": "tongpin-ui-e2e-20260929032639"
   },
   "verification": {
     "measurements": 464,
@@ -21,5 +36,6 @@
     "actions": 24,
     "actionFailures": 0,
     "pageErrors": 0
-  }
+  },
+  "subsequentValidationRecordedAt": "2026-09-29T03:32:38.482Z"
 }

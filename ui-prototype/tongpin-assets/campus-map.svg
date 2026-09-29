@@ -1,0 +1,217 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="620" viewBox="0 0 900 620" fill="none">
+  <defs>
+    <linearGradient id="land" x1="342" y1="121" x2="638" y2="546" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#DFECDC"/><stop offset="1" stop-color="#CFE3D7"/>
+    </linearGradient>
+    <linearGradient id="glass" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#C6E6ED"/><stop offset="1" stop-color="#84B3C4"/>
+    </linearGradient>
+    <linearGradient id="water" x1="587" y1="378" x2="698" y2="466" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#ADD7DC"/><stop offset="1" stop-color="#7DBBC3"/>
+    </linearGradient>
+    <filter id="shadow" x="-30%" y="-40%" width="170%" height="190%">
+      <feGaussianBlur stdDeviation="10"/>
+    </filter>
+    <g id="tree">
+      <ellipse cx="10" cy="4" rx="21" ry="9" fill="#7DAB92" opacity=".22"/>
+      <path d="M0 0V-29" stroke="#6F8C6B" stroke-width="4" stroke-linecap="round"/>
+      <path d="M-1-15-10-26M1-22 10-31" stroke="#6F8C6B" stroke-width="2"/>
+      <path d="M-20-34C-20-51-8-64 2-64 15-64 24-48 24-34 24-20 12-14 2-14-11-14-20-21-20-34Z" fill="#649B75"/>
+      <path d="M2-64C15-64 24-48 24-34 24-20 12-14 2-14-3-14-9-15-12-18 1-20 8-28 8-41 8-51 5-59 2-64Z" fill="#39745C"/>
+      <path d="M-13-38C-13-48-7-55-2-57" stroke="#9BC08E" stroke-width="4" stroke-linecap="round" opacity=".75"/>
+    </g>
+    <g id="small-tree">
+      <ellipse cx="9" cy="3" rx="18" ry="7" fill="#7DAB92" opacity=".24"/>
+      <path d="M0 0V-23" stroke="#7A8C68" stroke-width="3" stroke-linecap="round"/>
+      <path d="M0-56 20-19 0-8-20-20Z" fill="#548B68"/>
+      <path d="M0-56 0-8 20-19Z" fill="#326B55"/>
+      <path d="M0-56-20-20-5-27Z" fill="#83AA7D"/>
+    </g>
+    <g id="bush">
+      <ellipse cx="3" cy="1" rx="17" ry="7" fill="#7FA686" opacity=".25"/>
+      <ellipse cy="-8" rx="15" ry="11" fill="#A3C59C"/>
+      <path d="M-11-1C-1 1 12-3 13-11 18 0 9 5 1 5-5 5-9 3-11-1Z" fill="#7FA77E"/>
+    </g>
+    <g id="student">
+      <ellipse cx="3" cy="3" rx="7" ry="3" fill="#578274" opacity=".2"/>
+      <path d="M-2-4-3 1M2-4 3 2" stroke="#36544E" stroke-width="2" stroke-linecap="round"/>
+      <path d="M-3-13C-3-16 4-16 4-13L3-4H-2Z" fill="#EB947C"/>
+      <path d="M-3-12-5-7M4-12 6-8" stroke="#EB947C" stroke-width="2" stroke-linecap="round"/>
+      <circle cy="-18" r="3" fill="#B78864"/>
+      <path d="M-3-19C-2-23 4-22 3-18" fill="#375B4D"/>
+    </g>
+    <g id="student-blue">
+      <ellipse cx="3" cy="3" rx="7" ry="3" fill="#578274" opacity=".2"/>
+      <path d="M-2-4-3 2M2-4 4 1" stroke="#36544E" stroke-width="2" stroke-linecap="round"/>
+      <path d="M-3-13C-3-16 4-16 4-13L3-4H-2Z" fill="#8099C1"/>
+      <path d="M-3-12-5-8M4-12 6-7" stroke="#8099C1" stroke-width="2" stroke-linecap="round"/>
+      <circle cy="-18" r="3" fill="#D3AC86"/>
+      <path d="M-3-19C-1-22 3-22 3-19" fill="#375B4D"/>
+    </g>
+    <g id="lamp">
+      <path d="M0 0V-40L10-46" stroke="#739383" stroke-width="2.2" stroke-linecap="round"/>
+      <path d="m6-47 10 5-9 5-10-5Z" fill="#F5F4D6"/>
+    </g>
+    <g id="bench">
+      <path d="m-12 0 24 14 9-5-24-14Z" fill="#D7AE87"/>
+      <path d="M-9 2V7M13 15V20M19 12V17" stroke="#7D8D73" stroke-width="2.5"/>
+      <path d="M-11-4 13 10M-11-8 13 6" stroke="#DEBB94" stroke-width="3"/>
+      <path d="M-11-9V1M13 5V14" stroke="#7D8D73" stroke-width="1.6"/>
+    </g>
+  </defs>
+
+  <!-- The campus is one small, sunlit island, with room for interface landmarks. -->
+  <path d="M115 336 423 133Q449 116 478 133L820 323Q851 341 818 361L482 563Q452 578 422 561L105 372Q77 355 115 336Z" fill="#527E70" opacity=".13" filter="url(#shadow)"/>
+  <path d="M95 324 404 121Q442 98 476 120L822 313Q850 329 821 350L485 552Q456 569 425 552L98 356Q73 341 95 324Z" fill="#B7D0BD"/>
+  <path d="M95 314 404 111Q442 88 476 110L822 303Q850 319 821 340L485 542Q456 559 425 542L98 346Q73 331 95 314Z" fill="url(#land)"/>
+  <path d="M113 323 431 130Q446 121 462 130L805 319" stroke="#ECF2E3" stroke-width="2" opacity=".75"/>
+
+  <!-- The garden walk loops around the library and connects the four landmarks. -->
+  <path d="M196 363 359 271 510 182 731 308 514 436 387 513M330 219 685 421M157 311 487 501" stroke="#F5F6E5" stroke-width="25" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M196 365 359 273 511 184 729 309 514 438" stroke="#DBE5CC" stroke-width="2" stroke-linecap="round" opacity=".6"/>
+  <path d="m393 463 65 37 86-51-65-37Z" fill="#E7EDCB"/>
+  <path d="m415 465 43 25 63-37-43-25Z" fill="#C4D8AC"/>
+  <path d="m444 449 28 16-14 8-28-16Z" fill="#A9C795"/>
+
+  <!-- Far garden and a warm-roofed studio building. -->
+  <use href="#small-tree" x="445" y="145" transform="translate(50 4) scale(.89)"/>
+  <use href="#tree" x="544" y="179" transform="translate(70 17) scale(.8)"/>
+  <use href="#bush" x="588" y="220"/>
+  <path d="m600 191 133 76-79 46-134-77Z" fill="#80A38F" opacity=".2"/>
+  <path d="m556 153 118 68v68l-118-68Z" fill="#ECE6D8"/>
+  <path d="m674 221 54-31v68l-54 31Z" fill="#C7CEBF"/>
+  <path d="m546 151 66-38 126 72-65 38Z" fill="#ECAE8B"/>
+  <path d="m546 151 127 72v8l-127-72Z" fill="#D18D6F"/>
+  <path d="m673 223 65-38v8l-65 38Z" fill="#BC856C"/>
+  <path d="m561 148 51-28 110 63-51 29Z" fill="#F3C5A2"/>
+  <path d="m574 169 14 8v25l-14-8ZM600 184l14 8v25l-14-8ZM626 199l14 8v25l-14-8ZM651 214l13 7v26l-13-8Z" fill="#8EADAC"/>
+  <path d="m574 208 14 8v25l-14-8ZM600 223l14 8v25l-14-8ZM626 238l14 8v25l-14-8Z" fill="#9AB8B1"/>
+  <path d="m651 253 13 7v22l-13-8Z" fill="#527C73"/>
+  <path d="m685 228 11-6v22l-11 6ZM706 216l11-6v22l-11 6ZM685 258l11-6v22l-11 6ZM706 246l11-6v22l-11 6Z" fill="#759E99"/>
+  <path d="M593 177v69M619 192v69M644 207v70" stroke="#F8F2E4" stroke-width="3"/>
+  <path d="m665 283 9 5 20-12 11 6-31 18-20-11Z" fill="#E8E8D9"/>
+  <path d="m612 128 26 15-17 10-26-15Z" fill="#D38C6D"/>
+  <path d="m595 132 26 15v6l-26-15ZM621 147l17-10v6l-17 10Z" fill="#B68370"/>
+  <path d="m594 132 17-10 28 16-18 10Z" fill="#F9DDC5"/>
+
+  <!-- Athletics track, projected into the same isometric ground plane. -->
+  <g transform="matrix(.866 .5 -.866 .5 253 235)">
+    <rect x="-33" y="-22" width="156" height="226" rx="77" fill="#BED2AE"/>
+    <rect x="-28" y="-17" width="146" height="216" rx="72" fill="#E9A788"/>
+    <rect x="-19" y="-8" width="128" height="198" rx="63" stroke="#F9D9BA" stroke-width="1.6"/>
+    <rect x="-10" y="1" width="110" height="180" rx="54" stroke="#F9D9BA" stroke-width="1.6"/>
+    <rect x="-1" y="10" width="92" height="162" rx="45" stroke="#F9D9BA" stroke-width="1.6"/>
+    <rect x="8" y="19" width="74" height="144" rx="36" fill="#A3C18D"/>
+    <rect x="16" y="41" width="58" height="100" stroke="#E5EDCD" stroke-width="2"/>
+    <path d="M16 91H74M31 41v18H59V41M31 141v-18H59v18" stroke="#E5EDCD" stroke-width="2"/>
+    <circle cx="45" cy="91" r="13" stroke="#E5EDCD" stroke-width="2"/>
+    <circle cx="45" cy="91" r="1.7" fill="#E5EDCD"/>
+    <path d="M-26 94H6M-26 99H6" stroke="#FBE1C7" stroke-width="2"/>
+  </g>
+  <path d="m205 252 16-9 34 20-16 9Z" fill="#F2EDDB"/>
+  <path d="m205 252 34 20v9l-34-20Z" fill="#D7DBCA"/>
+  <path d="m239 272 16-9v9l-16 9Z" fill="#C2CAB9"/>
+  <path d="m211 250 29 17M216 247l29 17" stroke="#DFB997" stroke-width="2"/>
+  <path d="m245 330 17-10v-14l-17 10ZM130 295l17-10v-14l-17 10Z" stroke="#FBFCF0" stroke-width="2"/>
+  <path d="m249 328 9-5M134 293l9-5" stroke="#EAF0D9"/>
+
+  <!-- Library foundation and shade. -->
+  <path d="m335 310 171 101 140-79-79-46Z" fill="#729A8A" opacity=".19"/>
+  <path d="m311 298 174 100 132-76v17l-132 77-174-101Z" fill="#B6C8C0"/>
+  <path d="m298 286 178 103 142-82-178-102Z" fill="#EBEDE3"/>
+  <path d="m298 286 178 103v10L298 296Z" fill="#D7DED5"/>
+  <path d="m476 389 142-82v10l-142 82Z" fill="#BFCFC7"/>
+
+  <!-- Main library: deep vertical windows, a floating roof, and a quiet rooftop garden. -->
+  <path d="m320 218 159 92v74l-159-92Z" fill="#EDEFF0"/>
+  <path d="m479 310 113-65v74l-113 65Z" fill="#C3D6D8"/>
+  <path d="m330 231 139 80v59l-139-80Z" fill="url(#glass)"/>
+  <path d="m490 315 90-52v51l-90 52Z" fill="#8EB7C4"/>
+  <path d="m334 245 128 74M334 269l128 74" stroke="#B5D6DC" stroke-width="2"/>
+  <path d="m491 335 87-50M491 356l87-50" stroke="#B4D1D7" stroke-width="1.5"/>
+  <path d="m339 236 16 9v59l-16-9ZM369 253l16 9v59l-16-9ZM399 270l16 9v59l-16-9ZM429 287l16 9v59l-16-9Z" fill="#F6F7F0"/>
+  <path d="m355 245 5 3v59l-5-3ZM385 262l5 3v59l-5-3ZM415 279l5 3v59l-5-3ZM445 296l5 3v59l-5-3Z" fill="#C7D5D6"/>
+  <path d="m503 307 9-5v60l-9 5ZM529 292l9-5v60l-9 5ZM555 277l9-5v60l-9 5Z" fill="#DDE7E4"/>
+  <path d="m339 249 9 5v16l-9-5ZM369 266l9 5v16l-9-5ZM399 283l9 5v16l-9-5ZM429 300l9 5v16l-9-5Z" fill="#C7E1E6" opacity=".6"/>
+  <path d="m305 214 130-75 170 98-129 75Z" fill="#FCFCF3"/>
+  <path d="m305 214 171 98v13l-171-98Z" fill="#DCE2E4"/>
+  <path d="m476 312 129-75v13l-129 75Z" fill="#B4CDD4"/>
+  <path d="m320 213 116-67 154 89-115 67Z" fill="#E6EBEB"/>
+  <path d="m330 210 106-61 143 83-105 61Z" fill="#F7F8ED"/>
+  <path d="m354 207 75-43 105 60-76 44Z" fill="#DCE4E2"/>
+  <path d="m366 194 65-37 86 49-64 38Z" fill="#EBEFF0"/>
+  <path d="m366 194 87 50v24l-87-50Z" fill="#C7D9DF"/>
+  <path d="m453 244 64-38v24l-64 38Z" fill="#9BBEC9"/>
+  <path d="m368 193 64-37 86 49-64 37Z" fill="#FCFDF5"/>
+  <path d="m379 197 64 37v20l-64-37Z" fill="#AECFDB"/>
+  <path d="m388 202 6 3v20l-6-3ZM407 213l6 3v20l-6-3ZM426 224l6 3v20l-6-3Z" fill="#E8F0ED"/>
+  <path d="m461 246 48-28v10l-48 28Z" fill="#C7E0E4"/>
+  <path d="m461 246 48-28" stroke="#EAF2EC" stroke-width="2"/>
+  <path d="m474 238v12M490 229v12" stroke="#EAF2EC" stroke-width="2"/>
+  <path d="m339 218 26 15 12-7-26-15Z" fill="#A0BC94"/>
+  <path d="m339 218 26 15v5l-26-15ZM365 233l12-7v5l-12 7Z" fill="#7C9B7A"/>
+  <path d="m492 281 25-14 9 5-25 14Z" fill="#A3BE94"/>
+  <path d="m492 281 9 5v6l-9-5ZM501 286l25-14v6l-25 14Z" fill="#83A184"/>
+  <path d="m546 251 22-13 8 5-22 13Z" fill="#AAC498"/>
+  <path d="m546 251 8 5v5l-8-5ZM554 256l22-13v5l-22 13Z" fill="#83A184"/>
+  <path d="m458 339 19 11v33l-19-11Z" fill="#5F8F9E"/>
+  <path d="m467 344 1 34" stroke="#BBD7DD" stroke-width="2"/>
+  <path d="m449 379 29 17 32-18 11 6-43 25-40-23Z" fill="#FAFAED"/>
+  <path d="m438 386 40 23v6l-40-23ZM478 409l43-25v6l-43 25Z" fill="#C8D3CA"/>
+  <path d="m435 392 43 25 47-27 10 6-57 33-53-31Z" fill="#E7EBDD"/>
+  <path d="m425 398 53 31v5l-53-31ZM478 429l57-33v5l-57 33Z" fill="#BDCDBF"/>
+
+  <!-- A little reading grove. -->
+  <use href="#tree" x="304" y="262"/>
+  <use href="#small-tree" x="354" y="191"/>
+  <use href="#tree" x="331" y="348"/>
+  <use href="#bush" x="358" y="364"/>
+  <use href="#bush" x="382" y="375"/>
+  <use href="#bench" x="350" y="400"/>
+  <use href="#lamp" x="396" y="410"/>
+
+  <!-- Sunken water garden with a stone rim and a small timber bridge. -->
+  <ellipse cx="650" cy="420" rx="105" ry="61" fill="#BDD0BE"/>
+  <ellipse cx="650" cy="414" rx="105" ry="61" fill="#F6F5E3"/>
+  <ellipse cx="650" cy="414" rx="86" ry="49" fill="url(#water)"/>
+  <path d="M577 417c9 22 41 38 75 38 35 0 66-13 78-32" stroke="#C2E1DF" stroke-width="3" stroke-linecap="round"/>
+  <path d="M592 398c9-13 36-24 61-24" stroke="#D0E9E2" stroke-width="2" stroke-linecap="round"/>
+  <path d="M609 415c5-3 14-3 19 0M676 427c5-3 14-3 19 0M674 393c5-3 14-3 19 0" stroke="#D7EBDF" stroke-width="2" stroke-linecap="round"/>
+  <ellipse cx="638" cy="414" rx="25" ry="14" fill="#83BBC1"/>
+  <ellipse cx="638" cy="410" rx="16" ry="9" fill="#D0E7E0"/>
+  <ellipse cx="638" cy="407" rx="9" ry="5" fill="#EEF2DD"/>
+  <path d="M638 406v-26M628 398c0-17 10-22 10-17M648 398c0-17-10-22-10-17" stroke="#DEF0E4" stroke-width="2.4" stroke-linecap="round"/>
+  <path d="m706 396 35 20 16-9-35-20Z" fill="#D9BA94"/>
+  <path d="m706 396 35 20v6l-35-20ZM741 416l16-9v6l-16 9Z" fill="#A58F73"/>
+  <path d="m713 393 34 20M719 390l34 20" stroke="#BC9F7C" stroke-width="1.5"/>
+  <path d="m713 390 35 20M711 382l36 21" stroke="#F2D5AB" stroke-width="2.7" stroke-linecap="round"/>
+  <path d="M712 382v12M729 392v12M747 402v12" stroke="#C0A782" stroke-width="2"/>
+
+  <!-- Trees and gentle signs of campus life. -->
+  <use href="#tree" x="741" y="307"/>
+  <use href="#small-tree" x="774" y="324"/>
+  <use href="#bush" x="759" y="357"/>
+  <use href="#tree" x="709" y="348" transform="translate(143 71) scale(.78)"/>
+  <use href="#small-tree" x="289" y="431"/>
+  <use href="#tree" x="318" y="453"/>
+  <use href="#bush" x="335" y="462"/>
+  <use href="#small-tree" x="549" y="499"/>
+  <use href="#tree" x="581" y="490"/>
+  <use href="#bush" x="602" y="500"/>
+  <use href="#tree" x="185" y="395" transform="translate(41 85) scale(.8)"/>
+  <use href="#bush" x="210" y="423"/>
+  <use href="#bush" x="230" y="435"/>
+  <use href="#bench" x="605" y="480"/>
+  <use href="#bench" x="745" y="354"/>
+  <use href="#lamp" x="553" y="399"/>
+  <use href="#lamp" x="265" y="414"/>
+  <use href="#student" x="437" y="429"/>
+  <use href="#student-blue" x="454" y="438"/>
+  <use href="#student" x="543" y="344"/>
+  <use href="#student-blue" x="718" y="326"/>
+  <use href="#student" x="281" y="360"/>
+  <use href="#student-blue" x="382" y="480"/>
+  <use href="#student" x="678" y="473"/>
+  <path d="m371 502 9 5M528 447l9 5M775 338l9-5" stroke="#ABC19D" stroke-width="3" stroke-linecap="round"/>
+  <path d="m287 467 8 5M292 461l8 5M474 519l9-5M475 526l9-5" stroke="#ABC19D" stroke-width="2.5" stroke-linecap="round"/>
+</svg>

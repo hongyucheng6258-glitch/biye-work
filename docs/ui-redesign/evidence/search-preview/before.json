@@ -1,0 +1,88 @@
+{
+  "phase": "before",
+  "measurements": [
+    {
+      "kind": "real",
+      "width": 1440,
+      "theme": "light",
+      "overflow": false,
+      "groups": [
+        {
+          "label": "校园活动",
+          "items": []
+        },
+        {
+          "label": "闲置物品",
+          "items": [
+            {
+              "box": {
+                "x": 57,
+                "y": 701.53125,
+                "width": 1326,
+                "height": 300.1875,
+                "right": 1383,
+                "bottom": 1001.71875
+              },
+              "text": "考研数学资料包面议",
+              "cover": null,
+              "title": {
+                "x": 57,
+                "y": 713.53125,
+                "width": 104,
+                "height": 240,
+                "right": 161,
+                "bottom": 953.53125
+              }
+            },
+            {
+              "box": {
+                "x": 57,
+                "y": 1013.71875,
+                "width": 1326,
+                "height": 299.1875,
+                "right": 1383,
+                "bottom": 1312.90625
+              },
+              "text": "高等数学第七版上册面议",
+              "cover": null,
+              "title": {
+                "x": 57,
+                "y": 1025.71875,
+                "width": 132,
+                "height": 240,
+                "right": 189,
+                "bottom": 1265.71875
+              }
+            }
+          ]
+        },
+        {
+          "label": "失物招领",
+          "items": []
+        },
+        {
+          "label": "校园动态",
+          "items": []
+        }
+      ],
+      "marks": 2
+    }
+  ],
+  "actions": [],
+  "errors": [],
+  "limits": [
+    "Real math search is read-only. Four-module image/error/empty/long cases are browser fixtures."
+  ],
+  "realItems": [
+    {
+      "id": 10,
+      "title": "考研数学资料包",
+      "hasImage": false
+    },
+    {
+      "id": 1,
+      "title": "高等数学第七版上册",
+      "hasImage": true
+    }
+  ]
+}

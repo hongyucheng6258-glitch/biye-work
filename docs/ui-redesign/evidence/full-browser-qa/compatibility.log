@@ -1,0 +1,1 @@
+PASS: search script differs only by one thumbnail import and four source-record display fields. Existing search behavior and all original template contracts retained; remaining 505 protected files and 82 Vue scripts unchanged. Previous viewport exceptions verified. Original strict audit/baseline unchanged (3 expected errors).

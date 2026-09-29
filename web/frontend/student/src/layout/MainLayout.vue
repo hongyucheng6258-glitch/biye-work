@@ -1,5 +1,5 @@
 <template>
-  <div class="app">
+  <div class="app" :class="{ 'conversation-shell': route.path === '/ai/chat' || /^\/chat\/\d+$/.test(route.path) }">
     <!-- ===================== 全部校园功能面板 ===================== -->
 <el-dialog
   v-model="drawerOpen"
@@ -1324,6 +1324,203 @@ onUnmounted(() => {
   .desktop-link {
     font-size: 12px;
     padding: 8px 12px;
+  }
+}
+/* 对话页保留功能入口，让消息区使用剩余视口，输入区避开底部导航。 */
+.conversation-shell {
+  height: 100dvh;
+  min-height: 0;
+}
+.conversation-shell .main {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding-bottom: calc(74px + env(safe-area-inset-bottom));
+  overflow: hidden;
+}
+.conversation-shell .campus-header,
+.conversation-shell .desktop-nav,
+.conversation-shell .utility-bar,
+.conversation-shell .footer {
+  flex: none;
+}
+.conversation-shell .header-inner {
+  min-height: 64px;
+  padding-block: 10px;
+}
+.conversation-shell .campus-header {
+  min-height: 64px;
+}
+.conversation-shell .desktop-nav {
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  padding: 0;
+  gap: 4px;
+}
+.conversation-shell .desktop-link {
+  flex: none;
+  min-height: 32px;
+  padding: 6px 12px;
+  white-space: nowrap;
+}
+.conversation-shell .utility-bar {
+  min-height: 32px;
+  padding: 4px 0;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+}
+.conversation-shell .utility-path,
+.conversation-shell .utility-links {
+  flex: none;
+  white-space: nowrap;
+  flex-wrap: nowrap;
+}
+.conversation-shell .content {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 12px 32px 0;
+  overflow: hidden;
+}
+.conversation-shell .tp-local-nav {
+  flex: none;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  margin: 0;
+  padding: 0;
+}
+.conversation-shell .tp-local-nav a {
+  flex: none;
+  white-space: nowrap;
+  padding: 7px 12px;
+  font-size: 12px;
+}
+.conversation-shell .content :deep(> .ai-page),
+.conversation-shell .content :deep(> .room) {
+  flex: 1;
+  min-height: 0;
+  height: 100%;
+  max-height: none;
+  width: 100%;
+}
+.conversation-shell .footer {
+  margin: 0 auto;
+  height: 30px;
+  padding: 4px 0;
+  overflow-x: auto;
+  white-space: nowrap;
+  flex-wrap: nowrap;
+  gap: 16px;
+}
+.conversation-shell .footer-brand,
+.conversation-shell .footer-links {
+  flex: none;
+  gap: 8px;
+}
+.conversation-shell .footer-brand .brand-symbol {
+  width: 18px;
+  height: 18px;
+}
+.conversation-shell .footer-brand small {
+  display: inline;
+  margin-left: 8px;
+}
+@media (max-width: 760px) {
+  .conversation-shell .header-inner {
+    display: grid;
+    grid-template-columns: minmax(0,1fr) repeat(5,auto);
+    gap: 6px;
+    padding: 8px 16px;
+  }
+  .conversation-shell .top-actions {
+    display: contents;
+  }
+  .conversation-shell .header-inner .brand b,
+  .conversation-shell .header-inner > .mobile-menu span,
+  .conversation-shell .top-actions > .search-link {
+    display: none;
+  }
+  .conversation-shell .header-inner > .mobile-menu {
+    margin: 0;
+    padding: 6px;
+    min-height: 36px;
+    min-width: 36px;
+    width: 36px;
+  }
+  .conversation-shell .top-actions :deep(.wt-theme) {
+    width: 36px;
+    height: 36px;
+  }
+  .conversation-shell .top-actions .icon-btn {
+    min-width: 32px;
+    min-height: 36px;
+    width: 32px;
+    height: 36px;
+  }
+  .conversation-shell .header-publish {
+    padding: 8px 10px;
+  }
+  .conversation-shell .header-search {
+    grid-column: 1 / -1;
+    order: 10;
+    margin: 0;
+    grid-template-columns: 68px minmax(0,1fr) 54px;
+    height: 40px;
+  }
+  .conversation-shell .header-search input {
+    height: 38px;
+  }
+  .conversation-shell .desktop-nav,
+  .conversation-shell .utility-bar {
+    width: calc(100% - 32px);
+  }
+  .conversation-shell .utility-path {
+    display: none;
+  }
+  .conversation-shell .utility-links {
+    gap: 16px;
+  }
+  .conversation-shell .content {
+    padding: 8px 16px 0;
+  }
+  .conversation-shell .footer {
+    height: 26px;
+  }
+}
+@media (max-height: 700px) and (min-width: 761px) {
+  .conversation-shell .campus-header,
+  .conversation-shell .header-inner {
+    min-height: 56px;
+  }
+  .conversation-shell .header-inner {
+    flex-wrap: nowrap;
+    gap: 10px;
+    padding: 6px 24px;
+  }
+  .conversation-shell .top-actions {
+    flex-wrap: nowrap;
+    gap: 6px;
+  }
+  .conversation-shell .header-search {
+    grid-template-columns: 60px minmax(70px,120px) 50px;
+  }
+  .conversation-shell .search-link {
+    display: none;
+  }
+  .conversation-shell .header-inner > .mobile-menu {
+    padding: 8px;
+  }
+  .conversation-shell .header-inner > .mobile-menu span {
+    display: none;
+  }
+  .conversation-shell .tp-local-nav a {
+    min-height: 32px;
+    padding-block: 5px;
+  }
+  .conversation-shell .footer {
+    height: 26px;
   }
 }
 </style>

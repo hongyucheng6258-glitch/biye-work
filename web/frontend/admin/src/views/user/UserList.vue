@@ -43,13 +43,15 @@
 </template>
 
 <script setup>
-import { onMounted, ref } from 'vue'
+import { onMounted, ref, watch } from 'vue'
+import { useRoute } from 'vue-router'
 import WtPageHeader from '../../components/wt/WtPageHeader.vue'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import { listUsers, updateUserStatus, resetPassword } from '../../api/user'
 import { formatTime } from '../../utils/date'
 
-const keyword = ref('')
+const route = useRoute()
+const keyword = ref(typeof route.query.q === 'string' ? route.query.q : '')
 const status = ref(undefined)
 const list = ref([])
 const pageNum = ref(1)
@@ -89,6 +91,10 @@ async function resetPwd(row) {
 }
 
 onMounted(load)
+watch(() => route.query.q, (q) => {
+  keyword.value = typeof q === 'string' ? q : ''
+  search()
+})
 </script>
 
 <style scoped>

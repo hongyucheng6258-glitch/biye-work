@@ -78,7 +78,7 @@
             <div class="stack">
               <!-- 发布者视角：名单管理 + 签到二维码 -->
               <template v-if="act.isOwner">
-                <button type="button" class="btn primary" @click="loadMembers">报名名单管理</button>
+                <button type="button" class="btn primary" @click="loadMembers()">报名名单管理</button>
                 <button type="button" class="btn" @click="showQrcode">签到二维码</button>
               </template>
               <!-- 参与者视角 -->

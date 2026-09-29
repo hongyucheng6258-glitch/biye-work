@@ -1,0 +1,35 @@
+[
+  {
+    "name": "B01: initial favorites deep link, refresh, normal tab and removal",
+    "status": "PASS"
+  },
+  {
+    "name": "B02: comment entry opens, posts, persists and folds",
+    "status": "FAIL",
+    "error": "locator.waitFor: Error: strict mode violation: locator('.c-content').getByText('[UIQA-FIX] 评论回归 1790681957174', { exact: true }) resolved to 2 elements:\n    1) <div class=\"c-content\" data-v-5583b412=\"\">[UIQA-FIX] 评论回归 1790681957174</div> aka getByText('[UIQA-FIX] 评论回归').first()\n    2) <div class=\"c-content\" data-v-5583b412=\"\">[UIQA-FIX] 评论回归 1790681957174</div> aka getByText('[UIQA-FIX] 评论回归').nth(1)\n\nCall log:\n\u001b[2m  - waiting for locator('.c-content').getByText('[UIQA-FIX] 评论回归 1790681957174', { exact: true }) to be visible\u001b[22m\n"
+  },
+  {
+    "name": "B03: detail participant list sends numeric page and existing alternate entry still works",
+    "status": "PASS"
+  },
+  {
+    "name": "B05: Ctrl+K global search, same-route second keyword and manual search",
+    "status": "PASS"
+  },
+  {
+    "name": "B04: new administrator still requires an initial password",
+    "status": "PASS"
+  },
+  {
+    "name": "B04: empty-password nickname edit saves and original password still logs in",
+    "status": "PASS"
+  },
+  {
+    "name": "B06: real AI outline success renders Markdown and can reset",
+    "status": "PASS"
+  },
+  {
+    "name": "B07: pending chat switches to guide, sends successfully, then PDF and chat remain usable",
+    "status": "PASS"
+  }
+]

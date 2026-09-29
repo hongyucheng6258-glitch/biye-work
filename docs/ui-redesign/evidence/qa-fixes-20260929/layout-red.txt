@@ -1,0 +1,1 @@
+{"route":"/ai/chat","width":1440,"height":900,"top":904.359375,"bottom":976.953125,"dockTop":838,"messageHeight":280,"viewportHeight":900,"scrollY":0,"overflow":false,"sendHit":false}

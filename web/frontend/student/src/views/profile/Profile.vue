@@ -245,6 +245,7 @@ onMounted(async () => {
   })
   avatarList.value = user.value?.avatar ? [user.value.avatar] : []
   loadMyIdle()
+  if (tab.value === 'favorite') loadFavorites()
   if (tab.value === 'report') loadReports()
   try {
     wrongStatsData.value = await wrongStats()

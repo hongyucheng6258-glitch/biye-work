@@ -168,4 +168,25 @@ main > .el-button {
     padding: 16px;
   }
 }
+.room {
+  display: flex;
+  flex-direction: column;
+}
+.room > header {
+  flex: none;
+  padding: 12px 16px;
+}
+.room > :deep(.context),
+.room > :deep(.composer) {
+  flex: none;
+}
+.room > main {
+  flex: 1;
+  overscroll-behavior: contain;
+}
+@media (max-width: 600px) {
+  .room > header {
+    padding: 10px 12px;
+  }
+}
 </style>

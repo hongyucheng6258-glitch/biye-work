@@ -107,7 +107,7 @@ async function run(payload) {
   result.value = ''
   try {
     const res = await generateOutline(payload)
-    result.value = res.answer
+    result.value = typeof res === 'string' ? res : res.answer
   } catch (err) {
     error.value = aiErrorInfo(err)
   } finally {

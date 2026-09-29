@@ -1,0 +1,1 @@
+PASS: only B01–B08 fixes and their tests changed; API/store/routes/permissions/service logic unchanged. Original freeze baseline and audit retained with 17 explicit expected errors.

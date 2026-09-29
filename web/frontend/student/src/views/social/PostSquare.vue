@@ -197,6 +197,9 @@ function openPost(p) {
   // 展开评论区：评论数据由 CommentList 组件内自包含分页加载
   expandedPostId.value = p.id
 }
+function toggleComments(p) {
+  expandedPostId.value = expandedPostId.value === p.id ? null : p.id
+}
 async function sharePost(p) {
   const url = `${location.origin}/social?post=${encodeURIComponent(p.id)}`
   try {

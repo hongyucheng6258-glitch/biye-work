@@ -83,7 +83,7 @@
             :placeholder="tab === 'pdf' ? '针对PDF文档内容提问…' : (tab === 'guide' ? '问问校园：周末有什么活动 / 我报名的活动 / 有失物招领吗' : '输入你的问题，回车发送，Shift+Enter 换行')"
             @keydown.enter.exact.prevent="send"
           />
-          <button class="send" :disabled="!question.trim() || asking" aria-label="发送" @click="send">
+          <button class="send" :disabled="!question.trim() || asking || sessionLoading" aria-label="发送" @click="send">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
               <path d="M22 2 11 13M22 2l-7 20-4-9-9-4z" />
             </svg>
@@ -123,6 +123,7 @@ const currentSession = ref(null)
 const messages = ref([])
 const question = ref('')
 const asking = ref(false)
+const sessionLoading = ref(false)
 // 第11项：流式取消与请求标识隔离——迟到/串会话响应一律丢弃
 const streamAbort = ref(null)
 let requestSeq = 0
@@ -132,6 +133,8 @@ function cancelStream() {
     streamAbort.value = null
   }
   requestSeq += 1
+  asking.value = false
+  sessionLoading.value = false
 }
 const msgBox = ref()
 // PDF 问答状态
@@ -180,15 +183,16 @@ async function loadSessions() {
   }
 }
 
-async function restorePdfDoc(session) {
+async function restorePdfDoc(session, seq) {
   if (tab.value !== 'pdf' || !session?.docId) {
     pdfDoc.value = null
     return
   }
   try {
-    pdfDoc.value = await aiApi.pdfDoc(session.docId)
+    const doc = await aiApi.pdfDoc(session.docId)
+    if (seq === requestSeq) pdfDoc.value = doc
   } catch {
-    pdfDoc.value = null
+    if (seq === requestSeq) pdfDoc.value = null
   }
 }
 
@@ -200,16 +204,24 @@ async function newSession() {
 
 async function switchSession(s) {
   cancelStream()
+  const seq = requestSeq
+  sessionLoading.value = true
   currentSession.value = s
-  await restorePdfDoc(s)
-  const res = await aiApi.listMessages(s.id, 1, 50)
-  // 接口倒序返回，翻转为正序展示
-  messages.value = (res.list || []).reverse().map((m) => ({
-    role: m.role,
-    content: m.content,
-    streaming: false
-  }))
-  scrollBottom()
+  try {
+    await restorePdfDoc(s, seq)
+    if (seq !== requestSeq) return
+    const res = await aiApi.listMessages(s.id, 1, 50)
+    if (seq !== requestSeq) return
+    // 接口倒序返回，翻转为正序展示
+    messages.value = (res.list || []).reverse().map((m) => ({
+      role: m.role,
+      content: m.content,
+      streaming: false
+    }))
+    scrollBottom()
+  } finally {
+    if (seq === requestSeq) sessionLoading.value = false
+  }
 }
 
 async function onSessionCmd(cmd, s) {
@@ -258,7 +270,7 @@ function askQuick(q) {
 
 async function send() {
   const q = question.value.trim()
-  if (!q || asking.value) return
+  if (!q || asking.value || sessionLoading.value) return
   if (tab.value === 'pdf' && !pdfDoc.value) {
     ElMessage.warning('请先上传PDF课件')
     return
@@ -838,5 +850,169 @@ function scrollBottom() {
 }
 .ai-footnote {
   line-height: 1.8;
+}
+/* 消息内部滚动，工具与输入区不随内容增长挤出视口。 */
+.ai-page {
+  min-height: 0;
+}
+.ai-layout {
+  height: 100%;
+  min-height: 0;
+  grid-template-rows: auto minmax(0,1fr);
+  gap: 10px;
+}
+.ai-side {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px;
+  overflow: hidden;
+}
+.new-btn {
+  flex: 0 0 132px;
+  width: auto;
+  min-height: 36px;
+  white-space: nowrap;
+  padding: 6px 12px;
+}
+.session-list {
+  flex: 1;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  max-height: 48px;
+}
+.ai-session {
+  flex: 0 0 180px;
+  min-width: 140px;
+  min-height: 36px;
+  padding: 6px 10px;
+}
+.ai-main {
+  min-height: 0;
+  height: 100%;
+}
+.ai-top,
+.pdf-bar,
+.quick-prompts,
+.ai-input,
+.ai-footnote {
+  flex: none;
+}
+.ai-top {
+  padding: 12px 16px;
+  gap: 10px;
+}
+.ai-top__meta b {
+  font-size: 16px;
+}
+.ai-top__tools :deep(.wt-tabs) {
+  flex-wrap: nowrap;
+  overflow-x: auto;
+}
+.ai-top__tools :deep(.wt-tab) {
+  flex: none;
+  white-space: nowrap;
+  min-height: 34px;
+  padding: 6px 10px;
+  font-size: 12px;
+}
+.quick-prompts {
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  padding: 8px 16px;
+  margin: 0;
+  gap: 8px;
+}
+.quick-prompt {
+  flex: none;
+  white-space: nowrap;
+  min-height: 32px;
+  padding: 6px 10px;
+  font-size: 12px;
+}
+.ai-chat {
+  min-height: 0;
+  max-height: none;
+  padding: 16px;
+  overscroll-behavior: contain;
+}
+.ai-chat :deep(.wt-empty) {
+  padding: 12px;
+}
+.ai-input {
+  margin: 0 12px;
+  padding: 6px;
+  border-radius: 16px;
+}
+.ai-input input {
+  padding: 8px 12px;
+}
+.ai-footnote {
+  padding: 6px 16px;
+  font-size: 11px;
+  line-height: 1.5;
+}
+.pdf-bar {
+  padding: 8px 16px;
+}
+@media (max-width: 760px) {
+  .ai-layout {
+    gap: 6px;
+  }
+  .ai-side {
+    padding: 6px 8px;
+    gap: 6px;
+  }
+  .new-btn {
+    flex-basis: 110px;
+  }
+  .ai-top {
+    padding: 8px 12px;
+    gap: 6px;
+  }
+  .ai-top__tools {
+    width: 100%;
+  }
+  .ai-chat {
+    padding: 12px;
+  }
+  .pdf-bar {
+    flex-wrap: nowrap;
+    gap: 8px;
+    overflow-x: auto;
+  }
+  .pdf-info,
+  .pdf-tip {
+    flex: none;
+    white-space: nowrap;
+  }
+  .ai-footnote {
+    padding: 6px 12px;
+  }
+}
+/* 3D 服务窗口没有主站外壳，仍使用窗口内部的可用高度。 */
+@media (max-height: 700px) and (min-width: 761px) {
+  .ai-layout {
+    gap: 6px;
+  }
+  .ai-side {
+    padding: 6px 10px;
+  }
+  .session-list {
+    max-height: 40px;
+  }
+  .ai-top {
+    padding: 8px 12px;
+  }
+  .quick-prompts {
+    padding: 6px 12px;
+  }
+}
+:global(.room-workspace .room-page-host .ai-page) {
+  height: 100%;
+}
+:global(.room-workspace .room-page-host .ai-page .ai-layout) {
+  height: 100%;
 }
 </style>

@@ -1,5 +1,11 @@
 <template>
   <div class="login-page">
+    <div class="tp-admin-login-art" aria-hidden="true">
+      <span class="tp-admin-login-mark">梧桐校园</span>
+      <h1>校园日常，<br>由你守护。</h1>
+      <p>审核、社区与服务，在这里有序运转。</p>
+      <img src="/images/tongpin-campus-map.svg" alt="" />
+    </div>
     <el-card class="login-card">
       <div class="brand">🎓 校园平台 · 管理后台</div>
       <el-form :model="form" size="large" @keyup.enter="submit">
@@ -100,8 +106,7 @@ onMounted(() => {
   display: flex;
   align-items: center;
   justify-content: center;
-  background:
-    radial-gradient(120% 120% at 0% 0%, var(--brand-soft) 0%, transparent 55%),
+  background: radial-gradient(120% 120% at 0% 0%, var(--brand-soft) 0%, transparent 55%),
     radial-gradient(120% 120% at 100% 100%, var(--accent-soft) 0%, transparent 55%),
     var(--paper);
 }
@@ -143,12 +148,23 @@ onMounted(() => {
   border-radius: 4px;
   cursor: pointer;
   flex-shrink: 0;
-  background: var(--brand-soft, #eaf6f0);
+  background: radial-gradient(circle at 12% 24%, rgba(22, 112, 83, .24) 0 1px, transparent 2px),
+    radial-gradient(circle at 27% 76%, rgba(41, 166, 181, .25) 0 1px, transparent 2px),
+    radial-gradient(circle at 77% 23%, rgba(218, 91, 124, .2) 0 1px, transparent 2px),
+    radial-gradient(circle at 91% 69%, rgba(68, 160, 116, .25) 0 1.2px, transparent 2.2px),
+    repeating-linear-gradient(164deg, transparent 0 18px, rgba(22, 112, 83, .055) 18px 19px, transparent 19px 36px),
+    linear-gradient(120deg, #fcfffd 0%, #edf7f2 56%, #f3fafb 100%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .85);
   color: var(--brand, #0d5c3f);
   font-weight: 700;
   font-size: 16px;
   letter-spacing: 0.02em;
   user-select: none;
+  transition: border-color .18s ease, box-shadow .18s ease;
+}
+.captcha-math:hover {
+  border-color: var(--brand, #0d5c3f);
+  box-shadow: 0 3px 10px rgba(22, 112, 83, .1), inset 0 1px 0 rgba(255, 255, 255, .85);
 }
 .login-row {
   display: flex;
@@ -170,5 +186,106 @@ onMounted(() => {
   text-align: center;
   font-size: 12px;
   color: var(--ink-3);
+}
+/* 同频校园：本页展示布局，业务绑定保持原样 */
+.login-page {
+  background: var(--atlas-sky);
+  min-height: 100dvh;
+  display: grid;
+  place-items: center;
+  padding: 32px;
+}
+.login-card {
+  width: min(460px,100%);
+  background: var(--surface);
+  color: var(--ink);
+  padding: 36px;
+  border: 1px solid var(--line);
+  border-radius: 26px;
+  box-shadow: var(--shadow-md);
+}
+.brand {
+  color: var(--ink);
+  font-size: 26px;
+}
+.captcha-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.captcha-row :deep(.el-input) {
+  min-width: 120px;
+  flex: 1;
+}
+.captcha-img,.captcha-math {
+  border-radius: 12px;
+  background: var(--accent-soft);
+  border-color: var(--accent-line);
+}
+.login-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.submit {
+  min-height: 46px;
+  border-radius: var(--r-pill);
+}
+.tip {
+  font-size: 12px;
+  overflow-wrap: anywhere;
+}
+@media (max-width:600px) {
+  .login-page {
+    padding: 16px;
+  }
+  .login-card {
+    padding: 28px 22px;
+  }
+}
+.login-page {
+  grid-template-columns: minmax(0,520px) minmax(0,460px);
+  justify-content: center;
+  gap: 48px;
+}
+.tp-admin-login-art {
+  min-width: 0;
+  align-self: center;
+}
+.tp-admin-login-mark {
+  font-size: 16px;
+  color: var(--brand);
+  font-weight: 600;
+}
+.tp-admin-login-art h1 {
+  font-size: 42px;
+  line-height: 1.45;
+  margin: 20px 0;
+  color: var(--ink);
+}
+.tp-admin-login-art p {
+  font-size: 14px;
+  color: var(--ink-2);
+}
+.tp-admin-login-art img {
+  width: 100%;
+  margin-top: 24px;
+}
+@media (max-width:1000px) {
+  .login-page {
+    gap: 24px;
+    grid-template-columns: minmax(0,420px) minmax(0,420px);
+  }
+  .tp-admin-login-art h1 {
+    font-size: 32px;
+  }
+}
+@media (max-width:760px) {
+  .login-page {
+    grid-template-columns: minmax(0,460px);
+  }
+  .tp-admin-login-art {
+    display: none;
+  }
 }
 </style>

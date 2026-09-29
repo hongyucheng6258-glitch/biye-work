@@ -4,7 +4,7 @@
 
   <div class="idle-list">
     <!-- 搜索栏 + 分类筛选 -->
-    <div class="toolbar">
+    <div class="toolbar tp-page-tools">
       <el-input v-model="keyword" placeholder="搜索闲置物品…" clearable style="width: 280px" @keyup.enter="search" @clear="search">
         <template #append><el-button @click="search">搜索</el-button></template>
       </el-input>
@@ -189,10 +189,22 @@ watch(
   font-weight: 600;
   letter-spacing: 0.02em;
 }
-.tag-brand { background: var(--brand-soft); color: var(--brand-strong); }
-.tag-warning { background: var(--warning-soft); color: var(--gold-strong); }
-.tag-neutral { background: var(--surface-3); color: var(--ink-2); }
-.tag-error { background: var(--error-soft); color: var(--error); }
+.tag-brand {
+  background: var(--brand-soft);
+  color: var(--brand-strong);
+}
+.tag-warning {
+  background: var(--warning-soft);
+  color: var(--gold-strong);
+}
+.tag-neutral {
+  background: var(--surface-3);
+  color: var(--ink-2);
+}
+.tag-error {
+  background: var(--error-soft);
+  color: var(--error);
+}
 .card-footer {
   display: flex;
   justify-content: space-between;
@@ -201,5 +213,85 @@ watch(
 .expect {
   font-size: 12px;
   color: var(--warning);
+}
+/* 同频校园：本页展示布局，业务绑定保持原样 */
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  margin: 0 0 24px;
+  min-width: 0;
+}
+.toolbar>:deep(.el-input) {
+  max-width: 100%;
+}
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  min-width: 0;
+}
+.chip {
+  display: inline-flex;
+  align-items: center;
+  min-height: 40px;
+  padding: 8px 16px;
+  border-radius: var(--r-pill);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  font-size: 13px;
+  color: var(--ink-2);
+  cursor: pointer;
+}
+.chip.active {
+  background: var(--brand);
+  border-color: var(--brand);
+  color: var(--brand-ink);
+}
+.grid {
+  gap: 20px;
+  min-width: 0;
+}
+.page-bar {
+  margin-top: 24px;
+}
+.spacer {
+  min-width: 0;
+}
+@media (max-width:600px) {
+  .toolbar {
+    gap: 10px;
+  }
+  .toolbar>.el-input {
+    width: 100% !important;
+  }
+  .spacer {
+    display: none;
+  }
+  .grid {
+    grid-template-columns: minmax(0,1fr);
+  }
+  .chip {
+    font-size: 12px;
+    padding: 8px 12px;
+  }
+}
+/* 同频校园：本页展示布局，业务绑定保持原样 */
+.expect {
+  color: var(--accent-ink);
+  background: var(--accent-soft);
+  padding: 6px 10px;
+  border-radius: 10px;
+  overflow-wrap: anywhere;
+}
+.card-footer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+.badge-tag {
+  border-radius: var(--r-pill);
 }
 </style>

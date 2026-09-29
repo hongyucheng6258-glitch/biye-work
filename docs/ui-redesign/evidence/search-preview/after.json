@@ -1,0 +1,5483 @@
+{
+  "phase": "after",
+  "measurements": [
+    {
+      "kind": "real",
+      "width": 390,
+      "theme": "light",
+      "overflow": false,
+      "groups": [
+        {
+          "label": "校园活动",
+          "items": []
+        },
+        {
+          "label": "闲置物品",
+          "items": [
+            {
+              "box": {
+                "x": 31,
+                "y": 914.328125,
+                "width": 328,
+                "height": 96,
+                "right": 359,
+                "bottom": 1010.328125
+              },
+              "text": "暂无图片考研数学资料包面议",
+              "cover": {
+                "x": 31,
+                "y": 926.328125,
+                "width": 80,
+                "height": 72,
+                "right": 111,
+                "bottom": 998.328125
+              },
+              "title": {
+                "x": 123,
+                "y": 936.9375,
+                "width": 236,
+                "height": 22.390625,
+                "right": 359,
+                "bottom": 959.328125
+              },
+              "meta": "面议"
+            },
+            {
+              "box": {
+                "x": 31,
+                "y": 1018.328125,
+                "width": 328,
+                "height": 96,
+                "right": 359,
+                "bottom": 1114.328125
+              },
+              "text": "高等数学第七版上册面议",
+              "cover": {
+                "x": 31,
+                "y": 1030.328125,
+                "width": 80,
+                "height": 72,
+                "right": 111,
+                "bottom": 1102.328125
+              },
+              "title": {
+                "x": 123,
+                "y": 1040.9375,
+                "width": 236,
+                "height": 22.390625,
+                "right": 359,
+                "bottom": 1063.328125
+              },
+              "meta": "面议",
+              "img": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MDAiIGhlaWdodD0iMjAwIiB2aWV3Qm94PSIwIDAgNDAwIDIwMCI+PHJlY3QgZmlsbD0iI2U3ZjBmZiIgd2lkdGg9IjQwMCIgaGVpZ2h0PSIyMDAiLz48dGV4dCB4PSIyMCIgeT0iMTAwIiBmb250LXNpemU9IjMyIiBmaWxsPSIjMTk2N2QyIj5BSSDmiqXmtYvlhYjlkJc8L3RleHQ+PC9zdmc+"
+            }
+          ]
+        },
+        {
+          "label": "失物招领",
+          "items": []
+        },
+        {
+          "label": "校园动态",
+          "items": []
+        }
+      ],
+      "marks": 2
+    },
+    {
+      "kind": "real",
+      "width": 390,
+      "theme": "dark",
+      "overflow": false,
+      "groups": [
+        {
+          "label": "校园活动",
+          "items": []
+        },
+        {
+          "label": "闲置物品",
+          "items": [
+            {
+              "box": {
+                "x": 31,
+                "y": 914.328125,
+                "width": 328,
+                "height": 96,
+                "right": 359,
+                "bottom": 1010.328125
+              },
+              "text": "暂无图片考研数学资料包面议",
+              "cover": {
+                "x": 31,
+                "y": 926.328125,
+                "width": 80,
+                "height": 72,
+                "right": 111,
+                "bottom": 998.328125
+              },
+              "title": {
+                "x": 123,
+                "y": 936.9375,
+                "width": 236,
+                "height": 22.390625,
+                "right": 359,
+                "bottom": 959.328125
+              },
+              "meta": "面议"
+            },
+            {
+              "box": {
+                "x": 31,
+                "y": 1018.328125,
+                "width": 328,
+                "height": 96,
+                "right": 359,
+                "bottom": 1114.328125
+              },
+              "text": "高等数学第七版上册面议",
+              "cover": {
+                "x": 31,
+                "y": 1030.328125,
+                "width": 80,
+                "height": 72,
+                "right": 111,
+                "bottom": 1102.328125
+              },
+              "title": {
+                "x": 123,
+                "y": 1040.9375,
+                "width": 236,
+                "height": 22.390625,
+                "right": 359,
+                "bottom": 1063.328125
+              },
+              "meta": "面议",
+              "img": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MDAiIGhlaWdodD0iMjAwIiB2aWV3Qm94PSIwIDAgNDAwIDIwMCI+PHJlY3QgZmlsbD0iI2U3ZjBmZiIgd2lkdGg9IjQwMCIgaGVpZ2h0PSIyMDAiLz48dGV4dCB4PSIyMCIgeT0iMTAwIiBmb250LXNpemU9IjMyIiBmaWxsPSIjMTk2N2QyIj5BSSDmiqXmtYvlhYjlkJc8L3RleHQ+PC9zdmc+"
+            }
+          ]
+        },
+        {
+          "label": "失物招领",
+          "items": []
+        },
+        {
+          "label": "校园动态",
+          "items": []
+        }
+      ],
+      "marks": 2
+    },
+    {
+      "kind": "real",
+      "width": 780,
+      "theme": "light",
+      "overflow": false,
+      "groups": [
+        {
+          "label": "校园活动",
+          "items": []
+        },
+        {
+          "label": "闲置物品",
+          "items": [
+            {
+              "box": {
+                "x": 57,
+                "y": 736.328125,
+                "width": 666,
+                "height": 112,
+                "right": 723,
+                "bottom": 848.328125
+              },
+              "text": "暂无图片考研数学资料包面议",
+              "cover": {
+                "x": 73,
+                "y": 750.328125,
+                "width": 112,
+                "height": 84,
+                "right": 185,
+                "bottom": 834.328125
+              },
+              "title": {
+                "x": 205,
+                "y": 766.9375,
+                "width": 502,
+                "height": 22.390625,
+                "right": 707,
+                "bottom": 789.328125
+              },
+              "meta": "面议"
+            },
+            {
+              "box": {
+                "x": 57,
+                "y": 856.328125,
+                "width": 666,
+                "height": 112,
+                "right": 723,
+                "bottom": 968.328125
+              },
+              "text": "高等数学第七版上册面议",
+              "cover": {
+                "x": 73,
+                "y": 870.328125,
+                "width": 112,
+                "height": 84,
+                "right": 185,
+                "bottom": 954.328125
+              },
+              "title": {
+                "x": 205,
+                "y": 886.9375,
+                "width": 502,
+                "height": 22.390625,
+                "right": 707,
+                "bottom": 909.328125
+              },
+              "meta": "面议",
+              "img": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MDAiIGhlaWdodD0iMjAwIiB2aWV3Qm94PSIwIDAgNDAwIDIwMCI+PHJlY3QgZmlsbD0iI2U3ZjBmZiIgd2lkdGg9IjQwMCIgaGVpZ2h0PSIyMDAiLz48dGV4dCB4PSIyMCIgeT0iMTAwIiBmb250LXNpemU9IjMyIiBmaWxsPSIjMTk2N2QyIj5BSSDmiqXmtYvlhYjlkJc8L3RleHQ+PC9zdmc+"
+            }
+          ]
+        },
+        {
+          "label": "失物招领",
+          "items": []
+        },
+        {
+          "label": "校园动态",
+          "items": []
+        }
+      ],
+      "marks": 2
+    },
+    {
+      "kind": "real",
+      "width": 780,
+      "theme": "dark",
+      "overflow": false,
+      "groups": [
+        {
+          "label": "校园活动",
+          "items": []
+        },
+        {
+          "label": "闲置物品",
+          "items": [
+            {
+              "box": {
+                "x": 57,
+                "y": 736.328125,
+                "width": 666,
+                "height": 112,
+                "right": 723,
+                "bottom": 848.328125
+              },
+              "text": "暂无图片考研数学资料包面议",
+              "cover": {
+                "x": 73,
+                "y": 750.328125,
+                "width": 112,
+                "height": 84,
+                "right": 185,
+                "bottom": 834.328125
+              },
+              "title": {
+                "x": 205,
+                "y": 766.9375,
+                "width": 502,
+                "height": 22.390625,
+                "right": 707,
+                "bottom": 789.328125
+              },
+              "meta": "面议"
+            },
+            {
+              "box": {
+                "x": 57,
+                "y": 856.328125,
+                "width": 666,
+                "height": 112,
+                "right": 723,
+                "bottom": 968.328125
+              },
+              "text": "高等数学第七版上册面议",
+              "cover": {
+                "x": 73,
+                "y": 870.328125,
+                "width": 112,
+                "height": 84,
+                "right": 185,
+                "bottom": 954.328125
+              },
+              "title": {
+                "x": 205,
+                "y": 886.9375,
+                "width": 502,
+                "height": 22.390625,
+                "right": 707,
+                "bottom": 909.328125
+              },
+              "meta": "面议",
+              "img": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MDAiIGhlaWdodD0iMjAwIiB2aWV3Qm94PSIwIDAgNDAwIDIwMCI+PHJlY3QgZmlsbD0iI2U3ZjBmZiIgd2lkdGg9IjQwMCIgaGVpZ2h0PSIyMDAiLz48dGV4dCB4PSIyMCIgeT0iMTAwIiBmb250LXNpemU9IjMyIiBmaWxsPSIjMTk2N2QyIj5BSSDmiqXmtYvlhYjlkJc8L3RleHQ+PC9zdmc+"
+            }
+          ]
+        },
+        {
+          "label": "失物招领",
+          "items": []
+        },
+        {
+          "label": "校园动态",
+          "items": []
+        }
+      ],
+      "marks": 2
+    },
+    {
+      "kind": "real",
+      "width": 1440,
+      "theme": "light",
+      "overflow": false,
+      "groups": [
+        {
+          "label": "校园活动",
+          "items": []
+        },
+        {
+          "label": "闲置物品",
+          "items": [
+            {
+              "box": {
+                "x": 57,
+                "y": 695.53125,
+                "width": 1326,
+                "height": 112,
+                "right": 1383,
+                "bottom": 807.53125
+              },
+              "text": "暂无图片考研数学资料包面议",
+              "cover": {
+                "x": 73,
+                "y": 709.53125,
+                "width": 112,
+                "height": 84,
+                "right": 185,
+                "bottom": 793.53125
+              },
+              "title": {
+                "x": 205,
+                "y": 726.140625,
+                "width": 1162,
+                "height": 22.390625,
+                "right": 1367,
+                "bottom": 748.53125
+              },
+              "meta": "面议"
+            },
+            {
+              "box": {
+                "x": 57,
+                "y": 815.53125,
+                "width": 1326,
+                "height": 112,
+                "right": 1383,
+                "bottom": 927.53125
+              },
+              "text": "高等数学第七版上册面议",
+              "cover": {
+                "x": 73,
+                "y": 829.53125,
+                "width": 112,
+                "height": 84,
+                "right": 185,
+                "bottom": 913.53125
+              },
+              "title": {
+                "x": 205,
+                "y": 846.140625,
+                "width": 1162,
+                "height": 22.390625,
+                "right": 1367,
+                "bottom": 868.53125
+              },
+              "meta": "面议",
+              "img": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MDAiIGhlaWdodD0iMjAwIiB2aWV3Qm94PSIwIDAgNDAwIDIwMCI+PHJlY3QgZmlsbD0iI2U3ZjBmZiIgd2lkdGg9IjQwMCIgaGVpZ2h0PSIyMDAiLz48dGV4dCB4PSIyMCIgeT0iMTAwIiBmb250LXNpemU9IjMyIiBmaWxsPSIjMTk2N2QyIj5BSSDmiqXmtYvlhYjlkJc8L3RleHQ+PC9zdmc+"
+            }
+          ]
+        },
+        {
+          "label": "失物招领",
+          "items": []
+        },
+        {
+          "label": "校园动态",
+          "items": []
+        }
+      ],
+      "marks": 2
+    },
+    {
+      "kind": "real",
+      "width": 1440,
+      "theme": "dark",
+      "overflow": false,
+      "groups": [
+        {
+          "label": "校园活动",
+          "items": []
+        },
+        {
+          "label": "闲置物品",
+          "items": [
+            {
+              "box": {
+                "x": 57,
+                "y": 695.53125,
+                "width": 1326,
+                "height": 112,
+                "right": 1383,
+                "bottom": 807.53125
+              },
+              "text": "暂无图片考研数学资料包面议",
+              "cover": {
+                "x": 73,
+                "y": 709.53125,
+                "width": 112,
+                "height": 84,
+                "right": 185,
+                "bottom": 793.53125
+              },
+              "title": {
+                "x": 205,
+                "y": 726.140625,
+                "width": 1162,
+                "height": 22.390625,
+                "right": 1367,
+                "bottom": 748.53125
+              },
+              "meta": "面议"
+            },
+            {
+              "box": {
+                "x": 57,
+                "y": 815.53125,
+                "width": 1326,
+                "height": 112,
+                "right": 1383,
+                "bottom": 927.53125
+              },
+              "text": "高等数学第七版上册面议",
+              "cover": {
+                "x": 73,
+                "y": 829.53125,
+                "width": 112,
+                "height": 84,
+                "right": 185,
+                "bottom": 913.53125
+              },
+              "title": {
+                "x": 205,
+                "y": 846.140625,
+                "width": 1162,
+                "height": 22.390625,
+                "right": 1367,
+                "bottom": 868.53125
+              },
+              "meta": "面议",
+              "img": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MDAiIGhlaWdodD0iMjAwIiB2aWV3Qm94PSIwIDAgNDAwIDIwMCI+PHJlY3QgZmlsbD0iI2U3ZjBmZiIgd2lkdGg9IjQwMCIgaGVpZ2h0PSIyMDAiLz48dGV4dCB4PSIyMCIgeT0iMTAwIiBmb250LXNpemU9IjMyIiBmaWxsPSIjMTk2N2QyIj5BSSDmiqXmtYvlhYjlkJc8L3RleHQ+PC9zdmc+"
+            }
+          ]
+        },
+        {
+          "label": "失物招领",
+          "items": []
+        },
+        {
+          "label": "校园动态",
+          "items": []
+        }
+      ],
+      "marks": 2
+    },
+    {
+      "kind": "real",
+      "width": 1920,
+      "theme": "light",
+      "overflow": false,
+      "groups": [
+        {
+          "label": "校园活动",
+          "items": []
+        },
+        {
+          "label": "闲置物品",
+          "items": [
+            {
+              "box": {
+                "x": 297,
+                "y": 695.53125,
+                "width": 1326,
+                "height": 112,
+                "right": 1623,
+                "bottom": 807.53125
+              },
+              "text": "暂无图片考研数学资料包面议",
+              "cover": {
+                "x": 313,
+                "y": 709.53125,
+                "width": 112,
+                "height": 84,
+                "right": 425,
+                "bottom": 793.53125
+              },
+              "title": {
+                "x": 445,
+                "y": 726.140625,
+                "width": 1162,
+                "height": 22.390625,
+                "right": 1607,
+                "bottom": 748.53125
+              },
+              "meta": "面议"
+            },
+            {
+              "box": {
+                "x": 297,
+                "y": 815.53125,
+                "width": 1326,
+                "height": 112,
+                "right": 1623,
+                "bottom": 927.53125
+              },
+              "text": "高等数学第七版上册面议",
+              "cover": {
+                "x": 313,
+                "y": 829.53125,
+                "width": 112,
+                "height": 84,
+                "right": 425,
+                "bottom": 913.53125
+              },
+              "title": {
+                "x": 445,
+                "y": 846.140625,
+                "width": 1162,
+                "height": 22.390625,
+                "right": 1607,
+                "bottom": 868.53125
+              },
+              "meta": "面议",
+              "img": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MDAiIGhlaWdodD0iMjAwIiB2aWV3Qm94PSIwIDAgNDAwIDIwMCI+PHJlY3QgZmlsbD0iI2U3ZjBmZiIgd2lkdGg9IjQwMCIgaGVpZ2h0PSIyMDAiLz48dGV4dCB4PSIyMCIgeT0iMTAwIiBmb250LXNpemU9IjMyIiBmaWxsPSIjMTk2N2QyIj5BSSDmiqXmtYvlhYjlkJc8L3RleHQ+PC9zdmc+"
+            }
+          ]
+        },
+        {
+          "label": "失物招领",
+          "items": []
+        },
+        {
+          "label": "校园动态",
+          "items": []
+        }
+      ],
+      "marks": 2
+    },
+    {
+      "kind": "real",
+      "width": 1920,
+      "theme": "dark",
+      "overflow": false,
+      "groups": [
+        {
+          "label": "校园活动",
+          "items": []
+        },
+        {
+          "label": "闲置物品",
+          "items": [
+            {
+              "box": {
+                "x": 297,
+                "y": 695.53125,
+                "width": 1326,
+                "height": 112,
+                "right": 1623,
+                "bottom": 807.53125
+              },
+              "text": "暂无图片考研数学资料包面议",
+              "cover": {
+                "x": 313,
+                "y": 709.53125,
+                "width": 112,
+                "height": 84,
+                "right": 425,
+                "bottom": 793.53125
+              },
+              "title": {
+                "x": 445,
+                "y": 726.140625,
+                "width": 1162,
+                "height": 22.390625,
+                "right": 1607,
+                "bottom": 748.53125
+              },
+              "meta": "面议"
+            },
+            {
+              "box": {
+                "x": 297,
+                "y": 815.53125,
+                "width": 1326,
+                "height": 112,
+                "right": 1623,
+                "bottom": 927.53125
+              },
+              "text": "高等数学第七版上册面议",
+              "cover": {
+                "x": 313,
+                "y": 829.53125,
+                "width": 112,
+                "height": 84,
+                "right": 425,
+                "bottom": 913.53125
+              },
+              "title": {
+                "x": 445,
+                "y": 846.140625,
+                "width": 1162,
+                "height": 22.390625,
+                "right": 1607,
+                "bottom": 868.53125
+              },
+              "meta": "面议",
+              "img": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MDAiIGhlaWdodD0iMjAwIiB2aWV3Qm94PSIwIDAgNDAwIDIwMCI+PHJlY3QgZmlsbD0iI2U3ZjBmZiIgd2lkdGg9IjQwMCIgaGVpZ2h0PSIyMDAiLz48dGV4dCB4PSIyMCIgeT0iMTAwIiBmb250LXNpemU9IjMyIiBmaWxsPSIjMTk2N2QyIj5BSSDmiqXmtYvlhYjlkJc8L3RleHQ+PC9zdmc+"
+            }
+          ]
+        },
+        {
+          "label": "失物招领",
+          "items": []
+        },
+        {
+          "label": "校园动态",
+          "items": []
+        }
+      ],
+      "marks": 2
+    },
+    {
+      "kind": "fixture-data",
+      "width": 390,
+      "theme": "light",
+      "overflow": false,
+      "groups": [
+        {
+          "label": "校园活动",
+          "items": [
+            {
+              "box": {
+                "x": 31,
+                "y": 785.140625,
+                "width": 328,
+                "height": 96,
+                "right": 359,
+                "bottom": 881.140625
+              },
+              "text": "数学学习与校园分享图书馆",
+              "cover": {
+                "x": 31,
+                "y": 797.140625,
+                "width": 80,
+                "height": 72,
+                "right": 111,
+                "bottom": 869.140625
+              },
+              "title": {
+                "x": 123,
+                "y": 807.75,
+                "width": 236,
+                "height": 22.390625,
+                "right": 359,
+                "bottom": 830.140625
+              },
+              "meta": "图书馆",
+              "img": "/images/campus-v2.webp"
+            },
+            {
+              "box": {
+                "x": 31,
+                "y": 889.140625,
+                "width": 328,
+                "height": 96,
+                "right": 359,
+                "bottom": 985.140625
+              },
+              "text": "数学交流教学楼",
+              "cover": {
+                "x": 31,
+                "y": 901.140625,
+                "width": 80,
+                "height": 72,
+                "right": 111,
+                "bottom": 973.140625
+              },
+              "title": {
+                "x": 123,
+                "y": 911.75,
+                "width": 236,
+                "height": 22.390625,
+                "right": 359,
+                "bottom": 934.140625
+              },
+              "meta": "教学楼",
+              "img": "/images/campus-v2.webp"
+            }
+          ]
+        },
+        {
+          "label": "闲置物品",
+          "items": [
+            {
+              "box": {
+                "x": 31,
+                "y": 1114.328125,
+                "width": 328,
+                "height": 96,
+                "right": 359,
+                "bottom": 1210.328125
+              },
+              "text": "数学学习与校园分享面议",
+              "cover": {
+                "x": 31,
+                "y": 1126.328125,
+                "width": 80,
+                "height": 72,
+                "right": 111,
+                "bottom": 1198.328125
+              },
+              "title": {
+                "x": 123,
+                "y": 1136.9375,
+                "width": 236,
+                "height": 22.390625,
+                "right": 359,
+                "bottom": 1159.328125
+              },
+              "meta": "面议",
+              "img": "/images/campus-v2.webp"
+            },
+            {
+              "box": {
+                "x": 31,
+                "y": 1218.328125,
+                "width": 328,
+                "height": 96,
+                "right": 359,
+                "bottom": 1314.328125
+              },
+              "text": "数学交流面议",
+              "cover": {
+                "x": 31,
+                "y": 1230.328125,
+                "width": 80,
+                "height": 72,
+                "right": 111,
+                "bottom": 1302.328125
+              },
+              "title": {
+                "x": 123,
+                "y": 1240.9375,
+                "width": 236,
+                "height": 22.390625,
+                "right": 359,
+                "bottom": 1263.328125
+              },
+              "meta": "面议",
+              "img": "/images/campus-v2.webp"
+            }
+          ]
+        },
+        {
+          "label": "失物招领",
+          "items": [
+            {
+              "box": {
+                "x": 31,
+                "y": 1443.515625,
+                "width": 328,
+                "height": 96,
+                "right": 359,
+                "bottom": 1539.515625
+              },
+              "text": "数学学习与校园分享图书馆",
+              "cover": {
+                "x": 31,
+                "y": 1455.515625,
+                "width": 80,
+                "height": 72,
+                "right": 111,
+                "bottom": 1527.515625
+              },
+              "title": {
+                "x": 123,
+                "y": 1466.125,
+                "width": 236,
+                "height": 22.390625,
+                "right": 359,
+                "bottom": 1488.515625
+              },
+              "meta": "图书馆",
+              "img": "/images/campus-v2.webp"
+            },
+            {
+              "box": {
+                "x": 31,
+                "y": 1547.515625,
+                "width": 328,
+                "height": 96,
+                "right": 359,
+                "bottom": 1643.515625
+              },
+              "text": "数学交流教学楼",
+              "cover": {
+                "x": 31,
+                "y": 1559.515625,
+                "width": 80,
+                "height": 72,
+                "right": 111,
+                "bottom": 1631.515625
+              },
+              "title": {
+                "x": 123,
+                "y": 1570.125,
+                "width": 236,
+                "height": 22.390625,
+                "right": 359,
+                "bottom": 1592.515625
+              },
+              "meta": "教学楼",
+              "img": "/images/campus-v2.webp"
+            }
+          ]
+        },
+        {
+          "label": "校园动态",
+          "items": [
+            {
+              "box": {
+                "x": 31,
+                "y": 1772.703125,
+                "width": 328,
+                "height": 96,
+                "right": 359,
+                "bottom": 1868.703125
+              },
+              "text": "数学学习记录校园同学",
+              "cover": {
+                "x": 31,
+                "y": 1784.703125,
+                "width": 80,
+                "height": 72,
+                "right": 111,
+                "bottom": 1856.703125
+              },
+              "title": {
+                "x": 123,
+                "y": 1795.3125,
+                "width": 236,
+                "height": 22.390625,
+                "right": 359,
+                "bottom": 1817.703125
+              },
+              "meta": "校园同学",
+              "img": "/images/campus-v2.webp"
+            },
+            {
+              "box": {
+                "x": 31,
+                "y": 1876.703125,
+                "width": 328,
+                "height": 96,
+                "right": 359,
+                "bottom": 1972.703125
+              },
+              "text": "数学讨论校园同学",
+              "cover": {
+                "x": 31,
+                "y": 1888.703125,
+                "width": 80,
+                "height": 72,
+                "right": 111,
+                "bottom": 1960.703125
+              },
+              "title": {
+                "x": 123,
+                "y": 1899.3125,
+                "width": 236,
+                "height": 22.390625,
+                "right": 359,
+                "bottom": 1921.703125
+              },
+              "meta": "校园同学",
+              "img": "/images/campus-v2.webp"
+            }
+          ]
+        }
+      ],
+      "marks": 8
+    },
+    {
+      "kind": "fixture-data",
+      "width": 390,
+      "theme": "dark",
+      "overflow": false,
+      "groups": [
+        {
+          "label": "校园活动",
+          "items": [
+            {
+              "box": {
+                "x": 31,
+                "y": 785.140625,
+                "width": 328,
+                "height": 96,
+                "right": 359,
+                "bottom": 881.140625
+              },
+              "text": "数学学习与校园分享图书馆",
+              "cover": {
+                "x": 31,
+                "y": 797.140625,
+                "width": 80,
+                "height": 72,
+                "right": 111,
+                "bottom": 869.140625
+              },
+              "title": {
+                "x": 123,
+                "y": 807.75,
+                "width": 236,
+                "height": 22.390625,
+                "right": 359,
+                "bottom": 830.140625
+              },
+              "meta": "图书馆",
+              "img": "/images/campus-v2.webp"
+            },
+            {
+              "box": {
+                "x": 31,
+                "y": 889.140625,
+                "width": 328,
+                "height": 96,
+                "right": 359,
+                "bottom": 985.140625
+              },
+              "text": "数学交流教学楼",
+              "cover": {
+                "x": 31,
+                "y": 901.140625,
+                "width": 80,
+                "height": 72,
+                "right": 111,
+                "bottom": 973.140625
+              },
+              "title": {
+                "x": 123,
+                "y": 911.75,
+                "width": 236,
+                "height": 22.390625,
+                "right": 359,
+                "bottom": 934.140625
+              },
+              "meta": "教学楼",
+              "img": "/images/campus-v2.webp"
+            }
+          ]
+        },
+        {
+          "label": "闲置物品",
+          "items": [
+            {
+              "box": {
+                "x": 31,
+                "y": 1114.328125,
+                "width": 328,
+                "height": 96,
+                "right": 359,
+                "bottom": 1210.328125
+              },
+              "text": "数学学习与校园分享面议",
+              "cover": {
+                "x": 31,
+                "y": 1126.328125,
+                "width": 80,
+                "height": 72,
+                "right": 111,
+                "bottom": 1198.328125
+              },
+              "title": {
+                "x": 123,
+                "y": 1136.9375,
+                "width": 236,
+                "height": 22.390625,
+                "right": 359,
+                "bottom": 1159.328125
+              },
+              "meta": "面议",
+              "img": "/images/campus-v2.webp"
+            },
+            {
+              "box": {
+                "x": 31,
+                "y": 1218.328125,
+                "width": 328,
+                "height": 96,
+                "right": 359,
+                "bottom": 1314.328125
+              },
+              "text": "数学交流面议",
+              "cover": {
+                "x": 31,
+                "y": 1230.328125,
+                "width": 80,
+                "height": 72,
+                "right": 111,
+                "bottom": 1302.328125
+              },
+              "title": {
+                "x": 123,
+                "y": 1240.9375,
+                "width": 236,
+                "height": 22.390625,
+                "right": 359,
+                "bottom": 1263.328125
+              },
+              "meta": "面议",
+              "img": "/images/campus-v2.webp"
+            }
+          ]
+        },
+        {
+          "label": "失物招领",
+          "items": [
+            {
+              "box": {
+                "x": 31,
+                "y": 1443.515625,
+                "width": 328,
+                "height": 96,
+                "right": 359,
+                "bottom": 1539.515625
+              },
+              "text": "数学学习与校园分享图书馆",
+              "cover": {
+                "x": 31,
+                "y": 1455.515625,
+                "width": 80,
+                "height": 72,
+                "right": 111,
+                "bottom": 1527.515625
+              },
+              "title": {
+                "x": 123,
+                "y": 1466.125,
+                "width": 236,
+                "height": 22.390625,
+                "right": 359,
+                "bottom": 1488.515625
+              },
+              "meta": "图书馆",
+              "img": "/images/campus-v2.webp"
+            },
+            {
+              "box": {
+                "x": 31,
+                "y": 1547.515625,
+                "width": 328,
+                "height": 96,
+                "right": 359,
+                "bottom": 1643.515625
+              },
+              "text": "数学交流教学楼",
+              "cover": {
+                "x": 31,
+                "y": 1559.515625,
+                "width": 80,
+                "height": 72,
+                "right": 111,
+                "bottom": 1631.515625
+              },
+              "title": {
+                "x": 123,
+                "y": 1570.125,
+                "width": 236,
+                "height": 22.390625,
+                "right": 359,
+                "bottom": 1592.515625
+              },
+              "meta": "教学楼",
+              "img": "/images/campus-v2.webp"
+            }
+          ]
+        },
+        {
+          "label": "校园动态",
+          "items": [
+            {
+              "box": {
+                "x": 31,
+                "y": 1772.703125,
+                "width": 328,
+                "height": 96,
+                "right": 359,
+                "bottom": 1868.703125
+              },
+              "text": "数学学习记录校园同学",
+              "cover": {
+                "x": 31,
+                "y": 1784.703125,
+                "width": 80,
+                "height": 72,
+                "right": 111,
+                "bottom": 1856.703125
+              },
+              "title": {
+                "x": 123,
+                "y": 1795.3125,
+                "width": 236,
+                "height": 22.390625,
+                "right": 359,
+                "bottom": 1817.703125
+              },
+              "meta": "校园同学",
+              "img": "/images/campus-v2.webp"
+            },
+            {
+              "box": {
+                "x": 31,
+                "y": 1876.703125,
+                "width": 328,
+                "height": 96,
+                "right": 359,
+                "bottom": 1972.703125
+              },
+              "text": "数学讨论校园同学",
+              "cover": {
+                "x": 31,
+                "y": 1888.703125,
+                "width": 80,
+                "height": 72,
+                "right": 111,
+                "bottom": 1960.703125
+              },
+              "title": {
+                "x": 123,
+                "y": 1899.3125,
+                "width": 236,
+                "height": 22.390625,
+                "right": 359,
+                "bottom": 1921.703125
+              },
+              "meta": "校园同学",
+              "img": "/images/campus-v2.webp"
+            }
+          ]
+        }
+      ],
+      "marks": 8
+    },
+    {
+      "kind": "fixture-data",
+      "width": 1440,
+      "theme": "light",
+      "overflow": false,
+      "groups": [
+        {
+          "label": "校园活动",
+          "items": [
+            {
+              "box": {
+                "x": 57,
+                "y": 554.34375,
+                "width": 1326,
+                "height": 112,
+                "right": 1383,
+                "bottom": 666.34375
+              },
+              "text": "数学学习与校园分享图书馆",
+              "cover": {
+                "x": 73,
+                "y": 568.34375,
+                "width": 112,
+                "height": 84,
+                "right": 185,
+                "bottom": 652.34375
+              },
+              "title": {
+                "x": 205,
+                "y": 584.953125,
+                "width": 1162,
+                "height": 22.390625,
+                "right": 1367,
+                "bottom": 607.34375
+              },
+              "meta": "图书馆",
+              "img": "/images/campus-v2.webp"
+            },
+            {
+              "box": {
+                "x": 57,
+                "y": 674.34375,
+                "width": 1326,
+                "height": 112,
+                "right": 1383,
+                "bottom": 786.34375
+              },
+              "text": "数学交流教学楼",
+              "cover": {
+                "x": 73,
+                "y": 688.34375,
+                "width": 112,
+                "height": 84,
+                "right": 185,
+                "bottom": 772.34375
+              },
+              "title": {
+                "x": 205,
+                "y": 704.953125,
+                "width": 1162,
+                "height": 22.390625,
+                "right": 1367,
+                "bottom": 727.34375
+              },
+              "meta": "教学楼",
+              "img": "/images/campus-v2.webp"
+            }
+          ]
+        },
+        {
+          "label": "闲置物品",
+          "items": [
+            {
+              "box": {
+                "x": 57,
+                "y": 927.53125,
+                "width": 1326,
+                "height": 112,
+                "right": 1383,
+                "bottom": 1039.53125
+              },
+              "text": "数学学习与校园分享面议",
+              "cover": {
+                "x": 73,
+                "y": 941.53125,
+                "width": 112,
+                "height": 84,
+                "right": 185,
+                "bottom": 1025.53125
+              },
+              "title": {
+                "x": 205,
+                "y": 958.140625,
+                "width": 1162,
+                "height": 22.390625,
+                "right": 1367,
+                "bottom": 980.53125
+              },
+              "meta": "面议",
+              "img": "/images/campus-v2.webp"
+            },
+            {
+              "box": {
+                "x": 57,
+                "y": 1047.53125,
+                "width": 1326,
+                "height": 112,
+                "right": 1383,
+                "bottom": 1159.53125
+              },
+              "text": "数学交流面议",
+              "cover": {
+                "x": 73,
+                "y": 1061.53125,
+                "width": 112,
+                "height": 84,
+                "right": 185,
+                "bottom": 1145.53125
+              },
+              "title": {
+                "x": 205,
+                "y": 1078.140625,
+                "width": 1162,
+                "height": 22.390625,
+                "right": 1367,
+                "bottom": 1100.53125
+              },
+              "meta": "面议",
+              "img": "/images/campus-v2.webp"
+            }
+          ]
+        },
+        {
+          "label": "失物招领",
+          "items": [
+            {
+              "box": {
+                "x": 57,
+                "y": 1300.71875,
+                "width": 1326,
+                "height": 112,
+                "right": 1383,
+                "bottom": 1412.71875
+              },
+              "text": "数学学习与校园分享图书馆",
+              "cover": {
+                "x": 73,
+                "y": 1314.71875,
+                "width": 112,
+                "height": 84,
+                "right": 185,
+                "bottom": 1398.71875
+              },
+              "title": {
+                "x": 205,
+                "y": 1331.328125,
+                "width": 1162,
+                "height": 22.390625,
+                "right": 1367,
+                "bottom": 1353.71875
+              },
+              "meta": "图书馆",
+              "img": "/images/campus-v2.webp"
+            },
+            {
+              "box": {
+                "x": 57,
+                "y": 1420.71875,
+                "width": 1326,
+                "height": 112,
+                "right": 1383,
+                "bottom": 1532.71875
+              },
+              "text": "数学交流教学楼",
+              "cover": {
+                "x": 73,
+                "y": 1434.71875,
+                "width": 112,
+                "height": 84,
+                "right": 185,
+                "bottom": 1518.71875
+              },
+              "title": {
+                "x": 205,
+                "y": 1451.328125,
+                "width": 1162,
+                "height": 22.390625,
+                "right": 1367,
+                "bottom": 1473.71875
+              },
+              "meta": "教学楼",
+              "img": "/images/campus-v2.webp"
+            }
+          ]
+        },
+        {
+          "label": "校园动态",
+          "items": [
+            {
+              "box": {
+                "x": 57,
+                "y": 1673.90625,
+                "width": 1326,
+                "height": 112,
+                "right": 1383,
+                "bottom": 1785.90625
+              },
+              "text": "数学学习记录校园同学",
+              "cover": {
+                "x": 73,
+                "y": 1687.90625,
+                "width": 112,
+                "height": 84,
+                "right": 185,
+                "bottom": 1771.90625
+              },
+              "title": {
+                "x": 205,
+                "y": 1704.515625,
+                "width": 1162,
+                "height": 22.390625,
+                "right": 1367,
+                "bottom": 1726.90625
+              },
+              "meta": "校园同学",
+              "img": "/images/campus-v2.webp"
+            },
+            {
+              "box": {
+                "x": 57,
+                "y": 1793.90625,
+                "width": 1326,
+                "height": 112,
+                "right": 1383,
+                "bottom": 1905.90625
+              },
+              "text": "数学讨论校园同学",
+              "cover": {
+                "x": 73,
+                "y": 1807.90625,
+                "width": 112,
+                "height": 84,
+                "right": 185,
+                "bottom": 1891.90625
+              },
+              "title": {
+                "x": 205,
+                "y": 1824.515625,
+                "width": 1162,
+                "height": 22.390625,
+                "right": 1367,
+                "bottom": 1846.90625
+              },
+              "meta": "校园同学",
+              "img": "/images/campus-v2.webp"
+            }
+          ]
+        }
+      ],
+      "marks": 8
+    },
+    {
+      "kind": "fixture-data",
+      "width": 1440,
+      "theme": "dark",
+      "overflow": false,
+      "groups": [
+        {
+          "label": "校园活动",
+          "items": [
+            {
+              "box": {
+                "x": 57,
+                "y": 554.34375,
+                "width": 1326,
+                "height": 112,
+                "right": 1383,
+                "bottom": 666.34375
+              },
+              "text": "数学学习与校园分享图书馆",
+              "cover": {
+                "x": 73,
+                "y": 568.34375,
+                "width": 112,
+                "height": 84,
+                "right": 185,
+                "bottom": 652.34375
+              },
+              "title": {
+                "x": 205,
+                "y": 584.953125,
+                "width": 1162,
+                "height": 22.390625,
+                "right": 1367,
+                "bottom": 607.34375
+              },
+              "meta": "图书馆",
+              "img": "/images/campus-v2.webp"
+            },
+            {
+              "box": {
+                "x": 57,
+                "y": 674.34375,
+                "width": 1326,
+                "height": 112,
+                "right": 1383,
+                "bottom": 786.34375
+              },
+              "text": "数学交流教学楼",
+              "cover": {
+                "x": 73,
+                "y": 688.34375,
+                "width": 112,
+                "height": 84,
+                "right": 185,
+                "bottom": 772.34375
+              },
+              "title": {
+                "x": 205,
+                "y": 704.953125,
+                "width": 1162,
+                "height": 22.390625,
+                "right": 1367,
+                "bottom": 727.34375
+              },
+              "meta": "教学楼",
+              "img": "/images/campus-v2.webp"
+            }
+          ]
+        },
+        {
+          "label": "闲置物品",
+          "items": [
+            {
+              "box": {
+                "x": 57,
+                "y": 927.53125,
+                "width": 1326,
+                "height": 112,
+                "right": 1383,
+                "bottom": 1039.53125
+              },
+              "text": "数学学习与校园分享面议",
+              "cover": {
+                "x": 73,
+                "y": 941.53125,
+                "width": 112,
+                "height": 84,
+                "right": 185,
+                "bottom": 1025.53125
+              },
+              "title": {
+                "x": 205,
+                "y": 958.140625,
+                "width": 1162,
+                "height": 22.390625,
+                "right": 1367,
+                "bottom": 980.53125
+              },
+              "meta": "面议",
+              "img": "/images/campus-v2.webp"
+            },
+            {
+              "box": {
+                "x": 57,
+                "y": 1047.53125,
+                "width": 1326,
+                "height": 112,
+                "right": 1383,
+                "bottom": 1159.53125
+              },
+              "text": "数学交流面议",
+              "cover": {
+                "x": 73,
+                "y": 1061.53125,
+                "width": 112,
+                "height": 84,
+                "right": 185,
+                "bottom": 1145.53125
+              },
+              "title": {
+                "x": 205,
+                "y": 1078.140625,
+                "width": 1162,
+                "height": 22.390625,
+                "right": 1367,
+                "bottom": 1100.53125
+              },
+              "meta": "面议",
+              "img": "/images/campus-v2.webp"
+            }
+          ]
+        },
+        {
+          "label": "失物招领",
+          "items": [
+            {
+              "box": {
+                "x": 57,
+                "y": 1300.71875,
+                "width": 1326,
+                "height": 112,
+                "right": 1383,
+                "bottom": 1412.71875
+              },
+              "text": "数学学习与校园分享图书馆",
+              "cover": {
+                "x": 73,
+                "y": 1314.71875,
+                "width": 112,
+                "height": 84,
+                "right": 185,
+                "bottom": 1398.71875
+              },
+              "title": {
+                "x": 205,
+                "y": 1331.328125,
+                "width": 1162,
+                "height": 22.390625,
+                "right": 1367,
+                "bottom": 1353.71875
+              },
+              "meta": "图书馆",
+              "img": "/images/campus-v2.webp"
+            },
+            {
+              "box": {
+                "x": 57,
+                "y": 1420.71875,
+                "width": 1326,
+                "height": 112,
+                "right": 1383,
+                "bottom": 1532.71875
+              },
+              "text": "数学交流教学楼",
+              "cover": {
+                "x": 73,
+                "y": 1434.71875,
+                "width": 112,
+                "height": 84,
+                "right": 185,
+                "bottom": 1518.71875
+              },
+              "title": {
+                "x": 205,
+                "y": 1451.328125,
+                "width": 1162,
+                "height": 22.390625,
+                "right": 1367,
+                "bottom": 1473.71875
+              },
+              "meta": "教学楼",
+              "img": "/images/campus-v2.webp"
+            }
+          ]
+        },
+        {
+          "label": "校园动态",
+          "items": [
+            {
+              "box": {
+                "x": 57,
+                "y": 1673.90625,
+                "width": 1326,
+                "height": 112,
+                "right": 1383,
+                "bottom": 1785.90625
+              },
+              "text": "数学学习记录校园同学",
+              "cover": {
+                "x": 73,
+                "y": 1687.90625,
+                "width": 112,
+                "height": 84,
+                "right": 185,
+                "bottom": 1771.90625
+              },
+              "title": {
+                "x": 205,
+                "y": 1704.515625,
+                "width": 1162,
+                "height": 22.390625,
+                "right": 1367,
+                "bottom": 1726.90625
+              },
+              "meta": "校园同学",
+              "img": "/images/campus-v2.webp"
+            },
+            {
+              "box": {
+                "x": 57,
+                "y": 1793.90625,
+                "width": 1326,
+                "height": 112,
+                "right": 1383,
+                "bottom": 1905.90625
+              },
+              "text": "数学讨论校园同学",
+              "cover": {
+                "x": 73,
+                "y": 1807.90625,
+                "width": 112,
+                "height": 84,
+                "right": 185,
+                "bottom": 1891.90625
+              },
+              "title": {
+                "x": 205,
+                "y": 1824.515625,
+                "width": 1162,
+                "height": 22.390625,
+                "right": 1367,
+                "bottom": 1846.90625
+              },
+              "meta": "校园同学",
+              "img": "/images/campus-v2.webp"
+            }
+          ]
+        }
+      ],
+      "marks": 8
+    },
+    {
+      "kind": "fixture-no-image",
+      "width": 390,
+      "theme": "light",
+      "overflow": false,
+      "groups": [
+        {
+          "label": "校园活动",
+          "items": [
+            {
+              "box": {
+                "x": 31,
+                "y": 785.140625,
+                "width": 328,
+                "height": 96,
+                "right": 359,
+                "bottom": 881.140625
+              },
+              "text": "示意图数学学习与校园分享图书馆",
+              "cover": {
+                "x": 31,
+                "y": 797.140625,
+                "width": 80,
+                "height": 72,
+                "right": 111,
+                "bottom": 869.140625
+              },
+              "title": {
+                "x": 123,
+                "y": 807.75,
+                "width": 236,
+                "height": 22.390625,
+                "right": 359,
+                "bottom": 830.140625
+              },
+              "meta": "图书馆",
+              "img": "/images/generated-activity-campus.webp"
+            },
+            {
+              "box": {
+                "x": 31,
+                "y": 889.140625,
+                "width": 328,
+                "height": 96,
+                "right": 359,
+                "bottom": 985.140625
+              },
+              "text": "示意图数学交流教学楼",
+              "cover": {
+                "x": 31,
+                "y": 901.140625,
+                "width": 80,
+                "height": 72,
+                "right": 111,
+                "bottom": 973.140625
+              },
+              "title": {
+                "x": 123,
+                "y": 911.75,
+                "width": 236,
+                "height": 22.390625,
+                "right": 359,
+                "bottom": 934.140625
+              },
+              "meta": "教学楼",
+              "img": "/images/generated-activity-campus.webp"
+            }
+          ]
+        },
+        {
+          "label": "闲置物品",
+          "items": [
+            {
+              "box": {
+                "x": 31,
+                "y": 1114.328125,
+                "width": 328,
+                "height": 96,
+                "right": 359,
+                "bottom": 1210.328125
+              },
+              "text": "示意图数学学习与校园分享面议",
+              "cover": {
+                "x": 31,
+                "y": 1126.328125,
+                "width": 80,
+                "height": 72,
+                "right": 111,
+                "bottom": 1198.328125
+              },
+              "title": {
+                "x": 123,
+                "y": 1136.9375,
+                "width": 236,
+                "height": 22.390625,
+                "right": 359,
+                "bottom": 1159.328125
+              },
+              "meta": "面议",
+              "img": "/images/idle-schematic-book.jpg"
+            },
+            {
+              "box": {
+                "x": 31,
+                "y": 1218.328125,
+                "width": 328,
+                "height": 96,
+                "right": 359,
+                "bottom": 1314.328125
+              },
+              "text": "暂无图片数学交流面议",
+              "cover": {
+                "x": 31,
+                "y": 1230.328125,
+                "width": 80,
+                "height": 72,
+                "right": 111,
+                "bottom": 1302.328125
+              },
+              "title": {
+                "x": 123,
+                "y": 1240.9375,
+                "width": 236,
+                "height": 22.390625,
+                "right": 359,
+                "bottom": 1263.328125
+              },
+              "meta": "面议"
+            }
+          ]
+        },
+        {
+          "label": "失物招领",
+          "items": [
+            {
+              "box": {
+                "x": 31,
+                "y": 1443.515625,
+                "width": 328,
+                "height": 96,
+                "right": 359,
+                "bottom": 1539.515625
+              },
+              "text": "示意图数学学习与校园分享图书馆",
+              "cover": {
+                "x": 31,
+                "y": 1455.515625,
+                "width": 80,
+                "height": 72,
+                "right": 111,
+                "bottom": 1527.515625
+              },
+              "title": {
+                "x": 123,
+                "y": 1466.125,
+                "width": 236,
+                "height": 22.390625,
+                "right": 359,
+                "bottom": 1488.515625
+              },
+              "meta": "图书馆",
+              "img": "/images/generated-lost-found.webp"
+            },
+            {
+              "box": {
+                "x": 31,
+                "y": 1547.515625,
+                "width": 328,
+                "height": 96,
+                "right": 359,
+                "bottom": 1643.515625
+              },
+              "text": "示意图数学交流教学楼",
+              "cover": {
+                "x": 31,
+                "y": 1559.515625,
+                "width": 80,
+                "height": 72,
+                "right": 111,
+                "bottom": 1631.515625
+              },
+              "title": {
+                "x": 123,
+                "y": 1570.125,
+                "width": 236,
+                "height": 22.390625,
+                "right": 359,
+                "bottom": 1592.515625
+              },
+              "meta": "教学楼",
+              "img": "/images/generated-lost-found.webp"
+            }
+          ]
+        },
+        {
+          "label": "校园动态",
+          "items": [
+            {
+              "box": {
+                "x": 31,
+                "y": 1772.703125,
+                "width": 328,
+                "height": 96,
+                "right": 359,
+                "bottom": 1868.703125
+              },
+              "text": "示意图数学学习记录校园同学",
+              "cover": {
+                "x": 31,
+                "y": 1784.703125,
+                "width": 80,
+                "height": 72,
+                "right": 111,
+                "bottom": 1856.703125
+              },
+              "title": {
+                "x": 123,
+                "y": 1795.3125,
+                "width": 236,
+                "height": 22.390625,
+                "right": 359,
+                "bottom": 1817.703125
+              },
+              "meta": "校园同学",
+              "img": "/images/generated-social-campus.webp"
+            },
+            {
+              "box": {
+                "x": 31,
+                "y": 1876.703125,
+                "width": 328,
+                "height": 96,
+                "right": 359,
+                "bottom": 1972.703125
+              },
+              "text": "示意图数学讨论校园同学",
+              "cover": {
+                "x": 31,
+                "y": 1888.703125,
+                "width": 80,
+                "height": 72,
+                "right": 111,
+                "bottom": 1960.703125
+              },
+              "title": {
+                "x": 123,
+                "y": 1899.3125,
+                "width": 236,
+                "height": 22.390625,
+                "right": 359,
+                "bottom": 1921.703125
+              },
+              "meta": "校园同学",
+              "img": "/images/generated-social-campus.webp"
+            }
+          ]
+        }
+      ],
+      "marks": 8
+    },
+    {
+      "kind": "fixture-no-image",
+      "width": 390,
+      "theme": "dark",
+      "overflow": false,
+      "groups": [
+        {
+          "label": "校园活动",
+          "items": [
+            {
+              "box": {
+                "x": 31,
+                "y": 785.140625,
+                "width": 328,
+                "height": 96,
+                "right": 359,
+                "bottom": 881.140625
+              },
+              "text": "示意图数学学习与校园分享图书馆",
+              "cover": {
+                "x": 31,
+                "y": 797.140625,
+                "width": 80,
+                "height": 72,
+                "right": 111,
+                "bottom": 869.140625
+              },
+              "title": {
+                "x": 123,
+                "y": 807.75,
+                "width": 236,
+                "height": 22.390625,
+                "right": 359,
+                "bottom": 830.140625
+              },
+              "meta": "图书馆",
+              "img": "/images/generated-activity-campus.webp"
+            },
+            {
+              "box": {
+                "x": 31,
+                "y": 889.140625,
+                "width": 328,
+                "height": 96,
+                "right": 359,
+                "bottom": 985.140625
+              },
+              "text": "示意图数学交流教学楼",
+              "cover": {
+                "x": 31,
+                "y": 901.140625,
+                "width": 80,
+                "height": 72,
+                "right": 111,
+                "bottom": 973.140625
+              },
+              "title": {
+                "x": 123,
+                "y": 911.75,
+                "width": 236,
+                "height": 22.390625,
+                "right": 359,
+                "bottom": 934.140625
+              },
+              "meta": "教学楼",
+              "img": "/images/generated-activity-campus.webp"
+            }
+          ]
+        },
+        {
+          "label": "闲置物品",
+          "items": [
+            {
+              "box": {
+                "x": 31,
+                "y": 1114.328125,
+                "width": 328,
+                "height": 96,
+                "right": 359,
+                "bottom": 1210.328125
+              },
+              "text": "示意图数学学习与校园分享面议",
+              "cover": {
+                "x": 31,
+                "y": 1126.328125,
+                "width": 80,
+                "height": 72,
+                "right": 111,
+                "bottom": 1198.328125
+              },
+              "title": {
+                "x": 123,
+                "y": 1136.9375,
+                "width": 236,
+                "height": 22.390625,
+                "right": 359,
+                "bottom": 1159.328125
+              },
+              "meta": "面议",
+              "img": "/images/idle-schematic-book.jpg"
+            },
+            {
+              "box": {
+                "x": 31,
+                "y": 1218.328125,
+                "width": 328,
+                "height": 96,
+                "right": 359,
+                "bottom": 1314.328125
+              },
+              "text": "暂无图片数学交流面议",
+              "cover": {
+                "x": 31,
+                "y": 1230.328125,
+                "width": 80,
+                "height": 72,
+                "right": 111,
+                "bottom": 1302.328125
+              },
+              "title": {
+                "x": 123,
+                "y": 1240.9375,
+                "width": 236,
+                "height": 22.390625,
+                "right": 359,
+                "bottom": 1263.328125
+              },
+              "meta": "面议"
+            }
+          ]
+        },
+        {
+          "label": "失物招领",
+          "items": [
+            {
+              "box": {
+                "x": 31,
+                "y": 1443.515625,
+                "width": 328,
+                "height": 96,
+                "right": 359,
+                "bottom": 1539.515625
+              },
+              "text": "示意图数学学习与校园分享图书馆",
+              "cover": {
+                "x": 31,
+                "y": 1455.515625,
+                "width": 80,
+                "height": 72,
+                "right": 111,
+                "bottom": 1527.515625
+              },
+              "title": {
+                "x": 123,
+                "y": 1466.125,
+                "width": 236,
+                "height": 22.390625,
+                "right": 359,
+                "bottom": 1488.515625
+              },
+              "meta": "图书馆",
+              "img": "/images/generated-lost-found.webp"
+            },
+            {
+              "box": {
+                "x": 31,
+                "y": 1547.515625,
+                "width": 328,
+                "height": 96,
+                "right": 359,
+                "bottom": 1643.515625
+              },
+              "text": "示意图数学交流教学楼",
+              "cover": {
+                "x": 31,
+                "y": 1559.515625,
+                "width": 80,
+                "height": 72,
+                "right": 111,
+                "bottom": 1631.515625
+              },
+              "title": {
+                "x": 123,
+                "y": 1570.125,
+                "width": 236,
+                "height": 22.390625,
+                "right": 359,
+                "bottom": 1592.515625
+              },
+              "meta": "教学楼",
+              "img": "/images/generated-lost-found.webp"
+            }
+          ]
+        },
+        {
+          "label": "校园动态",
+          "items": [
+            {
+              "box": {
+                "x": 31,
+                "y": 1772.703125,
+                "width": 328,
+                "height": 96,
+                "right": 359,
+                "bottom": 1868.703125
+              },
+              "text": "示意图数学学习记录校园同学",
+              "cover": {
+                "x": 31,
+                "y": 1784.703125,
+                "width": 80,
+                "height": 72,
+                "right": 111,
+                "bottom": 1856.703125
+              },
+              "title": {
+                "x": 123,
+                "y": 1795.3125,
+                "width": 236,
+                "height": 22.390625,
+                "right": 359,
+                "bottom": 1817.703125
+              },
+              "meta": "校园同学",
+              "img": "/images/generated-social-campus.webp"
+            },
+            {
+              "box": {
+                "x": 31,
+                "y": 1876.703125,
+                "width": 328,
+                "height": 96,
+                "right": 359,
+                "bottom": 1972.703125
+              },
+              "text": "示意图数学讨论校园同学",
+              "cover": {
+                "x": 31,
+                "y": 1888.703125,
+                "width": 80,
+                "height": 72,
+                "right": 111,
+                "bottom": 1960.703125
+              },
+              "title": {
+                "x": 123,
+                "y": 1899.3125,
+                "width": 236,
+                "height": 22.390625,
+                "right": 359,
+                "bottom": 1921.703125
+              },
+              "meta": "校园同学",
+              "img": "/images/generated-social-campus.webp"
+            }
+          ]
+        }
+      ],
+      "marks": 8
+    },
+    {
+      "kind": "fixture-no-image",
+      "width": 1440,
+      "theme": "light",
+      "overflow": false,
+      "groups": [
+        {
+          "label": "校园活动",
+          "items": [
+            {
+              "box": {
+                "x": 57,
+                "y": 554.34375,
+                "width": 1326,
+                "height": 112,
+                "right": 1383,
+                "bottom": 666.34375
+              },
+              "text": "示意图数学学习与校园分享图书馆",
+              "cover": {
+                "x": 73,
+                "y": 568.34375,
+                "width": 112,
+                "height": 84,
+                "right": 185,
+                "bottom": 652.34375
+              },
+              "title": {
+                "x": 205,
+                "y": 584.953125,
+                "width": 1162,
+                "height": 22.390625,
+                "right": 1367,
+                "bottom": 607.34375
+              },
+              "meta": "图书馆",
+              "img": "/images/generated-activity-campus.webp"
+            },
+            {
+              "box": {
+                "x": 57,
+                "y": 674.34375,
+                "width": 1326,
+                "height": 112,
+                "right": 1383,
+                "bottom": 786.34375
+              },
+              "text": "示意图数学交流教学楼",
+              "cover": {
+                "x": 73,
+                "y": 688.34375,
+                "width": 112,
+                "height": 84,
+                "right": 185,
+                "bottom": 772.34375
+              },
+              "title": {
+                "x": 205,
+                "y": 704.953125,
+                "width": 1162,
+                "height": 22.390625,
+                "right": 1367,
+                "bottom": 727.34375
+              },
+              "meta": "教学楼",
+              "img": "/images/generated-activity-campus.webp"
+            }
+          ]
+        },
+        {
+          "label": "闲置物品",
+          "items": [
+            {
+              "box": {
+                "x": 57,
+                "y": 927.53125,
+                "width": 1326,
+                "height": 112,
+                "right": 1383,
+                "bottom": 1039.53125
+              },
+              "text": "示意图数学学习与校园分享面议",
+              "cover": {
+                "x": 73,
+                "y": 941.53125,
+                "width": 112,
+                "height": 84,
+                "right": 185,
+                "bottom": 1025.53125
+              },
+              "title": {
+                "x": 205,
+                "y": 958.140625,
+                "width": 1162,
+                "height": 22.390625,
+                "right": 1367,
+                "bottom": 980.53125
+              },
+              "meta": "面议",
+              "img": "/images/idle-schematic-book.jpg"
+            },
+            {
+              "box": {
+                "x": 57,
+                "y": 1047.53125,
+                "width": 1326,
+                "height": 112,
+                "right": 1383,
+                "bottom": 1159.53125
+              },
+              "text": "暂无图片数学交流面议",
+              "cover": {
+                "x": 73,
+                "y": 1061.53125,
+                "width": 112,
+                "height": 84,
+                "right": 185,
+                "bottom": 1145.53125
+              },
+              "title": {
+                "x": 205,
+                "y": 1078.140625,
+                "width": 1162,
+                "height": 22.390625,
+                "right": 1367,
+                "bottom": 1100.53125
+              },
+              "meta": "面议"
+            }
+          ]
+        },
+        {
+          "label": "失物招领",
+          "items": [
+            {
+              "box": {
+                "x": 57,
+                "y": 1300.71875,
+                "width": 1326,
+                "height": 112,
+                "right": 1383,
+                "bottom": 1412.71875
+              },
+              "text": "示意图数学学习与校园分享图书馆",
+              "cover": {
+                "x": 73,
+                "y": 1314.71875,
+                "width": 112,
+                "height": 84,
+                "right": 185,
+                "bottom": 1398.71875
+              },
+              "title": {
+                "x": 205,
+                "y": 1331.328125,
+                "width": 1162,
+                "height": 22.390625,
+                "right": 1367,
+                "bottom": 1353.71875
+              },
+              "meta": "图书馆",
+              "img": "/images/generated-lost-found.webp"
+            },
+            {
+              "box": {
+                "x": 57,
+                "y": 1420.71875,
+                "width": 1326,
+                "height": 112,
+                "right": 1383,
+                "bottom": 1532.71875
+              },
+              "text": "示意图数学交流教学楼",
+              "cover": {
+                "x": 73,
+                "y": 1434.71875,
+                "width": 112,
+                "height": 84,
+                "right": 185,
+                "bottom": 1518.71875
+              },
+              "title": {
+                "x": 205,
+                "y": 1451.328125,
+                "width": 1162,
+                "height": 22.390625,
+                "right": 1367,
+                "bottom": 1473.71875
+              },
+              "meta": "教学楼",
+              "img": "/images/generated-lost-found.webp"
+            }
+          ]
+        },
+        {
+          "label": "校园动态",
+          "items": [
+            {
+              "box": {
+                "x": 57,
+                "y": 1673.90625,
+                "width": 1326,
+                "height": 112,
+                "right": 1383,
+                "bottom": 1785.90625
+              },
+              "text": "示意图数学学习记录校园同学",
+              "cover": {
+                "x": 73,
+                "y": 1687.90625,
+                "width": 112,
+                "height": 84,
+                "right": 185,
+                "bottom": 1771.90625
+              },
+              "title": {
+                "x": 205,
+                "y": 1704.515625,
+                "width": 1162,
+                "height": 22.390625,
+                "right": 1367,
+                "bottom": 1726.90625
+              },
+              "meta": "校园同学",
+              "img": "/images/generated-social-campus.webp"
+            },
+            {
+              "box": {
+                "x": 57,
+                "y": 1793.90625,
+                "width": 1326,
+                "height": 112,
+                "right": 1383,
+                "bottom": 1905.90625
+              },
+              "text": "示意图数学讨论校园同学",
+              "cover": {
+                "x": 73,
+                "y": 1807.90625,
+                "width": 112,
+                "height": 84,
+                "right": 185,
+                "bottom": 1891.90625
+              },
+              "title": {
+                "x": 205,
+                "y": 1824.515625,
+                "width": 1162,
+                "height": 22.390625,
+                "right": 1367,
+                "bottom": 1846.90625
+              },
+              "meta": "校园同学",
+              "img": "/images/generated-social-campus.webp"
+            }
+          ]
+        }
+      ],
+      "marks": 8
+    },
+    {
+      "kind": "fixture-no-image",
+      "width": 1440,
+      "theme": "dark",
+      "overflow": false,
+      "groups": [
+        {
+          "label": "校园活动",
+          "items": [
+            {
+              "box": {
+                "x": 57,
+                "y": 554.34375,
+                "width": 1326,
+                "height": 112,
+                "right": 1383,
+                "bottom": 666.34375
+              },
+              "text": "示意图数学学习与校园分享图书馆",
+              "cover": {
+                "x": 73,
+                "y": 568.34375,
+                "width": 112,
+                "height": 84,
+                "right": 185,
+                "bottom": 652.34375
+              },
+              "title": {
+                "x": 205,
+                "y": 584.953125,
+                "width": 1162,
+                "height": 22.390625,
+                "right": 1367,
+                "bottom": 607.34375
+              },
+              "meta": "图书馆",
+              "img": "/images/generated-activity-campus.webp"
+            },
+            {
+              "box": {
+                "x": 57,
+                "y": 674.34375,
+                "width": 1326,
+                "height": 112,
+                "right": 1383,
+                "bottom": 786.34375
+              },
+              "text": "示意图数学交流教学楼",
+              "cover": {
+                "x": 73,
+                "y": 688.34375,
+                "width": 112,
+                "height": 84,
+                "right": 185,
+                "bottom": 772.34375
+              },
+              "title": {
+                "x": 205,
+                "y": 704.953125,
+                "width": 1162,
+                "height": 22.390625,
+                "right": 1367,
+                "bottom": 727.34375
+              },
+              "meta": "教学楼",
+              "img": "/images/generated-activity-campus.webp"
+            }
+          ]
+        },
+        {
+          "label": "闲置物品",
+          "items": [
+            {
+              "box": {
+                "x": 57,
+                "y": 927.53125,
+                "width": 1326,
+                "height": 112,
+                "right": 1383,
+                "bottom": 1039.53125
+              },
+              "text": "示意图数学学习与校园分享面议",
+              "cover": {
+                "x": 73,
+                "y": 941.53125,
+                "width": 112,
+                "height": 84,
+                "right": 185,
+                "bottom": 1025.53125
+              },
+              "title": {
+                "x": 205,
+                "y": 958.140625,
+                "width": 1162,
+                "height": 22.390625,
+                "right": 1367,
+                "bottom": 980.53125
+              },
+              "meta": "面议",
+              "img": "/images/idle-schematic-book.jpg"
+            },
+            {
+              "box": {
+                "x": 57,
+                "y": 1047.53125,
+                "width": 1326,
+                "height": 112,
+                "right": 1383,
+                "bottom": 1159.53125
+              },
+              "text": "暂无图片数学交流面议",
+              "cover": {
+                "x": 73,
+                "y": 1061.53125,
+                "width": 112,
+                "height": 84,
+                "right": 185,
+                "bottom": 1145.53125
+              },
+              "title": {
+                "x": 205,
+                "y": 1078.140625,
+                "width": 1162,
+                "height": 22.390625,
+                "right": 1367,
+                "bottom": 1100.53125
+              },
+              "meta": "面议"
+            }
+          ]
+        },
+        {
+          "label": "失物招领",
+          "items": [
+            {
+              "box": {
+                "x": 57,
+                "y": 1300.71875,
+                "width": 1326,
+                "height": 112,
+                "right": 1383,
+                "bottom": 1412.71875
+              },
+              "text": "示意图数学学习与校园分享图书馆",
+              "cover": {
+                "x": 73,
+                "y": 1314.71875,
+                "width": 112,
+                "height": 84,
+                "right": 185,
+                "bottom": 1398.71875
+              },
+              "title": {
+                "x": 205,
+                "y": 1331.328125,
+                "width": 1162,
+                "height": 22.390625,
+                "right": 1367,
+                "bottom": 1353.71875
+              },
+              "meta": "图书馆",
+              "img": "/images/generated-lost-found.webp"
+            },
+            {
+              "box": {
+                "x": 57,
+                "y": 1420.71875,
+                "width": 1326,
+                "height": 112,
+                "right": 1383,
+                "bottom": 1532.71875
+              },
+              "text": "示意图数学交流教学楼",
+              "cover": {
+                "x": 73,
+                "y": 1434.71875,
+                "width": 112,
+                "height": 84,
+                "right": 185,
+                "bottom": 1518.71875
+              },
+              "title": {
+                "x": 205,
+                "y": 1451.328125,
+                "width": 1162,
+                "height": 22.390625,
+                "right": 1367,
+                "bottom": 1473.71875
+              },
+              "meta": "教学楼",
+              "img": "/images/generated-lost-found.webp"
+            }
+          ]
+        },
+        {
+          "label": "校园动态",
+          "items": [
+            {
+              "box": {
+                "x": 57,
+                "y": 1673.90625,
+                "width": 1326,
+                "height": 112,
+                "right": 1383,
+                "bottom": 1785.90625
+              },
+              "text": "示意图数学学习记录校园同学",
+              "cover": {
+                "x": 73,
+                "y": 1687.90625,
+                "width": 112,
+                "height": 84,
+                "right": 185,
+                "bottom": 1771.90625
+              },
+              "title": {
+                "x": 205,
+                "y": 1704.515625,
+                "width": 1162,
+                "height": 22.390625,
+                "right": 1367,
+                "bottom": 1726.90625
+              },
+              "meta": "校园同学",
+              "img": "/images/generated-social-campus.webp"
+            },
+            {
+              "box": {
+                "x": 57,
+                "y": 1793.90625,
+                "width": 1326,
+                "height": 112,
+                "right": 1383,
+                "bottom": 1905.90625
+              },
+              "text": "示意图数学讨论校园同学",
+              "cover": {
+                "x": 73,
+                "y": 1807.90625,
+                "width": 112,
+                "height": 84,
+                "right": 185,
+                "bottom": 1891.90625
+              },
+              "title": {
+                "x": 205,
+                "y": 1824.515625,
+                "width": 1162,
+                "height": 22.390625,
+                "right": 1367,
+                "bottom": 1846.90625
+              },
+              "meta": "校园同学",
+              "img": "/images/generated-social-campus.webp"
+            }
+          ]
+        }
+      ],
+      "marks": 8
+    },
+    {
+      "kind": "fixture-broken",
+      "width": 390,
+      "theme": "light",
+      "overflow": false,
+      "groups": [
+        {
+          "label": "校园活动",
+          "items": [
+            {
+              "box": {
+                "x": 31,
+                "y": 785.140625,
+                "width": 328,
+                "height": 96,
+                "right": 359,
+                "bottom": 881.140625
+              },
+              "text": "示意图数学学习与校园分享图书馆",
+              "cover": {
+                "x": 31,
+                "y": 797.140625,
+                "width": 80,
+                "height": 72,
+                "right": 111,
+                "bottom": 869.140625
+              },
+              "title": {
+                "x": 123,
+                "y": 807.75,
+                "width": 236,
+                "height": 22.390625,
+                "right": 359,
+                "bottom": 830.140625
+              },
+              "meta": "图书馆",
+              "img": "/images/generated-activity-campus.webp"
+            },
+            {
+              "box": {
+                "x": 31,
+                "y": 889.140625,
+                "width": 328,
+                "height": 96,
+                "right": 359,
+                "bottom": 985.140625
+              },
+              "text": "示意图数学交流教学楼",
+              "cover": {
+                "x": 31,
+                "y": 901.140625,
+                "width": 80,
+                "height": 72,
+                "right": 111,
+                "bottom": 973.140625
+              },
+              "title": {
+                "x": 123,
+                "y": 911.75,
+                "width": 236,
+                "height": 22.390625,
+                "right": 359,
+                "bottom": 934.140625
+              },
+              "meta": "教学楼",
+              "img": "/images/generated-activity-campus.webp"
+            }
+          ]
+        },
+        {
+          "label": "闲置物品",
+          "items": [
+            {
+              "box": {
+                "x": 31,
+                "y": 1114.328125,
+                "width": 328,
+                "height": 96,
+                "right": 359,
+                "bottom": 1210.328125
+              },
+              "text": "示意图数学学习与校园分享面议",
+              "cover": {
+                "x": 31,
+                "y": 1126.328125,
+                "width": 80,
+                "height": 72,
+                "right": 111,
+                "bottom": 1198.328125
+              },
+              "title": {
+                "x": 123,
+                "y": 1136.9375,
+                "width": 236,
+                "height": 22.390625,
+                "right": 359,
+                "bottom": 1159.328125
+              },
+              "meta": "面议",
+              "img": "/images/idle-schematic-book.jpg"
+            },
+            {
+              "box": {
+                "x": 31,
+                "y": 1218.328125,
+                "width": 328,
+                "height": 96,
+                "right": 359,
+                "bottom": 1314.328125
+              },
+              "text": "暂无图片数学交流面议",
+              "cover": {
+                "x": 31,
+                "y": 1230.328125,
+                "width": 80,
+                "height": 72,
+                "right": 111,
+                "bottom": 1302.328125
+              },
+              "title": {
+                "x": 123,
+                "y": 1240.9375,
+                "width": 236,
+                "height": 22.390625,
+                "right": 359,
+                "bottom": 1263.328125
+              },
+              "meta": "面议"
+            }
+          ]
+        },
+        {
+          "label": "失物招领",
+          "items": [
+            {
+              "box": {
+                "x": 31,
+                "y": 1443.515625,
+                "width": 328,
+                "height": 96,
+                "right": 359,
+                "bottom": 1539.515625
+              },
+              "text": "示意图数学学习与校园分享图书馆",
+              "cover": {
+                "x": 31,
+                "y": 1455.515625,
+                "width": 80,
+                "height": 72,
+                "right": 111,
+                "bottom": 1527.515625
+              },
+              "title": {
+                "x": 123,
+                "y": 1466.125,
+                "width": 236,
+                "height": 22.390625,
+                "right": 359,
+                "bottom": 1488.515625
+              },
+              "meta": "图书馆",
+              "img": "/images/generated-lost-found.webp"
+            },
+            {
+              "box": {
+                "x": 31,
+                "y": 1547.515625,
+                "width": 328,
+                "height": 96,
+                "right": 359,
+                "bottom": 1643.515625
+              },
+              "text": "示意图数学交流教学楼",
+              "cover": {
+                "x": 31,
+                "y": 1559.515625,
+                "width": 80,
+                "height": 72,
+                "right": 111,
+                "bottom": 1631.515625
+              },
+              "title": {
+                "x": 123,
+                "y": 1570.125,
+                "width": 236,
+                "height": 22.390625,
+                "right": 359,
+                "bottom": 1592.515625
+              },
+              "meta": "教学楼",
+              "img": "/images/generated-lost-found.webp"
+            }
+          ]
+        },
+        {
+          "label": "校园动态",
+          "items": [
+            {
+              "box": {
+                "x": 31,
+                "y": 1772.703125,
+                "width": 328,
+                "height": 96,
+                "right": 359,
+                "bottom": 1868.703125
+              },
+              "text": "示意图数学学习记录校园同学",
+              "cover": {
+                "x": 31,
+                "y": 1784.703125,
+                "width": 80,
+                "height": 72,
+                "right": 111,
+                "bottom": 1856.703125
+              },
+              "title": {
+                "x": 123,
+                "y": 1795.3125,
+                "width": 236,
+                "height": 22.390625,
+                "right": 359,
+                "bottom": 1817.703125
+              },
+              "meta": "校园同学",
+              "img": "/images/generated-social-campus.webp"
+            },
+            {
+              "box": {
+                "x": 31,
+                "y": 1876.703125,
+                "width": 328,
+                "height": 96,
+                "right": 359,
+                "bottom": 1972.703125
+              },
+              "text": "示意图数学讨论校园同学",
+              "cover": {
+                "x": 31,
+                "y": 1888.703125,
+                "width": 80,
+                "height": 72,
+                "right": 111,
+                "bottom": 1960.703125
+              },
+              "title": {
+                "x": 123,
+                "y": 1899.3125,
+                "width": 236,
+                "height": 22.390625,
+                "right": 359,
+                "bottom": 1921.703125
+              },
+              "meta": "校园同学",
+              "img": "/images/generated-social-campus.webp"
+            }
+          ]
+        }
+      ],
+      "marks": 8
+    },
+    {
+      "kind": "fixture-broken",
+      "width": 390,
+      "theme": "dark",
+      "overflow": false,
+      "groups": [
+        {
+          "label": "校园活动",
+          "items": [
+            {
+              "box": {
+                "x": 31,
+                "y": 785.140625,
+                "width": 328,
+                "height": 96,
+                "right": 359,
+                "bottom": 881.140625
+              },
+              "text": "示意图数学学习与校园分享图书馆",
+              "cover": {
+                "x": 31,
+                "y": 797.140625,
+                "width": 80,
+                "height": 72,
+                "right": 111,
+                "bottom": 869.140625
+              },
+              "title": {
+                "x": 123,
+                "y": 807.75,
+                "width": 236,
+                "height": 22.390625,
+                "right": 359,
+                "bottom": 830.140625
+              },
+              "meta": "图书馆",
+              "img": "/images/generated-activity-campus.webp"
+            },
+            {
+              "box": {
+                "x": 31,
+                "y": 889.140625,
+                "width": 328,
+                "height": 96,
+                "right": 359,
+                "bottom": 985.140625
+              },
+              "text": "示意图数学交流教学楼",
+              "cover": {
+                "x": 31,
+                "y": 901.140625,
+                "width": 80,
+                "height": 72,
+                "right": 111,
+                "bottom": 973.140625
+              },
+              "title": {
+                "x": 123,
+                "y": 911.75,
+                "width": 236,
+                "height": 22.390625,
+                "right": 359,
+                "bottom": 934.140625
+              },
+              "meta": "教学楼",
+              "img": "/images/generated-activity-campus.webp"
+            }
+          ]
+        },
+        {
+          "label": "闲置物品",
+          "items": [
+            {
+              "box": {
+                "x": 31,
+                "y": 1114.328125,
+                "width": 328,
+                "height": 96,
+                "right": 359,
+                "bottom": 1210.328125
+              },
+              "text": "示意图数学学习与校园分享面议",
+              "cover": {
+                "x": 31,
+                "y": 1126.328125,
+                "width": 80,
+                "height": 72,
+                "right": 111,
+                "bottom": 1198.328125
+              },
+              "title": {
+                "x": 123,
+                "y": 1136.9375,
+                "width": 236,
+                "height": 22.390625,
+                "right": 359,
+                "bottom": 1159.328125
+              },
+              "meta": "面议",
+              "img": "/images/idle-schematic-book.jpg"
+            },
+            {
+              "box": {
+                "x": 31,
+                "y": 1218.328125,
+                "width": 328,
+                "height": 96,
+                "right": 359,
+                "bottom": 1314.328125
+              },
+              "text": "暂无图片数学交流面议",
+              "cover": {
+                "x": 31,
+                "y": 1230.328125,
+                "width": 80,
+                "height": 72,
+                "right": 111,
+                "bottom": 1302.328125
+              },
+              "title": {
+                "x": 123,
+                "y": 1240.9375,
+                "width": 236,
+                "height": 22.390625,
+                "right": 359,
+                "bottom": 1263.328125
+              },
+              "meta": "面议"
+            }
+          ]
+        },
+        {
+          "label": "失物招领",
+          "items": [
+            {
+              "box": {
+                "x": 31,
+                "y": 1443.515625,
+                "width": 328,
+                "height": 96,
+                "right": 359,
+                "bottom": 1539.515625
+              },
+              "text": "示意图数学学习与校园分享图书馆",
+              "cover": {
+                "x": 31,
+                "y": 1455.515625,
+                "width": 80,
+                "height": 72,
+                "right": 111,
+                "bottom": 1527.515625
+              },
+              "title": {
+                "x": 123,
+                "y": 1466.125,
+                "width": 236,
+                "height": 22.390625,
+                "right": 359,
+                "bottom": 1488.515625
+              },
+              "meta": "图书馆",
+              "img": "/images/generated-lost-found.webp"
+            },
+            {
+              "box": {
+                "x": 31,
+                "y": 1547.515625,
+                "width": 328,
+                "height": 96,
+                "right": 359,
+                "bottom": 1643.515625
+              },
+              "text": "示意图数学交流教学楼",
+              "cover": {
+                "x": 31,
+                "y": 1559.515625,
+                "width": 80,
+                "height": 72,
+                "right": 111,
+                "bottom": 1631.515625
+              },
+              "title": {
+                "x": 123,
+                "y": 1570.125,
+                "width": 236,
+                "height": 22.390625,
+                "right": 359,
+                "bottom": 1592.515625
+              },
+              "meta": "教学楼",
+              "img": "/images/generated-lost-found.webp"
+            }
+          ]
+        },
+        {
+          "label": "校园动态",
+          "items": [
+            {
+              "box": {
+                "x": 31,
+                "y": 1772.703125,
+                "width": 328,
+                "height": 96,
+                "right": 359,
+                "bottom": 1868.703125
+              },
+              "text": "示意图数学学习记录校园同学",
+              "cover": {
+                "x": 31,
+                "y": 1784.703125,
+                "width": 80,
+                "height": 72,
+                "right": 111,
+                "bottom": 1856.703125
+              },
+              "title": {
+                "x": 123,
+                "y": 1795.3125,
+                "width": 236,
+                "height": 22.390625,
+                "right": 359,
+                "bottom": 1817.703125
+              },
+              "meta": "校园同学",
+              "img": "/images/generated-social-campus.webp"
+            },
+            {
+              "box": {
+                "x": 31,
+                "y": 1876.703125,
+                "width": 328,
+                "height": 96,
+                "right": 359,
+                "bottom": 1972.703125
+              },
+              "text": "示意图数学讨论校园同学",
+              "cover": {
+                "x": 31,
+                "y": 1888.703125,
+                "width": 80,
+                "height": 72,
+                "right": 111,
+                "bottom": 1960.703125
+              },
+              "title": {
+                "x": 123,
+                "y": 1899.3125,
+                "width": 236,
+                "height": 22.390625,
+                "right": 359,
+                "bottom": 1921.703125
+              },
+              "meta": "校园同学",
+              "img": "/images/generated-social-campus.webp"
+            }
+          ]
+        }
+      ],
+      "marks": 8
+    },
+    {
+      "kind": "fixture-broken",
+      "width": 1440,
+      "theme": "light",
+      "overflow": false,
+      "groups": [
+        {
+          "label": "校园活动",
+          "items": [
+            {
+              "box": {
+                "x": 57,
+                "y": 554.34375,
+                "width": 1326,
+                "height": 112,
+                "right": 1383,
+                "bottom": 666.34375
+              },
+              "text": "示意图数学学习与校园分享图书馆",
+              "cover": {
+                "x": 73,
+                "y": 568.34375,
+                "width": 112,
+                "height": 84,
+                "right": 185,
+                "bottom": 652.34375
+              },
+              "title": {
+                "x": 205,
+                "y": 584.953125,
+                "width": 1162,
+                "height": 22.390625,
+                "right": 1367,
+                "bottom": 607.34375
+              },
+              "meta": "图书馆",
+              "img": "/images/generated-activity-campus.webp"
+            },
+            {
+              "box": {
+                "x": 57,
+                "y": 674.34375,
+                "width": 1326,
+                "height": 112,
+                "right": 1383,
+                "bottom": 786.34375
+              },
+              "text": "示意图数学交流教学楼",
+              "cover": {
+                "x": 73,
+                "y": 688.34375,
+                "width": 112,
+                "height": 84,
+                "right": 185,
+                "bottom": 772.34375
+              },
+              "title": {
+                "x": 205,
+                "y": 704.953125,
+                "width": 1162,
+                "height": 22.390625,
+                "right": 1367,
+                "bottom": 727.34375
+              },
+              "meta": "教学楼",
+              "img": "/images/generated-activity-campus.webp"
+            }
+          ]
+        },
+        {
+          "label": "闲置物品",
+          "items": [
+            {
+              "box": {
+                "x": 57,
+                "y": 927.53125,
+                "width": 1326,
+                "height": 112,
+                "right": 1383,
+                "bottom": 1039.53125
+              },
+              "text": "示意图数学学习与校园分享面议",
+              "cover": {
+                "x": 73,
+                "y": 941.53125,
+                "width": 112,
+                "height": 84,
+                "right": 185,
+                "bottom": 1025.53125
+              },
+              "title": {
+                "x": 205,
+                "y": 958.140625,
+                "width": 1162,
+                "height": 22.390625,
+                "right": 1367,
+                "bottom": 980.53125
+              },
+              "meta": "面议",
+              "img": "/images/idle-schematic-book.jpg"
+            },
+            {
+              "box": {
+                "x": 57,
+                "y": 1047.53125,
+                "width": 1326,
+                "height": 112,
+                "right": 1383,
+                "bottom": 1159.53125
+              },
+              "text": "暂无图片数学交流面议",
+              "cover": {
+                "x": 73,
+                "y": 1061.53125,
+                "width": 112,
+                "height": 84,
+                "right": 185,
+                "bottom": 1145.53125
+              },
+              "title": {
+                "x": 205,
+                "y": 1078.140625,
+                "width": 1162,
+                "height": 22.390625,
+                "right": 1367,
+                "bottom": 1100.53125
+              },
+              "meta": "面议"
+            }
+          ]
+        },
+        {
+          "label": "失物招领",
+          "items": [
+            {
+              "box": {
+                "x": 57,
+                "y": 1300.71875,
+                "width": 1326,
+                "height": 112,
+                "right": 1383,
+                "bottom": 1412.71875
+              },
+              "text": "示意图数学学习与校园分享图书馆",
+              "cover": {
+                "x": 73,
+                "y": 1314.71875,
+                "width": 112,
+                "height": 84,
+                "right": 185,
+                "bottom": 1398.71875
+              },
+              "title": {
+                "x": 205,
+                "y": 1331.328125,
+                "width": 1162,
+                "height": 22.390625,
+                "right": 1367,
+                "bottom": 1353.71875
+              },
+              "meta": "图书馆",
+              "img": "/images/generated-lost-found.webp"
+            },
+            {
+              "box": {
+                "x": 57,
+                "y": 1420.71875,
+                "width": 1326,
+                "height": 112,
+                "right": 1383,
+                "bottom": 1532.71875
+              },
+              "text": "示意图数学交流教学楼",
+              "cover": {
+                "x": 73,
+                "y": 1434.71875,
+                "width": 112,
+                "height": 84,
+                "right": 185,
+                "bottom": 1518.71875
+              },
+              "title": {
+                "x": 205,
+                "y": 1451.328125,
+                "width": 1162,
+                "height": 22.390625,
+                "right": 1367,
+                "bottom": 1473.71875
+              },
+              "meta": "教学楼",
+              "img": "/images/generated-lost-found.webp"
+            }
+          ]
+        },
+        {
+          "label": "校园动态",
+          "items": [
+            {
+              "box": {
+                "x": 57,
+                "y": 1673.90625,
+                "width": 1326,
+                "height": 112,
+                "right": 1383,
+                "bottom": 1785.90625
+              },
+              "text": "示意图数学学习记录校园同学",
+              "cover": {
+                "x": 73,
+                "y": 1687.90625,
+                "width": 112,
+                "height": 84,
+                "right": 185,
+                "bottom": 1771.90625
+              },
+              "title": {
+                "x": 205,
+                "y": 1704.515625,
+                "width": 1162,
+                "height": 22.390625,
+                "right": 1367,
+                "bottom": 1726.90625
+              },
+              "meta": "校园同学",
+              "img": "/images/generated-social-campus.webp"
+            },
+            {
+              "box": {
+                "x": 57,
+                "y": 1793.90625,
+                "width": 1326,
+                "height": 112,
+                "right": 1383,
+                "bottom": 1905.90625
+              },
+              "text": "示意图数学讨论校园同学",
+              "cover": {
+                "x": 73,
+                "y": 1807.90625,
+                "width": 112,
+                "height": 84,
+                "right": 185,
+                "bottom": 1891.90625
+              },
+              "title": {
+                "x": 205,
+                "y": 1824.515625,
+                "width": 1162,
+                "height": 22.390625,
+                "right": 1367,
+                "bottom": 1846.90625
+              },
+              "meta": "校园同学",
+              "img": "/images/generated-social-campus.webp"
+            }
+          ]
+        }
+      ],
+      "marks": 8
+    },
+    {
+      "kind": "fixture-broken",
+      "width": 1440,
+      "theme": "dark",
+      "overflow": false,
+      "groups": [
+        {
+          "label": "校园活动",
+          "items": [
+            {
+              "box": {
+                "x": 57,
+                "y": 554.34375,
+                "width": 1326,
+                "height": 112,
+                "right": 1383,
+                "bottom": 666.34375
+              },
+              "text": "示意图数学学习与校园分享图书馆",
+              "cover": {
+                "x": 73,
+                "y": 568.34375,
+                "width": 112,
+                "height": 84,
+                "right": 185,
+                "bottom": 652.34375
+              },
+              "title": {
+                "x": 205,
+                "y": 584.953125,
+                "width": 1162,
+                "height": 22.390625,
+                "right": 1367,
+                "bottom": 607.34375
+              },
+              "meta": "图书馆",
+              "img": "/images/generated-activity-campus.webp"
+            },
+            {
+              "box": {
+                "x": 57,
+                "y": 674.34375,
+                "width": 1326,
+                "height": 112,
+                "right": 1383,
+                "bottom": 786.34375
+              },
+              "text": "示意图数学交流教学楼",
+              "cover": {
+                "x": 73,
+                "y": 688.34375,
+                "width": 112,
+                "height": 84,
+                "right": 185,
+                "bottom": 772.34375
+              },
+              "title": {
+                "x": 205,
+                "y": 704.953125,
+                "width": 1162,
+                "height": 22.390625,
+                "right": 1367,
+                "bottom": 727.34375
+              },
+              "meta": "教学楼",
+              "img": "/images/generated-activity-campus.webp"
+            }
+          ]
+        },
+        {
+          "label": "闲置物品",
+          "items": [
+            {
+              "box": {
+                "x": 57,
+                "y": 927.53125,
+                "width": 1326,
+                "height": 112,
+                "right": 1383,
+                "bottom": 1039.53125
+              },
+              "text": "示意图数学学习与校园分享面议",
+              "cover": {
+                "x": 73,
+                "y": 941.53125,
+                "width": 112,
+                "height": 84,
+                "right": 185,
+                "bottom": 1025.53125
+              },
+              "title": {
+                "x": 205,
+                "y": 958.140625,
+                "width": 1162,
+                "height": 22.390625,
+                "right": 1367,
+                "bottom": 980.53125
+              },
+              "meta": "面议",
+              "img": "/images/idle-schematic-book.jpg"
+            },
+            {
+              "box": {
+                "x": 57,
+                "y": 1047.53125,
+                "width": 1326,
+                "height": 112,
+                "right": 1383,
+                "bottom": 1159.53125
+              },
+              "text": "暂无图片数学交流面议",
+              "cover": {
+                "x": 73,
+                "y": 1061.53125,
+                "width": 112,
+                "height": 84,
+                "right": 185,
+                "bottom": 1145.53125
+              },
+              "title": {
+                "x": 205,
+                "y": 1078.140625,
+                "width": 1162,
+                "height": 22.390625,
+                "right": 1367,
+                "bottom": 1100.53125
+              },
+              "meta": "面议"
+            }
+          ]
+        },
+        {
+          "label": "失物招领",
+          "items": [
+            {
+              "box": {
+                "x": 57,
+                "y": 1300.71875,
+                "width": 1326,
+                "height": 112,
+                "right": 1383,
+                "bottom": 1412.71875
+              },
+              "text": "示意图数学学习与校园分享图书馆",
+              "cover": {
+                "x": 73,
+                "y": 1314.71875,
+                "width": 112,
+                "height": 84,
+                "right": 185,
+                "bottom": 1398.71875
+              },
+              "title": {
+                "x": 205,
+                "y": 1331.328125,
+                "width": 1162,
+                "height": 22.390625,
+                "right": 1367,
+                "bottom": 1353.71875
+              },
+              "meta": "图书馆",
+              "img": "/images/generated-lost-found.webp"
+            },
+            {
+              "box": {
+                "x": 57,
+                "y": 1420.71875,
+                "width": 1326,
+                "height": 112,
+                "right": 1383,
+                "bottom": 1532.71875
+              },
+              "text": "示意图数学交流教学楼",
+              "cover": {
+                "x": 73,
+                "y": 1434.71875,
+                "width": 112,
+                "height": 84,
+                "right": 185,
+                "bottom": 1518.71875
+              },
+              "title": {
+                "x": 205,
+                "y": 1451.328125,
+                "width": 1162,
+                "height": 22.390625,
+                "right": 1367,
+                "bottom": 1473.71875
+              },
+              "meta": "教学楼",
+              "img": "/images/generated-lost-found.webp"
+            }
+          ]
+        },
+        {
+          "label": "校园动态",
+          "items": [
+            {
+              "box": {
+                "x": 57,
+                "y": 1673.90625,
+                "width": 1326,
+                "height": 112,
+                "right": 1383,
+                "bottom": 1785.90625
+              },
+              "text": "示意图数学学习记录校园同学",
+              "cover": {
+                "x": 73,
+                "y": 1687.90625,
+                "width": 112,
+                "height": 84,
+                "right": 185,
+                "bottom": 1771.90625
+              },
+              "title": {
+                "x": 205,
+                "y": 1704.515625,
+                "width": 1162,
+                "height": 22.390625,
+                "right": 1367,
+                "bottom": 1726.90625
+              },
+              "meta": "校园同学",
+              "img": "/images/generated-social-campus.webp"
+            },
+            {
+              "box": {
+                "x": 57,
+                "y": 1793.90625,
+                "width": 1326,
+                "height": 112,
+                "right": 1383,
+                "bottom": 1905.90625
+              },
+              "text": "示意图数学讨论校园同学",
+              "cover": {
+                "x": 73,
+                "y": 1807.90625,
+                "width": 112,
+                "height": 84,
+                "right": 185,
+                "bottom": 1891.90625
+              },
+              "title": {
+                "x": 205,
+                "y": 1824.515625,
+                "width": 1162,
+                "height": 22.390625,
+                "right": 1367,
+                "bottom": 1846.90625
+              },
+              "meta": "校园同学",
+              "img": "/images/generated-social-campus.webp"
+            }
+          ]
+        }
+      ],
+      "marks": 8
+    },
+    {
+      "kind": "fixture-long",
+      "width": 390,
+      "theme": "light",
+      "overflow": false,
+      "groups": [
+        {
+          "label": "校园活动",
+          "items": [
+            {
+              "box": {
+                "x": 31,
+                "y": 785.140625,
+                "width": 328,
+                "height": 396.640625,
+                "right": 359,
+                "bottom": 1181.78125
+              },
+              "text": "数学学习与校园分享长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论",
+              "cover": {
+                "x": 31,
+                "y": 947.453125,
+                "width": 80,
+                "height": 72,
+                "right": 111,
+                "bottom": 1019.453125
+              },
+              "title": {
+                "x": 123,
+                "y": 797.140625,
+                "width": 236,
+                "height": 201.515625,
+                "right": 359,
+                "bottom": 998.65625
+              },
+              "meta": "教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论",
+              "img": "/images/campus-v2.webp"
+            },
+            {
+              "box": {
+                "x": 31,
+                "y": 1189.78125,
+                "width": 328,
+                "height": 396.640625,
+                "right": 359,
+                "bottom": 1586.421875
+              },
+              "text": "数学交流长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论",
+              "cover": {
+                "x": 31,
+                "y": 1352.09375,
+                "width": 80,
+                "height": 72,
+                "right": 111,
+                "bottom": 1424.09375
+              },
+              "title": {
+                "x": 123,
+                "y": 1201.78125,
+                "width": 236,
+                "height": 201.515625,
+                "right": 359,
+                "bottom": 1403.296875
+              },
+              "meta": "教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论",
+              "img": "/images/campus-v2.webp"
+            }
+          ]
+        },
+        {
+          "label": "闲置物品",
+          "items": [
+            {
+              "box": {
+                "x": 31,
+                "y": 1715.609375,
+                "width": 328,
+                "height": 253.90625,
+                "right": 359,
+                "bottom": 1969.515625
+              },
+              "text": "数学学习与校园分享长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收面议",
+              "cover": {
+                "x": 31,
+                "y": 1806.5625,
+                "width": 80,
+                "height": 72,
+                "right": 111,
+                "bottom": 1878.5625
+              },
+              "title": {
+                "x": 123,
+                "y": 1727.609375,
+                "width": 236,
+                "height": 201.515625,
+                "right": 359,
+                "bottom": 1929.125
+              },
+              "meta": "面议",
+              "img": "/images/campus-v2.webp"
+            },
+            {
+              "box": {
+                "x": 31,
+                "y": 1977.515625,
+                "width": 328,
+                "height": 253.90625,
+                "right": 359,
+                "bottom": 2231.421875
+              },
+              "text": "数学交流长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收面议",
+              "cover": {
+                "x": 31,
+                "y": 2068.46875,
+                "width": 80,
+                "height": 72,
+                "right": 111,
+                "bottom": 2140.46875
+              },
+              "title": {
+                "x": 123,
+                "y": 1989.515625,
+                "width": 236,
+                "height": 201.515625,
+                "right": 359,
+                "bottom": 2191.03125
+              },
+              "meta": "面议",
+              "img": "/images/campus-v2.webp"
+            }
+          ]
+        },
+        {
+          "label": "失物招领",
+          "items": [
+            {
+              "box": {
+                "x": 31,
+                "y": 2360.609375,
+                "width": 328,
+                "height": 396.640625,
+                "right": 359,
+                "bottom": 2757.25
+              },
+              "text": "数学学习与校园分享长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论",
+              "cover": {
+                "x": 31,
+                "y": 2522.921875,
+                "width": 80,
+                "height": 72,
+                "right": 111,
+                "bottom": 2594.921875
+              },
+              "title": {
+                "x": 123,
+                "y": 2372.609375,
+                "width": 236,
+                "height": 201.515625,
+                "right": 359,
+                "bottom": 2574.125
+              },
+              "meta": "教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论",
+              "img": "/images/campus-v2.webp"
+            },
+            {
+              "box": {
+                "x": 31,
+                "y": 2765.25,
+                "width": 328,
+                "height": 396.640625,
+                "right": 359,
+                "bottom": 3161.890625
+              },
+              "text": "数学交流长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论",
+              "cover": {
+                "x": 31,
+                "y": 2927.5625,
+                "width": 80,
+                "height": 72,
+                "right": 111,
+                "bottom": 2999.5625
+              },
+              "title": {
+                "x": 123,
+                "y": 2777.25,
+                "width": 236,
+                "height": 201.515625,
+                "right": 359,
+                "bottom": 2978.765625
+              },
+              "meta": "教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论",
+              "img": "/images/campus-v2.webp"
+            }
+          ]
+        },
+        {
+          "label": "校园动态",
+          "items": [
+            {
+              "box": {
+                "x": 31,
+                "y": 3291.078125,
+                "width": 328,
+                "height": 298.6875,
+                "right": 359,
+                "bottom": 3589.765625
+              },
+              "text": "数学学习记录长动态正文数学验收长动态正文数学验收长动态正文数学验收长动态正文数学验收长动态正文数学验收长动态正文数学验收长动态正文数学验收长动态正文数学验收长动态正文数学验收长动态正文数学验收长动态正文数学验收长动态正文数学验收长动态正文数学验收长动态正文数学验收长动态正文数学验收长动态正文数学验收长动态正文数学验收长动态正文数学验收校园同学",
+              "cover": {
+                "x": 31,
+                "y": 3404.421875,
+                "width": 80,
+                "height": 72,
+                "right": 111,
+                "bottom": 3476.421875
+              },
+              "title": {
+                "x": 123,
+                "y": 3303.078125,
+                "width": 236,
+                "height": 246.296875,
+                "right": 359,
+                "bottom": 3549.375
+              },
+              "meta": "校园同学",
+              "img": "/images/campus-v2.webp"
+            },
+            {
+              "box": {
+                "x": 31,
+                "y": 3597.765625,
+                "width": 328,
+                "height": 298.6875,
+                "right": 359,
+                "bottom": 3896.453125
+              },
+              "text": "数学讨论长动态正文数学验收长动态正文数学验收长动态正文数学验收长动态正文数学验收长动态正文数学验收长动态正文数学验收长动态正文数学验收长动态正文数学验收长动态正文数学验收长动态正文数学验收长动态正文数学验收长动态正文数学验收长动态正文数学验收长动态正文数学验收长动态正文数学验收长动态正文数学验收长动态正文数学验收长动态正文数学验收校园同学",
+              "cover": {
+                "x": 31,
+                "y": 3711.109375,
+                "width": 80,
+                "height": 72,
+                "right": 111,
+                "bottom": 3783.109375
+              },
+              "title": {
+                "x": 123,
+                "y": 3609.765625,
+                "width": 236,
+                "height": 246.296875,
+                "right": 359,
+                "bottom": 3856.0625
+              },
+              "meta": "校园同学",
+              "img": "/images/campus-v2.webp"
+            }
+          ]
+        }
+      ],
+      "marks": 232
+    },
+    {
+      "kind": "fixture-long",
+      "width": 390,
+      "theme": "dark",
+      "overflow": false,
+      "groups": [
+        {
+          "label": "校园活动",
+          "items": [
+            {
+              "box": {
+                "x": 31,
+                "y": 785.140625,
+                "width": 328,
+                "height": 396.640625,
+                "right": 359,
+                "bottom": 1181.78125
+              },
+              "text": "数学学习与校园分享长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论",
+              "cover": {
+                "x": 31,
+                "y": 947.453125,
+                "width": 80,
+                "height": 72,
+                "right": 111,
+                "bottom": 1019.453125
+              },
+              "title": {
+                "x": 123,
+                "y": 797.140625,
+                "width": 236,
+                "height": 201.515625,
+                "right": 359,
+                "bottom": 998.65625
+              },
+              "meta": "教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论",
+              "img": "/images/campus-v2.webp"
+            },
+            {
+              "box": {
+                "x": 31,
+                "y": 1189.78125,
+                "width": 328,
+                "height": 396.640625,
+                "right": 359,
+                "bottom": 1586.421875
+              },
+              "text": "数学交流长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论",
+              "cover": {
+                "x": 31,
+                "y": 1352.09375,
+                "width": 80,
+                "height": 72,
+                "right": 111,
+                "bottom": 1424.09375
+              },
+              "title": {
+                "x": 123,
+                "y": 1201.78125,
+                "width": 236,
+                "height": 201.515625,
+                "right": 359,
+                "bottom": 1403.296875
+              },
+              "meta": "教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论",
+              "img": "/images/campus-v2.webp"
+            }
+          ]
+        },
+        {
+          "label": "闲置物品",
+          "items": [
+            {
+              "box": {
+                "x": 31,
+                "y": 1715.609375,
+                "width": 328,
+                "height": 253.90625,
+                "right": 359,
+                "bottom": 1969.515625
+              },
+              "text": "数学学习与校园分享长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收面议",
+              "cover": {
+                "x": 31,
+                "y": 1806.5625,
+                "width": 80,
+                "height": 72,
+                "right": 111,
+                "bottom": 1878.5625
+              },
+              "title": {
+                "x": 123,
+                "y": 1727.609375,
+                "width": 236,
+                "height": 201.515625,
+                "right": 359,
+                "bottom": 1929.125
+              },
+              "meta": "面议",
+              "img": "/images/campus-v2.webp"
+            },
+            {
+              "box": {
+                "x": 31,
+                "y": 1977.515625,
+                "width": 328,
+                "height": 253.90625,
+                "right": 359,
+                "bottom": 2231.421875
+              },
+              "text": "数学交流长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收面议",
+              "cover": {
+                "x": 31,
+                "y": 2068.46875,
+                "width": 80,
+                "height": 72,
+                "right": 111,
+                "bottom": 2140.46875
+              },
+              "title": {
+                "x": 123,
+                "y": 1989.515625,
+                "width": 236,
+                "height": 201.515625,
+                "right": 359,
+                "bottom": 2191.03125
+              },
+              "meta": "面议",
+              "img": "/images/campus-v2.webp"
+            }
+          ]
+        },
+        {
+          "label": "失物招领",
+          "items": [
+            {
+              "box": {
+                "x": 31,
+                "y": 2360.609375,
+                "width": 328,
+                "height": 396.640625,
+                "right": 359,
+                "bottom": 2757.25
+              },
+              "text": "数学学习与校园分享长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论",
+              "cover": {
+                "x": 31,
+                "y": 2522.921875,
+                "width": 80,
+                "height": 72,
+                "right": 111,
+                "bottom": 2594.921875
+              },
+              "title": {
+                "x": 123,
+                "y": 2372.609375,
+                "width": 236,
+                "height": 201.515625,
+                "right": 359,
+                "bottom": 2574.125
+              },
+              "meta": "教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论",
+              "img": "/images/campus-v2.webp"
+            },
+            {
+              "box": {
+                "x": 31,
+                "y": 2765.25,
+                "width": 328,
+                "height": 396.640625,
+                "right": 359,
+                "bottom": 3161.890625
+              },
+              "text": "数学交流长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论",
+              "cover": {
+                "x": 31,
+                "y": 2927.5625,
+                "width": 80,
+                "height": 72,
+                "right": 111,
+                "bottom": 2999.5625
+              },
+              "title": {
+                "x": 123,
+                "y": 2777.25,
+                "width": 236,
+                "height": 201.515625,
+                "right": 359,
+                "bottom": 2978.765625
+              },
+              "meta": "教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论",
+              "img": "/images/campus-v2.webp"
+            }
+          ]
+        },
+        {
+          "label": "校园动态",
+          "items": [
+            {
+              "box": {
+                "x": 31,
+                "y": 3291.078125,
+                "width": 328,
+                "height": 298.6875,
+                "right": 359,
+                "bottom": 3589.765625
+              },
+              "text": "数学学习记录长动态正文数学验收长动态正文数学验收长动态正文数学验收长动态正文数学验收长动态正文数学验收长动态正文数学验收长动态正文数学验收长动态正文数学验收长动态正文数学验收长动态正文数学验收长动态正文数学验收长动态正文数学验收长动态正文数学验收长动态正文数学验收长动态正文数学验收长动态正文数学验收长动态正文数学验收长动态正文数学验收校园同学",
+              "cover": {
+                "x": 31,
+                "y": 3404.421875,
+                "width": 80,
+                "height": 72,
+                "right": 111,
+                "bottom": 3476.421875
+              },
+              "title": {
+                "x": 123,
+                "y": 3303.078125,
+                "width": 236,
+                "height": 246.296875,
+                "right": 359,
+                "bottom": 3549.375
+              },
+              "meta": "校园同学",
+              "img": "/images/campus-v2.webp"
+            },
+            {
+              "box": {
+                "x": 31,
+                "y": 3597.765625,
+                "width": 328,
+                "height": 298.6875,
+                "right": 359,
+                "bottom": 3896.453125
+              },
+              "text": "数学讨论长动态正文数学验收长动态正文数学验收长动态正文数学验收长动态正文数学验收长动态正文数学验收长动态正文数学验收长动态正文数学验收长动态正文数学验收长动态正文数学验收长动态正文数学验收长动态正文数学验收长动态正文数学验收长动态正文数学验收长动态正文数学验收长动态正文数学验收长动态正文数学验收长动态正文数学验收长动态正文数学验收校园同学",
+              "cover": {
+                "x": 31,
+                "y": 3711.109375,
+                "width": 80,
+                "height": 72,
+                "right": 111,
+                "bottom": 3783.109375
+              },
+              "title": {
+                "x": 123,
+                "y": 3609.765625,
+                "width": 236,
+                "height": 246.296875,
+                "right": 359,
+                "bottom": 3856.0625
+              },
+              "meta": "校园同学",
+              "img": "/images/campus-v2.webp"
+            }
+          ]
+        }
+      ],
+      "marks": 232
+    },
+    {
+      "kind": "fixture-long",
+      "width": 1440,
+      "theme": "light",
+      "overflow": false,
+      "groups": [
+        {
+          "label": "校园活动",
+          "items": [
+            {
+              "box": {
+                "x": 57,
+                "y": 554.34375,
+                "width": 1326,
+                "height": 121.5625,
+                "right": 1383,
+                "bottom": 675.90625
+              },
+              "text": "数学学习与校园分享长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论",
+              "cover": {
+                "x": 73,
+                "y": 573.125,
+                "width": 112,
+                "height": 84,
+                "right": 185,
+                "bottom": 657.125
+              },
+              "title": {
+                "x": 205,
+                "y": 568.34375,
+                "width": 1162,
+                "height": 44.78125,
+                "right": 1367,
+                "bottom": 613.125
+              },
+              "meta": "教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论",
+              "img": "/images/campus-v2.webp"
+            },
+            {
+              "box": {
+                "x": 57,
+                "y": 683.90625,
+                "width": 1326,
+                "height": 121.5625,
+                "right": 1383,
+                "bottom": 805.46875
+              },
+              "text": "数学交流长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论",
+              "cover": {
+                "x": 73,
+                "y": 702.6875,
+                "width": 112,
+                "height": 84,
+                "right": 185,
+                "bottom": 786.6875
+              },
+              "title": {
+                "x": 205,
+                "y": 697.90625,
+                "width": 1162,
+                "height": 44.78125,
+                "right": 1367,
+                "bottom": 742.6875
+              },
+              "meta": "教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论",
+              "img": "/images/campus-v2.webp"
+            }
+          ]
+        },
+        {
+          "label": "闲置物品",
+          "items": [
+            {
+              "box": {
+                "x": 57,
+                "y": 946.65625,
+                "width": 1326,
+                "height": 112,
+                "right": 1383,
+                "bottom": 1058.65625
+              },
+              "text": "数学学习与校园分享长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收面议",
+              "cover": {
+                "x": 73,
+                "y": 960.65625,
+                "width": 112,
+                "height": 84,
+                "right": 185,
+                "bottom": 1044.65625
+              },
+              "title": {
+                "x": 205,
+                "y": 966.0625,
+                "width": 1162,
+                "height": 44.78125,
+                "right": 1367,
+                "bottom": 1010.84375
+              },
+              "meta": "面议",
+              "img": "/images/campus-v2.webp"
+            },
+            {
+              "box": {
+                "x": 57,
+                "y": 1066.65625,
+                "width": 1326,
+                "height": 112,
+                "right": 1383,
+                "bottom": 1178.65625
+              },
+              "text": "数学交流长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收面议",
+              "cover": {
+                "x": 73,
+                "y": 1080.65625,
+                "width": 112,
+                "height": 84,
+                "right": 185,
+                "bottom": 1164.65625
+              },
+              "title": {
+                "x": 205,
+                "y": 1086.0625,
+                "width": 1162,
+                "height": 44.78125,
+                "right": 1367,
+                "bottom": 1130.84375
+              },
+              "meta": "面议",
+              "img": "/images/campus-v2.webp"
+            }
+          ]
+        },
+        {
+          "label": "失物招领",
+          "items": [
+            {
+              "box": {
+                "x": 57,
+                "y": 1319.84375,
+                "width": 1326,
+                "height": 121.5625,
+                "right": 1383,
+                "bottom": 1441.40625
+              },
+              "text": "数学学习与校园分享长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论",
+              "cover": {
+                "x": 73,
+                "y": 1338.625,
+                "width": 112,
+                "height": 84,
+                "right": 185,
+                "bottom": 1422.625
+              },
+              "title": {
+                "x": 205,
+                "y": 1333.84375,
+                "width": 1162,
+                "height": 44.78125,
+                "right": 1367,
+                "bottom": 1378.625
+              },
+              "meta": "教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论",
+              "img": "/images/campus-v2.webp"
+            },
+            {
+              "box": {
+                "x": 57,
+                "y": 1449.40625,
+                "width": 1326,
+                "height": 121.5625,
+                "right": 1383,
+                "bottom": 1570.96875
+              },
+              "text": "数学交流长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论",
+              "cover": {
+                "x": 73,
+                "y": 1468.1875,
+                "width": 112,
+                "height": 84,
+                "right": 185,
+                "bottom": 1552.1875
+              },
+              "title": {
+                "x": 205,
+                "y": 1463.40625,
+                "width": 1162,
+                "height": 44.78125,
+                "right": 1367,
+                "bottom": 1508.1875
+              },
+              "meta": "教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论",
+              "img": "/images/campus-v2.webp"
+            }
+          ]
+        },
+        {
+          "label": "校园动态",
+          "items": [
+            {
+              "box": {
+                "x": 57,
+                "y": 1712.15625,
+                "width": 1326,
+                "height": 123.5625,
+                "right": 1383,
+                "bottom": 1835.71875
+              },
+              "text": "数学学习记录长动态正文数学验收长动态正文数学验收长动态正文数学验收长动态正文数学验收长动态正文数学验收长动态正文数学验收长动态正文数学验收长动态正文数学验收长动态正文数学验收长动态正文数学验收长动态正文数学验收长动态正文数学验收长动态正文数学验收长动态正文数学验收长动态正文数学验收长动态正文数学验收长动态正文数学验收长动态正文数学验收校园同学",
+              "cover": {
+                "x": 73,
+                "y": 1731.9375,
+                "width": 112,
+                "height": 84,
+                "right": 185,
+                "bottom": 1815.9375
+              },
+              "title": {
+                "x": 205,
+                "y": 1726.15625,
+                "width": 1162,
+                "height": 67.171875,
+                "right": 1367,
+                "bottom": 1793.328125
+              },
+              "meta": "校园同学",
+              "img": "/images/campus-v2.webp"
+            },
+            {
+              "box": {
+                "x": 57,
+                "y": 1843.71875,
+                "width": 1326,
+                "height": 123.5625,
+                "right": 1383,
+                "bottom": 1967.28125
+              },
+              "text": "数学讨论长动态正文数学验收长动态正文数学验收长动态正文数学验收长动态正文数学验收长动态正文数学验收长动态正文数学验收长动态正文数学验收长动态正文数学验收长动态正文数学验收长动态正文数学验收长动态正文数学验收长动态正文数学验收长动态正文数学验收长动态正文数学验收长动态正文数学验收长动态正文数学验收长动态正文数学验收长动态正文数学验收校园同学",
+              "cover": {
+                "x": 73,
+                "y": 1863.5,
+                "width": 112,
+                "height": 84,
+                "right": 185,
+                "bottom": 1947.5
+              },
+              "title": {
+                "x": 205,
+                "y": 1857.71875,
+                "width": 1162,
+                "height": 67.171875,
+                "right": 1367,
+                "bottom": 1924.890625
+              },
+              "meta": "校园同学",
+              "img": "/images/campus-v2.webp"
+            }
+          ]
+        }
+      ],
+      "marks": 232
+    },
+    {
+      "kind": "fixture-long",
+      "width": 1440,
+      "theme": "dark",
+      "overflow": false,
+      "groups": [
+        {
+          "label": "校园活动",
+          "items": [
+            {
+              "box": {
+                "x": 57,
+                "y": 554.34375,
+                "width": 1326,
+                "height": 121.5625,
+                "right": 1383,
+                "bottom": 675.90625
+              },
+              "text": "数学学习与校园分享长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论",
+              "cover": {
+                "x": 73,
+                "y": 573.125,
+                "width": 112,
+                "height": 84,
+                "right": 185,
+                "bottom": 657.125
+              },
+              "title": {
+                "x": 205,
+                "y": 568.34375,
+                "width": 1162,
+                "height": 44.78125,
+                "right": 1367,
+                "bottom": 613.125
+              },
+              "meta": "教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论",
+              "img": "/images/campus-v2.webp"
+            },
+            {
+              "box": {
+                "x": 57,
+                "y": 683.90625,
+                "width": 1326,
+                "height": 121.5625,
+                "right": 1383,
+                "bottom": 805.46875
+              },
+              "text": "数学交流长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论",
+              "cover": {
+                "x": 73,
+                "y": 702.6875,
+                "width": 112,
+                "height": 84,
+                "right": 185,
+                "bottom": 786.6875
+              },
+              "title": {
+                "x": 205,
+                "y": 697.90625,
+                "width": 1162,
+                "height": 44.78125,
+                "right": 1367,
+                "bottom": 742.6875
+              },
+              "meta": "教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论",
+              "img": "/images/campus-v2.webp"
+            }
+          ]
+        },
+        {
+          "label": "闲置物品",
+          "items": [
+            {
+              "box": {
+                "x": 57,
+                "y": 946.65625,
+                "width": 1326,
+                "height": 112,
+                "right": 1383,
+                "bottom": 1058.65625
+              },
+              "text": "数学学习与校园分享长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收面议",
+              "cover": {
+                "x": 73,
+                "y": 960.65625,
+                "width": 112,
+                "height": 84,
+                "right": 185,
+                "bottom": 1044.65625
+              },
+              "title": {
+                "x": 205,
+                "y": 966.0625,
+                "width": 1162,
+                "height": 44.78125,
+                "right": 1367,
+                "bottom": 1010.84375
+              },
+              "meta": "面议",
+              "img": "/images/campus-v2.webp"
+            },
+            {
+              "box": {
+                "x": 57,
+                "y": 1066.65625,
+                "width": 1326,
+                "height": 112,
+                "right": 1383,
+                "bottom": 1178.65625
+              },
+              "text": "数学交流长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收面议",
+              "cover": {
+                "x": 73,
+                "y": 1080.65625,
+                "width": 112,
+                "height": 84,
+                "right": 185,
+                "bottom": 1164.65625
+              },
+              "title": {
+                "x": 205,
+                "y": 1086.0625,
+                "width": 1162,
+                "height": 44.78125,
+                "right": 1367,
+                "bottom": 1130.84375
+              },
+              "meta": "面议",
+              "img": "/images/campus-v2.webp"
+            }
+          ]
+        },
+        {
+          "label": "失物招领",
+          "items": [
+            {
+              "box": {
+                "x": 57,
+                "y": 1319.84375,
+                "width": 1326,
+                "height": 121.5625,
+                "right": 1383,
+                "bottom": 1441.40625
+              },
+              "text": "数学学习与校园分享长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论",
+              "cover": {
+                "x": 73,
+                "y": 1338.625,
+                "width": 112,
+                "height": 84,
+                "right": 185,
+                "bottom": 1422.625
+              },
+              "title": {
+                "x": 205,
+                "y": 1333.84375,
+                "width": 1162,
+                "height": 44.78125,
+                "right": 1367,
+                "bottom": 1378.625
+              },
+              "meta": "教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论",
+              "img": "/images/campus-v2.webp"
+            },
+            {
+              "box": {
+                "x": 57,
+                "y": 1449.40625,
+                "width": 1326,
+                "height": 121.5625,
+                "right": 1383,
+                "bottom": 1570.96875
+              },
+              "text": "数学交流长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收长标题数学验收教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论",
+              "cover": {
+                "x": 73,
+                "y": 1468.1875,
+                "width": 112,
+                "height": 84,
+                "right": 185,
+                "bottom": 1552.1875
+              },
+              "title": {
+                "x": 205,
+                "y": 1463.40625,
+                "width": 1162,
+                "height": 44.78125,
+                "right": 1367,
+                "bottom": 1508.1875
+              },
+              "meta": "教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论教学楼数学讨论",
+              "img": "/images/campus-v2.webp"
+            }
+          ]
+        },
+        {
+          "label": "校园动态",
+          "items": [
+            {
+              "box": {
+                "x": 57,
+                "y": 1712.15625,
+                "width": 1326,
+                "height": 123.5625,
+                "right": 1383,
+                "bottom": 1835.71875
+              },
+              "text": "数学学习记录长动态正文数学验收长动态正文数学验收长动态正文数学验收长动态正文数学验收长动态正文数学验收长动态正文数学验收长动态正文数学验收长动态正文数学验收长动态正文数学验收长动态正文数学验收长动态正文数学验收长动态正文数学验收长动态正文数学验收长动态正文数学验收长动态正文数学验收长动态正文数学验收长动态正文数学验收长动态正文数学验收校园同学",
+              "cover": {
+                "x": 73,
+                "y": 1731.9375,
+                "width": 112,
+                "height": 84,
+                "right": 185,
+                "bottom": 1815.9375
+              },
+              "title": {
+                "x": 205,
+                "y": 1726.15625,
+                "width": 1162,
+                "height": 67.171875,
+                "right": 1367,
+                "bottom": 1793.328125
+              },
+              "meta": "校园同学",
+              "img": "/images/campus-v2.webp"
+            },
+            {
+              "box": {
+                "x": 57,
+                "y": 1843.71875,
+                "width": 1326,
+                "height": 123.5625,
+                "right": 1383,
+                "bottom": 1967.28125
+              },
+              "text": "数学讨论长动态正文数学验收长动态正文数学验收长动态正文数学验收长动态正文数学验收长动态正文数学验收长动态正文数学验收长动态正文数学验收长动态正文数学验收长动态正文数学验收长动态正文数学验收长动态正文数学验收长动态正文数学验收长动态正文数学验收长动态正文数学验收长动态正文数学验收长动态正文数学验收长动态正文数学验收长动态正文数学验收校园同学",
+              "cover": {
+                "x": 73,
+                "y": 1863.5,
+                "width": 112,
+                "height": 84,
+                "right": 185,
+                "bottom": 1947.5
+              },
+              "title": {
+                "x": 205,
+                "y": 1857.71875,
+                "width": 1162,
+                "height": 67.171875,
+                "right": 1367,
+                "bottom": 1924.890625
+              },
+              "meta": "校园同学",
+              "img": "/images/campus-v2.webp"
+            }
+          ]
+        }
+      ],
+      "marks": 232
+    },
+    {
+      "kind": "fixture-empty",
+      "width": 390,
+      "theme": "light",
+      "overflow": false,
+      "groups": [
+        {
+          "label": "校园活动",
+          "items": []
+        },
+        {
+          "label": "闲置物品",
+          "items": []
+        },
+        {
+          "label": "失物招领",
+          "items": []
+        },
+        {
+          "label": "校园动态",
+          "items": []
+        }
+      ],
+      "marks": 0
+    },
+    {
+      "kind": "fixture-empty",
+      "width": 390,
+      "theme": "dark",
+      "overflow": false,
+      "groups": [
+        {
+          "label": "校园活动",
+          "items": []
+        },
+        {
+          "label": "闲置物品",
+          "items": []
+        },
+        {
+          "label": "失物招领",
+          "items": []
+        },
+        {
+          "label": "校园动态",
+          "items": []
+        }
+      ],
+      "marks": 0
+    },
+    {
+      "kind": "fixture-empty",
+      "width": 1440,
+      "theme": "light",
+      "overflow": false,
+      "groups": [
+        {
+          "label": "校园活动",
+          "items": []
+        },
+        {
+          "label": "闲置物品",
+          "items": []
+        },
+        {
+          "label": "失物招领",
+          "items": []
+        },
+        {
+          "label": "校园动态",
+          "items": []
+        }
+      ],
+      "marks": 0
+    },
+    {
+      "kind": "fixture-empty",
+      "width": 1440,
+      "theme": "dark",
+      "overflow": false,
+      "groups": [
+        {
+          "label": "校园活动",
+          "items": []
+        },
+        {
+          "label": "闲置物品",
+          "items": []
+        },
+        {
+          "label": "失物招领",
+          "items": []
+        },
+        {
+          "label": "校园动态",
+          "items": []
+        }
+      ],
+      "marks": 0
+    },
+    {
+      "kind": "fixture-data",
+      "width": 1440,
+      "theme": "light",
+      "overflow": false,
+      "groups": [
+        {
+          "label": "校园活动",
+          "items": [
+            {
+              "box": {
+                "x": 57,
+                "y": 554.34375,
+                "width": 1326,
+                "height": 112,
+                "right": 1383,
+                "bottom": 666.34375
+              },
+              "text": "数学学习与校园分享图书馆",
+              "cover": {
+                "x": 73,
+                "y": 568.34375,
+                "width": 112,
+                "height": 84,
+                "right": 185,
+                "bottom": 652.34375
+              },
+              "title": {
+                "x": 205,
+                "y": 584.953125,
+                "width": 1162,
+                "height": 22.390625,
+                "right": 1367,
+                "bottom": 607.34375
+              },
+              "meta": "图书馆",
+              "img": "/images/campus-v2.webp"
+            },
+            {
+              "box": {
+                "x": 57,
+                "y": 674.34375,
+                "width": 1326,
+                "height": 112,
+                "right": 1383,
+                "bottom": 786.34375
+              },
+              "text": "数学交流教学楼",
+              "cover": {
+                "x": 73,
+                "y": 688.34375,
+                "width": 112,
+                "height": 84,
+                "right": 185,
+                "bottom": 772.34375
+              },
+              "title": {
+                "x": 205,
+                "y": 704.953125,
+                "width": 1162,
+                "height": 22.390625,
+                "right": 1367,
+                "bottom": 727.34375
+              },
+              "meta": "教学楼",
+              "img": "/images/campus-v2.webp"
+            }
+          ]
+        },
+        {
+          "label": "闲置物品",
+          "items": [
+            {
+              "box": {
+                "x": 57,
+                "y": 927.53125,
+                "width": 1326,
+                "height": 112,
+                "right": 1383,
+                "bottom": 1039.53125
+              },
+              "text": "数学学习与校园分享面议",
+              "cover": {
+                "x": 73,
+                "y": 941.53125,
+                "width": 112,
+                "height": 84,
+                "right": 185,
+                "bottom": 1025.53125
+              },
+              "title": {
+                "x": 205,
+                "y": 958.140625,
+                "width": 1162,
+                "height": 22.390625,
+                "right": 1367,
+                "bottom": 980.53125
+              },
+              "meta": "面议",
+              "img": "/images/campus-v2.webp"
+            },
+            {
+              "box": {
+                "x": 57,
+                "y": 1047.53125,
+                "width": 1326,
+                "height": 112,
+                "right": 1383,
+                "bottom": 1159.53125
+              },
+              "text": "数学交流面议",
+              "cover": {
+                "x": 73,
+                "y": 1061.53125,
+                "width": 112,
+                "height": 84,
+                "right": 185,
+                "bottom": 1145.53125
+              },
+              "title": {
+                "x": 205,
+                "y": 1078.140625,
+                "width": 1162,
+                "height": 22.390625,
+                "right": 1367,
+                "bottom": 1100.53125
+              },
+              "meta": "面议",
+              "img": "/images/campus-v2.webp"
+            }
+          ]
+        },
+        {
+          "label": "失物招领",
+          "items": [
+            {
+              "box": {
+                "x": 57,
+                "y": 1300.71875,
+                "width": 1326,
+                "height": 112,
+                "right": 1383,
+                "bottom": 1412.71875
+              },
+              "text": "数学学习与校园分享图书馆",
+              "cover": {
+                "x": 73,
+                "y": 1314.71875,
+                "width": 112,
+                "height": 84,
+                "right": 185,
+                "bottom": 1398.71875
+              },
+              "title": {
+                "x": 205,
+                "y": 1331.328125,
+                "width": 1162,
+                "height": 22.390625,
+                "right": 1367,
+                "bottom": 1353.71875
+              },
+              "meta": "图书馆",
+              "img": "/images/campus-v2.webp"
+            },
+            {
+              "box": {
+                "x": 57,
+                "y": 1420.71875,
+                "width": 1326,
+                "height": 112,
+                "right": 1383,
+                "bottom": 1532.71875
+              },
+              "text": "数学交流教学楼",
+              "cover": {
+                "x": 73,
+                "y": 1434.71875,
+                "width": 112,
+                "height": 84,
+                "right": 185,
+                "bottom": 1518.71875
+              },
+              "title": {
+                "x": 205,
+                "y": 1451.328125,
+                "width": 1162,
+                "height": 22.390625,
+                "right": 1367,
+                "bottom": 1473.71875
+              },
+              "meta": "教学楼",
+              "img": "/images/campus-v2.webp"
+            }
+          ]
+        },
+        {
+          "label": "校园动态",
+          "items": [
+            {
+              "box": {
+                "x": 57,
+                "y": 1673.90625,
+                "width": 1326,
+                "height": 112,
+                "right": 1383,
+                "bottom": 1785.90625
+              },
+              "text": "数学学习记录校园同学",
+              "cover": {
+                "x": 73,
+                "y": 1687.90625,
+                "width": 112,
+                "height": 84,
+                "right": 185,
+                "bottom": 1771.90625
+              },
+              "title": {
+                "x": 205,
+                "y": 1704.515625,
+                "width": 1162,
+                "height": 22.390625,
+                "right": 1367,
+                "bottom": 1726.90625
+              },
+              "meta": "校园同学",
+              "img": "/images/campus-v2.webp"
+            },
+            {
+              "box": {
+                "x": 57,
+                "y": 1793.90625,
+                "width": 1326,
+                "height": 112,
+                "right": 1383,
+                "bottom": 1905.90625
+              },
+              "text": "数学讨论校园同学",
+              "cover": {
+                "x": 73,
+                "y": 1807.90625,
+                "width": 112,
+                "height": 84,
+                "right": 185,
+                "bottom": 1891.90625
+              },
+              "title": {
+                "x": 205,
+                "y": 1824.515625,
+                "width": 1162,
+                "height": 22.390625,
+                "right": 1367,
+                "bottom": 1846.90625
+              },
+              "meta": "校园同学",
+              "img": "/images/campus-v2.webp"
+            }
+          ]
+        }
+      ],
+      "marks": 8
+    },
+    {
+      "kind": "fixture-data",
+      "width": 1440,
+      "theme": "light",
+      "overflow": false,
+      "groups": [
+        {
+          "label": "校园活动",
+          "items": [
+            {
+              "box": {
+                "x": 57,
+                "y": 554.34375,
+                "width": 1326,
+                "height": 112,
+                "right": 1383,
+                "bottom": 666.34375
+              },
+              "text": "数学学习与校园分享图书馆",
+              "cover": {
+                "x": 73,
+                "y": 568.34375,
+                "width": 112,
+                "height": 84,
+                "right": 185,
+                "bottom": 652.34375
+              },
+              "title": {
+                "x": 205,
+                "y": 584.953125,
+                "width": 1162,
+                "height": 22.390625,
+                "right": 1367,
+                "bottom": 607.34375
+              },
+              "meta": "图书馆",
+              "img": "/images/campus-v2.webp"
+            },
+            {
+              "box": {
+                "x": 57,
+                "y": 674.34375,
+                "width": 1326,
+                "height": 112,
+                "right": 1383,
+                "bottom": 786.34375
+              },
+              "text": "数学交流教学楼",
+              "cover": {
+                "x": 73,
+                "y": 688.34375,
+                "width": 112,
+                "height": 84,
+                "right": 185,
+                "bottom": 772.34375
+              },
+              "title": {
+                "x": 205,
+                "y": 704.953125,
+                "width": 1162,
+                "height": 22.390625,
+                "right": 1367,
+                "bottom": 727.34375
+              },
+              "meta": "教学楼",
+              "img": "/images/campus-v2.webp"
+            }
+          ]
+        },
+        {
+          "label": "闲置物品",
+          "items": [
+            {
+              "box": {
+                "x": 57,
+                "y": 927.53125,
+                "width": 1326,
+                "height": 112,
+                "right": 1383,
+                "bottom": 1039.53125
+              },
+              "text": "数学学习与校园分享面议",
+              "cover": {
+                "x": 73,
+                "y": 941.53125,
+                "width": 112,
+                "height": 84,
+                "right": 185,
+                "bottom": 1025.53125
+              },
+              "title": {
+                "x": 205,
+                "y": 958.140625,
+                "width": 1162,
+                "height": 22.390625,
+                "right": 1367,
+                "bottom": 980.53125
+              },
+              "meta": "面议",
+              "img": "/images/campus-v2.webp"
+            },
+            {
+              "box": {
+                "x": 57,
+                "y": 1047.53125,
+                "width": 1326,
+                "height": 112,
+                "right": 1383,
+                "bottom": 1159.53125
+              },
+              "text": "数学交流面议",
+              "cover": {
+                "x": 73,
+                "y": 1061.53125,
+                "width": 112,
+                "height": 84,
+                "right": 185,
+                "bottom": 1145.53125
+              },
+              "title": {
+                "x": 205,
+                "y": 1078.140625,
+                "width": 1162,
+                "height": 22.390625,
+                "right": 1367,
+                "bottom": 1100.53125
+              },
+              "meta": "面议",
+              "img": "/images/campus-v2.webp"
+            }
+          ]
+        },
+        {
+          "label": "失物招领",
+          "items": [
+            {
+              "box": {
+                "x": 57,
+                "y": 1300.71875,
+                "width": 1326,
+                "height": 112,
+                "right": 1383,
+                "bottom": 1412.71875
+              },
+              "text": "数学学习与校园分享图书馆",
+              "cover": {
+                "x": 73,
+                "y": 1314.71875,
+                "width": 112,
+                "height": 84,
+                "right": 185,
+                "bottom": 1398.71875
+              },
+              "title": {
+                "x": 205,
+                "y": 1331.328125,
+                "width": 1162,
+                "height": 22.390625,
+                "right": 1367,
+                "bottom": 1353.71875
+              },
+              "meta": "图书馆",
+              "img": "/images/campus-v2.webp"
+            },
+            {
+              "box": {
+                "x": 57,
+                "y": 1420.71875,
+                "width": 1326,
+                "height": 112,
+                "right": 1383,
+                "bottom": 1532.71875
+              },
+              "text": "数学交流教学楼",
+              "cover": {
+                "x": 73,
+                "y": 1434.71875,
+                "width": 112,
+                "height": 84,
+                "right": 185,
+                "bottom": 1518.71875
+              },
+              "title": {
+                "x": 205,
+                "y": 1451.328125,
+                "width": 1162,
+                "height": 22.390625,
+                "right": 1367,
+                "bottom": 1473.71875
+              },
+              "meta": "教学楼",
+              "img": "/images/campus-v2.webp"
+            }
+          ]
+        },
+        {
+          "label": "校园动态",
+          "items": [
+            {
+              "box": {
+                "x": 57,
+                "y": 1673.90625,
+                "width": 1326,
+                "height": 112,
+                "right": 1383,
+                "bottom": 1785.90625
+              },
+              "text": "数学学习记录校园同学",
+              "cover": {
+                "x": 73,
+                "y": 1687.90625,
+                "width": 112,
+                "height": 84,
+                "right": 185,
+                "bottom": 1771.90625
+              },
+              "title": {
+                "x": 205,
+                "y": 1704.515625,
+                "width": 1162,
+                "height": 22.390625,
+                "right": 1367,
+                "bottom": 1726.90625
+              },
+              "meta": "校园同学",
+              "img": "/images/campus-v2.webp"
+            },
+            {
+              "box": {
+                "x": 57,
+                "y": 1793.90625,
+                "width": 1326,
+                "height": 112,
+                "right": 1383,
+                "bottom": 1905.90625
+              },
+              "text": "数学讨论校园同学",
+              "cover": {
+                "x": 73,
+                "y": 1807.90625,
+                "width": 112,
+                "height": 84,
+                "right": 185,
+                "bottom": 1891.90625
+              },
+              "title": {
+                "x": 205,
+                "y": 1824.515625,
+                "width": 1162,
+                "height": 22.390625,
+                "right": 1367,
+                "bottom": 1846.90625
+              },
+              "meta": "校园同学",
+              "img": "/images/campus-v2.webp"
+            }
+          ]
+        }
+      ],
+      "marks": 8
+    }
+  ],
+  "actions": [
+    "Filter 校园活动 retains matching results and previews",
+    "Filter 闲置物品 retains matching results and previews",
+    "Filter 失物招领 retains matching results and previews",
+    "Filter 校园动态 retains matching results and previews",
+    "Dynamic result retains post query navigation",
+    "View all preserves original search keyword"
+  ],
+  "errors": [],
+  "limits": [
+    "Real math search is read-only. Four-module image/error/empty/long cases are browser fixtures."
+  ],
+  "realItems": [
+    {
+      "id": 10,
+      "title": "考研数学资料包",
+      "hasImage": false
+    },
+    {
+      "id": 1,
+      "title": "高等数学第七版上册",
+      "hasImage": true
+    }
+  ]
+}

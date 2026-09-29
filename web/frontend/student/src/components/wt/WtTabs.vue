@@ -28,16 +28,51 @@ function pick(o) {
 
 <style scoped>
 .wt-tabs {
-  display: inline-flex; gap: 4px;
-  background: var(--surface-2); padding: 4px;
-  border-radius: var(--r-pill); border: 1px solid var(--line);
+  display: inline-flex;
+  gap: 4px;
+  background: var(--surface-2);
+  padding: 4px;
+  border-radius: var(--r-pill);
+  border: 1px solid var(--line);
 }
 .wt-tab {
-  padding: 8px 16px; border: none; background: transparent; cursor: pointer;
-  border-radius: var(--r-pill); font-size: var(--fs-xs); font-weight: 600;
-  color: var(--ink-2); font-family: var(--font-sans);
+  padding: 8px 16px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  border-radius: var(--r-pill);
+  font-size: var(--fs-xs);
+  font-weight: 600;
+  color: var(--ink-2);
+  font-family: var(--font-sans);
   transition: background .2s var(--ease-out), color .2s var(--ease-out);
 }
-.wt-tab.active { background: var(--surface); color: var(--brand-strong); box-shadow: var(--shadow-sm); }
-.wt-tab:focus-visible { outline: 2px solid var(--brand); outline-offset: 2px; }
+.wt-tab.active {
+  background: var(--surface);
+  color: var(--brand-strong);
+  box-shadow: var(--shadow-sm);
+}
+.wt-tab:focus-visible {
+  outline: 2px solid var(--brand);
+  outline-offset: 2px;
+}
+/* 同频校园：本页展示布局，业务绑定保持原样 */
+.wt-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  border-radius: var(--r-pill);
+  padding: 5px;
+  background: var(--surface-2);
+}
+.wt-tab {
+  min-height: 40px;
+  border-radius: var(--r-pill);
+  font-size: 13px;
+  padding: 8px 16px;
+}
+.wt-tab.active {
+  background: var(--brand);
+  color: var(--brand-ink);
+}
 </style>

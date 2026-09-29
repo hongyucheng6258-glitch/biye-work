@@ -1,0 +1,10 @@
+{
+  "passed": [
+    "Monaco 失败降级 textarea，可编辑/选语言/提交且无未处理 rejection",
+    "编辑器加载挂起时离开页面可安全取消",
+    "503 在房间内显示维护页、保留登录、恢复后可返回",
+    "重复进出 3D 不累积 canvas/WebGL 上下文；三档画质与窗口缩放正常",
+    "已生成大厅与各主题房间截图供穿模/装饰核查"
+  ],
+  "outputDir": "E:\\work\\毕业设计UI原型\\Ai-campus\\.worktrees\\tongpin-ui-redesign\\.superpowers\\tongpin-implementation\\after"
+}

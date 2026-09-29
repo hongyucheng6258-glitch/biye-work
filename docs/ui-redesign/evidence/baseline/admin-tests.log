@@ -1,0 +1,43 @@
+
+> web-admin@1.0.0 test
+> node --test src/**/*.test.mjs
+
+(node:8564) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///E:/work/%E6%AF%95%E4%B8%9A%E8%AE%BE%E8%AE%A1UI%E5%8E%9F%E5%9E%8B/Ai-campus/.worktrees/tongpin-ui-redesign/web/frontend/admin/src/api/auth-token.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to \\?\E:\work\毕业设计UI原型\Ai-campus\.worktrees\tongpin-ui-redesign\web\frontend\admin\package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ 相对登录路径不附带管理员 Token (0.6082ms)
+✔ 完整管理登录路径不附带管理员 Token (0.1288ms)
+✔ 其他管理接口附带管理员 Token (0.0837ms)
+(node:14072) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///E:/work/%E6%AF%95%E4%B8%9A%E8%AE%BE%E8%AE%A1UI%E5%8E%9F%E5%9E%8B/Ai-campus/.worktrees/tongpin-ui-redesign/web/frontend/admin/src/api/auth-token.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to \\?\E:\work\毕业设计UI原型\Ai-campus\.worktrees\tongpin-ui-redesign\web\frontend\admin\package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ 管理员登录请求不携带旧管理员令牌 (0.6172ms)
+✔ matches dashboard and nested navigation paths without prefix collisions (0.596ms)
+✔ keeps the administrator account route exact while matching system config (0.1067ms)
+✔ finds the group containing the active route (0.101ms)
+✔ opens a selected group and collapses it when selected again (0.661ms)
+✔ opens a new route group without reopening a manually collapsed current group (0.1039ms)
+(node:24168) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///E:/work/%E6%AF%95%E4%B8%9A%E8%AE%BE%E8%AE%A1UI%E5%8E%9F%E5%9E%8B/Ai-campus/.worktrees/tongpin-ui-redesign/web/frontend/admin/src/utils/date.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to \\?\E:\work\毕业设计UI原型\Ai-campus\.worktrees\tongpin-ui-redesign\web\frontend\admin\package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ 管理端日期工具格式化 ISO 日期和标准时间 (2.3159ms)
+✔ 管理端日期工具对空值返回空字符串 (0.1088ms)
+(node:21952) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///E:/work/%E6%AF%95%E4%B8%9A%E8%AE%BE%E8%AE%A1UI%E5%8E%9F%E5%9E%8B/Ai-campus/.worktrees/tongpin-ui-redesign/web/frontend/admin/src/utils/image.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to \\?\E:\work\毕业设计UI原型\Ai-campus\.worktrees\tongpin-ui-redesign\web\frontend\admin\package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ 管理端图片工具兼容数组、JSON 字符串、单 URL 和逗号分隔 (1.2611ms)
+✔ 管理端图片工具保留数据库中的图片 Data URI (0.1087ms)
+✔ 管理端图片工具忽略非法输入并提供首图 (0.6167ms)
+✔ 用户列表使用统一日期工具展示最近登录时间 (0.6173ms)
+ℹ tests 15
+ℹ suites 0
+ℹ pass 15
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 269.2593

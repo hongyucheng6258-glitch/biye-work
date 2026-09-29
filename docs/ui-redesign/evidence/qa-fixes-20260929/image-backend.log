@@ -1,0 +1,235 @@
+#0 building with "desktop-linux" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile.backend
+#1 transferring dockerfile: 677B done
+#1 DONE 0.1s
+
+#2 [internal] load metadata for docker.io/library/maven:3.9-eclipse-temurin-17
+#2 DONE 0.1s
+
+#3 [internal] load metadata for docker.io/library/eclipse-temurin:17-jre
+#3 ...
+
+#4 [auth] library/eclipse-temurin:pull token for registry-1.docker.io
+#4 DONE 0.0s
+
+#3 [internal] load metadata for docker.io/library/eclipse-temurin:17-jre
+#3 DONE 2.3s
+
+#5 [internal] load .dockerignore
+#5 transferring context: 219B done
+#5 DONE 0.1s
+
+#6 [build 1/6] FROM docker.io/library/maven:3.9-eclipse-temurin-17@sha256:44512abb01061e282da7a8f86fd3c8e50609538ff9644cdb132e1ff9fccdaecb
+#6 resolve docker.io/library/maven:3.9-eclipse-temurin-17@sha256:44512abb01061e282da7a8f86fd3c8e50609538ff9644cdb132e1ff9fccdaecb 0.1s done
+#6 DONE 0.1s
+
+#7 [stage-1 1/4] FROM docker.io/library/eclipse-temurin:17-jre@sha256:34d6aaf0fa4ef553c470234ec23c32c7d5c0f370c2bd4b0bf8a16838052d85f0
+#7 resolve docker.io/library/eclipse-temurin:17-jre@sha256:34d6aaf0fa4ef553c470234ec23c32c7d5c0f370c2bd4b0bf8a16838052d85f0
+#7 resolve docker.io/library/eclipse-temurin:17-jre@sha256:34d6aaf0fa4ef553c470234ec23c32c7d5c0f370c2bd4b0bf8a16838052d85f0 0.1s done
+#7 DONE 0.1s
+
+#8 [stage-1 2/4] WORKDIR /app
+#8 CACHED
+
+#9 [internal] load build context
+#9 transferring context: 53.48kB 0.2s done
+#9 DONE 0.2s
+
+#10 [build 2/6] WORKDIR /build
+#10 CACHED
+
+#11 [build 3/6] COPY web/backend/pom.xml ./pom.xml
+#11 CACHED
+
+#12 [build 4/6] RUN mvn -B -DskipTests dependency:go-offline
+#12 CACHED
+
+#13 [build 5/6] COPY web/backend/src ./src
+#13 DONE 0.4s
+
+#14 [stage-1 3/4] RUN apt-get update     && apt-get install -y --no-install-recommends wget     && rm -rf /var/lib/apt/lists/*
+#14 1.931 Get:1 http://archive.ubuntu.com/ubuntu resolute InRelease [136 kB]
+#14 2.146 Get:2 http://security.ubuntu.com/ubuntu resolute-security InRelease [137 kB]
+#14 3.224 Get:3 http://archive.ubuntu.com/ubuntu resolute-updates InRelease [137 kB]
+#14 4.363 Get:4 http://security.ubuntu.com/ubuntu resolute-security/restricted amd64 Packages [547 kB]
+#14 4.566 Get:5 http://archive.ubuntu.com/ubuntu resolute-backports InRelease [137 kB]
+#14 6.176 Get:6 http://archive.ubuntu.com/ubuntu resolute/multiverse amd64 Packages [352 kB]
+#14 6.588 Get:7 http://security.ubuntu.com/ubuntu resolute-security/main amd64 Packages [667 kB]
+#14 ...
+
+#15 [build 6/6] RUN mvn -B -DskipTests package
+#15 3.619 [INFO] Scanning for projects...
+#15 4.104 [INFO]
+#15 4.104 [INFO] ---------------------< com.campus:platform-server >---------------------
+#15 4.104 [INFO] Building ai-campus-platform-server 1.0.0
+#15 4.105 [INFO]   from pom.xml
+#15 4.105 [INFO] --------------------------------[ jar ]---------------------------------
+#15 5.069 [INFO] Downloading from central: https://repo.maven.apache.org/maven2/org/jboss/logging/jboss-logging/3.5.3.Final/jboss-logging-3.5.3.Final.pom
+#15 6.076 [INFO] Downloaded from central: https://repo.maven.apache.org/maven2/org/jboss/logging/jboss-logging/3.5.3.Final/jboss-logging-3.5.3.Final.pom (19 kB at 18 kB/s)
+#15 6.087 [INFO] Downloading from central: https://repo.maven.apache.org/maven2/org/jboss/logging/logging-parent/1.0.1.Final/logging-parent-1.0.1.Final.pom
+#15 6.211 [INFO] Downloaded from central: https://repo.maven.apache.org/maven2/org/jboss/logging/logging-parent/1.0.1.Final/logging-parent-1.0.1.Final.pom (6.0 kB at 48 kB/s)
+#15 6.219 [INFO] Downloading from central: https://repo.maven.apache.org/maven2/com/fasterxml/classmate/1.6.0/classmate-1.6.0.pom
+#15 6.336 [INFO] Downloaded from central: https://repo.maven.apache.org/maven2/com/fasterxml/classmate/1.6.0/classmate-1.6.0.pom (6.6 kB at 57 kB/s)
+#15 6.340 [INFO] Downloading from central: https://repo.maven.apache.org/maven2/com/fasterxml/oss-parent/55/oss-parent-55.pom
+#15 6.472 [INFO] Downloaded from central: https://repo.maven.apache.org/maven2/com/fasterxml/oss-parent/55/oss-parent-55.pom (24 kB at 179 kB/s)
+#15 6.506 [INFO] Downloading from central: https://repo.maven.apache.org/maven2/io/netty/netty-common/4.1.109.Final/netty-common-4.1.109.Final.pom
+#15 6.644 [INFO] Downloaded from central: https://repo.maven.apache.org/maven2/io/netty/netty-common/4.1.109.Final/netty-common-4.1.109.Final.pom (12 kB at 85 kB/s)
+#15 6.652 [INFO] Downloading from central: https://repo.maven.apache.org/maven2/io/netty/netty-parent/4.1.109.Final/netty-parent-4.1.109.Final.pom
+#15 6.808 [INFO] Downloaded from central: https://repo.maven.apache.org/maven2/io/netty/netty-parent/4.1.109.Final/netty-parent-4.1.109.Final.pom (87 kB at 555 kB/s)
+#15 6.828 [INFO] Downloading from central: https://repo.maven.apache.org/maven2/io/netty/netty-handler/4.1.109.Final/netty-handler-4.1.109.Final.pom
+#15 6.951 [INFO] Downloaded from central: https://repo.maven.apache.org/maven2/io/netty/netty-handler/4.1.109.Final/netty-handler-4.1.109.Final.pom (4.6 kB at 38 kB/s)
+#15 6.962 [INFO] Downloading from central: https://repo.maven.apache.org/maven2/io/netty/netty-resolver/4.1.109.Final/netty-resolver-4.1.109.Final.pom
+#15 7.085 [INFO] Downloaded from central: https://repo.maven.apache.org/maven2/io/netty/netty-resolver/4.1.109.Final/netty-resolver-4.1.109.Final.pom (1.6 kB at 13 kB/s)
+#15 7.101 [INFO] Downloading from central: https://repo.maven.apache.org/maven2/io/netty/netty-buffer/4.1.109.Final/netty-buffer-4.1.109.Final.pom
+#15 7.225 [INFO] Downloaded from central: https://repo.maven.apache.org/maven2/io/netty/netty-buffer/4.1.109.Final/netty-buffer-4.1.109.Final.pom (1.6 kB at 13 kB/s)
+#15 7.236 [INFO] Downloading from central: https://repo.maven.apache.org/maven2/io/netty/netty-transport/4.1.109.Final/netty-transport-4.1.109.Final.pom
+#15 7.359 [INFO] Downloaded from central: https://repo.maven.apache.org/maven2/io/netty/netty-transport/4.1.109.Final/netty-transport-4.1.109.Final.pom (2.2 kB at 18 kB/s)
+#15 7.371 [INFO] Downloading from central: https://repo.maven.apache.org/maven2/io/netty/netty-transport-native-unix-common/4.1.109.Final/netty-transport-native-unix-common-4.1.109.Final.pom
+#15 7.488 [INFO] Downloaded from central: https://repo.maven.apache.org/maven2/io/netty/netty-transport-native-unix-common/4.1.109.Final/netty-transport-native-unix-common-4.1.109.Final.pom (33 kB at 278 kB/s)
+#15 7.502 [INFO] Downloading from central: https://repo.maven.apache.org/maven2/io/netty/netty-codec/4.1.109.Final/netty-codec-4.1.109.Final.pom
+#15 7.640 [INFO] Downloaded from central: https://repo.maven.apache.org/maven2/io/netty/netty-codec/4.1.109.Final/netty-codec-4.1.109.Final.pom (5.5 kB at 40 kB/s)
+#15 7.650 [INFO] Downloading from central: https://repo.maven.apache.org/maven2/io/projectreactor/reactor-core/3.6.5/reactor-core-3.6.5.pom
+#15 7.785 [INFO] Downloaded from central: https://repo.maven.apache.org/maven2/io/projectreactor/reactor-core/3.6.5/reactor-core-3.6.5.pom (2.1 kB at 16 kB/s)
+#15 ...
+
+#14 [stage-1 3/4] RUN apt-get update     && apt-get install -y --no-install-recommends wget     && rm -rf /var/lib/apt/lists/*
+#14 8.485 Get:8 http://security.ubuntu.com/ubuntu resolute-security/universe amd64 Packages [232 kB]
+#14 9.126 Get:9 http://security.ubuntu.com/ubuntu resolute-security/multiverse amd64 Packages [13.6 kB]
+#14 10.44 Get:10 http://archive.ubuntu.com/ubuntu resolute/universe amd64 Packages [20.1 MB]
+#14 12.58 Get:11 http://archive.ubuntu.com/ubuntu resolute/restricted amd64 Packages [189 kB]
+#14 ...
+
+#15 [build 6/6] RUN mvn -B -DskipTests package
+#15 7.954 [INFO] Downloading from central: https://repo.maven.apache.org/maven2/org/springframework/boot/spring-boot-starter-jdbc/3.2.5/spring-boot-starter-jdbc-3.2.5.pom
+#15 8.075 [INFO] Downloaded from central: https://repo.maven.apache.org/maven2/org/springframework/boot/spring-boot-starter-jdbc/3.2.5/spring-boot-starter-jdbc-3.2.5.pom (2.5 kB at 20 kB/s)
+#15 8.090 [INFO] Downloading from central: https://repo.maven.apache.org/maven2/org/springframework/spring-jdbc/6.1.6/spring-jdbc-6.1.6.pom
+#15 8.224 [INFO] Downloaded from central: https://repo.maven.apache.org/maven2/org/springframework/spring-jdbc/6.1.6/spring-jdbc-6.1.6.pom (2.4 kB at 18 kB/s)
+#15 8.318 [INFO] Downloading from central: https://repo.maven.apache.org/maven2/org/jetbrains/kotlin/kotlin-stdlib-jdk8/1.9.23/kotlin-stdlib-jdk8-1.9.23.pom
+#15 8.443 [INFO] Downloaded from central: https://repo.maven.apache.org/maven2/org/jetbrains/kotlin/kotlin-stdlib-jdk8/1.9.23/kotlin-stdlib-jdk8-1.9.23.pom (1.6 kB at 13 kB/s)
+#15 8.452 [INFO] Downloading from central: https://repo.maven.apache.org/maven2/org/jetbrains/kotlin/kotlin-stdlib/1.9.23/kotlin-stdlib-1.9.23.pom
+#15 8.610 [INFO] Downloaded from central: https://repo.maven.apache.org/maven2/org/jetbrains/kotlin/kotlin-stdlib/1.9.23/kotlin-stdlib-1.9.23.pom (2.8 kB at 18 kB/s)
+#15 8.618 [INFO] Downloading from central: https://repo.maven.apache.org/maven2/org/jetbrains/kotlin/kotlin-stdlib-jdk7/1.9.23/kotlin-stdlib-jdk7-1.9.23.pom
+#15 8.843 [INFO] Downloaded from central: https://repo.maven.apache.org/maven2/org/jetbrains/kotlin/kotlin-stdlib-jdk7/1.9.23/kotlin-stdlib-jdk7-1.9.23.pom (1.4 kB at 6.2 kB/s)
+#15 8.851 [INFO] Downloading from central: https://repo.maven.apache.org/maven2/org/jetbrains/kotlin/kotlin-stdlib-common/1.9.23/kotlin-stdlib-common-1.9.23.pom
+#15 8.985 [INFO] Downloaded from central: https://repo.maven.apache.org/maven2/org/jetbrains/kotlin/kotlin-stdlib-common/1.9.23/kotlin-stdlib-common-1.9.23.pom (1.8 kB at 13 kB/s)
+#15 9.134 [INFO] Downloading from central: https://repo.maven.apache.org/maven2/net/bytebuddy/byte-buddy/1.14.13/byte-buddy-1.14.13.pom
+#15 9.310 [INFO] Downloaded from central: https://repo.maven.apache.org/maven2/net/bytebuddy/byte-buddy/1.14.13/byte-buddy-1.14.13.pom (16 kB at 91 kB/s)
+#15 9.315 [INFO] Downloading from central: https://repo.maven.apache.org/maven2/net/bytebuddy/byte-buddy-parent/1.14.13/byte-buddy-parent-1.14.13.pom
+#15 9.509 [INFO] Downloaded from central: https://repo.maven.apache.org/maven2/net/bytebuddy/byte-buddy-parent/1.14.13/byte-buddy-parent-1.14.13.pom (63 kB at 322 kB/s)
+#15 9.552 [INFO] Downloading from central: https://repo.maven.apache.org/maven2/net/bytebuddy/byte-buddy-agent/1.14.13/byte-buddy-agent-1.14.13.pom
+#15 9.757 [INFO] Downloaded from central: https://repo.maven.apache.org/maven2/net/bytebuddy/byte-buddy-agent/1.14.13/byte-buddy-agent-1.14.13.pom (10 kB at 51 kB/s)
+#15 9.838 [INFO] Downloading from central: https://repo.maven.apache.org/maven2/org/jboss/logging/jboss-logging/3.5.3.Final/jboss-logging-3.5.3.Final.jar
+#15 10.14 [INFO] Downloaded from central: https://repo.maven.apache.org/maven2/org/jboss/logging/jboss-logging/3.5.3.Final/jboss-logging-3.5.3.Final.jar (59 kB at 196 kB/s)
+#15 10.14 [INFO] Downloading from central: https://repo.maven.apache.org/maven2/com/fasterxml/classmate/1.6.0/classmate-1.6.0.jar
+#15 10.14 [INFO] Downloading from central: https://repo.maven.apache.org/maven2/io/netty/netty-common/4.1.109.Final/netty-common-4.1.109.Final.jar
+#15 10.14 [INFO] Downloading from central: https://repo.maven.apache.org/maven2/io/netty/netty-handler/4.1.109.Final/netty-handler-4.1.109.Final.jar
+#15 10.14 [INFO] Downloading from central: https://repo.maven.apache.org/maven2/io/netty/netty-resolver/4.1.109.Final/netty-resolver-4.1.109.Final.jar
+#15 10.14 [INFO] Downloading from central: https://repo.maven.apache.org/maven2/io/netty/netty-buffer/4.1.109.Final/netty-buffer-4.1.109.Final.jar
+#15 10.41 [INFO] Downloaded from central: https://repo.maven.apache.org/maven2/com/fasterxml/classmate/1.6.0/classmate-1.6.0.jar (69 kB at 257 kB/s)
+#15 10.41 [INFO] Downloading from central: https://repo.maven.apache.org/maven2/io/netty/netty-transport-native-unix-common/4.1.109.Final/netty-transport-native-unix-common-4.1.109.Final.jar
+#15 10.54 [INFO] Downloaded from central: https://repo.maven.apache.org/maven2/io/netty/netty-transport-native-unix-common/4.1.109.Final/netty-transport-native-unix-common-4.1.109.Final.jar (44 kB at 110 kB/s)
+#15 10.54 [INFO] Downloading from central: https://repo.maven.apache.org/maven2/io/netty/netty-codec/4.1.109.Final/netty-codec-4.1.109.Final.jar
+#15 10.66 [INFO] Downloaded from central: https://repo.maven.apache.org/maven2/io/netty/netty-resolver/4.1.109.Final/netty-resolver-4.1.109.Final.jar (38 kB at 73 kB/s)
+#15 10.66 [INFO] Downloading from central: https://repo.maven.apache.org/maven2/io/netty/netty-transport/4.1.109.Final/netty-transport-4.1.109.Final.jar
+#15 10.73 [INFO] Downloaded from central: https://repo.maven.apache.org/maven2/io/netty/netty-common/4.1.109.Final/netty-common-4.1.109.Final.jar (664 kB at 1.1 MB/s)
+#15 10.73 [INFO] Downloading from central: https://repo.maven.apache.org/maven2/io/projectreactor/reactor-core/3.6.5/reactor-core-3.6.5.jar
+#15 10.74 [INFO] Downloaded from central: https://repo.maven.apache.org/maven2/io/netty/netty-buffer/4.1.109.Final/netty-buffer-4.1.109.Final.jar (307 kB at 516 kB/s)
+#15 10.74 [INFO] Downloading from central: https://repo.maven.apache.org/maven2/org/springframework/boot/spring-boot-starter-jdbc/3.2.5/spring-boot-starter-jdbc-3.2.5.jar
+#15 10.78 [INFO] Downloaded from central: https://repo.maven.apache.org/maven2/io/netty/netty-codec/4.1.109.Final/netty-codec-4.1.109.Final.jar (353 kB at 556 kB/s)
+#15 10.78 [INFO] Downloading from central: https://repo.maven.apache.org/maven2/org/springframework/spring-jdbc/6.1.6/spring-jdbc-6.1.6.jar
+#15 10.87 [INFO] Downloaded from central: https://repo.maven.apache.org/maven2/io/netty/netty-handler/4.1.109.Final/netty-handler-4.1.109.Final.jar (569 kB at 778 kB/s)
+#15 10.87 [INFO] Downloading from central: https://repo.maven.apache.org/maven2/org/jetbrains/kotlin/kotlin-stdlib-common/1.9.23/kotlin-stdlib-common-1.9.23.jar
+#15 10.93 [INFO] Downloaded from central: https://repo.maven.apache.org/maven2/org/springframework/boot/spring-boot-starter-jdbc/3.2.5/spring-boot-starter-jdbc-3.2.5.jar (4.8 kB at 6.1 kB/s)
+#15 10.93 [INFO] Downloading from central: https://repo.maven.apache.org/maven2/org/jetbrains/kotlin/kotlin-stdlib-jdk8/1.9.23/kotlin-stdlib-jdk8-1.9.23.jar
+#15 11.10 [INFO] Downloaded from central: https://repo.maven.apache.org/maven2/org/springframework/spring-jdbc/6.1.6/spring-jdbc-6.1.6.jar (467 kB at 488 kB/s)
+#15 11.10 [INFO] Downloading from central: https://repo.maven.apache.org/maven2/org/jetbrains/kotlin/kotlin-stdlib/1.9.23/kotlin-stdlib-1.9.23.jar
+#15 11.14 [INFO] Downloaded from central: https://repo.maven.apache.org/maven2/org/jetbrains/kotlin/kotlin-stdlib-jdk8/1.9.23/kotlin-stdlib-jdk8-1.9.23.jar (968 B at 973 B/s)
+#15 11.14 [INFO] Downloading from central: https://repo.maven.apache.org/maven2/org/jetbrains/kotlin/kotlin-stdlib-jdk7/1.9.23/kotlin-stdlib-jdk7-1.9.23.jar
+#15 11.33 [INFO] Downloaded from central: https://repo.maven.apache.org/maven2/io/netty/netty-transport/4.1.109.Final/netty-transport-4.1.109.Final.jar (498 kB at 420 kB/s)
+#15 11.33 [INFO] Downloading from central: https://repo.maven.apache.org/maven2/net/bytebuddy/byte-buddy/1.14.13/byte-buddy-1.14.13.jar
+#15 11.35 [INFO] Downloaded from central: https://repo.maven.apache.org/maven2/org/jetbrains/kotlin/kotlin-stdlib-jdk7/1.9.23/kotlin-stdlib-jdk7-1.9.23.jar (961 B at 794 B/s)
+#15 11.35 [INFO] Downloading from central: https://repo.maven.apache.org/maven2/net/bytebuddy/byte-buddy-agent/1.14.13/byte-buddy-agent-1.14.13.jar
+#15 11.58 [INFO] Downloaded from central: https://repo.maven.apache.org/maven2/io/projectreactor/reactor-core/3.6.5/reactor-core-3.6.5.jar (1.9 MB at 1.3 MB/s)
+#15 11.60 [INFO] Downloaded from central: https://repo.maven.apache.org/maven2/org/jetbrains/kotlin/kotlin-stdlib/1.9.23/kotlin-stdlib-1.9.23.jar (1.7 MB at 1.2 MB/s)
+#15 11.61 [INFO] Downloaded from central: https://repo.maven.apache.org/maven2/net/bytebuddy/byte-buddy-agent/1.14.13/byte-buddy-agent-1.14.13.jar (257 kB at 175 kB/s)
+#15 11.83 [INFO] Downloaded from central: https://repo.maven.apache.org/maven2/org/jetbrains/kotlin/kotlin-stdlib-common/1.9.23/kotlin-stdlib-common-1.9.23.jar (227 kB at 135 kB/s)
+#15 12.27 [INFO] Downloaded from central: https://repo.maven.apache.org/maven2/net/bytebuddy/byte-buddy/1.14.13/byte-buddy-1.14.13.jar (4.2 MB at 2.0 MB/s)
+#15 12.28 [INFO]
+#15 12.28 [INFO] --- resources:3.3.1:resources (default-resources) @ platform-server ---
+#15 12.39 [INFO] Copying 1 resource from src/main/resources to target/classes
+#15 12.40 [INFO] Copying 13 resources from src/main/resources to target/classes
+#15 12.41 [INFO]
+#15 12.41 [INFO] --- compiler:3.11.0:compile (default-compile) @ platform-server ---
+#15 12.55 [INFO] Changes detected - recompiling the module! :source
+#15 12.55 [INFO] Compiling 289 source files with javac [debug release 17] to target/classes
+#15 ...
+
+#14 [stage-1 3/4] RUN apt-get update     && apt-get install -y --no-install-recommends wget     && rm -rf /var/lib/apt/lists/*
+#14 14.80 Get:12 http://archive.ubuntu.com/ubuntu resolute/main amd64 Packages [1,874 kB]
+#14 16.65 Get:13 http://archive.ubuntu.com/ubuntu resolute-updates/restricted amd64 Packages [563 kB]
+#14 18.31 Get:14 http://archive.ubuntu.com/ubuntu resolute-updates/universe amd64 Packages [389 kB]
+#14 18.86 Get:15 http://archive.ubuntu.com/ubuntu resolute-updates/multiverse amd64 Packages [14.6 kB]
+#14 ...
+
+#15 [build 6/6] RUN mvn -B -DskipTests package
+#15 20.08 [INFO] /build/src/main/java/com/campus/platform/utils/RedisUtils.java: /build/src/main/java/com/campus/platform/utils/RedisUtils.java uses unchecked or unsafe operations.
+#15 20.08 [INFO] /build/src/main/java/com/campus/platform/utils/RedisUtils.java: Recompile with -Xlint:unchecked for details.
+#15 20.08 [INFO]
+#15 20.08 [INFO] --- resources:3.3.1:testResources (default-testResources) @ platform-server ---
+#15 20.09 [INFO] skip non existing resourceDirectory /build/src/test/resources
+#15 20.09 [INFO]
+#15 20.09 [INFO] --- compiler:3.11.0:testCompile (default-testCompile) @ platform-server ---
+#15 20.10 [INFO] Changes detected - recompiling the module! :dependency
+#15 20.10 [INFO] Compiling 45 source files with javac [debug release 17] to target/test-classes
+#15 22.07 [WARNING] /build/src/test/java/com/campus/platform/module/chat/websocket/ChatWsTicketServiceTest.java:[22,76] non-varargs call of varargs method with inexact argument type for last parameter;
+#15 22.07   cast to java.lang.Object for a varargs call
+#15 22.07   cast to java.lang.Object[] for a non-varargs call and to suppress this warning
+#15 22.07 [INFO] /build/src/test/java/com/campus/platform/module/ai/AiChatServiceTest.java: Some input files use unchecked or unsafe operations.
+#15 22.07 [INFO] /build/src/test/java/com/campus/platform/module/ai/AiChatServiceTest.java: Recompile with -Xlint:unchecked for details.
+#15 22.07 [INFO]
+#15 22.07 [INFO] --- surefire:3.1.2:test (default-test) @ platform-server ---
+#15 22.37 [INFO] Tests are skipped.
+#15 22.37 [INFO]
+#15 22.37 [INFO] --- jar:3.3.0:jar (default-jar) @ platform-server ---
+#15 22.57 [INFO] Building jar: /build/target/platform-server.jar
+#15 22.65 [INFO]
+#15 22.65 [INFO] --- spring-boot:3.2.5:repackage (repackage) @ platform-server ---
+#15 23.27 [INFO] Replacing main artifact /build/target/platform-server.jar with repackaged archive, adding nested dependencies in BOOT-INF/.
+#15 23.27 [INFO] The original artifact has been renamed to /build/target/platform-server.jar.original
+#15 23.27 [INFO] ------------------------------------------------------------------------
+#15 23.27 [INFO] BUILD SUCCESS
+#15 23.27 [INFO] ------------------------------------------------------------------------
+#15 23.27 [INFO] Total time:  19.686 s
+#15 23.27 [INFO] Finished at: 2026-09-29T11:42:53Z
+#15 23.27 [INFO] ------------------------------------------------------------------------
+#15 DONE 23.4s
+
+#14 [stage-1 3/4] RUN apt-get update     && apt-get install -y --no-install-recommends wget     && rm -rf /var/lib/apt/lists/*
+#14 20.76 Get:16 http://archive.ubuntu.com/ubuntu resolute-updates/main amd64 Packages [838 kB]
+#14 21.34 Get:17 http://archive.ubuntu.com/ubuntu resolute-backports/universe amd64 Packages [3,306 B]
+#14 21.36 Fetched 26.4 MB in 21s (1,271 kB/s)
+#14 21.36 Reading package lists...
+#14 22.58 Reading package lists...
+#14 23.31 Building dependency tree...
+#14 23.48 Reading state information...
+#14 23.59 wget is already the newest version (1.25.0-2ubuntu4.4).
+#14 23.59 Solving dependencies...
+#14 23.76 0 upgraded, 0 newly installed, 0 to remove and 1 not upgraded.
+#14 DONE 23.8s
+
+#16 [stage-1 4/4] COPY --from=build /build/target/platform-server.jar ./app.jar
+#16 DONE 0.2s
+
+#17 exporting to image
+#17 exporting layers
+#17 exporting layers 1.6s done
+#17 exporting manifest sha256:573bab4eb7ce24742c60e52cffe0d062d4e44ca4578fa0f12d7a579af1f5e121 0.0s done
+#17 exporting config sha256:f957cd6efe75c901a55e0d3a58bfaa2a166a57997028530a05d77999c2d3ea91 0.0s done
+#17 exporting attestation manifest sha256:05e40084de9de6f73c65bc3303fb9a999c2bff7626996ff1ab9a724297be69ad 0.0s done
+#17 exporting manifest list sha256:3c2762c521fd08474bc887b7a3b111cb06addb4e2d14378414f94636a60ab01c
+#17 exporting manifest list sha256:3c2762c521fd08474bc887b7a3b111cb06addb4e2d14378414f94636a60ab01c 0.0s done
+#17 naming to docker.io/library/tongpin-ui-e2e-20260929032639-backend:latest done
+#17 unpacking to docker.io/library/tongpin-ui-e2e-20260929032639-backend:latest
+#17 unpacking to docker.io/library/tongpin-ui-e2e-20260929032639-backend:latest 0.4s done
+#17 DONE 2.2s

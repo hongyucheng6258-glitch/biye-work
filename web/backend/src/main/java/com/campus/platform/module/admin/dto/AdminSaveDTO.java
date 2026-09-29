@@ -13,7 +13,7 @@ public class AdminSaveDTO {
     @NotBlank(message = "用户名不能为空")
     private String username;
 
-    @NotBlank(message = "密码不能为空")
+    // 新增的非空校验由 createAdmin 执行；编辑留空时保留原密码。
     private String password;
 
     private String nickname;

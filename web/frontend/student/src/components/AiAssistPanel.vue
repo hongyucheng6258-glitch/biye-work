@@ -208,4 +208,57 @@ function fillPolish() {
   display: flex;
   gap: 8px;
 }
+/* 同频校园：本页展示布局，业务绑定保持原样 */
+.ai-assist {
+  padding: 22px;
+  background: var(--accent-soft);
+  border: 1px solid var(--accent-line);
+  border-radius: 20px;
+  margin-bottom: 24px;
+}
+.ai-assist-head,.ai-row,.ai-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.ai-badge {
+  background: var(--brand);
+  color: var(--brand-ink);
+  border-radius: var(--r-pill);
+}
+.ai-sub {
+  font-size: 13px;
+}
+.ai-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.ai-extra {
+  min-width: 0;
+}
+.ai-result {
+  border-radius: 16px;
+  background: var(--surface);
+  padding: 18px;
+}
+.ai-result-content {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+.ai-actions :deep(.el-button) {
+  margin-left: 0;
+}
+@media (max-width:600px) {
+  .ai-assist {
+    padding: 18px;
+  }
+  .ai-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .ai-extra {
+    width: 100%;
+  }
+}
 </style>

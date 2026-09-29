@@ -84,7 +84,7 @@ function onError(event) {
   left: 10px;
   bottom: 10px;
   z-index: 2;
-  font-size: 11px;
+  font-size: 12px;
   line-height: 1;
   padding: 3px 7px;
   border-radius: 4px;
@@ -127,5 +127,43 @@ function onError(event) {
 .time {
   font-size: 12px;
   color: var(--ink-3);
+}
+/* 同频校园：本页展示布局，业务绑定保持原样 */
+.item-card {
+  border-radius: 22px;
+  background: var(--surface);
+  border-color: var(--line);
+}
+.cover {
+  aspect-ratio: 16/10;
+  border-radius: 20px 20px 0 0;
+}
+.body {
+  padding: 20px;
+  min-width: 0;
+}
+.title {
+  font-size: 18px;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+.desc {
+  font-size: 14px;
+}
+.footer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.schematic-tag {
+  font-size: 12px;
+}
+.time {
+  font-size: 12px;
+}
+@media (max-width:600px) {
+  .body {
+    padding: 18px;
+  }
 }
 </style>

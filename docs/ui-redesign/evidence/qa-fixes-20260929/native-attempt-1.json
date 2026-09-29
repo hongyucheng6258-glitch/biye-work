@@ -1,0 +1,24 @@
+[
+  {
+    "url": "/ai/chat",
+    "top": 564.0714721679688,
+    "bottom": 620.6429023742676,
+    "dockTop": 693.1428833007812,
+    "width": 1037,
+    "height": 754,
+    "overflow": false,
+    "hit": true,
+    "scrollY": 0
+  },
+  {
+    "url": "/chat/2",
+    "top": 567.1428833007812,
+    "bottom": 649.7143173217773,
+    "dockTop": 693.1428833007812,
+    "width": 1037,
+    "height": 754,
+    "overflow": false,
+    "hit": false,
+    "scrollY": 0
+  }
+]

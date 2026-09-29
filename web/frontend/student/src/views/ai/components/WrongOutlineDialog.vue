@@ -107,7 +107,7 @@ async function run(payload) {
   result.value = ''
   try {
     const res = await generateOutline(payload)
-    result.value = res.answer
+    result.value = typeof res === 'string' ? res : res.answer
   } catch (err) {
     error.value = aiErrorInfo(err)
   } finally {
@@ -211,5 +211,56 @@ function reset() {
   max-height: 460px;
   overflow-y: auto;
   line-height: 1.7;
+}
+/* 同频校园：本页展示布局，业务绑定保持原样 */
+.loading-box,.err-box {
+  padding: 32px 20px;
+  border-radius: 18px;
+  background: var(--surface-2);
+}
+.err-box {
+  background: var(--error-soft);
+  color: var(--ink);
+}
+.err-ops,.result-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+}
+.md-body {
+  line-height: 1.85;
+  overflow-wrap: anywhere;
+}
+.md-body :deep(pre) {
+  max-width: 100%;
+  overflow-x: auto;
+}
+.modes {
+  display: grid;
+  grid-template-columns: repeat(3,minmax(0,1fr));
+  gap: 12px;
+}
+.mode-btn {
+  background: var(--surface-2);
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  padding: 22px 16px;
+  min-width: 0;
+}
+.m-title {
+  font-size: 16px;
+}
+.m-desc {
+  font-size: 13px;
+  white-space: normal;
+}
+@media (max-width:600px) {
+  .modes {
+    grid-template-columns: minmax(0,1fr);
+  }
+  .mode-btn {
+    padding: 18px;
+  }
 }
 </style>

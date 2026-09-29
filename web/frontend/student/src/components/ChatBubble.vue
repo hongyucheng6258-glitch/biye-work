@@ -77,7 +77,9 @@ const html = computed(() => renderMarkdown(props.content))
   color: var(--brand);
 }
 @keyframes blink {
-  50% { opacity: 0; }
+  50% {
+    opacity: 0;
+  }
 }
 /* Markdown 内容排版 */
 .md-body :deep(pre) {
@@ -95,5 +97,53 @@ const html = computed(() => renderMarkdown(props.content))
 }
 .md-body :deep(ul), .md-body :deep(ol) {
   padding-left: 20px;
+}
+/* 同频校园：本页展示布局，业务绑定保持原样 */
+.bubble-row {
+  gap: 14px;
+  margin-bottom: 24px;
+}
+.bubble {
+  min-width: 0;
+  max-width: 86%;
+  background: var(--surface-2);
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  padding: 18px;
+}
+.mine .bubble {
+  background: var(--brand);
+  color: var(--brand-ink);
+  border-color: var(--brand);
+}
+.ai-avatar {
+  background: var(--accent);
+  color: var(--accent-ink);
+}
+.md-body {
+  overflow-wrap: anywhere;
+  line-height: 1.85;
+}
+.md-body :deep(pre) {
+  max-width: 100%;
+  overflow-x: auto;
+}
+.md-body :deep(table) {
+  display: block;
+  max-width: 100%;
+  overflow: auto;
+}
+.plain {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+@media (max-width:600px) {
+  .bubble-row {
+    gap: 10px;
+  }
+  .bubble {
+    padding: 14px;
+    max-width: calc(100% - 44px);
+  }
 }
 </style>

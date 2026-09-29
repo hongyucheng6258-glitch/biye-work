@@ -27,8 +27,11 @@
         </header>
         <div v-if="section.items.length" class="result-list">
           <button v-for="item in section.items" :key="item.key" type="button" @click="router.push(item.to)">
-            <strong v-html="highlight(item.title)"></strong>
-            <span v-html="highlight(item.meta)"></span>
+            <SearchResultCover :item="item.media" :module="section.type" />
+            <span class="result-text">
+              <strong class="result-title" v-html="highlight(item.title)"></strong>
+              <span class="result-meta" v-html="highlight(item.meta)"></span>
+            </span>
           </button>
         </div>
       </section>
@@ -41,6 +44,7 @@
 import { computed, ref, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import WtPageHeader from '../../components/wt/WtPageHeader.vue'
+import SearchResultCover from '../../components/wt/SearchResultCover.vue'
 import EmptyBox from '../../components/EmptyBox.vue'
 import { listActivity } from '../../api/activity'
 import { listIdle } from '../../api/idle'
@@ -95,10 +99,10 @@ async function load() {
       listPost({ keyword: q, pageNum: 1, pageSize: 4 })
     ])
     sections.value = [
-      { type: 'activity', label: '校园活动', path: '/activity', items: rows(activities).map((item) => ({ key: item.id, title: item.title, meta: item.location || '地点待定', to: `/activity/detail/${item.id}` })) },
-      { type: 'idle', label: '闲置物品', path: '/idle', items: rows(idleItems).map((item) => ({ key: item.id, title: item.title, meta: item.price != null ? `¥${item.price}` : '面议', to: `/idle/detail/${item.id}` })) },
-      { type: 'lost', label: '失物招领', path: '/lostfound', items: rows(lostItems).map((item) => ({ key: item.id, title: item.title, meta: item.location || '地点未知', to: `/lostfound/detail/${item.id}` })) },
-      { type: 'post', label: '校园动态', path: '/social', items: rows(posts).map((item) => ({ key: item.id, title: item.content || '校园动态', meta: item.authorName || item.nickname || '校园同学', to: `/social?post=${item.id}` })) }
+      { type: 'activity', label: '校园活动', path: '/activity', items: rows(activities).map((item) => ({ key: item.id, media: item, title: item.title, meta: item.location || '地点待定', to: `/activity/detail/${item.id}` })) },
+      { type: 'idle', label: '闲置物品', path: '/idle', items: rows(idleItems).map((item) => ({ key: item.id, media: item, title: item.title, meta: item.price != null ? `¥${item.price}` : '面议', to: `/idle/detail/${item.id}` })) },
+      { type: 'lost', label: '失物招领', path: '/lostfound', items: rows(lostItems).map((item) => ({ key: item.id, media: item, title: item.title, meta: item.location || '地点未知', to: `/lostfound/detail/${item.id}` })) },
+      { type: 'post', label: '校园动态', path: '/social', items: rows(posts).map((item) => ({ key: item.id, media: item, title: item.content || '校园动态', meta: item.authorName || item.nickname || '校园同学', to: `/social?post=${item.id}` })) }
     ]
   } finally {
     loading.value = false
@@ -111,49 +115,52 @@ watch(keyword, load, { immediate: true })
 <style scoped>
 .chips {
   display: flex;
-  gap: var(--s-2);
   flex-wrap: wrap;
-  margin-bottom: var(--s-5);
+  gap: 8px;
+  margin-bottom: 24px;
 }
 .chip {
-  padding: 6px 14px;
-  border-radius: var(--r-pill);
+  display: inline-flex;
+  align-items: center;
+  min-height: 40px;
+  padding: 9px 16px;
   border: 1px solid var(--line);
+  border-radius: var(--r-pill);
   background: var(--surface);
+  color: var(--ink-2);
   font-size: var(--fs-xs);
   font-weight: 600;
-  color: var(--ink-2);
   cursor: pointer;
-  transition: all .18s var(--ease-out);
 }
-.chip:hover {
-  border-color: var(--brand-line);
-}
+.chip:hover { border-color: var(--brand-line); }
 .chip.active {
-  background: var(--brand-soft);
-  color: var(--brand-strong);
-  border-color: var(--brand-line);
+  background: var(--brand);
+  color: var(--brand-ink);
+  border-color: var(--brand);
 }
 .result-sections {
-  display: flex;
-  flex-direction: column;
-  gap: var(--s-4);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 24px;
 }
 .result-section {
-  padding: var(--s-5);
+  min-width: 0;
+  padding: 24px;
   border: 1px solid var(--line);
-  border-radius: var(--r-lg);
+  border-radius: 24px;
   background: var(--surface);
 }
 .result-section header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: var(--s-4);
-  margin-bottom: var(--s-3);
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 12px;
 }
+.result-section header > div { min-width: 0; }
 .result-section h2 {
-  margin: 0 0 3px;
+  margin: 0 0 4px;
   color: var(--ink);
   font-size: var(--fs-lg);
 }
@@ -162,74 +169,84 @@ watch(keyword, load, { immediate: true })
   font-size: var(--fs-xs);
 }
 .result-section header button {
-  border: none;
-  background: none;
+  min-height: 40px;
+  padding: 8px 12px;
+  border: 0;
+  border-radius: var(--r-pill);
+  background: transparent;
   color: var(--brand-strong);
+  font: inherit;
   font-size: var(--fs-xs);
   font-weight: 600;
   cursor: pointer;
-  padding: 4px 8px;
-  border-radius: var(--r-sm);
 }
-.result-section header button:hover {
-  background: var(--brand-soft);
-}
+.result-section header button:hover { background: var(--brand-soft); }
 .result-list {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  gap: 8px;
 }
-.result-list button {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  padding: 12px 10px;
-  border: none;
-  border-bottom: 1px dashed var(--line);
-  background: none;
-  cursor: pointer;
+.result-list > button {
+  display: grid;
+  grid-template-columns: 112px minmax(0, 1fr);
+  align-items: center;
+  gap: 20px;
+  min-width: 0;
+  width: 100%;
+  padding: 14px 16px;
+  border: 0;
+  border-radius: 16px;
+  background: transparent;
+  font: inherit;
   text-align: left;
-  font-family: inherit;
-  border-radius: var(--r-sm);
+  cursor: pointer;
+  transition: background .18s var(--ease-out);
 }
-.result-list button:last-child {
-  border-bottom: none;
+.result-list > button:hover { background: var(--surface-2); }
+.result-list > button:focus-visible {
+  outline: 2px solid var(--brand);
+  outline-offset: 2px;
 }
-.result-list button:hover {
-  background: var(--surface-2);
+.result-text {
+  display: grid;
+  gap: 8px;
+  min-width: 0;
 }
-.result-list strong {
-  font-size: var(--fs-sm);
+.result-title {
   color: var(--ink);
+  font-size: var(--fs-sm);
   font-weight: 600;
+  line-height: 1.6;
+  white-space: normal;
+  overflow-wrap: anywhere;
 }
-.result-list span {
-  font-size: var(--fs-xs);
+.result-meta {
   color: var(--ink-3);
+  font-size: var(--fs-xs);
+  line-height: 1.7;
+  white-space: normal;
+  overflow-wrap: anywhere;
 }
-.result-list mark {
-  background: var(--warning-soft);
-  color: var(--gold-strong);
-  padding: 0 2px;
-  border-radius: 3px;
+.result-section :deep(mark) {
+  padding: 1px 3px;
+  border-radius: 4px;
+  background: var(--accent);
+  color: var(--accent-ink);
 }
 .search-empty {
-  padding: var(--s-8);
-  text-align: center;
+  padding: 64px 24px;
   color: var(--ink-3);
-  font-size: var(--fs-sm);
-}<style scoped>
-.result-sections { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s-5); }
-.result-section { padding: var(--s-5); border: 1px solid var(--line); border-radius: var(--r-lg); background: var(--surface); }
-.result-section header { display: flex; align-items: center; justify-content: space-between; gap: var(--s-4); margin-bottom: var(--s-4); }
-.result-section h2 { margin: 0 0 3px; color: var(--ink); font-size: var(--fs-lg); }
-.result-section header span { color: var(--ink-3); font-size: var(--fs-xs); }
-.result-section header button { border: 0; background: transparent; color: var(--brand-strong); font-weight: 600; cursor: pointer; }
-.result-list { display: grid; }
-.result-list button { display: flex; align-items: center; justify-content: space-between; gap: var(--s-4); min-width: 0; padding: 12px 0; border: 0; border-bottom: 1px solid var(--line); background: transparent; text-align: left; cursor: pointer; }
-.result-list button:last-child { border-bottom: 0; }
-.result-list button:hover strong { color: var(--brand-strong); }
-.result-list strong { overflow: hidden; color: var(--ink); font-size: var(--fs-sm); text-overflow: ellipsis; white-space: nowrap; }
-.result-list span { flex: none; color: var(--ink-3); font-size: var(--fs-xs); }
-.search-empty { padding: 64px; color: var(--ink-3); text-align: center; }
-@media (max-width: 820px) { .result-sections { grid-template-columns: 1fr; } }
+  text-align: center;
+}
+@media (max-width: 600px) {
+  .result-section { padding: 18px 14px; }
+  .result-list > button {
+    grid-template-columns: 80px minmax(0, 1fr);
+    gap: 12px;
+    padding: 12px 0;
+    border-radius: 12px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .result-list > button { transition: none; }
+}
 </style>

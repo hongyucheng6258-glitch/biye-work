@@ -1,0 +1,16 @@
+{
+  "status": "PASS",
+  "elapsedMs": 33887,
+  "checks": [
+    "private multiline and keyboard focus",
+    "dark/light full cycle",
+    "15 services and Escape dismissal",
+    "message scroll stays within room",
+    "three AI modes and return to original",
+    "PDF metadata scrolls fully into view; chat/PDF round trip retains uploaded document"
+  ],
+  "activeSegmentsMs": [
+    27742,
+    6145
+  ]
+}

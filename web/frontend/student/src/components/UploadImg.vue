@@ -86,4 +86,33 @@ function remove(index) {
   padding: 2px;
   cursor: pointer;
 }
+/* 同频校园：本页展示布局，业务绑定保持原样 */
+.upload-img {
+  min-width: 0;
+  max-width: 100%;
+}
+.preview-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 14px;
+}
+.preview-item {
+  border-radius: 14px;
+  overflow: visible;
+}
+.preview-img {
+  border-radius: 14px;
+}
+.remove {
+  width: 28px;
+  height: 28px;
+  top: -6px;
+  right: -6px;
+  display: grid;
+  place-items: center;
+  background: var(--error);
+  color: #fff;
+  border-radius: 50%;
+}
 </style>

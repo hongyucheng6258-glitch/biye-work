@@ -1,0 +1,14 @@
+module.exports=async s=>{
+ const {page,admin,S,A,assert}=s;
+ const student=['/','/search?q=数学','/activity','/activity/publish','/activity/detail/'+s.ids.activity,'/activity/my-signup','/idle','/idle/publish','/idle/detail/'+s.ids.idle,'/idle/appointments','/lostfound','/lostfound/publish','/lostfound/detail/'+s.ids.lostfound,'/partner','/partner/publish','/qa','/qa/publish','/qa/detail/'+s.ids.qa,'/qa/my','/social?post='+s.ids.post,'/notice','/message','/chat','/chat/'+s.chatId,'/profile','/ai/chat','/ai/code','/ai/wrong','/draw-guess'];
+ const adm=['/dashboard','/user','/audit/activity','/audit/idle','/audit/lostfound','/audit/post','/audit/partner','/content','/ai/audit','/report','/notice','/notice/edit','/ai/config','/ai/logs','/system/config','/system'];
+ s.report.visual ||= [];
+ for(const width of [1440,390])for(const [p,base,routes,side] of [[page,S,student,'student'],[admin,A,adm,'admin']]){
+  await p.setViewportSize({width,height:width===390?844:900});
+  for(const route of routes){await p.goto(base+route);await p.locator('.el-loading-mask:visible').first().waitFor({state:'hidden'});await p.locator('.content').first().waitFor().catch(()=>{});const metrics=await p.evaluate(()=>({width:innerWidth,body:document.documentElement.scrollWidth,scrollY,images:[...document.images].filter(n=>n.getClientRects().length&&!n.complete).length,brokenImages:[...document.images].filter(n=>n.getClientRects().length&&n.complete&&n.naturalWidth===0).map(n=>({alt:n.alt,url:n.src})),dock:(()=>{const n=document.querySelector('.tp-dock');if(!n)return null;const b=n.getBoundingClientRect();return {width:b.width,height:b.height,bottom:b.bottom};})()}));const shot='visual-'+side+'-'+width+'-'+route.replace(/[^a-z0-9]/gi,'_')+'.png';await p.screenshot({path:s.out+'/'+shot,scale:'css'});s.report.visual.push({side,route,width,status:metrics.body>width+1?'FAIL':'PASS',metrics,shot});console.log('VISUAL '+side+' '+width+' '+route+' '+(metrics.body>width+1?'OVERFLOW':'FIT'));s.fs.writeFileSync(s.out+'/results.json',JSON.stringify(s.report,null,2));}
+ }
+ for(const p of [page,admin])await p.setViewportSize({width:1440,height:900});
+ for(const [p,url,button,name] of [[page,S+'/message','.wt-theme','student-dark-message'],[admin,A+'/audit/idle','button[title="切换主题"]','admin-dark-audit']]){await p.goto(url);await p.locator(button).click();await s.snap(p,name);await p.locator(button).click();}
+ const ctx=await s.browser.newContext({viewport:null,storageState:await s.sellerContext.storageState()});const native=await ctx.newPage();await native.goto(S+'/');await s.snap(native,'native-window-home');s.report.visual.push({side:'student',mode:'native-window',viewport:await native.evaluate(()=>({w:innerWidth,h:innerHeight,dpr:devicePixelRatio})),shot:'native-window-home.png'});await ctx.close();
+ return {visual:s.report.visual.length};
+};

@@ -11,6 +11,8 @@ import com.campus.platform.module.idle.entity.IdleReview;
 import com.campus.platform.module.idle.entity.IdleItem;
 
 import com.campus.platform.module.message.service.MessageService;
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.campus.platform.common.BizException;
@@ -30,6 +32,14 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.mockito.junit.jupiter.MockitoSettings;
 import org.mockito.quality.Strictness;
 
+import java.util.List;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicBoolean;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
@@ -37,6 +47,7 @@ import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -160,6 +171,8 @@ class IdleServiceTest {
         void appoint_happyPath() {
             when(idleItemMapper.selectById(ITEM_ID))
                     .thenReturn(item(Constants.AUDIT_PASS, Constants.IDLE_ON_SHELF));
+            when(idleItemMapper.update(org.mockito.ArgumentMatchers.<IdleItem>isNull(),
+                    org.mockito.ArgumentMatchers.<Wrapper<IdleItem>>any())).thenReturn(1);
             User buyer = new User();
             buyer.setId(BUYER);
             buyer.setNickname("小明");
@@ -171,11 +184,12 @@ class IdleServiceTest {
             assertThat(saved.getBuyerId()).isEqualTo(BUYER);
             assertThat(saved.getSellerId()).isEqualTo(SELLER);
 
-            ArgumentCaptor<IdleItem> itemCap = ArgumentCaptor.forClass(IdleItem.class);
-            verify(idleItemMapper).updateById(itemCap.capture());
-            assertThat(itemCap.getValue().getStatus())
-                    .as("预约后物品必须置为已预约，否则会被重复预约")
-                    .isEqualTo(Constants.IDLE_RESERVED);
+            ArgumentCaptor<Wrapper<IdleItem>> reservation = ArgumentCaptor.forClass(Wrapper.class);
+            verify(idleItemMapper).update(org.mockito.ArgumentMatchers.<IdleItem>isNull(), reservation.capture());
+            UpdateWrapper<IdleItem> condition = (UpdateWrapper<IdleItem>) reservation.getValue();
+            assertThat(condition.getSqlSet()).contains("status");
+            assertThat(condition.getSqlSegment()).contains("id", "audit_status", "status");
+            verify(idleItemMapper, never()).updateById(any(IdleItem.class));
 
             verify(messageService).send(eq(SELLER), eq(Constants.MSG_INTERACT),
                     anyString(), anyString(), eq(Constants.BIZ_IDLE), any());
@@ -215,6 +229,59 @@ class IdleServiceTest {
             assertThatThrownBy(() -> idleService.appoint(BUYER, ITEM_ID, appointDto()))
                     .isInstanceOf(BizException.class)
                     .hasFieldOrPropertyWithValue("code", ResultCode.DUPLICATE_OPERATION.getCode());
+        }
+
+        @Test
+        @DisplayName("并发预约同一商品：只允许一个请求创建预约")
+        void appoint_concurrentBuyers_onlyOneCanReserve() throws Exception {
+            CountDownLatch readers = new CountDownLatch(2);
+            CountDownLatch releaseReaders = new CountDownLatch(1);
+            AtomicBoolean claimed = new AtomicBoolean();
+            when(idleItemMapper.selectById(ITEM_ID)).thenAnswer(invocation -> {
+                readers.countDown();
+                if (!releaseReaders.await(5, TimeUnit.SECONDS)) {
+                    throw new AssertionError("两名买家未同时完成商品读取");
+                }
+                return item(Constants.AUDIT_PASS, Constants.IDLE_ON_SHELF);
+            });
+            when(idleItemMapper.update(org.mockito.ArgumentMatchers.<IdleItem>isNull(),
+                    org.mockito.ArgumentMatchers.<Wrapper<IdleItem>>any()))
+                    .thenAnswer(invocation -> claimed.compareAndSet(false, true) ? 1 : 0);
+            when(userMapper.selectById(anyLong())).thenAnswer(invocation -> {
+                User buyer = new User();
+                buyer.setId(invocation.getArgument(0));
+                buyer.setNickname("QA 买家");
+                return buyer;
+            });
+
+            ExecutorService pool = Executors.newFixedThreadPool(2);
+            try {
+                Future<Integer> first = pool.submit(() -> appointResult(BUYER));
+                Future<Integer> second = pool.submit(() -> appointResult(OTHER));
+                assertThat(readers.await(5, TimeUnit.SECONDS)).isTrue();
+                releaseReaders.countDown();
+
+                List<Integer> results = List.of(
+                        first.get(5, TimeUnit.SECONDS), second.get(5, TimeUnit.SECONDS));
+                assertThat(results).containsExactlyInAnyOrder(
+                        200, ResultCode.DUPLICATE_OPERATION.getCode());
+                verify(appointmentMapper, times(1)).insert(any(IdleAppointment.class));
+                verify(idleItemMapper, times(2)).update(
+                        org.mockito.ArgumentMatchers.<IdleItem>isNull(),
+                        org.mockito.ArgumentMatchers.<Wrapper<IdleItem>>any());
+            } finally {
+                releaseReaders.countDown();
+                pool.shutdownNow();
+            }
+        }
+
+        private int appointResult(Long buyerId) {
+            try {
+                idleService.appoint(buyerId, ITEM_ID, appointDto());
+                return 200;
+            } catch (BizException e) {
+                return e.getCode();
+            }
         }
     }
 
@@ -433,10 +500,13 @@ class IdleServiceTest {
         // 1) 预约
         IdleItem it = item(Constants.AUDIT_PASS, Constants.IDLE_ON_SHELF);
         when(idleItemMapper.selectById(ITEM_ID)).thenReturn(it);
+        when(idleItemMapper.update(org.mockito.ArgumentMatchers.<IdleItem>isNull(),
+                org.mockito.ArgumentMatchers.<Wrapper<IdleItem>>any())).thenReturn(1);
         when(userMapper.selectById(BUYER)).thenReturn(new User());
         IdleAppointment created = idleService.appoint(BUYER, ITEM_ID, appointDto());
         assertThat(created.getStatus()).isEqualTo(Constants.APPOINT_PENDING);
-        assertThat(it.getStatus()).isEqualTo(Constants.IDLE_RESERVED);
+        verify(idleItemMapper).update(org.mockito.ArgumentMatchers.<IdleItem>isNull(),
+                org.mockito.ArgumentMatchers.<Wrapper<IdleItem>>any());
 
         // 2) 卖家接受
         created.setId(APPOINT_ID);

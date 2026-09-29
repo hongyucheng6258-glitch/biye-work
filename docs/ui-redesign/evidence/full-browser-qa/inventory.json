@@ -1,0 +1,2359 @@
+{
+  "claims": [
+    {
+      "claim": "All existing student/admin capabilities retain visible, operable entry points.",
+      "status": "NOT_FULLY_PASSED",
+      "note": "实际范围和未通过项见结果报告，不以入口存在或宽度检查代替功能/视觉验收。"
+    },
+    {
+      "claim": "Real browser controls complete critical business flows.",
+      "status": "PARTIAL",
+      "note": "实际范围和未通过项见结果报告，不以入口存在或宽度检查代替功能/视觉验收。"
+    },
+    {
+      "claim": "State/permission/error/cancel modes behave correctly.",
+      "status": "PARTIAL",
+      "note": "实际范围和未通过项见结果报告，不以入口存在或宽度检查代替功能/视觉验收。"
+    },
+    {
+      "claim": "Mobile and desktop do not clip required reading/actions.",
+      "status": "NOT_FULLY_PASSED",
+      "note": "实际范围和未通过项见结果报告，不以入口存在或宽度检查代替功能/视觉验收。"
+    }
+  ],
+  "areas": [
+    {
+      "side": "student",
+      "area": "01. 活动详情与发起人管理",
+      "status": "ISSUES_FOUND",
+      "functional": "Use original visible controls and check persisted/visible outcome, plus reverse/cancel state where applicable.",
+      "visual": "Initial viewport and post-action state; desktop and mobile, dark and light.",
+      "evidence": [
+        "bug-activity-members.png"
+      ],
+      "checks": [
+        "ACTIVITY / publish dates, capacity and category",
+        "AUDIT / idle approve and buyer can view image",
+        "AUDIT / activity approve and visible to participant",
+        "AUDIT / lostfound approve",
+        "AUDIT / partner approve and list includes fields",
+        "AUDIT / post approve and shared target visible",
+        "ACTIVITY / signup cancel and confirmation",
+        "ACTIVITY / owner member table approves participant",
+        "ACTIVITY / owner QR image loads and actual sign-in content visible",
+        "ACTIVITY / participant cancels booking and status clears",
+        "ACTIVITY / My activities both tabs and published record",
+        "ACTIVITY / fresh signup for member-management test",
+        "ACTIVITY / detail member entry loads participant rows",
+        "ACTIVITY / published-table member management approves student",
+        "ACTIVITY EDIT / original fields preload, edit through own publication, resubmit approval",
+        "ACTIVITY / new applicant rejected and student sees persisted decision"
+      ],
+      "issueIds": [
+        "B03"
+      ],
+      "functionalLimit": "模块主流程覆盖；没有穷举所有事件绑定的状态、数据、权限组合。"
+    },
+    {
+      "side": "student",
+      "area": "02. 校园活动列表",
+      "status": "CORE_FLOW_TESTED",
+      "functional": "Use original visible controls and check persisted/visible outcome, plus reverse/cancel state where applicable.",
+      "visual": "Initial viewport and post-action state; desktop and mobile, dark and light.",
+      "evidence": [],
+      "checks": [
+        "LIST / activity keyword and visible category controls",
+        "LIST FILTERS / every idle, activity, lost and QA category",
+        "AI RECOMMEND CORRECTED / recommendation opens actual activity detail"
+      ],
+      "issueIds": [],
+      "functionalLimit": "模块主流程覆盖；没有穷举所有事件绑定的状态、数据、权限组合。"
+    },
+    {
+      "side": "student",
+      "area": "03. 我的报名与发布管理",
+      "status": "CORE_FLOW_TESTED",
+      "functional": "Use original visible controls and check persisted/visible outcome, plus reverse/cancel state where applicable.",
+      "visual": "Initial viewport and post-action state; desktop and mobile, dark and light.",
+      "evidence": [],
+      "checks": [
+        "ACTIVITY / publish dates, capacity and category",
+        "ACTIVITY / signup cancel and confirmation",
+        "ACTIVITY / owner member table approves participant",
+        "ACTIVITY / owner QR image loads and actual sign-in content visible",
+        "ACTIVITY / participant cancels booking and status clears",
+        "ACTIVITY / My activities both tabs and published record",
+        "ACTIVITY / fresh signup for member-management test",
+        "ACTIVITY / detail member entry loads participant rows",
+        "ACTIVITY / published-table member management approves student",
+        "ACTIVITY EDIT / original fields preload, edit through own publication, resubmit approval",
+        "ACTIVITY / new applicant rejected and student sees persisted decision"
+      ],
+      "issueIds": [],
+      "functionalLimit": "模块主流程覆盖；没有穷举所有事件绑定的状态、数据、权限组合。"
+    },
+    {
+      "side": "student",
+      "area": "04. 发布或编辑活动",
+      "status": "CORE_FLOW_TESTED",
+      "functional": "Use original visible controls and check persisted/visible outcome, plus reverse/cancel state where applicable.",
+      "visual": "Initial viewport and post-action state; desktop and mobile, dark and light.",
+      "evidence": [],
+      "checks": [
+        "ACTIVITY / publish dates, capacity and category",
+        "ACTIVITY / published-table member management approves student",
+        "ACTIVITY EDIT / original fields preload, edit through own publication, resubmit approval"
+      ],
+      "issueIds": [],
+      "functionalLimit": "模块主流程覆盖；没有穷举所有事件绑定的状态、数据、权限组合。"
+    },
+    {
+      "side": "student",
+      "area": "05. AI自由对话、校园向导与PDF",
+      "status": "ISSUES_FOUND",
+      "functional": "Use original visible controls and check persisted/visible outcome, plus reverse/cancel state where applicable.",
+      "visual": "Initial viewport and post-action state; desktop and mobile, dark and light.",
+      "evidence": [
+        "bug-ai-cancel-scene.png",
+        "initial-control-1440-_chat_2.png"
+      ],
+      "checks": [
+        "AI CHAT / create, rename and delete own empty session",
+        "AI CHAT / all three scenes and PDF invalid-file feedback",
+        "PDF / real document upload, parse, session binding and reload restoration",
+        "AI LIVE / scene switch cancels old stream without contaminating guide",
+        "AI LIVE / parsed PDF answers from document and persists session",
+        "AI LIVE / Python editor produces visible correction result",
+        "AI LIVE / streaming content and actual reload persistence",
+        "AI LIVE / independent guide request returns campus data",
+        "AI LIVE / independent PDF question returns grounded answer",
+        "AI CANCEL / switching scene during request enables sending in new scene"
+      ],
+      "issueIds": [
+        "B07",
+        "B08"
+      ],
+      "functionalLimit": "模块主流程覆盖；没有穷举所有事件绑定的状态、数据、权限组合。"
+    },
+    {
+      "side": "student",
+      "area": "06. AI代码诊所",
+      "status": "CORE_FLOW_TESTED",
+      "functional": "Use original visible controls and check persisted/visible outcome, plus reverse/cancel state where applicable.",
+      "visual": "Initial viewport and post-action state; desktop and mobile, dark and light.",
+      "evidence": [],
+      "checks": [
+        "AI LIVE / Python editor produces visible correction result"
+      ],
+      "issueIds": [],
+      "functionalLimit": "模块主流程覆盖；没有穷举所有事件绑定的状态、数据、权限组合。"
+    },
+    {
+      "side": "student",
+      "area": "07. 复习提纲与薄弱点报告",
+      "status": "ISSUES_FOUND",
+      "functional": "Use original visible controls and check persisted/visible outcome, plus reverse/cancel state where applicable.",
+      "visual": "Initial viewport and post-action state; desktop and mobile, dark and light.",
+      "evidence": [
+        "failure-248.png"
+      ],
+      "checks": [
+        "AI OUTLINE / successful backend response renders actual generated outline"
+      ],
+      "issueIds": [
+        "B06"
+      ],
+      "functionalLimit": "模块主流程覆盖；没有穷举所有事件绑定的状态、数据、权限组合。"
+    },
+    {
+      "side": "student",
+      "area": "08. 今日复习计划",
+      "status": "CORE_FLOW_TESTED",
+      "functional": "Use original visible controls and check persisted/visible outcome, plus reverse/cancel state where applicable.",
+      "visual": "Initial viewport and post-action state; desktop and mobile, dark and light.",
+      "evidence": [],
+      "checks": [
+        "WRONG LIVE / create pending item and today-review/AI plan entry"
+      ],
+      "issueIds": [],
+      "functionalLimit": "模块主流程覆盖；没有穷举所有事件绑定的状态、数据、权限组合。"
+    },
+    {
+      "side": "student",
+      "area": "09. 快速收录、拍照OCR与补充字段",
+      "status": "CORE_FLOW_TESTED",
+      "functional": "Use original visible controls and check persisted/visible outcome, plus reverse/cancel state where applicable.",
+      "visual": "Initial viewport and post-action state; desktop and mobile, dark and light.",
+      "evidence": [],
+      "checks": [
+        "WRONGBOOK / blank validation and manual add without AI",
+        "WRONG LIVE / create pending item and today-review/AI plan entry",
+        "OCR / actual local worker recognizes upload, image preview and removal"
+      ],
+      "issueIds": [],
+      "functionalLimit": "模块主流程覆盖；没有穷举所有事件绑定的状态、数据、权限组合。"
+    },
+    {
+      "side": "student",
+      "area": "10. AI同类题练习",
+      "status": "CORE_FLOW_TESTED",
+      "functional": "Use original visible controls and check persisted/visible outcome, plus reverse/cancel state where applicable.",
+      "visual": "Initial viewport and post-action state; desktop and mobile, dark and light.",
+      "evidence": [],
+      "checks": [
+        "WRONG LIVE / AI explanation and structured practice, answer, analysis, save"
+      ],
+      "issueIds": [],
+      "functionalLimit": "模块主流程覆盖；没有穷举所有事件绑定的状态、数据、权限组合。"
+    },
+    {
+      "side": "student",
+      "area": "11. 错题详情与复习反馈",
+      "status": "CORE_FLOW_TESTED",
+      "functional": "Use original visible controls and check persisted/visible outcome, plus reverse/cancel state where applicable.",
+      "visual": "Initial viewport and post-action state; desktop and mobile, dark and light.",
+      "evidence": [],
+      "checks": [
+        "WRONGBOOK / real mastery feedback and persisted review count",
+        "WRONG LIVE / AI explanation and structured practice, answer, analysis, save"
+      ],
+      "issueIds": [],
+      "functionalLimit": "模块主流程覆盖；没有穷举所有事件绑定的状态、数据、权限组合。"
+    },
+    {
+      "side": "student",
+      "area": "12. 错题总览、筛选与管理",
+      "status": "CORE_FLOW_TESTED",
+      "functional": "Use original visible controls and check persisted/visible outcome, plus reverse/cancel state where applicable.",
+      "visual": "Initial viewport and post-action state; desktop and mobile, dark and light.",
+      "evidence": [],
+      "checks": [
+        "WRONGBOOK / blank validation and manual add without AI",
+        "WRONGBOOK / real mastery feedback and persisted review count",
+        "WRONGBOOK / status, subject and all sorting filters",
+        "WRONGBOOK / edit, reload, select and cancel selection",
+        "WRONG DELETE / own item cancel preserves record and confirm removes"
+      ],
+      "issueIds": [],
+      "functionalLimit": "模块主流程覆盖；没有穷举所有事件绑定的状态、数据、权限组合。"
+    },
+    {
+      "side": "student",
+      "area": "13. 独立3D校园",
+      "status": "CORE_FLOW_TESTED",
+      "functional": "Use original visible controls and check persisted/visible outcome, plus reverse/cancel state where applicable.",
+      "visual": "Initial viewport and post-action state; desktop and mobile, dark and light.",
+      "evidence": [],
+      "checks": [
+        "3D / scene boots, explore, comfort, quality, fullscreen and movement",
+        "3D / returning student home removes scene"
+      ],
+      "issueIds": [],
+      "functionalLimit": "模块主流程覆盖；没有穷举所有事件绑定的状态、数据、权限组合。"
+    },
+    {
+      "side": "student",
+      "area": "14. 3D房间内真实业务工作区",
+      "status": "CORE_FLOW_TESTED",
+      "functional": "Use original visible controls and check persisted/visible outcome, plus reverse/cancel state where applicable.",
+      "visual": "Initial viewport and post-action state; desktop and mobile, dark and light.",
+      "evidence": [],
+      "checks": [
+        "3D WORKSPACE / 校园活动 opens same data and closes via UI",
+        "3D WORKSPACE / 闲置互换 opens same data and closes via UI",
+        "3D WORKSPACE / 学习搭子 opens same data and closes via UI",
+        "3D WORKSPACE / 失物招领 opens same data and closes via UI",
+        "3D WORKSPACE / 互助问答 opens same data and closes via UI",
+        "3D WORKSPACE / 动态广场 opens same data and closes via UI",
+        "3D WORKSPACE / 你画我猜 opens same data and closes via UI",
+        "3D WORKSPACE / 校园公告 opens same data and closes via UI",
+        "3D WORKSPACE / 消息中心 opens same data and closes via UI",
+        "3D WORKSPACE / AI 答疑 opens same data and closes via UI",
+        "3D WORKSPACE / 代码纠错 opens same data and closes via UI",
+        "3D WORKSPACE / 错题本 opens same data and closes via UI",
+        "3D PORTAL / actual tree label opens portal and returns to student home",
+        "3D NESTED / filtered activity, detail navigation, back restoration and Escape"
+      ],
+      "issueIds": [],
+      "functionalLimit": "模块主流程覆盖；没有穷举所有事件绑定的状态、数据、权限组合。"
+    },
+    {
+      "side": "student",
+      "area": "15. 实时私信",
+      "status": "ISSUES_FOUND",
+      "functional": "Use original visible controls and check persisted/visible outcome, plus reverse/cancel state where applicable.",
+      "visual": "Initial viewport and post-action state; desktop and mobile, dark and light.",
+      "evidence": [
+        "initial-control-1440-_chat_2.png"
+      ],
+      "checks": [
+        "CHAT / contact item owner and context opens correct detail",
+        "CHAT / two users exchange text live without refreshing",
+        "CHAT / sender sees read receipt after peer opens conversation",
+        "CHAT / image upload delivery and preview",
+        "CHAT / history survives reload and earlier-history control terminates",
+        "CHAT / network loss shows failure and retry delivers once",
+        "CHAT / cancel block confirmation preserves ability to chat",
+        "CHAT / hide conversation persists after data load and reload",
+        "CHAT BLOCK / own new account creates conversation, blocks and cannot send",
+        "RESPONSIVE / 1440 /ai/chat input reachable without dock occlusion",
+        "RESPONSIVE / 1440 /chat/2 input reachable without dock occlusion",
+        "RESPONSIVE / 390 /ai/chat input reachable without dock occlusion",
+        "RESPONSIVE / 390 /chat/2 input reachable without dock occlusion"
+      ],
+      "issueIds": [
+        "B08"
+      ],
+      "functionalLimit": "模块主流程覆盖；没有穷举所有事件绑定的状态、数据、权限组合。"
+    },
+    {
+      "side": "student",
+      "area": "16. 私信会话列表",
+      "status": "CORE_FLOW_TESTED",
+      "functional": "Use original visible controls and check persisted/visible outcome, plus reverse/cancel state where applicable.",
+      "visual": "Initial viewport and post-action state; desktop and mobile, dark and light.",
+      "evidence": [],
+      "checks": [
+        "CHAT / history survives reload and earlier-history control terminates",
+        "CHAT / hide conversation persists after data load and reload"
+      ],
+      "issueIds": [],
+      "functionalLimit": "模块主流程覆盖；没有穷举所有事件绑定的状态、数据、权限组合。"
+    },
+    {
+      "side": "student",
+      "area": "17. 你画我猜大厅",
+      "status": "CORE_FLOW_TESTED",
+      "functional": "Use original visible controls and check persisted/visible outcome, plus reverse/cancel state where applicable.",
+      "visual": "Initial viewport and post-action state; desktop and mobile, dark and light.",
+      "evidence": [],
+      "checks": [
+        "DRAW / room-code validation, create private room with settings",
+        "DRAW / wrong password denied, correct joins both users live",
+        "DRAW / actual mouse strokes sync, colors, eraser, save and guessed score",
+        "DRAW PUBLIC / settings, public join, reconnect and synchronized mouse drawing",
+        "DRAW PUBLIC / ended round artwork save, finish, gallery and preview"
+      ],
+      "issueIds": [],
+      "functionalLimit": "模块主流程覆盖；没有穷举所有事件绑定的状态、数据、权限组合。"
+    },
+    {
+      "side": "student",
+      "area": "18. 实时绘画、猜词、聊天与作品保存",
+      "status": "CORE_FLOW_TESTED",
+      "functional": "Use original visible controls and check persisted/visible outcome, plus reverse/cancel state where applicable.",
+      "visual": "Initial viewport and post-action state; desktop and mobile, dark and light.",
+      "evidence": [],
+      "checks": [
+        "DRAW / room-code validation, create private room with settings",
+        "DRAW / wrong password denied, correct joins both users live",
+        "DRAW / actual mouse strokes sync, colors, eraser, save and guessed score",
+        "DRAW PUBLIC / settings, public join, reconnect and synchronized mouse drawing",
+        "DRAW PUBLIC / ended round artwork save, finish, gallery and preview"
+      ],
+      "issueIds": [],
+      "functionalLimit": "模块主流程覆盖；没有穷举所有事件绑定的状态、数据、权限组合。"
+    },
+    {
+      "side": "student",
+      "area": "19. 首页聚合门户",
+      "status": "CORE_FLOW_TESTED",
+      "functional": "Use original visible controls and check persisted/visible outcome, plus reverse/cancel state where applicable.",
+      "visual": "Initial viewport and post-action state; desktop and mobile, dark and light.",
+      "evidence": [],
+      "checks": [
+        "SHELL / theme cycles and persists on refresh",
+        "SHELL / full menu all 15 service targets and close",
+        "SHELL / dock 活动",
+        "SHELL / dock 学习",
+        "SHELL / dock 生活",
+        "SHELL / dock 我的",
+        "SHELL / dock 发现",
+        "3D PORTAL / actual tree label opens portal and returns to student home",
+        "HEADER / all five publish commands keep actual existing routes",
+        "HEADER / profile, wrong book, message and logout-login cycle"
+      ],
+      "issueIds": [],
+      "functionalLimit": "模块主流程覆盖；没有穷举所有事件绑定的状态、数据、权限组合。"
+    },
+    {
+      "side": "student",
+      "area": "20. 闲置详情、预约及互评",
+      "status": "CORE_FLOW_TESTED",
+      "functional": "Use original visible controls and check persisted/visible outcome, plus reverse/cancel state where applicable.",
+      "visual": "Initial viewport and post-action state; desktop and mobile, dark and light.",
+      "evidence": [],
+      "checks": [
+        "IDLE / blank title rejected without submission",
+        "IDLE / publish all fields and actual uploaded photo",
+        "IDLE / appointment cancel preserves unbooked state",
+        "IDLE / buyer books and seller receives pending appointment",
+        "IDLE / seller accepts and buyer sees accepted",
+        "IDLE / confirm finished produces review actions for both users",
+        "IDLE / buyer rates trade and result persists",
+        "IDLE / seller rates trade and result persists",
+        "IDLE CORRECTED / rejected item edit prefill and approval",
+        "IDLE FINAL / approved off-shelf record relist, offline and relist cycle",
+        "IDLE FINAL / seller rejection reflected on both sides after state change"
+      ],
+      "issueIds": [],
+      "functionalLimit": "模块主流程覆盖；没有穷举所有事件绑定的状态、数据、权限组合。"
+    },
+    {
+      "side": "student",
+      "area": "21. 闲置互换列表",
+      "status": "CORE_FLOW_TESTED",
+      "functional": "Use original visible controls and check persisted/visible outcome, plus reverse/cancel state where applicable.",
+      "visual": "Initial viewport and post-action state; desktop and mobile, dark and light.",
+      "evidence": [],
+      "checks": [
+        "LIST / idle keyword and visible category controls",
+        "LIST FILTERS / every idle, activity, lost and QA category"
+      ],
+      "issueIds": [],
+      "functionalLimit": "模块主流程覆盖；没有穷举所有事件绑定的状态、数据、权限组合。"
+    },
+    {
+      "side": "student",
+      "area": "22. 买家与卖家预约",
+      "status": "CORE_FLOW_TESTED",
+      "functional": "Use original visible controls and check persisted/visible outcome, plus reverse/cancel state where applicable.",
+      "visual": "Initial viewport and post-action state; desktop and mobile, dark and light.",
+      "evidence": [],
+      "checks": [
+        "IDLE / blank title rejected without submission",
+        "IDLE / publish all fields and actual uploaded photo",
+        "IDLE / appointment cancel preserves unbooked state",
+        "IDLE / buyer books and seller receives pending appointment",
+        "IDLE / seller accepts and buyer sees accepted",
+        "IDLE / confirm finished produces review actions for both users",
+        "IDLE / buyer rates trade and result persists",
+        "IDLE / seller rates trade and result persists",
+        "IDLE CORRECTED / rejected item edit prefill and approval",
+        "IDLE FINAL / approved off-shelf record relist, offline and relist cycle",
+        "IDLE FINAL / seller rejection reflected on both sides after state change"
+      ],
+      "issueIds": [],
+      "functionalLimit": "模块主流程覆盖；没有穷举所有事件绑定的状态、数据、权限组合。"
+    },
+    {
+      "side": "student",
+      "area": "23. 闲置发布编辑与AI估价",
+      "status": "CORE_FLOW_TESTED",
+      "functional": "Use original visible controls and check persisted/visible outcome, plus reverse/cancel state where applicable.",
+      "visual": "Initial viewport and post-action state; desktop and mobile, dark and light.",
+      "evidence": [],
+      "checks": [
+        "IDLE / blank title rejected without submission",
+        "IDLE / publish all fields and actual uploaded photo",
+        "IDLE / appointment cancel preserves unbooked state",
+        "IDLE / buyer books and seller receives pending appointment",
+        "IDLE / seller accepts and buyer sees accepted",
+        "IDLE / confirm finished produces review actions for both users",
+        "IDLE / buyer rates trade and result persists",
+        "IDLE / seller rates trade and result persists",
+        "IDLE CORRECTED / rejected item edit prefill and approval",
+        "AI ASSIST / activity real compose, fill and discard",
+        "AI ASSIST / idle real compose, fill and discard",
+        "AI ASSIST / lostfound real compose, fill and discard",
+        "AI ASSIST / actual 润色 and form fill",
+        "AI ASSIST / actual 扩写 and form fill",
+        "AI ASSIST / actual 精简 and form fill",
+        "AI ESTIMATE / actual range and reference",
+        "AI ASSIST CORRECTED / post generated draft fills actual publish textarea",
+        "IDLE FINAL / approved off-shelf record relist, offline and relist cycle",
+        "IDLE FINAL / seller rejection reflected on both sides after state change"
+      ],
+      "issueIds": [],
+      "functionalLimit": "模块主流程覆盖；没有穷举所有事件绑定的状态、数据、权限组合。"
+    },
+    {
+      "side": "student",
+      "area": "24. 学生登录",
+      "status": "CORE_FLOW_TESTED",
+      "functional": "Use original visible controls and check persisted/visible outcome, plus reverse/cancel state where applicable.",
+      "visual": "Initial viewport and post-action state; desktop and mobile, dark and light.",
+      "evidence": [],
+      "checks": [
+        "AUTH / blank login fields show validation",
+        "AUTH / captcha refresh and password show/hide",
+        "AUTH / wrong password gives feedback and keeps login",
+        "AUTH / seller logs in through real UI",
+        "AUTH / buyer logs in through real UI",
+        "AUTH / administrator validation, remember and login",
+        "AUTH / registration validates malformed number and password mismatch",
+        "AUTH / UI registration persists account and auto logs in",
+        "AUTH / anonymous protected link preserves redirect",
+        "HEADER / profile, wrong book, message and logout-login cycle"
+      ],
+      "issueIds": [],
+      "functionalLimit": "模块主流程覆盖；没有穷举所有事件绑定的状态、数据、权限组合。"
+    },
+    {
+      "side": "student",
+      "area": "25. 学生注册",
+      "status": "CORE_FLOW_TESTED",
+      "functional": "Use original visible controls and check persisted/visible outcome, plus reverse/cancel state where applicable.",
+      "visual": "Initial viewport and post-action state; desktop and mobile, dark and light.",
+      "evidence": [],
+      "checks": [
+        "AUTH / registration validates malformed number and password mismatch",
+        "AUTH / UI registration persists account and auto logs in"
+      ],
+      "issueIds": [],
+      "functionalLimit": "模块主流程覆盖；没有穷举所有事件绑定的状态、数据、权限组合。"
+    },
+    {
+      "side": "student",
+      "area": "26. 失物详情与认领归还",
+      "status": "CORE_FLOW_TESTED",
+      "functional": "Use original visible controls and check persisted/visible outcome, plus reverse/cancel state where applicable.",
+      "visual": "Initial viewport and post-action state; desktop and mobile, dark and light.",
+      "evidence": [],
+      "checks": [
+        "LOST / publish found item with time/contact/type",
+        "LOST / participant submits claim with proof and contact",
+        "LOST / completed return persists for both accounts",
+        "LOST / owner rejects claim, claimant sees result; owner marks complete",
+        "LOST EDIT / own fresh record edits, resubmits and shows updated details"
+      ],
+      "issueIds": [],
+      "functionalLimit": "模块主流程覆盖；没有穷举所有事件绑定的状态、数据、权限组合。"
+    },
+    {
+      "side": "student",
+      "area": "27. 失物与招领列表",
+      "status": "CORE_FLOW_TESTED",
+      "functional": "Use original visible controls and check persisted/visible outcome, plus reverse/cancel state where applicable.",
+      "visual": "Initial viewport and post-action state; desktop and mobile, dark and light.",
+      "evidence": [],
+      "checks": [
+        "LIST / lostfound keyword and visible category controls",
+        "LIST FILTERS / every idle, activity, lost and QA category"
+      ],
+      "issueIds": [],
+      "functionalLimit": "模块主流程覆盖；没有穷举所有事件绑定的状态、数据、权限组合。"
+    },
+    {
+      "side": "student",
+      "area": "28. 失物发布编辑与AI匹配",
+      "status": "CORE_FLOW_TESTED",
+      "functional": "Use original visible controls and check persisted/visible outcome, plus reverse/cancel state where applicable.",
+      "visual": "Initial viewport and post-action state; desktop and mobile, dark and light.",
+      "evidence": [],
+      "checks": [
+        "AI MATCH CORRECTED / lost form description and actual match",
+        "LOST EDIT / own fresh record edits, resubmits and shows updated details"
+      ],
+      "issueIds": [],
+      "functionalLimit": "模块主流程覆盖；没有穷举所有事件绑定的状态、数据、权限组合。"
+    },
+    {
+      "side": "student",
+      "area": "29. 维护状态",
+      "status": "CORE_FLOW_TESTED",
+      "functional": "Use original visible controls and check persisted/visible outcome, plus reverse/cancel state where applicable.",
+      "visual": "Initial viewport and post-action state; desktop and mobile, dark and light.",
+      "evidence": [],
+      "checks": [
+        "MAINTENANCE / manual maintenance page retries and returns when service available",
+        "MAINTENANCE LIVE / actual isolated toggle redirects student and restored mode reopens home"
+      ],
+      "issueIds": [],
+      "functionalLimit": "模块主流程覆盖；没有穷举所有事件绑定的状态、数据、权限组合。"
+    },
+    {
+      "side": "student",
+      "area": "30. 系统消息中心",
+      "status": "CORE_FLOW_TESTED",
+      "functional": "Use original visible controls and check persisted/visible outcome, plus reverse/cancel state where applicable.",
+      "visual": "Initial viewport and post-action state; desktop and mobile, dark and light.",
+      "evidence": [],
+      "checks": [
+        "MESSAGE / four filters, mark all read and private shortcut",
+        "MOBILE / message categories remain horizontal and mark-all visible"
+      ],
+      "issueIds": [],
+      "functionalLimit": "模块主流程覆盖；没有穷举所有事件绑定的状态、数据、权限组合。"
+    },
+    {
+      "side": "student",
+      "area": "31. 公告正文",
+      "status": "CORE_FLOW_TESTED",
+      "functional": "Use original visible controls and check persisted/visible outcome, plus reverse/cancel state where applicable.",
+      "visual": "Initial viewport and post-action state; desktop and mobile, dark and light.",
+      "evidence": [],
+      "checks": [
+        "ADMIN NOTICE / empty validation, markdown preview and draft save",
+        "ADMIN NOTICE / edit waits for data, offline, republish and delete cancel"
+      ],
+      "issueIds": [],
+      "functionalLimit": "模块主流程覆盖；没有穷举所有事件绑定的状态、数据、权限组合。"
+    },
+    {
+      "side": "student",
+      "area": "32. 公告列表",
+      "status": "CORE_FLOW_TESTED",
+      "functional": "Use original visible controls and check persisted/visible outcome, plus reverse/cancel state where applicable.",
+      "visual": "Initial viewport and post-action state; desktop and mobile, dark and light.",
+      "evidence": [],
+      "checks": [
+        "ADMIN NOTICE / empty validation, markdown preview and draft save",
+        "ADMIN NOTICE / edit waits for data, offline, republish and delete cancel"
+      ],
+      "issueIds": [],
+      "functionalLimit": "模块主流程覆盖；没有穷举所有事件绑定的状态、数据、权限组合。"
+    },
+    {
+      "side": "student",
+      "area": "33. 学习搭子列表",
+      "status": "CORE_FLOW_TESTED",
+      "functional": "Use original visible controls and check persisted/visible outcome, plus reverse/cancel state where applicable.",
+      "visual": "Initial viewport and post-action state; desktop and mobile, dark and light.",
+      "evidence": [],
+      "checks": [
+        "PARTNER / publish all five input fields",
+        "LIST / partner keyword and visible category controls",
+        "PARTNER / published card, contact and peer profile route"
+      ],
+      "issueIds": [],
+      "functionalLimit": "模块主流程覆盖；没有穷举所有事件绑定的状态、数据、权限组合。"
+    },
+    {
+      "side": "student",
+      "area": "34. 搭子信息与AI匹配",
+      "status": "CORE_FLOW_TESTED",
+      "functional": "Use original visible controls and check persisted/visible outcome, plus reverse/cancel state where applicable.",
+      "visual": "Initial viewport and post-action state; desktop and mobile, dark and light.",
+      "evidence": [],
+      "checks": [
+        "PARTNER / publish all five input fields",
+        "PARTNER / published card, contact and peer profile route",
+        "AI MATCH / partner results or explicit empty state"
+      ],
+      "issueIds": [],
+      "functionalLimit": "模块主流程覆盖；没有穷举所有事件绑定的状态、数据、权限组合。"
+    },
+    {
+      "side": "student",
+      "area": "35. 个人中心与自主管理",
+      "status": "ISSUES_FOUND",
+      "functional": "Use original visible controls and check persisted/visible outcome, plus reverse/cancel state where applicable.",
+      "visual": "Initial viewport and post-action state; desktop and mobile, dark and light.",
+      "evidence": [
+        "failure-65.png"
+      ],
+      "checks": [
+        "PROFILE / all five management tabs retain contents",
+        "PROFILE / edit nickname, gender, phone, biography persist",
+        "PROFILE / avatar uploads and persists after reload",
+        "PROFILE / password change, logout and login restore",
+        "FAVORITE / idle add, profile visibility, removal",
+        "FAVORITE / normal tab switch loads idle favorite and removes it"
+      ],
+      "issueIds": [
+        "B01"
+      ],
+      "functionalLimit": "模块主流程覆盖；没有穷举所有事件绑定的状态、数据、权限组合。"
+    },
+    {
+      "side": "student",
+      "area": "36. 问题、AI参考与最佳回答",
+      "status": "CORE_FLOW_TESTED",
+      "functional": "Use original visible controls and check persisted/visible outcome, plus reverse/cancel state where applicable.",
+      "visual": "Initial viewport and post-action state; desktop and mobile, dark and light.",
+      "evidence": [],
+      "checks": [
+        "QA / publish question and description",
+        "QA / other student answers through UI",
+        "QA / owner accepts best answer and solved state persists",
+        "QA / My questions includes solved owned question",
+        "AI QA / actual reference response visible"
+      ],
+      "issueIds": [],
+      "functionalLimit": "模块主流程覆盖；没有穷举所有事件绑定的状态、数据、权限组合。"
+    },
+    {
+      "side": "student",
+      "area": "37. 互助问答列表",
+      "status": "CORE_FLOW_TESTED",
+      "functional": "Use original visible controls and check persisted/visible outcome, plus reverse/cancel state where applicable.",
+      "visual": "Initial viewport and post-action state; desktop and mobile, dark and light.",
+      "evidence": [],
+      "checks": [
+        "LIST / qa keyword and visible category controls",
+        "LIST FILTERS / every idle, activity, lost and QA category"
+      ],
+      "issueIds": [],
+      "functionalLimit": "模块主流程覆盖；没有穷举所有事件绑定的状态、数据、权限组合。"
+    },
+    {
+      "side": "student",
+      "area": "38. 我的问题",
+      "status": "CORE_FLOW_TESTED",
+      "functional": "Use original visible controls and check persisted/visible outcome, plus reverse/cancel state where applicable.",
+      "visual": "Initial viewport and post-action state; desktop and mobile, dark and light.",
+      "evidence": [],
+      "checks": [
+        "QA / My questions includes solved owned question"
+      ],
+      "issueIds": [],
+      "functionalLimit": "模块主流程覆盖；没有穷举所有事件绑定的状态、数据、权限组合。"
+    },
+    {
+      "side": "student",
+      "area": "39. 发布问题",
+      "status": "CORE_FLOW_TESTED",
+      "functional": "Use original visible controls and check persisted/visible outcome, plus reverse/cancel state where applicable.",
+      "visual": "Initial viewport and post-action state; desktop and mobile, dark and light.",
+      "evidence": [],
+      "checks": [
+        "QA / publish question and description"
+      ],
+      "issueIds": [],
+      "functionalLimit": "模块主流程覆盖；没有穷举所有事件绑定的状态、数据、权限组合。"
+    },
+    {
+      "side": "student",
+      "area": "40. 跨模块搜索",
+      "status": "CORE_FLOW_TESTED",
+      "functional": "Use original visible controls and check persisted/visible outcome, plus reverse/cancel state where applicable.",
+      "visual": "Initial viewport and post-action state; desktop and mobile, dark and light.",
+      "evidence": [],
+      "checks": [
+        "SEARCH / all four category tabs and return all",
+        "SEARCH / header category directs to chosen module",
+        "SEARCH / header form submits existing keyword and images",
+        "EXPLORATORY / unusual search, no results, back navigation and top restoration",
+        "SEARCH PHOTOS CORRECTED / real result covers load, uploaded thumbnail and schematic flag",
+        "EXPLORATORY / 35 seconds of keyboard, menu escape, theme, search and back navigation"
+      ],
+      "issueIds": [],
+      "functionalLimit": "模块主流程覆盖；没有穷举所有事件绑定的状态、数据、权限组合。"
+    },
+    {
+      "side": "student",
+      "area": "41. 动态广场与分享落地",
+      "status": "ISSUES_FOUND",
+      "functional": "Use original visible controls and check persisted/visible outcome, plus reverse/cancel state where applicable.",
+      "visual": "Initial viewport and post-action state; desktop and mobile, dark and light.",
+      "evidence": [
+        "bug-social-comment.png"
+      ],
+      "checks": [
+        "SOCIAL / publish text and photo",
+        "SOCIAL / like and unlike persist visibly",
+        "SOCIAL / comment submit and reload persists text/count",
+        "SOCIAL / favorite and unfavorite UI cycle",
+        "SOCIAL / share produces matching deep link and returns to list",
+        "SOCIAL / comment expansion reproduced failure"
+      ],
+      "issueIds": [
+        "B02"
+      ],
+      "functionalLimit": "模块主流程覆盖；没有穷举所有事件绑定的状态、数据、权限组合。"
+    },
+    {
+      "side": "student",
+      "area": "42. 他人主页与内联内容组件",
+      "status": "CORE_FLOW_TESTED",
+      "functional": "Use original visible controls and check persisted/visible outcome, plus reverse/cancel state where applicable.",
+      "visual": "Initial viewport and post-action state; desktop and mobile, dark and light.",
+      "evidence": [],
+      "checks": [
+        "USER / author home and all four content tabs",
+        "PARTNER / published card, contact and peer profile route"
+      ],
+      "issueIds": [],
+      "functionalLimit": "模块主流程覆盖；没有穷举所有事件绑定的状态、数据、权限组合。"
+    },
+    {
+      "side": "student",
+      "area": "43. 通用AI辅助发布",
+      "status": "CORE_FLOW_TESTED",
+      "functional": "Use original visible controls and check persisted/visible outcome, plus reverse/cancel state where applicable.",
+      "visual": "Initial viewport and post-action state; desktop and mobile, dark and light.",
+      "evidence": [],
+      "checks": [
+        "AI ASSIST / activity real compose, fill and discard",
+        "AI ASSIST / idle real compose, fill and discard",
+        "AI ASSIST / lostfound real compose, fill and discard",
+        "AI ASSIST / actual 润色 and form fill",
+        "AI ASSIST / actual 扩写 and form fill",
+        "AI ASSIST / actual 精简 and form fill",
+        "AI ASSIST CORRECTED / post generated draft fills actual publish textarea"
+      ],
+      "issueIds": [],
+      "functionalLimit": "模块主流程覆盖；没有穷举所有事件绑定的状态、数据、权限组合。"
+    },
+    {
+      "side": "student",
+      "area": "44. 登录注册共用壳",
+      "status": "CORE_FLOW_TESTED",
+      "functional": "Use original visible controls and check persisted/visible outcome, plus reverse/cancel state where applicable.",
+      "visual": "Initial viewport and post-action state; desktop and mobile, dark and light.",
+      "evidence": [],
+      "checks": [
+        "AUTH / blank login fields show validation",
+        "AUTH / captcha refresh and password show/hide",
+        "AUTH / wrong password gives feedback and keeps login",
+        "AUTH / seller logs in through real UI",
+        "AUTH / buyer logs in through real UI",
+        "AUTH / administrator validation, remember and login",
+        "AUTH / registration validates malformed number and password mismatch",
+        "AUTH / UI registration persists account and auto logs in",
+        "AUTH / anonymous protected link preserves redirect"
+      ],
+      "issueIds": [],
+      "functionalLimit": "模块主流程覆盖；没有穷举所有事件绑定的状态、数据、权限组合。"
+    },
+    {
+      "side": "student",
+      "area": "45. 私信业务上下文",
+      "status": "CORE_FLOW_TESTED",
+      "functional": "Use original visible controls and check persisted/visible outcome, plus reverse/cancel state where applicable.",
+      "visual": "Initial viewport and post-action state; desktop and mobile, dark and light.",
+      "evidence": [],
+      "checks": [
+        "CHAT / contact item owner and context opens correct detail"
+      ],
+      "issueIds": [],
+      "functionalLimit": "模块主流程覆盖；没有穷举所有事件绑定的状态、数据、权限组合。"
+    },
+    {
+      "side": "student",
+      "area": "46. 私信文本图片输入",
+      "status": "CORE_FLOW_TESTED",
+      "functional": "Use original visible controls and check persisted/visible outcome, plus reverse/cancel state where applicable.",
+      "visual": "Initial viewport and post-action state; desktop and mobile, dark and light.",
+      "evidence": [],
+      "checks": [
+        "CHAT / contact item owner and context opens correct detail",
+        "CHAT / two users exchange text live without refreshing",
+        "CHAT / sender sees read receipt after peer opens conversation",
+        "CHAT / image upload delivery and preview",
+        "CHAT / history survives reload and earlier-history control terminates",
+        "CHAT / network loss shows failure and retry delivers once",
+        "CHAT / cancel block confirmation preserves ability to chat",
+        "CHAT / hide conversation persists after data load and reload",
+        "CHAT BLOCK / own new account creates conversation, blocks and cannot send"
+      ],
+      "issueIds": [],
+      "functionalLimit": "模块主流程覆盖；没有穷举所有事件绑定的状态、数据、权限组合。"
+    },
+    {
+      "side": "student",
+      "area": "47. 私信气泡状态",
+      "status": "CORE_FLOW_TESTED",
+      "functional": "Use original visible controls and check persisted/visible outcome, plus reverse/cancel state where applicable.",
+      "visual": "Initial viewport and post-action state; desktop and mobile, dark and light.",
+      "evidence": [],
+      "checks": [
+        "CHAT / sender sees read receipt after peer opens conversation",
+        "CHAT / network loss shows failure and retry delivers once"
+      ],
+      "issueIds": [],
+      "functionalLimit": "模块主流程覆盖；没有穷举所有事件绑定的状态、数据、权限组合。"
+    },
+    {
+      "side": "student",
+      "area": "48. AI聊天气泡",
+      "status": "CORE_FLOW_TESTED",
+      "functional": "Use original visible controls and check persisted/visible outcome, plus reverse/cancel state where applicable.",
+      "visual": "Initial viewport and post-action state; desktop and mobile, dark and light.",
+      "evidence": [],
+      "checks": [
+        "AI LIVE / scene switch cancels old stream without contaminating guide",
+        "AI LIVE / parsed PDF answers from document and persists session",
+        "AI LIVE / Python editor produces visible correction result",
+        "AI LIVE / streaming content and actual reload persistence",
+        "AI LIVE / independent guide request returns campus data",
+        "AI LIVE / independent PDF question returns grounded answer"
+      ],
+      "issueIds": [],
+      "functionalLimit": "模块主流程覆盖；没有穷举所有事件绑定的状态、数据、权限组合。"
+    },
+    {
+      "side": "student",
+      "area": "49. 动态评论分页",
+      "status": "BLOCKED",
+      "functional": "Use original visible controls and check persisted/visible outcome, plus reverse/cancel state where applicable.",
+      "visual": "Initial viewport and post-action state; desktop and mobile, dark and light.",
+      "evidence": [
+        "bug-social-comment.png"
+      ],
+      "checks": [
+        "SOCIAL / comment submit and reload persists text/count",
+        "SOCIAL / comment expansion reproduced failure"
+      ],
+      "issueIds": [
+        "B02"
+      ],
+      "functionalLimit": "模块主流程覆盖；没有穷举所有事件绑定的状态、数据、权限组合。"
+    },
+    {
+      "side": "student",
+      "area": "50. 基础空态容器",
+      "status": "PRESENTATION_REVIEWED_IN_HOST",
+      "functional": "Use original visible controls and check persisted/visible outcome, plus reverse/cancel state where applicable.",
+      "visual": "Initial viewport and post-action state; desktop and mobile, dark and light.",
+      "evidence": [],
+      "checks": [],
+      "issueIds": [],
+      "functionalLimit": "模块主流程覆盖；没有穷举所有事件绑定的状态、数据、权限组合。"
+    },
+    {
+      "side": "student",
+      "area": "51. 闲置失物通用卡",
+      "status": "PRESENTATION_REVIEWED_IN_HOST",
+      "functional": "Use original visible controls and check persisted/visible outcome, plus reverse/cancel state where applicable.",
+      "visual": "Initial viewport and post-action state; desktop and mobile, dark and light.",
+      "evidence": [],
+      "checks": [],
+      "issueIds": [],
+      "functionalLimit": "模块主流程覆盖；没有穷举所有事件绑定的状态、数据、权限组合。"
+    },
+    {
+      "side": "student",
+      "area": "52. 图片上传与头像更换",
+      "status": "PRESENTATION_REVIEWED_IN_HOST",
+      "functional": "Use original visible controls and check persisted/visible outcome, plus reverse/cancel state where applicable.",
+      "visual": "Initial viewport and post-action state; desktop and mobile, dark and light.",
+      "evidence": [],
+      "checks": [],
+      "issueIds": [],
+      "functionalLimit": "模块主流程覆盖；没有穷举所有事件绑定的状态、数据、权限组合。"
+    },
+    {
+      "side": "student",
+      "area": "53. 品牌头像",
+      "status": "PRESENTATION_REVIEWED_IN_HOST",
+      "functional": "Use original visible controls and check persisted/visible outcome, plus reverse/cancel state where applicable.",
+      "visual": "Initial viewport and post-action state; desktop and mobile, dark and light.",
+      "evidence": [],
+      "checks": [],
+      "issueIds": [],
+      "functionalLimit": "模块主流程覆盖；没有穷举所有事件绑定的状态、数据、权限组合。"
+    },
+    {
+      "side": "student",
+      "area": "54. 品牌按钮",
+      "status": "PRESENTATION_REVIEWED_IN_HOST",
+      "functional": "Use original visible controls and check persisted/visible outcome, plus reverse/cancel state where applicable.",
+      "visual": "Initial viewport and post-action state; desktop and mobile, dark and light.",
+      "evidence": [],
+      "checks": [],
+      "issueIds": [],
+      "functionalLimit": "模块主流程覆盖；没有穷举所有事件绑定的状态、数据、权限组合。"
+    },
+    {
+      "side": "student",
+      "area": "55. 品牌卡片",
+      "status": "PRESENTATION_REVIEWED_IN_HOST",
+      "functional": "Use original visible controls and check persisted/visible outcome, plus reverse/cancel state where applicable.",
+      "visual": "Initial viewport and post-action state; desktop and mobile, dark and light.",
+      "evidence": [],
+      "checks": [],
+      "issueIds": [],
+      "functionalLimit": "模块主流程覆盖；没有穷举所有事件绑定的状态、数据、权限组合。"
+    },
+    {
+      "side": "student",
+      "area": "56. 空加载错误三态",
+      "status": "PRESENTATION_REVIEWED_IN_HOST",
+      "functional": "Use original visible controls and check persisted/visible outcome, plus reverse/cancel state where applicable.",
+      "visual": "Initial viewport and post-action state; desktop and mobile, dark and light.",
+      "evidence": [],
+      "checks": [],
+      "issueIds": [],
+      "functionalLimit": "模块主流程覆盖；没有穷举所有事件绑定的状态、数据、权限组合。"
+    },
+    {
+      "side": "student",
+      "area": "57. 活动封面生成图",
+      "status": "PRESENTATION_REVIEWED_IN_HOST",
+      "functional": "Use original visible controls and check persisted/visible outcome, plus reverse/cancel state where applicable.",
+      "visual": "Initial viewport and post-action state; desktop and mobile, dark and light.",
+      "evidence": [],
+      "checks": [],
+      "issueIds": [],
+      "functionalLimit": "模块主流程覆盖；没有穷举所有事件绑定的状态、数据、权限组合。"
+    },
+    {
+      "side": "student",
+      "area": "58. 通用信息流卡",
+      "status": "PRESENTATION_REVIEWED_IN_HOST",
+      "functional": "Use original visible controls and check persisted/visible outcome, plus reverse/cancel state where applicable.",
+      "visual": "Initial viewport and post-action state; desktop and mobile, dark and light.",
+      "evidence": [],
+      "checks": [],
+      "issueIds": [],
+      "functionalLimit": "模块主流程覆盖；没有穷举所有事件绑定的状态、数据、权限组合。"
+    },
+    {
+      "side": "student",
+      "area": "59. 门户Hero",
+      "status": "PRESENTATION_REVIEWED_IN_HOST",
+      "functional": "Use original visible controls and check persisted/visible outcome, plus reverse/cancel state where applicable.",
+      "visual": "Initial viewport and post-action state; desktop and mobile, dark and light.",
+      "evidence": [],
+      "checks": [],
+      "issueIds": [],
+      "functionalLimit": "模块主流程覆盖；没有穷举所有事件绑定的状态、数据、权限组合。"
+    },
+    {
+      "side": "student",
+      "area": "60. 品牌输入框",
+      "status": "PRESENTATION_REVIEWED_IN_HOST",
+      "functional": "Use original visible controls and check persisted/visible outcome, plus reverse/cancel state where applicable.",
+      "visual": "Initial viewport and post-action state; desktop and mobile, dark and light.",
+      "evidence": [],
+      "checks": [],
+      "issueIds": [],
+      "functionalLimit": "模块主流程覆盖；没有穷举所有事件绑定的状态、数据、权限组合。"
+    },
+    {
+      "side": "student",
+      "area": "61. 统一页头",
+      "status": "PRESENTATION_REVIEWED_IN_HOST",
+      "functional": "Use original visible controls and check persisted/visible outcome, plus reverse/cancel state where applicable.",
+      "visual": "Initial viewport and post-action state; desktop and mobile, dark and light.",
+      "evidence": [],
+      "checks": [],
+      "issueIds": [],
+      "functionalLimit": "模块主流程覆盖；没有穷举所有事件绑定的状态、数据、权限组合。"
+    },
+    {
+      "side": "student",
+      "area": "62. 首页服务快捷入口",
+      "status": "PRESENTATION_REVIEWED_IN_HOST",
+      "functional": "Use original visible controls and check persisted/visible outcome, plus reverse/cancel state where applicable.",
+      "visual": "Initial viewport and post-action state; desktop and mobile, dark and light.",
+      "evidence": [],
+      "checks": [],
+      "issueIds": [],
+      "functionalLimit": "模块主流程覆盖；没有穷举所有事件绑定的状态、数据、权限组合。"
+    },
+    {
+      "side": "student",
+      "area": "63. 横向标签选择",
+      "status": "PRESENTATION_REVIEWED_IN_HOST",
+      "functional": "Use original visible controls and check persisted/visible outcome, plus reverse/cancel state where applicable.",
+      "visual": "Initial viewport and post-action state; desktop and mobile, dark and light.",
+      "evidence": [],
+      "checks": [],
+      "issueIds": [],
+      "functionalLimit": "模块主流程覆盖；没有穷举所有事件绑定的状态、数据、权限组合。"
+    },
+    {
+      "side": "student",
+      "area": "64. 状态标签",
+      "status": "PRESENTATION_REVIEWED_IN_HOST",
+      "functional": "Use original visible controls and check persisted/visible outcome, plus reverse/cancel state where applicable.",
+      "visual": "Initial viewport and post-action state; desktop and mobile, dark and light.",
+      "evidence": [],
+      "checks": [],
+      "issueIds": [],
+      "functionalLimit": "模块主流程覆盖；没有穷举所有事件绑定的状态、数据、权限组合。"
+    },
+    {
+      "side": "student",
+      "area": "65. 明暗主题切换",
+      "status": "CORE_FLOW_TESTED",
+      "functional": "Use original visible controls and check persisted/visible outcome, plus reverse/cancel state where applicable.",
+      "visual": "Initial viewport and post-action state; desktop and mobile, dark and light.",
+      "evidence": [],
+      "checks": [
+        "SHELL / theme cycles and persists on refresh",
+        "EXPLORATORY / unusual search, no results, back navigation and top restoration",
+        "EXPLORATORY / 35 seconds of keyboard, menu escape, theme, search and back navigation"
+      ],
+      "issueIds": [],
+      "functionalLimit": "模块主流程覆盖；没有穷举所有事件绑定的状态、数据、权限组合。"
+    },
+    {
+      "side": "admin",
+      "area": "A01 登录 — `views/login/Login.vue`",
+      "status": "CORE_FLOW_TESTED",
+      "functional": "Use original visible controls and check persisted/visible outcome, plus reverse/cancel state where applicable.",
+      "visual": "Initial viewport and post-action state; desktop and mobile, dark and light.",
+      "evidence": [],
+      "checks": [
+        "AUTH / administrator validation, remember and login",
+        "ADMIN HEADER / pending notification, account shortcut and logout-login cycle"
+      ],
+      "issueIds": [],
+      "functionalLimit": "模块主流程覆盖；没有穷举所有事件绑定的状态、数据、权限组合。"
+    },
+    {
+      "side": "admin",
+      "area": "A02 数据看板 — `views/dashboard/Dashboard.vue`",
+      "status": "CORE_FLOW_TESTED",
+      "functional": "Use original visible controls and check persisted/visible outcome, plus reverse/cancel state where applicable.",
+      "visual": "Initial viewport and post-action state; desktop and mobile, dark and light.",
+      "evidence": [],
+      "checks": [
+        "ADMIN / route dashboard loads protected content"
+      ],
+      "issueIds": [],
+      "functionalLimit": "模块主流程覆盖；没有穷举所有事件绑定的状态、数据、权限组合。"
+    },
+    {
+      "side": "admin",
+      "area": "A03 用户管理 — `views/user/UserList.vue`",
+      "status": "ISSUES_FOUND",
+      "functional": "Use original visible controls and check persisted/visible outcome, plus reverse/cancel state where applicable.",
+      "visual": "Initial viewport and post-action state; desktop and mobile, dark and light.",
+      "evidence": [
+        "bug-admin-global-search.png"
+      ],
+      "checks": [
+        "ADMIN USER / search, ban cancel, ban and unban new test account",
+        "ADMIN RESET / cancel then reset own registered account and restore via profile"
+      ],
+      "issueIds": [
+        "B05"
+      ],
+      "functionalLimit": "模块主流程覆盖；没有穷举所有事件绑定的状态、数据、权限组合。"
+    },
+    {
+      "side": "admin",
+      "area": "A04 五类内容审核 — `views/audit/AuditModule.vue`",
+      "status": "CORE_FLOW_TESTED",
+      "functional": "Use original visible controls and check persisted/visible outcome, plus reverse/cancel state where applicable.",
+      "visual": "Initial viewport and post-action state; desktop and mobile, dark and light.",
+      "evidence": [],
+      "checks": [
+        "AUDIT / idle approve and buyer can view image",
+        "AUDIT / activity approve and visible to participant",
+        "AUDIT / lostfound approve",
+        "AUDIT / partner approve and list includes fields",
+        "AUDIT / post approve and shared target visible",
+        "ADMIN FILTERS / audit queue, AI audit tabs, log scenes and result statuses"
+      ],
+      "issueIds": [],
+      "functionalLimit": "模块主流程覆盖；没有穷举所有事件绑定的状态、数据、权限组合。"
+    },
+    {
+      "side": "admin",
+      "area": "A05 内容管理与签到报表 — `views/content/ContentManage.vue`",
+      "status": "CORE_FLOW_TESTED",
+      "functional": "Use original visible controls and check persisted/visible outcome, plus reverse/cancel state where applicable.",
+      "visual": "Initial viewport and post-action state; desktop and mobile, dark and light.",
+      "evidence": [],
+      "checks": [
+        "ADMIN CONTENT / all tabs, temporary off/on and real downloads"
+      ],
+      "issueIds": [],
+      "functionalLimit": "模块主流程覆盖；没有穷举所有事件绑定的状态、数据、权限组合。"
+    },
+    {
+      "side": "admin",
+      "area": "A06 AI 内容审核 — `views/ai/AiContentAudit.vue`",
+      "status": "CORE_FLOW_TESTED",
+      "functional": "Use original visible controls and check persisted/visible outcome, plus reverse/cancel state where applicable.",
+      "visual": "Initial viewport and post-action state; desktop and mobile, dark and light.",
+      "evidence": [],
+      "checks": [
+        "ADMIN FILTERS / audit queue, AI audit tabs, log scenes and result statuses",
+        "ADMIN AI AUDIT / own deterministic fixtures restore and maintain block"
+      ],
+      "issueIds": [],
+      "functionalLimit": "模块主流程覆盖；没有穷举所有事件绑定的状态、数据、权限组合。"
+    },
+    {
+      "side": "admin",
+      "area": "A07 举报处理 — `views/report/ReportList.vue`",
+      "status": "CORE_FLOW_TESTED",
+      "functional": "Use original visible controls and check persisted/visible outcome, plus reverse/cancel state where applicable.",
+      "visual": "Initial viewport and post-action state; desktop and mobile, dark and light.",
+      "evidence": [],
+      "checks": [
+        "REPORT / idle report submits, profile displays pending record",
+        "ADMIN REPORT / filters, required explanation, disposition and student result",
+        "REPORT / own new account warn disposition and state",
+        "REPORT / own new account ban disposition and state"
+      ],
+      "issueIds": [],
+      "functionalLimit": "模块主流程覆盖；没有穷举所有事件绑定的状态、数据、权限组合。"
+    },
+    {
+      "side": "admin",
+      "area": "A08 公告管理 — `views/notice/NoticeManage.vue`",
+      "status": "CORE_FLOW_TESTED",
+      "functional": "Use original visible controls and check persisted/visible outcome, plus reverse/cancel state where applicable.",
+      "visual": "Initial viewport and post-action state; desktop and mobile, dark and light.",
+      "evidence": [],
+      "checks": [
+        "ADMIN NOTICE / empty validation, markdown preview and draft save",
+        "ADMIN NOTICE / edit waits for data, offline, republish and delete cancel"
+      ],
+      "issueIds": [],
+      "functionalLimit": "模块主流程覆盖；没有穷举所有事件绑定的状态、数据、权限组合。"
+    },
+    {
+      "side": "admin",
+      "area": "A09 公告编辑 — `views/notice/NoticeEdit.vue`",
+      "status": "CORE_FLOW_TESTED",
+      "functional": "Use original visible controls and check persisted/visible outcome, plus reverse/cancel state where applicable.",
+      "visual": "Initial viewport and post-action state; desktop and mobile, dark and light.",
+      "evidence": [],
+      "checks": [
+        "ADMIN NOTICE / empty validation, markdown preview and draft save",
+        "ADMIN NOTICE / edit waits for data, offline, republish and delete cancel"
+      ],
+      "issueIds": [],
+      "functionalLimit": "模块主流程覆盖；没有穷举所有事件绑定的状态、数据、权限组合。"
+    },
+    {
+      "side": "admin",
+      "area": "A10 AI 配置与提示词模板 — `views/ai/AiConfig.vue`",
+      "status": "CORE_FLOW_TESTED",
+      "functional": "Use original visible controls and check persisted/visible outcome, plus reverse/cancel state where applicable.",
+      "visual": "Initial viewport and post-action state; desktop and mobile, dark and light.",
+      "evidence": [],
+      "checks": [
+        "ADMIN TEMPLATE / visible switch create disabled and edit",
+        "ADMIN AI AUDIT / own deterministic fixtures restore and maintain block"
+      ],
+      "issueIds": [],
+      "functionalLimit": "模块主流程覆盖；没有穷举所有事件绑定的状态、数据、权限组合。"
+    },
+    {
+      "side": "admin",
+      "area": "A11 AI 调用日志 — `views/ai/AiLogs.vue`",
+      "status": "CORE_FLOW_TESTED",
+      "functional": "Use original visible controls and check persisted/visible outcome, plus reverse/cancel state where applicable.",
+      "visual": "Initial viewport and post-action state; desktop and mobile, dark and light.",
+      "evidence": [],
+      "checks": [
+        "ADMIN FILTERS / audit queue, AI audit tabs, log scenes and result statuses"
+      ],
+      "issueIds": [],
+      "functionalLimit": "模块主流程覆盖；没有穷举所有事件绑定的状态、数据、权限组合。"
+    },
+    {
+      "side": "admin",
+      "area": "A12 系统配置 — `views/system/SystemConfig.vue`",
+      "status": "CORE_FLOW_TESTED",
+      "functional": "Use original visible controls and check persisted/visible outcome, plus reverse/cancel state where applicable.",
+      "visual": "Initial viewport and post-action state; desktop and mobile, dark and light.",
+      "evidence": [],
+      "checks": [
+        "ADMIN SYSTEM / all config groups, refresh and unchanged save",
+        "MAINTENANCE / manual maintenance page retries and returns when service available",
+        "ADMIN CONFIG / site slogan edit persists and original restored",
+        "MAINTENANCE LIVE / actual isolated toggle redirects student and restored mode reopens home"
+      ],
+      "issueIds": [],
+      "functionalLimit": "模块主流程覆盖；没有穷举所有事件绑定的状态、数据、权限组合。"
+    },
+    {
+      "side": "admin",
+      "area": "A13 管理员账号 — `views/system/AdminList.vue`",
+      "status": "ISSUES_FOUND",
+      "functional": "Use original visible controls and check persisted/visible outcome, plus reverse/cancel state where applicable.",
+      "visual": "Initial viewport and post-action state; desktop and mobile, dark and light.",
+      "evidence": [
+        "failure-130.png"
+      ],
+      "checks": [
+        "ADMIN ACCOUNT / create reviewer and edit nickname without changing password",
+        "ADMIN ACCOUNT / editing with explicit password works",
+        "ADMIN PERMISSIONS / reviewer real login and protected routes"
+      ],
+      "issueIds": [
+        "B04"
+      ],
+      "functionalLimit": "模块主流程覆盖；没有穷举所有事件绑定的状态、数据、权限组合。"
+    }
+  ],
+  "controls": [
+    {
+      "file": "web/frontend/student/src/App.vue",
+      "events": []
+    },
+    {
+      "file": "web/frontend/student/src/components/AiAssistPanel.vue",
+      "events": [
+        "v-model=\"tab\"",
+        "v-model=\"topic\"",
+        "v-model=\"extra\"",
+        "@click=\"doCompose\"",
+        "@click=\"fillDraft\"",
+        "@click=\"draft = null\"",
+        "v-model=\"source\"",
+        "v-model=\"action\"",
+        "@click=\"doPolish\"",
+        "@click=\"fillPolish\"",
+        "@click=\"polished = ''\""
+      ]
+    },
+    {
+      "file": "web/frontend/student/src/components/auth/AuthCampusShell.vue",
+      "events": []
+    },
+    {
+      "file": "web/frontend/student/src/components/chat/BizContextCard.vue",
+      "events": [
+        "@click=\"openContext\""
+      ]
+    },
+    {
+      "file": "web/frontend/student/src/components/chat/ChatComposer.vue",
+      "events": [
+        "v-model=\"text\"",
+        "@keydown.enter.exact.prevent=\"submit\"",
+        "@click=\"submit\""
+      ]
+    },
+    {
+      "file": "web/frontend/student/src/components/chat/MessageBubble.vue",
+      "events": [
+        "@click=\"$emit('retry', message)\""
+      ]
+    },
+    {
+      "file": "web/frontend/student/src/components/ChatBubble.vue",
+      "events": []
+    },
+    {
+      "file": "web/frontend/student/src/components/CommentList.vue",
+      "events": [
+        "v-model=\"content\"",
+        "@keyup.enter=\"submit\"",
+        "@click=\"submit\"",
+        "@click=\"goUser(c.userId)\"",
+        "@click=\"goUser(c.userId)\"",
+        "@current-change=\"onPageChange\""
+      ]
+    },
+    {
+      "file": "web/frontend/student/src/components/EmptyBox.vue",
+      "events": []
+    },
+    {
+      "file": "web/frontend/student/src/components/ItemCard.vue",
+      "events": [
+        "@click=\"$emit('click')\"",
+        "@error=\"onError\""
+      ]
+    },
+    {
+      "file": "web/frontend/student/src/components/UploadImg.vue",
+      "events": [
+        "@click=\"remove(i)\""
+      ]
+    },
+    {
+      "file": "web/frontend/student/src/components/wt/SearchResultCover.vue",
+      "events": [
+        "@error=\"onError\""
+      ]
+    },
+    {
+      "file": "web/frontend/student/src/components/wt/WtAvatar.vue",
+      "events": []
+    },
+    {
+      "file": "web/frontend/student/src/components/wt/WtButton.vue",
+      "events": []
+    },
+    {
+      "file": "web/frontend/student/src/components/wt/WtCard.vue",
+      "events": []
+    },
+    {
+      "file": "web/frontend/student/src/components/wt/WtEmptyState.vue",
+      "events": []
+    },
+    {
+      "file": "web/frontend/student/src/components/wt/WtEventArt.vue",
+      "events": []
+    },
+    {
+      "file": "web/frontend/student/src/components/wt/WtFeedCard.vue",
+      "events": []
+    },
+    {
+      "file": "web/frontend/student/src/components/wt/WtHero.vue",
+      "events": []
+    },
+    {
+      "file": "web/frontend/student/src/components/wt/WtInput.vue",
+      "events": []
+    },
+    {
+      "file": "web/frontend/student/src/components/wt/WtPageHeader.vue",
+      "events": []
+    },
+    {
+      "file": "web/frontend/student/src/components/wt/WtQuickEntry.vue",
+      "events": []
+    },
+    {
+      "file": "web/frontend/student/src/components/wt/WtTabs.vue",
+      "events": []
+    },
+    {
+      "file": "web/frontend/student/src/components/wt/WtTag.vue",
+      "events": []
+    },
+    {
+      "file": "web/frontend/student/src/components/wt/WtThemeToggle.vue",
+      "events": []
+    },
+    {
+      "file": "web/frontend/student/src/layout/MainLayout.vue",
+      "events": [
+        "v-model=\"drawerOpen\"",
+        "@click=\"go('/')\"",
+        "@click=\"drawerOpen = false\"",
+        "@click=\"drawerOpen = false\"",
+        "@click=\"drawerOpen = false\"",
+        "@click=\"drawerOpen = true\"",
+        "@click=\"go('/')\"",
+        "@submit.prevent=\"onSearch\"",
+        "v-model=\"searchType\"",
+        "v-model=\"keyword\"",
+        "@click=\"go('/search')\"",
+        "@click=\"goMessage\"",
+        "@command=\"onPublishCommand\"",
+        "@command=\"onCommand\"",
+        "@click=\"go('/login')\"",
+        "@click=\"go('/')\"",
+        "@click=\"go('/notice')\"",
+        "@click=\"go('/chat')\"",
+        "@click=\"go('/ai/wrong')\"",
+        "@click=\"go('/profile')\"",
+        "@click=\"go('/maintenance')\"",
+        "@click=\"go('/maintenance')\"",
+        "@click=\"drawerOpen = true\""
+      ]
+    },
+    {
+      "file": "web/frontend/student/src/views/activity/Detail.vue",
+      "events": [
+        "@click=\"$router.push('/activity')\"",
+        "@click=\"goUser(act.userId)\"",
+        "@click=\"toggleFavorite\"",
+        "@click=\"reportVisible = true\"",
+        "@click=\"loadMembers\"",
+        "@click=\"showQrcode\"",
+        "@click=\"signupVisible = true\"",
+        "@click=\"doCancelSignup\"",
+        "@click=\"contactPublisher\"",
+        "v-model=\"signupVisible\"",
+        "v-model=\"remark\"",
+        "@click=\"signupVisible = false\"",
+        "@click=\"doSignup\"",
+        "v-model=\"membersVisible\"",
+        "@click=\"approve(row, true)\"",
+        "@click=\"approve(row, false)\"",
+        "@current-change=\"onMembersPageChange\"",
+        "v-model=\"qrVisible\"",
+        "v-model=\"reportVisible\"",
+        "v-model=\"reportReasonType\"",
+        "v-model=\"reportReason\"",
+        "@click=\"reportVisible = false\"",
+        "@click=\"doReport\""
+      ]
+    },
+    {
+      "file": "web/frontend/student/src/views/activity/List.vue",
+      "events": [
+        "@click=\"load\"",
+        "@click=\"goPublish\"",
+        "v-model=\"keyword\"",
+        "@keyup.enter=\"search\"",
+        "@clear=\"search\"",
+        "@click=\"search\"",
+        "@click=\"selectCategory('')\"",
+        "@click=\"selectCategory(c)\"",
+        "@click=\"$router.push('/activity/my-signup')\"",
+        "@click=\"loadRecommend\"",
+        "@click=\"$router.push(`/activity/detail/${r.id}`)\"",
+        "@click=\"$router.push(`/activity/detail/${a.id}`)\"",
+        "v-model:current-page=\"pageNum\"",
+        "@current-change=\"load\""
+      ]
+    },
+    {
+      "file": "web/frontend/student/src/views/activity/MySignup.vue",
+      "events": [
+        "v-model=\"tab\"",
+        "v-model:current-page=\"signupPage\"",
+        "@current-change=\"loadSignups\"",
+        "@click=\"editActivity(row)\"",
+        "@click=\"openMembers(row)\"",
+        "v-model:current-page=\"pubPage\"",
+        "@current-change=\"loadPublished\"",
+        "v-model=\"memberDialog\"",
+        "@click=\"handleMember(row, true)\"",
+        "@click=\"handleMember(row, false)\"",
+        "@current-change=\"onMemberPageChange\""
+      ]
+    },
+    {
+      "file": "web/frontend/student/src/views/activity/Publish.vue",
+      "events": [
+        "@fill=\"applyAssist\"",
+        "v-model=\"form.title\"",
+        "v-model=\"form.category\"",
+        "v-model=\"form.description\"",
+        "v-model=\"form.location\"",
+        "v-model=\"form.startTime\"",
+        "v-model=\"form.endTime\"",
+        "v-model=\"form.signupDeadline\"",
+        "v-model=\"form.maxMembers\"",
+        "v-model=\"form.images\"",
+        "@click=\"submit\"",
+        "@click=\"$router.back()\""
+      ]
+    },
+    {
+      "file": "web/frontend/student/src/views/ai/ChatView.vue",
+      "events": [
+        "@click=\"newSession\"",
+        "@click=\"switchSession(s)\"",
+        "@command=\"(cmd) => onSessionCmd(cmd, s)\"",
+        "v-model=\"tab\"",
+        "@click=\"askQuick(q)\"",
+        "v-model=\"question\"",
+        "@keydown.enter.exact.prevent=\"send\"",
+        "@click=\"send\""
+      ]
+    },
+    {
+      "file": "web/frontend/student/src/views/ai/CodeFix.vue",
+      "events": [
+        "v-model=\"language\"",
+        "@click=\"fix\"",
+        "v-model=\"extra\"",
+        "v-model:value=\"code\"",
+        "v-model=\"code\"",
+        "@focus=\"plainEditorInUse = true\""
+      ]
+    },
+    {
+      "file": "web/frontend/student/src/views/ai/components/WrongOutlineDialog.vue",
+      "events": [
+        "v-model=\"visible\"",
+        "@click=\"run({ mode: 'subject', subject: currentSubject })\"",
+        "@click=\"run({ mode: 'selected', wrongQuestionIds: selectedIds })\"",
+        "@click=\"run({ mode: 'all' })\"",
+        "@click=\"cancel\"",
+        "@click=\"visible = false\"",
+        "@click=\"retry\"",
+        "@click=\"reset\""
+      ]
+    },
+    {
+      "file": "web/frontend/student/src/views/ai/components/WrongPlanDialog.vue",
+      "events": [
+        "v-model=\"visible\"",
+        "@click=\"run\"",
+        "@click=\"visible = false\"",
+        "@click=\"visible = false\"",
+        "@click=\"run\"",
+        "@click=\"run\""
+      ]
+    },
+    {
+      "file": "web/frontend/student/src/views/ai/components/WrongQuickAdd.vue",
+      "events": [
+        "v-model=\"visible\"",
+        "v-model=\"form.question\"",
+        "@change=\"onFileChange\"",
+        "@click=\"fileInput?.click()\"",
+        "@click=\"clearImage\"",
+        "v-model=\"form.subject\"",
+        "v-model=\"form.myAnswer\"",
+        "v-model=\"form.correctAnswer\"",
+        "v-model=\"form.analysis\"",
+        "v-model=\"form.questionType\"",
+        "v-model=\"form.chapter\"",
+        "v-model=\"form.difficulty\"",
+        "v-model=\"form.errorReason\"",
+        "v-model=\"form.tag\"",
+        "v-model=\"form.knowledgePoints\"",
+        "v-model=\"form.note\"",
+        "@click=\"visible = false\"",
+        "@click=\"saveAndClose\"",
+        "@click=\"saveAndContinue\""
+      ]
+    },
+    {
+      "file": "web/frontend/student/src/views/ai/components/WrongQuizDrawer.vue",
+      "events": [
+        "v-model=\"visible\"",
+        "@click=\"visible = false\"",
+        "@click=\"visible = false\"",
+        "@click=\"generate\"",
+        "v-model=\"myAnswer\"",
+        "v-model=\"myAnswer\"",
+        "@click=\"submit\"",
+        "@click=\"visible = false\"",
+        "@click=\"showAnalysis = !showAnalysis\"",
+        "@click=\"generate\"",
+        "@click=\"saveToWrongBook\""
+      ]
+    },
+    {
+      "file": "web/frontend/student/src/views/ai/components/WrongReviewDrawer.vue",
+      "events": [
+        "v-model=\"visible\"",
+        "@click=\"retryAnalyze\"",
+        "@click=\"retryAnalyze\"",
+        "@click=\"explain\"",
+        "@click=\"emit('quiz', wq)\"",
+        "@click=\"explain\"",
+        "v-model=\"userAnswer\"",
+        "@click=\"level = lv.value\"",
+        "@click=\"visible = false\"",
+        "@click=\"submit\"",
+        "@click=\"finish\""
+      ]
+    },
+    {
+      "file": "web/frontend/student/src/views/ai/WrongBook.vue",
+      "events": [
+        "@click=\"quickAddVisible = true\"",
+        "@click=\"openTodayReview\"",
+        "@click=\"planVisible = true\"",
+        "@click=\"openWeaknessReport\"",
+        "v-model=\"statusFilter\"",
+        "@change=\"reload\"",
+        "@change=\"selectSubject('')\"",
+        "@change=\"selectSubject(s)\"",
+        "v-model=\"sort\"",
+        "@change=\"reload\"",
+        "@click=\"openOutlineFromSelected\"",
+        "@click=\"selectedIds = []\"",
+        "@change=\"toggleSelect(wq.id)\"",
+        "@click=\"openReview(wq.id)\"",
+        "@click=\"openReview(wq.id)\"",
+        "@click=\"openQuiz(wq)\"",
+        "@click=\"openEdit(wq)\"",
+        "@click=\"remove(wq)\"",
+        "v-model:current-page=\"pageNum\"",
+        "@current-change=\"load\"",
+        "v-model=\"todayVisible\"",
+        "@click=\"todayVisible = false\"",
+        "@click=\"startReviewFromToday(t.id)\"",
+        "v-model=\"editVisible\"",
+        "v-model=\"editForm.question\"",
+        "v-model=\"editForm.subject\"",
+        "v-model=\"editForm.myAnswer\"",
+        "v-model=\"editForm.correctAnswer\"",
+        "v-model=\"editForm.analysis\"",
+        "v-model=\"editForm.questionType\"",
+        "v-model=\"editForm.chapter\"",
+        "v-model=\"editForm.difficulty\"",
+        "v-model=\"editForm.errorReason\"",
+        "v-model=\"editForm.tag\"",
+        "v-model=\"editForm.knowledgePoints\"",
+        "v-model=\"editForm.note\"",
+        "@click=\"editVisible = false\"",
+        "@click=\"saveEdit\"",
+        "v-model=\"quickAddVisible\"",
+        "@saved=\"reload\"",
+        "v-model=\"reviewVisible\"",
+        "@done=\"onReviewDone\"",
+        "@quiz=\"openQuiz\"",
+        "v-model=\"quizVisible\"",
+        "@saved=\"reload\"",
+        "v-model=\"outlineVisible\"",
+        "v-model=\"planVisible\""
+      ]
+    },
+    {
+      "file": "web/frontend/student/src/views/campus3d/Campus3D.vue",
+      "events": [
+        "@click=\"goHome\"",
+        "@click=\"mapOpen = true\"",
+        "@click=\"toggleFullscreen\"",
+        "@click=\"boot\"",
+        "@click=\"startExplore\"",
+        "@click=\"openService(roomPrompt.item.id)\"",
+        "@click=\"exitRoom\"",
+        "@click=\"cancelTravel\"",
+        "@click=\"toggleComfort\"",
+        "v-model=\"quality\"",
+        "@change=\"setQuality\"",
+        "@click=\"toggleFullscreen\"",
+        "@click=\"mapOpen = true\"",
+        "@close=\"closeWorkspace\"",
+        "@click.self=\"mapOpen = false\"",
+        "@click=\"mapOpen = false\"",
+        "@click=\"goHall\"",
+        "@click=\"navigateToService(item.id)\""
+      ]
+    },
+    {
+      "file": "web/frontend/student/src/views/campus3d/CampusWorkspace.vue",
+      "events": [
+        "@click=\"emit('close')\"",
+        "@click=\"roomRouter?.back()\"",
+        "@click=\"roomRouter?.push(landing)\"",
+        "@click=\"mountPages\""
+      ]
+    },
+    {
+      "file": "web/frontend/student/src/views/chat/ChatRoom.vue",
+      "events": [
+        "@click=\"$router.push('/chat')\"",
+        "@command=\"command\"",
+        "@click=\"loadMore\"",
+        "@retry=\"retry\"",
+        "@send=\"send\""
+      ]
+    },
+    {
+      "file": "web/frontend/student/src/views/chat/ConversationList.vue",
+      "events": [
+        "@click=\"$router.push(`/chat/${item.id}`)\""
+      ]
+    },
+    {
+      "file": "web/frontend/student/src/views/drawGuess/Lobby.vue",
+      "events": [
+        "@submit.prevent=\"joinByCode\"",
+        "v-model=\"roomCode\"",
+        "@input=\"roomCode = roomCode.replace(/[^a-z\\d]/gi, '').toUpperCase()\"",
+        "v-model=\"joinPassword\"",
+        "@submit.prevent=\"createRoom\"",
+        "v-model=\"form.privateRoom\"",
+        "v-model=\"form.password\"",
+        "@click=\"loadRooms\"",
+        "@click=\"loadRooms\"",
+        "@click=\"joinPublicRoom(room)\"",
+        "@click=\"openRoom(room)\"",
+        "@click=\"loadGallery\""
+      ]
+    },
+    {
+      "file": "web/frontend/student/src/views/drawGuess/Room.vue",
+      "events": [
+        "@click=\"leaveRoom\"",
+        "@click=\"loadRoom\"",
+        "@click=\"copyRoomCode\"",
+        "@click=\"saveSnapshot(artwork.roundId)\"",
+        "@click=\"selectedColor = color\"",
+        "@click=\"tool = tool === 'eraser' ? 'pen' : 'eraser'\"",
+        "@click=\"clearCanvas\"",
+        "@click=\"skipTurn\"",
+        "@click=\"startGame\"",
+        "@click=\"saveSnapshot(room.currentRoundId)\"",
+        "@pointerdown=\"beginStroke\"",
+        "@pointermove=\"continueStroke\"",
+        "@pointerup=\"endStroke\"",
+        "@pointercancel=\"endStroke\"",
+        "@lostpointercapture=\"endStroke\"",
+        "@click=\"composerMode = 'guess'\"",
+        "@click=\"composerMode = 'chat'\"",
+        "@submit.prevent=\"sendComposerMessage\"",
+        "v-model=\"composerText\"",
+        "@keydown.enter.prevent=\"sendComposerMessage\"",
+        "@click=\"leaveRoom\""
+      ]
+    },
+    {
+      "file": "web/frontend/student/src/views/home/Home.vue",
+      "events": [
+        "@click=\"go({ to: '/ai/chat', needLogin: true })\"",
+        "@click=\"go({ to: '/ai/wrong', needLogin: true })\"",
+        "@click=\"go({ to: '/activity/my-signup', needLogin: true })\"",
+        "@click=\"go({ to: '/campus-3d' })\"",
+        "@click=\"go(e)\"",
+        "@click=\"go({ to: '/activity' })\"",
+        "@click=\"tab = t.value\"",
+        "@click=\"go({ to: a.to, needLogin: a.needLogin })\"",
+        "@click=\"go({ to: '/idle' })\"",
+        "@click=\"go({ to: `/idle/detail/${i.id}` })\"",
+        "@click=\"go({ to: '/social' })\"",
+        "@click=\"go({ to: '/notice' })\"",
+        "@click=\"go({ to: `/notice/detail/${n.id}` })\"",
+        "@click=\"go({ to: '/chat', needLogin: true })\""
+      ]
+    },
+    {
+      "file": "web/frontend/student/src/views/idle/Detail.vue",
+      "events": [
+        "@error=\"onImgError($event, img)\"",
+        "@click=\"goUser(item.userId)\"",
+        "@click=\"openReview\"",
+        "@click=\"appointVisible = true\"",
+        "@click=\"contactPublisher\"",
+        "@click=\"offline\"",
+        "@click=\"openReview\"",
+        "@click=\"reportVisible = true\"",
+        "@click=\"toggleFavorite\"",
+        "v-model=\"appointVisible\"",
+        "v-model=\"appointMsg\"",
+        "@click=\"appointVisible = false\"",
+        "@click=\"doAppoint\"",
+        "v-model=\"reviewVisible\"",
+        "v-model=\"reviewForm.score\"",
+        "v-model=\"reviewForm.content\"",
+        "@click=\"reviewVisible = false\"",
+        "@click=\"doReview\"",
+        "v-model=\"reportVisible\"",
+        "v-model=\"reportForm.reasonType\"",
+        "v-model=\"reportForm.reason\"",
+        "@click=\"reportVisible = false\"",
+        "@click=\"doReport\""
+      ]
+    },
+    {
+      "file": "web/frontend/student/src/views/idle/List.vue",
+      "events": [
+        "@click=\"load\"",
+        "v-model=\"keyword\"",
+        "@keyup.enter=\"search\"",
+        "@clear=\"search\"",
+        "@click=\"search\"",
+        "@click=\"selectCategory('')\"",
+        "@click=\"selectCategory(c)\"",
+        "@click=\"$router.push('/idle/appointments')\"",
+        "@click=\"goPublish\"",
+        "@click=\"$router.push(`/idle/detail/${item.id}`)\"",
+        "v-model:current-page=\"pageNum\"",
+        "@current-change=\"load\""
+      ]
+    },
+    {
+      "file": "web/frontend/student/src/views/idle/MyAppointments.vue",
+      "events": [
+        "v-model=\"role\"",
+        "@tab-change=\"load\"",
+        "@click=\"handle(row, true)\"",
+        "@click=\"handle(row, false)\"",
+        "@click=\"finish(row)\"",
+        "@click=\"openReview(row)\"",
+        "v-model:current-page=\"pageNum\"",
+        "@current-change=\"load\"",
+        "v-model=\"reviewVisible\"",
+        "v-model=\"reviewForm.score\"",
+        "v-model=\"reviewForm.content\"",
+        "@click=\"reviewVisible = false\"",
+        "@click=\"doReview\""
+      ]
+    },
+    {
+      "file": "web/frontend/student/src/views/idle/Publish.vue",
+      "events": [
+        "@fill=\"applyAssist\"",
+        "v-model=\"form.title\"",
+        "v-model=\"form.category\"",
+        "v-model=\"form.description\"",
+        "v-model=\"form.expectItem\"",
+        "v-model=\"form.images\"",
+        "@click=\"submit\"",
+        "@click=\"$router.back()\"",
+        "@click=\"doEstimate\""
+      ]
+    },
+    {
+      "file": "web/frontend/student/src/views/login/Login.vue",
+      "events": [
+        "@keyup.enter=\"submit\"",
+        "v-model=\"form.studentNo\"",
+        "v-model=\"form.password\"",
+        "v-model=\"form.captchaCode\"",
+        "@keyup.enter=\"submit\"",
+        "@click=\"loadCaptcha\"",
+        "@click=\"loadCaptcha\"",
+        "@click=\"submit\""
+      ]
+    },
+    {
+      "file": "web/frontend/student/src/views/login/Register.vue",
+      "events": [
+        "@keyup.enter=\"submit\"",
+        "v-model=\"form.studentNo\"",
+        "v-model=\"form.nickname\"",
+        "v-model=\"form.password\"",
+        "v-model=\"form.confirm\"",
+        "v-model=\"form.captchaCode\"",
+        "@keyup.enter=\"submit\"",
+        "@click=\"loadCaptcha\"",
+        "@click=\"loadCaptcha\"",
+        "@click=\"submit\""
+      ]
+    },
+    {
+      "file": "web/frontend/student/src/views/lostfound/Detail.vue",
+      "events": [
+        "@click=\"goUser(lf.userId)\"",
+        "@click=\"finish\"",
+        "@click=\"editInfo\"",
+        "@click=\"openClaims\"",
+        "@click=\"claimVisible = true\"",
+        "@click=\"confirmReturn\"",
+        "@click=\"contactPublisher\"",
+        "@click=\"reportVisible = true\"",
+        "@click=\"toggleFavorite\"",
+        "v-model=\"claimVisible\"",
+        "v-model=\"claimForm.message\"",
+        "v-model=\"claimForm.contact\"",
+        "@click=\"claimVisible = false\"",
+        "@click=\"doClaim\"",
+        "v-model=\"claimsVisible\"",
+        "@click=\"doHandleClaim(row, true)\"",
+        "@click=\"doHandleClaim(row, false)\"",
+        "@current-change=\"onClaimPageChange\"",
+        "v-model=\"reportVisible\"",
+        "v-model=\"reasonType\"",
+        "v-model=\"reason\"",
+        "@click=\"reportVisible = false\"",
+        "@click=\"doReport\""
+      ]
+    },
+    {
+      "file": "web/frontend/student/src/views/lostfound/List.vue",
+      "events": [
+        "@click=\"load\"",
+        "@click=\"selectType(undefined)\"",
+        "@click=\"selectType(0)\"",
+        "@click=\"selectType(1)\"",
+        "v-model=\"keyword\"",
+        "@keyup.enter=\"search\"",
+        "@clear=\"search\"",
+        "@click=\"search\"",
+        "@click=\"goPublish\"",
+        "@click=\"$router.push(`/lostfound/detail/${lf.id}`)\"",
+        "v-model:current-page=\"pageNum\"",
+        "@current-change=\"load\""
+      ]
+    },
+    {
+      "file": "web/frontend/student/src/views/lostfound/Publish.vue",
+      "events": [
+        "@fill=\"applyAssist\"",
+        "v-model=\"form.type\"",
+        "v-model=\"form.title\"",
+        "v-model=\"form.description\"",
+        "v-model=\"form.location\"",
+        "v-model=\"form.happenTime\"",
+        "v-model=\"form.contact\"",
+        "v-model=\"form.images\"",
+        "@click=\"submit\"",
+        "@click=\"$router.back()\"",
+        "@click=\"doMatch\"",
+        "@click=\"router.push(`/lostfound/detail/${m.id}`)\""
+      ]
+    },
+    {
+      "file": "web/frontend/student/src/views/Maintenance.vue",
+      "events": [
+        "@click=\"checkStatus\""
+      ]
+    },
+    {
+      "file": "web/frontend/student/src/views/message/MessageCenter.vue",
+      "events": [
+        "@click=\"selectType(t.value)\"",
+        "@click=\"router.push('/chat')\"",
+        "@click=\"readAll\"",
+        "@click=\"openMsg(m)\"",
+        "v-model:current-page=\"pageNum\"",
+        "@current-change=\"load\""
+      ]
+    },
+    {
+      "file": "web/frontend/student/src/views/notice/Detail.vue",
+      "events": []
+    },
+    {
+      "file": "web/frontend/student/src/views/notice/List.vue",
+      "events": [
+        "@click=\"load\"",
+        "@click=\"$router.push(`/notice/detail/${n.id}`)\"",
+        "v-model:current-page=\"pageNum\"",
+        "@current-change=\"load\""
+      ]
+    },
+    {
+      "file": "web/frontend/student/src/views/partner/List.vue",
+      "events": [
+        "@click=\"load\"",
+        "v-model=\"keyword\"",
+        "@keyup.enter=\"search\"",
+        "@clear=\"search\"",
+        "@click=\"search\"",
+        "@click=\"goPublish\"",
+        "@click=\"goDetail(p)\"",
+        "v-model:current-page=\"pageNum\"",
+        "@current-change=\"load\""
+      ]
+    },
+    {
+      "file": "web/frontend/student/src/views/partner/Publish.vue",
+      "events": [
+        "v-model=\"form.subject\"",
+        "v-model=\"form.goal\"",
+        "v-model=\"form.schedule\"",
+        "v-model=\"form.intro\"",
+        "v-model=\"form.contact\"",
+        "@click=\"submit\"",
+        "@click=\"$router.back()\"",
+        "@click=\"doMatch\""
+      ]
+    },
+    {
+      "file": "web/frontend/student/src/views/profile/Profile.vue",
+      "events": [
+        "@click=\"editVisible = true\"",
+        "@click=\"pwdVisible = true\"",
+        "v-model=\"tab\"",
+        "@click=\"editIdle(row)\"",
+        "@click=\"offlineIdle(row)\"",
+        "@click=\"relistIdle(row)\"",
+        "@click=\"$router.push('/activity/my-signup')\"",
+        "@click=\"$router.push('/ai/wrong')\"",
+        "@click=\"removeFav(row)\"",
+        "v-model=\"editVisible\"",
+        "v-model=\"editForm.nickname\"",
+        "v-model=\"avatarList\"",
+        "v-model=\"editForm.gender\"",
+        "v-model=\"editForm.phone\"",
+        "v-model=\"editForm.bio\"",
+        "@click=\"editVisible = false\"",
+        "@click=\"saveProfile\"",
+        "v-model=\"pwdVisible\"",
+        "v-model=\"pwdForm.oldPassword\"",
+        "v-model=\"pwdForm.newPassword\"",
+        "@click=\"pwdVisible = false\"",
+        "@click=\"savePassword\""
+      ]
+    },
+    {
+      "file": "web/frontend/student/src/views/qa/Detail.vue",
+      "events": [
+        "@click=\"askAi\"",
+        "@click=\"accept(a.id)\"",
+        "@current-change=\"onAnswerPageChange\"",
+        "v-model=\"answerText\"",
+        "@click=\"submitAnswer\""
+      ]
+    },
+    {
+      "file": "web/frontend/student/src/views/qa/List.vue",
+      "events": [
+        "@click=\"load\"",
+        "v-model=\"keyword\"",
+        "@keyup.enter=\"search\"",
+        "@clear=\"search\"",
+        "@click=\"search\"",
+        "@click=\"selectCategory('')\"",
+        "@click=\"selectCategory(c)\"",
+        "@click=\"$router.push('/qa/my')\"",
+        "@click=\"goPublish\"",
+        "@click=\"$router.push(`/qa/detail/${q.id}`)\"",
+        "v-model:current-page=\"pageNum\"",
+        "@current-change=\"load\""
+      ]
+    },
+    {
+      "file": "web/frontend/student/src/views/qa/My.vue",
+      "events": [
+        "@click=\"$router.push(`/qa/detail/${q.id}`)\"",
+        "v-model:current-page=\"pageNum\"",
+        "@current-change=\"load\""
+      ]
+    },
+    {
+      "file": "web/frontend/student/src/views/qa/Publish.vue",
+      "events": [
+        "v-model=\"form.category\"",
+        "v-model=\"form.title\"",
+        "v-model=\"form.content\"",
+        "@click=\"submit\"",
+        "@click=\"$router.back()\""
+      ]
+    },
+    {
+      "file": "web/frontend/student/src/views/search/SearchResults.vue",
+      "events": [
+        "@click=\"activeType = ''\"",
+        "@click=\"activeType = sec.type\"",
+        "@click=\"openSection(section)\"",
+        "@click=\"router.push(item.to)\""
+      ]
+    },
+    {
+      "file": "web/frontend/student/src/views/social/PostSquare.vue",
+      "events": [
+        "@click=\"load\"",
+        "@click=\"searchTopic(t.tag)\"",
+        "@click=\"openPost(p)\"",
+        "v-model=\"keyword\"",
+        "@keyup.enter=\"search\"",
+        "@clear=\"search\"",
+        "@click=\"search\"",
+        "@fill=\"applyAssist\"",
+        "v-model=\"newPost\"",
+        "v-model=\"newImages\"",
+        "@click=\"publish\"",
+        "@click=\"closeShare\"",
+        "@click=\"closeShare\"",
+        "@click=\"goUser(p.userId)\"",
+        "@click=\"goUser(p.userId)\"",
+        "@click=\"contactAuthor(p)\"",
+        "@click=\"openReport(p)\"",
+        "@error=\"onImgError($event)\"",
+        "@click=\"toggleLike(p)\"",
+        "@click=\"toggleComments(p)\"",
+        "@click=\"toggleFavorite(p)\"",
+        "@click=\"sharePost(p)\"",
+        "@count-changed=\"(t) => (p.commentCount = t)\"",
+        "v-model:current-page=\"pageNum\"",
+        "@current-change=\"load\"",
+        "v-model=\"reportVisible\"",
+        "v-model=\"reportReasonType\"",
+        "v-model=\"reportReason\"",
+        "@click=\"reportVisible = false\"",
+        "@click=\"doReport\""
+      ]
+    },
+    {
+      "file": "web/frontend/student/src/views/user/UserHome.vue",
+      "events": [
+        "@click=\"sendMsg\"",
+        "@click=\"reportVisible = true\"",
+        "@click=\"$router.push('/profile')\"",
+        "v-model=\"reportVisible\"",
+        "v-model=\"reportForm.reasonType\"",
+        "v-model=\"reportForm.reason\"",
+        "@click=\"reportVisible = false\"",
+        "@click=\"doReport\"",
+        "v-model=\"tab\"",
+        "@open=\"goDetail\"",
+        "@open=\"goDetail\"",
+        "@click=\"goUser(r.fromUserId)\"",
+        "@click=\"goUser(r.fromUserId)\"",
+        "@open=\"goDetail\""
+      ]
+    },
+    {
+      "file": "web/frontend/admin/src/App.vue",
+      "events": []
+    },
+    {
+      "file": "web/frontend/admin/src/components/wt/WtPageHeader.vue",
+      "events": []
+    },
+    {
+      "file": "web/frontend/admin/src/layout/AdminLayout.vue",
+      "events": [
+        "@click=\"$router.push('/dashboard')\"",
+        "v-model=\"keyword\"",
+        "@keydown.enter=\"onGlobalSearch\"",
+        "@click=\"$router.push('/system/config')\"",
+        "@click=\"toggleTheme\"",
+        "@click=\"goNotice\"",
+        "@click.stop=\"loadCounts\"",
+        "@click=\"logout\"",
+        "@click=\"toggleGroup(group.label)\""
+      ]
+    },
+    {
+      "file": "web/frontend/admin/src/views/ai/AiConfig.vue",
+      "events": [
+        "v-model=\"configs.base_url\"",
+        "v-model=\"configs.api_key\"",
+        "v-model=\"configs.model_name\"",
+        "v-model=\"temperatureNum\"",
+        "v-model=\"maxTokensNum\"",
+        "v-model=\"timeoutNum\"",
+        "v-model=\"retryNum\"",
+        "v-model=\"rateLimitNum\"",
+        "@click=\"save\"",
+        "@click=\"openEdit()\"",
+        "@click=\"openEdit(row)\"",
+        "v-model=\"editVisible\"",
+        "v-model=\"editForm.scene\"",
+        "v-model=\"editForm.name\"",
+        "v-model=\"editForm.content\"",
+        "v-model=\"editForm.enabled\"",
+        "@click=\"editVisible = false\"",
+        "@click=\"savePrompt\""
+      ]
+    },
+    {
+      "file": "web/frontend/admin/src/views/ai/AiContentAudit.vue",
+      "events": [
+        "@click=\"loadAll\"",
+        "@click=\"tab = t.key\"",
+        "@click=\"restore(row)\"",
+        "@click=\"openBlock(row)\"",
+        "v-model=\"blockVisible\"",
+        "v-model=\"blockReason\"",
+        "@click=\"blockVisible = false\"",
+        "@click=\"confirmBlock\""
+      ]
+    },
+    {
+      "file": "web/frontend/admin/src/views/ai/AiLogs.vue",
+      "events": [
+        "v-model=\"userId\"",
+        "v-model=\"scene\"",
+        "@change=\"search\"",
+        "v-model=\"status\"",
+        "@change=\"search\"",
+        "@click=\"search\"",
+        "v-model:current-page=\"pageNum\"",
+        "@current-change=\"load\""
+      ]
+    },
+    {
+      "file": "web/frontend/admin/src/views/audit/AuditModule.vue",
+      "events": [
+        "v-model=\"viewMode\"",
+        "@change=\"handleViewChange\"",
+        "@click=\"load\"",
+        "@error=\"imageErrors[row.id] = true\"",
+        "@click=\"pass(row)\"",
+        "@click=\"openReject(row)\"",
+        "v-model:current-page=\"pageNum\"",
+        "@current-change=\"load\"",
+        "v-model=\"rejectVisible\"",
+        "v-model=\"rejectReason\"",
+        "@click=\"rejectVisible = false\"",
+        "@click=\"reject\""
+      ]
+    },
+    {
+      "file": "web/frontend/admin/src/views/content/ContentManage.vue",
+      "events": [
+        "v-model=\"type\"",
+        "@tab-change=\"load\"",
+        "@click=\"doOff(row)\"",
+        "@click=\"doOn(row)\"",
+        "@click=\"openReport(row)\"",
+        "v-model:current-page=\"pageNum\"",
+        "@current-change=\"load\"",
+        "v-model=\"reportVisible\"",
+        "@click=\"doExport('members')\"",
+        "@click=\"doExport('signins')\""
+      ]
+    },
+    {
+      "file": "web/frontend/admin/src/views/dashboard/Dashboard.vue",
+      "events": [
+        "@click=\"loadDashboard\"",
+        "@click=\"goAudit(a.type)\""
+      ]
+    },
+    {
+      "file": "web/frontend/admin/src/views/login/Login.vue",
+      "events": [
+        "@keyup.enter=\"submit\"",
+        "v-model=\"form.username\"",
+        "v-model=\"form.password\"",
+        "v-model=\"form.captchaCode\"",
+        "@keyup.enter=\"submit\"",
+        "@click=\"loadCaptcha\"",
+        "@click=\"loadCaptcha\"",
+        "v-model=\"remember\"",
+        "@click=\"submit\""
+      ]
+    },
+    {
+      "file": "web/frontend/admin/src/views/notice/NoticeEdit.vue",
+      "events": [
+        "v-model=\"form.title\"",
+        "v-model=\"form.cover\"",
+        "v-model=\"form.content\"",
+        "@click=\"save(false)\"",
+        "@click=\"save(true)\"",
+        "@click=\"$router.back()\""
+      ]
+    },
+    {
+      "file": "web/frontend/admin/src/views/notice/NoticeManage.vue",
+      "events": [
+        "@click=\"$router.push('/notice/edit')\"",
+        "@click=\"$router.push(`/notice/edit/${row.id}`)\"",
+        "@click=\"publish(row)\"",
+        "@click=\"offline(row)\"",
+        "@click=\"remove(row)\"",
+        "v-model:current-page=\"pageNum\"",
+        "@current-change=\"load\""
+      ]
+    },
+    {
+      "file": "web/frontend/admin/src/views/report/ReportList.vue",
+      "events": [
+        "v-model=\"status\"",
+        "@change=\"search\"",
+        "@click=\"openHandle(row)\"",
+        "v-model:current-page=\"pageNum\"",
+        "@current-change=\"load\"",
+        "v-model=\"handleVisible\"",
+        "v-model=\"handleForm.action\"",
+        "v-model=\"handleForm.handleResult\"",
+        "@click=\"handleVisible = false\"",
+        "@click=\"doHandle\""
+      ]
+    },
+    {
+      "file": "web/frontend/admin/src/views/system/AdminList.vue",
+      "events": [
+        "@click=\"openEdit()\"",
+        "@click=\"openEdit(row)\"",
+        "v-model:current-page=\"pageNum\"",
+        "@current-change=\"load\"",
+        "v-model=\"editVisible\"",
+        "v-model=\"editForm.username\"",
+        "v-model=\"editForm.password\"",
+        "v-model=\"editForm.nickname\"",
+        "v-model=\"editForm.role\"",
+        "@click=\"editVisible = false\"",
+        "@click=\"save\""
+      ]
+    },
+    {
+      "file": "web/frontend/admin/src/views/system/SystemConfig.vue",
+      "events": [
+        "v-model=\"activeCategory\"",
+        "@change=\"onCategoryChange\"",
+        "@click=\"loadData\"",
+        "@click=\"saveAll\"",
+        "v-model=\"formData[item.configKey]\"",
+        "v-model=\"formData[item.configKey]\"",
+        "v-model=\"formData[item.configKey]\"",
+        "v-model=\"formData[item.configKey]\"",
+        "v-model=\"formData[item.configKey]\"",
+        "v-model=\"formData[item.configKey]\""
+      ]
+    },
+    {
+      "file": "web/frontend/admin/src/views/user/UserList.vue",
+      "events": [
+        "v-model=\"keyword\"",
+        "@keyup.enter=\"search\"",
+        "@clear=\"search\"",
+        "v-model=\"status\"",
+        "@change=\"search\"",
+        "@click=\"search\"",
+        "@click=\"toggle(row, 1)\"",
+        "@click=\"toggle(row, 0)\"",
+        "@click=\"resetPwd(row)\"",
+        "v-model:current-page=\"pageNum\"",
+        "@current-change=\"load\""
+      ]
+    }
+  ],
+  "exploratory": [
+    "Invalid/blank submissions and cancellation without writes",
+    "Multi-user realtime events and network loss/reconnect",
+    "Back/refresh and protected deep links",
+    "Long content, image failures and densely populated tables"
+  ],
+  "exploratoryResult": {
+    "seconds": 35.039,
+    "loops": 27
+  }
+}

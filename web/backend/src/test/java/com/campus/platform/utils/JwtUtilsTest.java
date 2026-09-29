@@ -9,7 +9,7 @@ class JwtUtilsTest {
     @Test
     void generatedTokenKeepsMillisecondIssuedAtClaim() throws InterruptedException {
         JwtUtils jwt = new JwtUtils();
-        ReflectionTestUtils.setField(jwt, "secret", "review-secret-012345678901234567890123456789");
+        ReflectionTestUtils.setField(jwt, "secret", "unit-test-secret-not-for-production");
         ReflectionTestUtils.setField(jwt, "expireDays", 7L);
 
         long before = System.currentTimeMillis();

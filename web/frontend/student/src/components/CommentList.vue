@@ -151,4 +151,46 @@ async function submit() {
   justify-content: center;
   margin-top: 12px;
 }
+/* 同频校园：本页展示布局，业务绑定保持原样 */
+.comment-list {
+  padding: 20px;
+  background: var(--surface-2);
+  border-radius: 18px;
+}
+.input-row {
+  display: flex;
+  gap: 12px;
+  min-width: 0;
+}
+.input-row :deep(.el-input) {
+  min-width: 0;
+}
+.comment-item {
+  padding: 18px 0;
+  gap: 12px;
+}
+.c-body {
+  min-width: 0;
+}
+.c-head {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.c-content {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  line-height: 1.8;
+}
+.c-time {
+  font-size: 12px;
+}
+.pager {
+  padding-top: 12px;
+}
+@media (max-width:600px) {
+  .comment-list {
+    padding: 16px;
+  }
+}
 </style>

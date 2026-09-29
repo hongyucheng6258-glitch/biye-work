@@ -20,7 +20,47 @@ function openContext() {
 </script>
 
 <style scoped>
-.context { width:100%; display:grid; grid-template-columns:auto 1fr auto; gap:12px; align-items:center; padding:12px 16px; border:0; border-bottom:1px solid var(--line); background:linear-gradient(90deg,var(--brand-soft),transparent); color:var(--ink-2); text-align:left; cursor:pointer; }
-.context strong { color:var(--ink); overflow:hidden; white-space:nowrap; text-overflow:ellipsis; }
-.kind { padding:4px 8px; border-radius:999px; background:var(--surface); color:var(--brand-strong); font-size:12px; }
+.context {
+  width: 100%;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 12px;
+  align-items: center;
+  padding: 12px 16px;
+  border: 0;
+  border-bottom: 1px solid var(--line);
+  background: linear-gradient(90deg,var(--brand-soft),transparent);
+  color: var(--ink-2);
+  text-align: left;
+  cursor: pointer;
+}
+.context strong {
+  color: var(--ink);
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.kind {
+  padding: 4px 8px;
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--brand-strong);
+  font-size: 12px;
+}
+/* 同频校园：本页展示布局，业务绑定保持原样 */
+.context {
+  padding: 14px 20px;
+  background: var(--accent-soft);
+  border-color: var(--accent-line);
+  border-radius: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  font-size: 13px;
+  overflow-wrap: anywhere;
+}
+.kind {
+  font-size: 12px;
+  color: var(--accent-ink);
+}
 </style>

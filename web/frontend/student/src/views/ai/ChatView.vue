@@ -83,7 +83,7 @@
             :placeholder="tab === 'pdf' ? '针对PDF文档内容提问…' : (tab === 'guide' ? '问问校园：周末有什么活动 / 我报名的活动 / 有失物招领吗' : '输入你的问题，回车发送，Shift+Enter 换行')"
             @keydown.enter.exact.prevent="send"
           />
-          <button class="send" :disabled="!question.trim() || asking" aria-label="发送" @click="send">
+          <button class="send" :disabled="!question.trim() || asking || sessionLoading" aria-label="发送" @click="send">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
               <path d="M22 2 11 13M22 2l-7 20-4-9-9-4z" />
             </svg>
@@ -123,6 +123,7 @@ const currentSession = ref(null)
 const messages = ref([])
 const question = ref('')
 const asking = ref(false)
+const sessionLoading = ref(false)
 // 第11项：流式取消与请求标识隔离——迟到/串会话响应一律丢弃
 const streamAbort = ref(null)
 let requestSeq = 0
@@ -132,6 +133,8 @@ function cancelStream() {
     streamAbort.value = null
   }
   requestSeq += 1
+  asking.value = false
+  sessionLoading.value = false
 }
 const msgBox = ref()
 // PDF 问答状态
@@ -180,15 +183,16 @@ async function loadSessions() {
   }
 }
 
-async function restorePdfDoc(session) {
+async function restorePdfDoc(session, seq) {
   if (tab.value !== 'pdf' || !session?.docId) {
     pdfDoc.value = null
     return
   }
   try {
-    pdfDoc.value = await aiApi.pdfDoc(session.docId)
+    const doc = await aiApi.pdfDoc(session.docId)
+    if (seq === requestSeq) pdfDoc.value = doc
   } catch {
-    pdfDoc.value = null
+    if (seq === requestSeq) pdfDoc.value = null
   }
 }
 
@@ -200,16 +204,24 @@ async function newSession() {
 
 async function switchSession(s) {
   cancelStream()
+  const seq = requestSeq
+  sessionLoading.value = true
   currentSession.value = s
-  await restorePdfDoc(s)
-  const res = await aiApi.listMessages(s.id, 1, 50)
-  // 接口倒序返回，翻转为正序展示
-  messages.value = (res.list || []).reverse().map((m) => ({
-    role: m.role,
-    content: m.content,
-    streaming: false
-  }))
-  scrollBottom()
+  try {
+    await restorePdfDoc(s, seq)
+    if (seq !== requestSeq) return
+    const res = await aiApi.listMessages(s.id, 1, 50)
+    if (seq !== requestSeq) return
+    // 接口倒序返回，翻转为正序展示
+    messages.value = (res.list || []).reverse().map((m) => ({
+      role: m.role,
+      content: m.content,
+      streaming: false
+    }))
+    scrollBottom()
+  } finally {
+    if (seq === requestSeq) sessionLoading.value = false
+  }
 }
 
 async function onSessionCmd(cmd, s) {
@@ -258,7 +270,7 @@ function askQuick(q) {
 
 async function send() {
   const q = question.value.trim()
-  if (!q || asking.value) return
+  if (!q || asking.value || sessionLoading.value) return
   if (tab.value === 'pdf' && !pdfDoc.value) {
     ElMessage.warning('请先上传PDF课件')
     return
@@ -433,8 +445,11 @@ function scrollBottom() {
   color: var(--info-ink);
   border-color: var(--info);
   transform: translateY(-1px);
-}<style scoped>
-.ai-page { height: 100%; }
+}
+\3c style scoped>
+.ai-page {
+  height: 100%;
+}
 .ai-layout {
   display: grid;
   grid-template-columns: 240px 1fr;
@@ -452,8 +467,14 @@ function scrollBottom() {
   padding: var(--s-4);
   overflow: auto;
 }
-.new-btn { margin-bottom: var(--s-2); }
-.session-list { display: flex; flex-direction: column; gap: 4px; }
+.new-btn {
+  margin-bottom: var(--s-2);
+}
+.session-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
 .ai-session {
   display: flex;
   align-items: center;
@@ -470,14 +491,36 @@ function scrollBottom() {
   font-family: var(--font-sans);
   transition: background 0.2s, color 0.2s;
 }
-.ai-session__ico { width: 18px; height: 18px; flex: none; color: var(--brand); }
-.ai-session:hover { background: var(--surface-2); }
-.ai-session.active { background: var(--brand-soft); color: var(--brand-strong); font-weight: 600; }
-.ai-session.active .ai-session__ico { color: var(--brand-strong); }
-.s-title { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.s-more { color: var(--ink-3); cursor: pointer; }
-.s-more:hover { color: var(--ink); }
-
+.ai-session__ico {
+  width: 18px;
+  height: 18px;
+  flex: none;
+  color: var(--brand);
+}
+.ai-session:hover {
+  background: var(--surface-2);
+}
+.ai-session.active {
+  background: var(--brand-soft);
+  color: var(--brand-strong);
+  font-weight: 600;
+}
+.ai-session.active .ai-session__ico {
+  color: var(--brand-strong);
+}
+.s-title {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.s-more {
+  color: var(--ink-3);
+  cursor: pointer;
+}
+.s-more:hover {
+  color: var(--ink);
+}
 .ai-main {
   display: flex;
   flex-direction: column;
@@ -505,11 +548,19 @@ function scrollBottom() {
   box-shadow: var(--shadow-sm);
   flex: none;
 }
-.ai-orb svg { width: 18px; height: 18px; }
-.ai-top__meta { min-width: 0; }
-.ai-top__meta b { font-size: var(--fs-body); }
-.ai-top__tools { margin-left: auto; }
-
+.ai-orb svg {
+  width: 18px;
+  height: 18px;
+}
+.ai-top__meta {
+  min-width: 0;
+}
+.ai-top__meta b {
+  font-size: var(--fs-body);
+}
+.ai-top__tools {
+  margin-left: auto;
+}
 .pdf-bar {
   padding: 10px 16px;
   border-bottom: 1px solid var(--line);
@@ -517,9 +568,14 @@ function scrollBottom() {
   align-items: center;
   gap: 12px;
 }
-.pdf-info { font-size: 13px; color: var(--success); }
-.pdf-tip { font-size: 13px; color: var(--ink-3); }
-
+.pdf-info {
+  font-size: 13px;
+  color: var(--success);
+}
+.pdf-tip {
+  font-size: 13px;
+  color: var(--ink-3);
+}
 .ai-chat {
   flex: 1;
   overflow-y: auto;
@@ -546,8 +602,15 @@ function scrollBottom() {
   font-family: var(--font-sans);
   color: var(--ink);
 }
-.ai-input input::placeholder { color: var(--ink-3); }
-.ai-input input:focus { outline: none; border-color: var(--brand); background: var(--surface); box-shadow: 0 0 0 4px var(--brand-soft); }
+.ai-input input::placeholder {
+  color: var(--ink-3);
+}
+.ai-input input:focus {
+  outline: none;
+  border-color: var(--brand);
+  background: var(--surface);
+  box-shadow: 0 0 0 4px var(--brand-soft);
+}
 .send {
   width: 48px;
   height: 48px;
@@ -561,9 +624,18 @@ function scrollBottom() {
   flex: none;
   transition: transform 0.15s var(--ease-out), box-shadow 0.2s, opacity 0.2s;
 }
-.send:hover:not(:disabled) { transform: translateY(-2px); box-shadow: var(--shadow-md); }
-.send:disabled { opacity: 0.5; cursor: not-allowed; }
-.send svg { width: 20px; height: 20px; }
+.send:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+.send:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.send svg {
+  width: 20px;
+  height: 20px;
+}
 .ai-footnote {
   display: flex;
   align-items: center;
@@ -574,11 +646,373 @@ function scrollBottom() {
   border-top: 1px solid var(--line);
   background: var(--surface-2);
 }
-.ai-footnote svg { width: 14px; height: 14px; color: var(--brand); flex: none; }
-
+.ai-footnote svg {
+  width: 14px;
+  height: 14px;
+  color: var(--brand);
+  flex: none;
+}
 @media (max-width: 820px) {
-  .ai-layout { grid-template-columns: 1fr; height: auto; }
-  .ai-side { flex-direction: row; overflow-x: auto; }
-  .session-list { flex-direction: row; }
+  .ai-layout {
+    grid-template-columns: 1fr;
+    height: auto;
+  }
+  .ai-side {
+    flex-direction: row;
+    overflow-x: auto;
+  }
+  .session-list {
+    flex-direction: row;
+  }
+}
+/* 同频校园：本页展示布局，业务绑定保持原样 */
+.ai-layout {
+  display: grid;
+  grid-template-columns: minmax(0,1fr);
+  gap: 20px;
+  height: auto;
+  min-height: 0;
+}
+.ai-side {
+  position: static;
+  width: 100%;
+  padding: 18px;
+  border: 1px solid var(--line);
+  border-radius: 22px;
+  background: var(--surface);
+  display: grid;
+  grid-template-columns: 170px minmax(0,1fr);
+  align-items: start;
+  gap: 14px;
+  min-width: 0;
+}
+.new-btn {
+  margin: 0;
+  min-height: 44px;
+}
+.session-list {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  gap: 8px;
+  max-height: 176px;
+  overflow: auto;
+  min-height: 0;
+  min-width: 0;
+}
+.ai-session {
+  width: auto;
+  min-width: 150px;
+  max-width: 280px;
+  flex: 0 1 240px;
+  min-height: 44px;
+  margin: 0;
+  padding: 10px 14px;
+  border-radius: var(--r-pill);
+  background: var(--surface-2);
+}
+.ai-session.active {
+  background: var(--brand-soft);
+  color: var(--brand);
+}
+.s-more {
+  min-width: 28px;
+  min-height: 28px;
+}
+.session-list :deep(.wt-empty) {
+  padding: 10px 16px;
+  text-align: left;
+  width: 100%;
+}
+.session-list :deep(.wt-empty__icon) {
+  display: none;
+}
+.session-list :deep(.wt-empty__title) {
+  font-size: 14px;
+}
+.ai-main {
+  border: 1px solid var(--line);
+  border-radius: 26px;
+  background: var(--surface);
+  min-width: 0;
+  min-height: 580px;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+.ai-top {
+  flex-wrap: wrap;
+  padding: 24px;
+  gap: 14px;
+  background: var(--atlas-sky);
+}
+.ai-top__meta {
+  min-width: 0;
+}
+.ai-top__tools {
+  margin-left: auto;
+}
+.ai-orb {
+  background: var(--surface);
+  color: var(--brand);
+  box-shadow: none;
+}
+.pdf-bar {
+  flex-wrap: wrap;
+  padding: 16px 24px;
+  gap: 12px;
+  background: var(--accent-soft);
+}
+.pdf-info,.pdf-tip {
+  overflow-wrap: anywhere;
+  font-size: 13px;
+}
+.quick-prompts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 20px 24px 0;
+}
+.quick-prompt {
+  white-space: normal;
+  border-radius: 16px;
+  padding: 12px 16px;
+  background: var(--surface-2);
+  font-size: 13px;
+  min-height: 42px;
+}
+.ai-chat {
+  min-height: 280px;
+  max-height: 560px;
+  overflow: auto;
+  padding: 24px;
+  flex: 1;
+}
+.ai-input {
+  position: static;
+  margin: 16px 24px 0;
+  padding: 10px;
+  gap: 10px;
+  border-radius: 20px;
+  background: var(--surface-2);
+}
+.ai-input input {
+  min-width: 0;
+  width: 100%;
+  font-size: 16px;
+}
+.send {
+  flex: none;
+  width: 44px;
+  height: 44px;
+  background: var(--brand);
+  color: var(--brand-ink);
+}
+.ai-footnote {
+  padding: 14px 24px 20px;
+  font-size: 12px;
+}
+@media (max-width:760px) {
+  .ai-side {
+    grid-template-columns: minmax(0,1fr);
+  }
+  .ai-top {
+    padding: 20px;
+  }
+  .ai-top__tools {
+    width: 100%;
+    margin-left: 0;
+  }
+  .ai-main {
+    min-height: 520px;
+  }
+  .ai-chat {
+    padding: 18px;
+    max-height: 460px;
+  }
+  .ai-input {
+    margin: 12px 16px 0;
+  }
+  .ai-footnote {
+    padding: 12px 18px 18px;
+  }
+  .quick-prompts {
+    padding: 18px 18px 0;
+  }
+}
+.quick-prompt {
+  color: var(--brand);
+  border-color: var(--brand-line);
+}
+.ai-top__meta b {
+  font-size: 20px;
+}
+.ai-footnote {
+  line-height: 1.8;
+}
+/* 消息内部滚动，工具与输入区不随内容增长挤出视口。 */
+.ai-page {
+  min-height: 0;
+}
+.ai-layout {
+  height: 100%;
+  min-height: 0;
+  grid-template-rows: auto minmax(0,1fr);
+  gap: 10px;
+}
+.ai-side {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px;
+  overflow: hidden;
+}
+.new-btn {
+  flex: 0 0 132px;
+  width: auto;
+  min-height: 36px;
+  white-space: nowrap;
+  padding: 6px 12px;
+}
+.session-list {
+  flex: 1;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  max-height: 48px;
+}
+.ai-session {
+  flex: 0 0 180px;
+  min-width: 140px;
+  min-height: 36px;
+  padding: 6px 10px;
+}
+.ai-main {
+  min-height: 0;
+  height: 100%;
+}
+.ai-top,
+.pdf-bar,
+.quick-prompts,
+.ai-input,
+.ai-footnote {
+  flex: none;
+}
+.ai-top {
+  padding: 12px 16px;
+  gap: 10px;
+}
+.ai-top__meta b {
+  font-size: 16px;
+}
+.ai-top__tools :deep(.wt-tabs) {
+  flex-wrap: nowrap;
+  overflow-x: auto;
+}
+.ai-top__tools :deep(.wt-tab) {
+  flex: none;
+  white-space: nowrap;
+  min-height: 34px;
+  padding: 6px 10px;
+  font-size: 12px;
+}
+.quick-prompts {
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  padding: 8px 16px;
+  margin: 0;
+  gap: 8px;
+}
+.quick-prompt {
+  flex: none;
+  white-space: nowrap;
+  min-height: 32px;
+  padding: 6px 10px;
+  font-size: 12px;
+}
+.ai-chat {
+  min-height: 0;
+  max-height: none;
+  padding: 16px;
+  overscroll-behavior: contain;
+}
+.ai-chat :deep(.wt-empty) {
+  padding: 12px;
+}
+.ai-input {
+  margin: 0 12px;
+  padding: 6px;
+  border-radius: 16px;
+}
+.ai-input input {
+  padding: 8px 12px;
+}
+.ai-footnote {
+  padding: 6px 16px;
+  font-size: 11px;
+  line-height: 1.5;
+}
+.pdf-bar {
+  padding: 8px 16px;
+}
+@media (max-width: 760px) {
+  .ai-layout {
+    gap: 6px;
+  }
+  .ai-side {
+    padding: 6px 8px;
+    gap: 6px;
+  }
+  .new-btn {
+    flex-basis: 110px;
+  }
+  .ai-top {
+    padding: 8px 12px;
+    gap: 6px;
+  }
+  .ai-top__tools {
+    width: 100%;
+  }
+  .ai-chat {
+    padding: 12px;
+  }
+  .pdf-bar {
+    flex-wrap: nowrap;
+    gap: 8px;
+    overflow-x: auto;
+  }
+  .pdf-info,
+  .pdf-tip {
+    flex: none;
+    white-space: nowrap;
+  }
+  .ai-footnote {
+    padding: 6px 12px;
+  }
+}
+/* 3D 服务窗口没有主站外壳，仍使用窗口内部的可用高度。 */
+@media (max-height: 700px) and (min-width: 761px) {
+  .ai-layout {
+    gap: 6px;
+  }
+  .ai-side {
+    padding: 6px 10px;
+  }
+  .session-list {
+    max-height: 40px;
+  }
+  .ai-top {
+    padding: 8px 12px;
+  }
+  .quick-prompts {
+    padding: 6px 12px;
+  }
+}
+:global(.room-workspace .room-page-host .ai-page) {
+  height: 100%;
+}
+:global(.room-workspace .room-page-host .ai-page .ai-layout) {
+  height: 100%;
 }
 </style>

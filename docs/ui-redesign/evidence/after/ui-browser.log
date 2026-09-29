@@ -1,0 +1,83 @@
+PAGE student /
+PAGE student /search?q=校园
+PAGE student /activity
+PAGE student /activity/detail/42
+PAGE student /activity/publish
+PAGE student /activity/publish?id=42
+PAGE student /activity/my-signup
+PAGE student /idle
+PAGE student /idle/detail/42
+PAGE student /idle/publish
+PAGE student /idle/publish?id=42
+PAGE student /idle/appointments
+PAGE student /lostfound
+PAGE student /lostfound/detail/42
+PAGE student /lostfound/publish
+PAGE student /lostfound/publish?id=42
+PAGE student /partner
+PAGE student /partner/publish
+PAGE student /qa
+PAGE student /qa/my
+PAGE student /qa/detail/42
+PAGE student /qa/publish
+PAGE student /social
+PAGE student /social?post=42
+PAGE student /notice
+PAGE student /notice/detail/42
+PAGE student /message
+PAGE student /chat
+PAGE student /chat/8
+PAGE student /profile
+PAGE student /user/2
+PAGE student /ai/chat
+PAGE student /ai/code
+PAGE student /ai/wrong
+PAGE student /campus-3d
+PAGE student /draw-guess
+PAGE student /draw-guess/room/42
+PAGE student /login
+PAGE student /register
+PAGE student /maintenance
+PAGE admin /dashboard
+PAGE admin /audit/activity
+PAGE admin /audit/idle
+PAGE admin /audit/lostfound
+PAGE admin /audit/post
+PAGE admin /audit/partner
+PAGE admin /ai/audit
+PAGE admin /content
+PAGE admin /user
+PAGE admin /report
+PAGE admin /notice
+PAGE admin /notice/edit
+PAGE admin /notice/edit/42
+PAGE admin /ai/config
+PAGE admin /ai/logs
+PAGE admin /system/config
+PAGE admin /system
+PAGE admin /login
+ACTION PASS 学生完整功能面板：15 原导航叶子可见、关闭与键盘
+ACTION PASS 学生搜索范围、关键词、提交在360px可见且传递q
+ACTION PASS 活动报名对话框完整显示、提交保持原请求
+ACTION PASS 个人中心5个Tab与资料/密码弹窗
+ACTION PASS 错题快速收录完整字段及高级信息展开
+ACTION PASS 错题复习抽屉：居中、原题、掌握等级和底部提交
+ACTION PASS 错题练习抽屉：单选、提交、解析和显式保存
+ACTION PASS 复习计划与薄弱报告原有生成弹窗
+ACTION PASS AI历史处于上方、PDF入口和上传控件可达
+ACTION PASS 后台完整15个导航叶子通过5组展开可见
+ACTION PASS 后台弹窗 audit-reject
+ACTION PASS 后台弹窗 ai-block
+ACTION PASS 后台弹窗 signin-report
+ACTION PASS 后台弹窗 report-handle
+ACTION PASS 后台弹窗 prompt-edit
+ACTION PASS 后台弹窗 admin-edit
+ACTION PASS 后台普通审核员只保留原13个授权导航叶子
+ACTION PASS 3D校园手机顶部导览/全屏按钮未被场景遮挡
+ACTION PASS 明暗主题实心主/成功/危险按钮文字对比度≥4.5
+ACTION PASS 两端地图资源已实际加载、AI历史横向流动
+ACTION PASS 个人资料/错题/游戏名片明暗文字可读及登录壳层不重叠
+ACTION PASS 游客受限路由保持登录redirect
+ACTION PASS 图片和算术验证码两端保持可点击刷新
+ACTION PASS 登录页200%缩放等效720px/缩小动态效果
+{"measurements":464,"overflowFailures":0,"actions":24,"actionFailures":0,"pageErrors":0}

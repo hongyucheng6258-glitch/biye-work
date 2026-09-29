@@ -35,11 +35,41 @@ function toggle() { apply(theme.value === 'dark' ? 'light' : 'dark') }
 
 <style scoped>
 .wt-theme {
-  width: 42px; height: 42px; border-radius: var(--r-pill); display: grid; place-items: center;
-  color: var(--ink-2); border: 1px solid var(--line); background: var(--surface); cursor: pointer;
+  width: 42px;
+  height: 42px;
+  border-radius: var(--r-pill);
+  display: grid;
+  place-items: center;
+  color: var(--ink-2);
+  border: 1px solid var(--line);
+  background: var(--surface);
+  cursor: pointer;
   transition: background .2s, color .2s, transform .15s var(--ease-out);
 }
-.wt-theme:hover { background: var(--surface-2); color: var(--ink); transform: translateY(-1px); }
-.wt-theme svg { width: 20px; height: 20px; }
-.wt-theme:focus-visible { outline: 2px solid var(--brand); outline-offset: 2px; }
+.wt-theme:hover {
+  background: var(--surface-2);
+  color: var(--ink);
+  transform: translateY(-1px);
+}
+.wt-theme svg {
+  width: 20px;
+  height: 20px;
+}
+.wt-theme:focus-visible {
+  outline: 2px solid var(--brand);
+  outline-offset: 2px;
+}
+/* 同频校园：本页展示布局，业务绑定保持原样 */
+.wt-theme {
+  width: 42px;
+  height: 42px;
+  border-radius: var(--r-pill);
+  border: 1px solid var(--line);
+  background: var(--surface);
+  color: var(--ink-2);
+}
+.wt-theme:hover {
+  background: var(--brand-soft);
+  color: var(--brand);
+}
 </style>

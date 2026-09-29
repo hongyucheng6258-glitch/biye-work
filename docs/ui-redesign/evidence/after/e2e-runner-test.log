@@ -1,0 +1,19 @@
+✔ uses the existing localhost addresses by default (2.9414ms)
+✔ allows an isolated browser environment to override every address (0.2265ms)
+✔ uses a repository-relative directory for local E2E image fixtures (0.2334ms)
+✔ allows E2E image fixtures to live outside the repository (0.2693ms)
+✔ returns zero when all executed checks pass (1.2611ms)
+✔ returns zero for documented uncovered checks without failures (0.116ms)
+✔ returns non-zero when any check fails or is blocked (0.0751ms)
+✔ returns non-zero when a test category throws before recording a result (0.0764ms)
+✔ runs all categories when no filter is supplied (0.1223ms)
+✔ accepts known categories and rejects empty or unknown filters (1.487ms)
+✔ rejects a bare --only flag instead of silently running every category (0.2489ms)
+ℹ tests 11
+ℹ suites 0
+ℹ pass 11
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 228.8146

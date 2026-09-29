@@ -1,0 +1,34 @@
+{
+  "phase": "before",
+  "checks": [
+    {
+      "label": "list-bottom-1440",
+      "path": "/idle",
+      "y": 1181,
+      "height": 2081,
+      "viewport": 900,
+      "focus": "",
+      "scrollCalls": [
+        [
+          0,
+          2081
+        ]
+      ]
+    },
+    {
+      "label": "list-to-detail-1440",
+      "path": "/idle/detail/1",
+      "y": 710,
+      "height": 1610,
+      "viewport": 900,
+      "focus": "",
+      "scrollCalls": [
+        [
+          0,
+          2081
+        ]
+      ]
+    }
+  ],
+  "errors": []
+}

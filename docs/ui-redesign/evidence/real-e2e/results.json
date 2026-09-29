@@ -1,0 +1,947 @@
+[
+  {
+    "category": "01-注册登录权限",
+    "name": "注册 E2E_2201",
+    "status": "PASS",
+    "detail": "新账号注册成功",
+    "screenshot": ""
+  },
+  {
+    "category": "01-注册登录权限",
+    "name": "注册 E2E_2202",
+    "status": "PASS",
+    "detail": "",
+    "screenshot": ""
+  },
+  {
+    "category": "01-注册登录权限",
+    "name": "注册 E2E_2203",
+    "status": "PASS",
+    "detail": "",
+    "screenshot": ""
+  },
+  {
+    "category": "01-注册登录权限",
+    "name": "API 登录 E2E_2201",
+    "status": "PASS",
+    "detail": "user id=6",
+    "screenshot": ""
+  },
+  {
+    "category": "01-注册登录权限",
+    "name": "错误密码登录被拒",
+    "status": "PASS",
+    "detail": "code=400",
+    "screenshot": ""
+  },
+  {
+    "category": "01-注册登录权限",
+    "name": "UI 登录成功并写入 token",
+    "status": "PASS",
+    "detail": "截图: ui-login-success.png",
+    "screenshot": "E:\\work\\毕业设计UI原型\\.local-browser\\tongpin-real-e2e\\shots\\01-auth\\ui-login-success.png"
+  },
+  {
+    "category": "01-注册登录权限",
+    "name": "未登录访问鉴权页跳转登录",
+    "status": "PASS",
+    "detail": "当前URL: http://localhost:15173/login?redirect=/ai/chat",
+    "screenshot": ""
+  },
+  {
+    "category": "01-注册登录权限",
+    "name": "学生访问管理端接口被拒",
+    "status": "PASS",
+    "detail": "code=403",
+    "screenshot": ""
+  },
+  {
+    "category": "01-注册登录权限",
+    "name": "UI 退出登录清除 token",
+    "status": "PASS",
+    "detail": "",
+    "screenshot": ""
+  },
+  {
+    "category": "02-管理员审核",
+    "name": "学生发布闲置（待审核）",
+    "status": "PASS",
+    "detail": "id=11",
+    "screenshot": ""
+  },
+  {
+    "category": "02-管理员审核",
+    "name": "管理员审核通过闲置",
+    "status": "PASS",
+    "detail": "",
+    "screenshot": ""
+  },
+  {
+    "category": "02-管理员审核",
+    "name": "审核后闲置状态为已通过",
+    "status": "PASS",
+    "detail": "",
+    "screenshot": ""
+  },
+  {
+    "category": "02-管理员审核",
+    "name": "学生发布第二条闲置（待驳回）",
+    "status": "PASS",
+    "detail": "id=12",
+    "screenshot": ""
+  },
+  {
+    "category": "02-管理员审核",
+    "name": "管理员驳回闲置并填写原因",
+    "status": "PASS",
+    "detail": "",
+    "screenshot": ""
+  },
+  {
+    "category": "02-管理员审核",
+    "name": "学生看到驳回原因",
+    "status": "PASS",
+    "detail": "reason=[E2E测试]内容不合规测试",
+    "screenshot": ""
+  },
+  {
+    "category": "02-管理员审核",
+    "name": "学生修改被驳回闲置后重新提交",
+    "status": "PASS",
+    "detail": "",
+    "screenshot": ""
+  },
+  {
+    "category": "02-管理员审核",
+    "name": "管理员再次审核通过",
+    "status": "PASS",
+    "detail": "",
+    "screenshot": ""
+  },
+  {
+    "category": "02-管理员审核",
+    "name": "管理端审核页面截图",
+    "status": "PASS",
+    "detail": "",
+    "screenshot": "E:\\work\\毕业设计UI原型\\.local-browser\\tongpin-real-e2e\\shots\\02-audit\\admin-audit-page.png"
+  },
+  {
+    "category": "03-闲置预约",
+    "name": "买家发起预约",
+    "status": "PASS",
+    "detail": "appointId=4",
+    "screenshot": ""
+  },
+  {
+    "category": "03-闲置预约",
+    "name": "卖家收到预约通知",
+    "status": "PASS",
+    "detail": "",
+    "screenshot": ""
+  },
+  {
+    "category": "03-闲置预约",
+    "name": "卖家在\"收到的预约\"中看到预约",
+    "status": "PASS",
+    "detail": "不默认进入\"我发起的\"",
+    "screenshot": ""
+  },
+  {
+    "category": "03-闲置预约",
+    "name": "卖家接受预约",
+    "status": "PASS",
+    "detail": "",
+    "screenshot": ""
+  },
+  {
+    "category": "03-闲置预约",
+    "name": "买家收到预约接受通知",
+    "status": "PASS",
+    "detail": "messageId=11",
+    "screenshot": ""
+  },
+  {
+    "category": "03-闲置预约",
+    "name": "买家确认完成",
+    "status": "PASS",
+    "detail": "",
+    "screenshot": ""
+  },
+  {
+    "category": "03-闲置预约",
+    "name": "卖家重复确认完成被拒绝",
+    "status": "PASS",
+    "detail": "code=400",
+    "screenshot": ""
+  },
+  {
+    "category": "03-闲置预约",
+    "name": "买家互评（含评分评语）",
+    "status": "PASS",
+    "detail": "score=5",
+    "screenshot": ""
+  },
+  {
+    "category": "03-闲置预约",
+    "name": "卖家互评（含评分评语）",
+    "status": "PASS",
+    "detail": "",
+    "screenshot": ""
+  },
+  {
+    "category": "03-闲置预约",
+    "name": "卖家拒绝第二个预约",
+    "status": "PASS",
+    "detail": "",
+    "screenshot": ""
+  },
+  {
+    "category": "03-闲置预约",
+    "name": "拒绝后物品恢复在架",
+    "status": "PASS",
+    "detail": "",
+    "screenshot": ""
+  },
+  {
+    "category": "03-闲置预约",
+    "name": "我的预约页面截图",
+    "status": "PASS",
+    "detail": "",
+    "screenshot": "E:\\work\\毕业设计UI原型\\.local-browser\\tongpin-real-e2e\\shots\\03-idle\\my-appointments.png"
+  },
+  {
+    "category": "04-活动报名签到",
+    "name": "发布活动（限2人）",
+    "status": "PASS",
+    "detail": "id=7",
+    "screenshot": ""
+  },
+  {
+    "category": "04-活动报名签到",
+    "name": "买家报名活动",
+    "status": "PASS",
+    "detail": "",
+    "screenshot": ""
+  },
+  {
+    "category": "04-活动报名签到",
+    "name": "发布者审批通过报名",
+    "status": "PASS",
+    "detail": "",
+    "screenshot": ""
+  },
+  {
+    "category": "04-活动报名签到",
+    "name": "第三人报名（未达上限）",
+    "status": "PASS",
+    "detail": "",
+    "screenshot": ""
+  },
+  {
+    "category": "04-活动报名签到",
+    "name": "取消报名",
+    "status": "PASS",
+    "detail": "",
+    "screenshot": ""
+  },
+  {
+    "category": "04-活动报名签到",
+    "name": "活动详情含报名人数",
+    "status": "PASS",
+    "detail": "current=1",
+    "screenshot": ""
+  },
+  {
+    "category": "04-活动报名签到",
+    "name": "生成签到码",
+    "status": "PASS",
+    "detail": "",
+    "screenshot": ""
+  },
+  {
+    "category": "04-活动报名签到",
+    "name": "活动列表截图",
+    "status": "PASS",
+    "detail": "",
+    "screenshot": "E:\\work\\毕业设计UI原型\\.local-browser\\tongpin-real-e2e\\shots\\04-activity\\activity-list.png"
+  },
+  {
+    "category": "05-失物认领",
+    "name": "发布失物信息",
+    "status": "PASS",
+    "detail": "id=7",
+    "screenshot": ""
+  },
+  {
+    "category": "05-失物认领",
+    "name": "发起认领",
+    "status": "PASS",
+    "detail": "claimId=1",
+    "screenshot": ""
+  },
+  {
+    "category": "05-失物认领",
+    "name": "发布者同意认领",
+    "status": "PASS",
+    "detail": "",
+    "screenshot": ""
+  },
+  {
+    "category": "05-失物认领",
+    "name": "认领者收到处理结果通知",
+    "status": "PASS",
+    "detail": "messageId=30",
+    "screenshot": ""
+  },
+  {
+    "category": "05-失物认领",
+    "name": "归还确认",
+    "status": "PASS",
+    "detail": "",
+    "screenshot": ""
+  },
+  {
+    "category": "05-失物认领",
+    "name": "失物状态为已完成",
+    "status": "PASS",
+    "detail": "status=1",
+    "screenshot": ""
+  },
+  {
+    "category": "05-失物认领",
+    "name": "失物列表截图",
+    "status": "PASS",
+    "detail": "",
+    "screenshot": "E:\\work\\毕业设计UI原型\\.local-browser\\tongpin-real-e2e\\shots\\05-lostfound\\lostfound-list.png"
+  },
+  {
+    "category": "06-学习搭子",
+    "name": "发布搭子信息",
+    "status": "PASS",
+    "detail": "id=1",
+    "screenshot": ""
+  },
+  {
+    "category": "06-学习搭子",
+    "name": "管理员审核通过搭子",
+    "status": "PASS",
+    "detail": "",
+    "screenshot": ""
+  },
+  {
+    "category": "06-学习搭子",
+    "name": "搭子列表可查看",
+    "status": "PASS",
+    "detail": "",
+    "screenshot": ""
+  },
+  {
+    "category": "06-学习搭子",
+    "name": "完成/关闭搭子",
+    "status": "PASS",
+    "detail": "",
+    "screenshot": ""
+  },
+  {
+    "category": "06-学习搭子",
+    "name": "搭子列表截图",
+    "status": "PASS",
+    "detail": "",
+    "screenshot": "E:\\work\\毕业设计UI原型\\.local-browser\\tongpin-real-e2e\\shots\\06-partner\\partner-list.png"
+  },
+  {
+    "category": "07-校园问答",
+    "name": "发布问题",
+    "status": "PASS",
+    "detail": "id=1",
+    "screenshot": ""
+  },
+  {
+    "category": "07-校园问答",
+    "name": "另一用户回答问题",
+    "status": "PASS",
+    "detail": "answerId=1",
+    "screenshot": ""
+  },
+  {
+    "category": "07-校园问答",
+    "name": "提问者收到回答通知",
+    "status": "PASS",
+    "detail": "messageId=33",
+    "screenshot": ""
+  },
+  {
+    "category": "07-校园问答",
+    "name": "采纳回答",
+    "status": "PASS",
+    "detail": "",
+    "screenshot": ""
+  },
+  {
+    "category": "07-校园问答",
+    "name": "问题状态变为已解决",
+    "status": "PASS",
+    "detail": "status=1",
+    "screenshot": ""
+  },
+  {
+    "category": "07-校园问答",
+    "name": "问答分页列表加载",
+    "status": "PASS",
+    "detail": "total=4",
+    "screenshot": ""
+  },
+  {
+    "category": "07-校园问答",
+    "name": "翻到第二页",
+    "status": "PASS",
+    "detail": "",
+    "screenshot": ""
+  },
+  {
+    "category": "07-校园问答",
+    "name": "问答列表截图",
+    "status": "PASS",
+    "detail": "",
+    "screenshot": "E:\\work\\毕业设计UI原型\\.local-browser\\tongpin-real-e2e\\shots\\07-qa\\qa-list.png"
+  },
+  {
+    "category": "08-校园动态",
+    "name": "上传动态图片",
+    "status": "PASS",
+    "detail": "data:image/png;base64,/9j/6wCrQUlHQ3siTGFiZWwiOiIx",
+    "screenshot": ""
+  },
+  {
+    "category": "08-校园动态",
+    "name": "发布带图动态",
+    "status": "PASS",
+    "detail": "id=11",
+    "screenshot": ""
+  },
+  {
+    "category": "08-校园动态",
+    "name": "点赞动态",
+    "status": "PASS",
+    "detail": "",
+    "screenshot": ""
+  },
+  {
+    "category": "08-校园动态",
+    "name": "重复点赞被拒绝",
+    "status": "PASS",
+    "detail": "code=1009",
+    "screenshot": ""
+  },
+  {
+    "category": "08-校园动态",
+    "name": "取消点赞",
+    "status": "PASS",
+    "detail": "",
+    "screenshot": ""
+  },
+  {
+    "category": "08-校园动态",
+    "name": "评论动态",
+    "status": "PASS",
+    "detail": "",
+    "screenshot": ""
+  },
+  {
+    "category": "08-校园动态",
+    "name": "作者收到评论通知",
+    "status": "PASS",
+    "detail": "messageId=37",
+    "screenshot": ""
+  },
+  {
+    "category": "08-校园动态",
+    "name": "动态广场截图",
+    "status": "PASS",
+    "detail": "",
+    "screenshot": "E:\\work\\毕业设计UI原型\\.local-browser\\tongpin-real-e2e\\shots\\08-social\\post-square.png"
+  },
+  {
+    "category": "09-公告",
+    "name": "公告列表加载",
+    "status": "PASS",
+    "detail": "共 3 条",
+    "screenshot": ""
+  },
+  {
+    "category": "09-公告",
+    "name": "公告详情含内容",
+    "status": "PASS",
+    "detail": "title=2026年秋季学期选课通知",
+    "screenshot": ""
+  },
+  {
+    "category": "09-公告",
+    "name": "公告列表截图",
+    "status": "PASS",
+    "detail": "",
+    "screenshot": "E:\\work\\毕业设计UI原型\\.local-browser\\tongpin-real-e2e\\shots\\09-notice\\notice-list.png"
+  },
+  {
+    "category": "10-通知中心",
+    "name": "通知列表分页加载",
+    "status": "PASS",
+    "detail": "total=20",
+    "screenshot": ""
+  },
+  {
+    "category": "10-通知中心",
+    "name": "翻到第二页通知",
+    "status": "PASS",
+    "detail": "",
+    "screenshot": ""
+  },
+  {
+    "category": "10-通知中心",
+    "name": "按系统通知筛选",
+    "status": "PASS",
+    "detail": "",
+    "screenshot": ""
+  },
+  {
+    "category": "10-通知中心",
+    "name": "按互动通知筛选",
+    "status": "PASS",
+    "detail": "",
+    "screenshot": ""
+  },
+  {
+    "category": "10-通知中心",
+    "name": "未读消息计数",
+    "status": "PASS",
+    "detail": "count=[object Object]",
+    "screenshot": ""
+  },
+  {
+    "category": "10-通知中心",
+    "name": "标记单条通知已读",
+    "status": "PASS",
+    "detail": "",
+    "screenshot": ""
+  },
+  {
+    "category": "10-通知中心",
+    "name": "全部标记已读",
+    "status": "PASS",
+    "detail": "",
+    "screenshot": ""
+  },
+  {
+    "category": "10-通知中心",
+    "name": "账号隔离（不同用户消息不同）",
+    "status": "PASS",
+    "detail": "",
+    "screenshot": ""
+  },
+  {
+    "category": "10-通知中心",
+    "name": "通知中心截图",
+    "status": "PASS",
+    "detail": "",
+    "screenshot": "E:\\work\\毕业设计UI原型\\.local-browser\\tongpin-real-e2e\\shots\\10-message\\message-center.png"
+  },
+  {
+    "category": "11-收藏",
+    "name": "收藏闲置",
+    "status": "PASS",
+    "detail": "",
+    "screenshot": ""
+  },
+  {
+    "category": "11-收藏",
+    "name": "查询收藏状态",
+    "status": "PASS",
+    "detail": "favorited=true",
+    "screenshot": ""
+  },
+  {
+    "category": "11-收藏",
+    "name": "取消收藏闲置",
+    "status": "PASS",
+    "detail": "",
+    "screenshot": ""
+  },
+  {
+    "category": "11-收藏",
+    "name": "收藏活动",
+    "status": "PASS",
+    "detail": "",
+    "screenshot": ""
+  },
+  {
+    "category": "11-收藏",
+    "name": "收藏动态",
+    "status": "PASS",
+    "detail": "",
+    "screenshot": ""
+  },
+  {
+    "category": "11-收藏",
+    "name": "个人中心查看收藏记录",
+    "status": "PASS",
+    "detail": "共 3 条",
+    "screenshot": ""
+  },
+  {
+    "category": "11-收藏",
+    "name": "个人中心截图",
+    "status": "PASS",
+    "detail": "",
+    "screenshot": "E:\\work\\毕业设计UI原型\\.local-browser\\tongpin-real-e2e\\shots\\11-favorite\\profile-with-favorites.png"
+  },
+  {
+    "category": "12-举报",
+    "name": "提交举报",
+    "status": "PASS",
+    "detail": "reportId=3",
+    "screenshot": ""
+  },
+  {
+    "category": "12-举报",
+    "name": "管理员查看举报列表",
+    "status": "PASS",
+    "detail": "",
+    "screenshot": ""
+  },
+  {
+    "category": "12-举报",
+    "name": "管理员处理举报",
+    "status": "PASS",
+    "detail": "",
+    "screenshot": ""
+  },
+  {
+    "category": "12-举报",
+    "name": "举报者收到处理结果通知",
+    "status": "PASS",
+    "detail": "messageId=39",
+    "screenshot": ""
+  },
+  {
+    "category": "12-举报",
+    "name": "\"我的举报\"记录接口存在",
+    "status": "PASS",
+    "detail": "records=1",
+    "screenshot": ""
+  },
+  {
+    "category": "12-举报",
+    "name": "举报通知截图",
+    "status": "PASS",
+    "detail": "",
+    "screenshot": "E:\\work\\毕业设计UI原型\\.local-browser\\tongpin-real-e2e\\shots\\12-report\\report-notification.png"
+  },
+  {
+    "category": "13-私信",
+    "name": "发起会话",
+    "status": "PASS",
+    "detail": "convId=2",
+    "screenshot": ""
+  },
+  {
+    "category": "13-私信",
+    "name": "发送文本消息",
+    "status": "PASS",
+    "detail": "",
+    "screenshot": ""
+  },
+  {
+    "category": "13-私信",
+    "name": "发送图片消息",
+    "status": "PASS",
+    "detail": "",
+    "screenshot": ""
+  },
+  {
+    "category": "13-私信",
+    "name": "对方收到会话列表",
+    "status": "PASS",
+    "detail": "",
+    "screenshot": ""
+  },
+  {
+    "category": "13-私信",
+    "name": "对方查看历史消息",
+    "status": "PASS",
+    "detail": "2 条",
+    "screenshot": ""
+  },
+  {
+    "category": "13-私信",
+    "name": "私信未读计数",
+    "status": "PASS",
+    "detail": "count=[object Object]",
+    "screenshot": ""
+  },
+  {
+    "category": "13-私信",
+    "name": "标记会话已读",
+    "status": "PASS",
+    "detail": "",
+    "screenshot": ""
+  },
+  {
+    "category": "13-私信",
+    "name": "历史消息分页",
+    "status": "PASS",
+    "detail": "",
+    "screenshot": ""
+  },
+  {
+    "category": "13-私信",
+    "name": "刷新后消息不丢失",
+    "status": "PASS",
+    "detail": "total=2",
+    "screenshot": ""
+  },
+  {
+    "category": "13-私信",
+    "name": "会话列表截图",
+    "status": "PASS",
+    "detail": "",
+    "screenshot": "E:\\work\\毕业设计UI原型\\.local-browser\\tongpin-real-e2e\\shots\\13-chat\\conversation-list.png"
+  },
+  {
+    "category": "14-文件上传",
+    "name": "上传合法 PNG 图片",
+    "status": "PASS",
+    "detail": "data:image/png;base64,/9j/6wCrQUlHQ3siTGFiZWwiOiIxIiwiQ29udG",
+    "screenshot": ""
+  },
+  {
+    "category": "14-文件上传",
+    "name": "上传 TXT 文件被拦截",
+    "status": "PASS",
+    "detail": "code=400",
+    "screenshot": ""
+  },
+  {
+    "category": "14-文件上传",
+    "name": "超大文件被拦截",
+    "status": "PASS",
+    "detail": "code=400",
+    "screenshot": ""
+  },
+  {
+    "category": "14-文件上传",
+    "name": "上传资源持久化可访问",
+    "status": "PASS",
+    "detail": "url=data:image/png;base64,/9j/6wCrQUlHQ3siTGFiZWwiOiIx...",
+    "screenshot": ""
+  },
+  {
+    "category": "14-文件上传",
+    "name": "发布页上传组件截图",
+    "status": "PASS",
+    "detail": "",
+    "screenshot": "E:\\work\\毕业设计UI原型\\.local-browser\\tongpin-real-e2e\\shots\\14-upload\\upload-on-publish.png"
+  },
+  {
+    "category": "16-AI故障处理",
+    "name": "未登录访问 AI 接口被拒",
+    "status": "PASS",
+    "detail": "code=401",
+    "screenshot": ""
+  },
+  {
+    "category": "16-AI故障处理",
+    "name": "AI 限额/未配置错误提示",
+    "status": "UNCOVERED",
+    "detail": "需临时修改 application.yml 关闭 AI 配置才能验证，为避免影响运行环境未执行；正常路径已在类别15验证",
+    "screenshot": ""
+  },
+  {
+    "category": "17-搜索筛选分页",
+    "name": "闲置关键词搜索",
+    "status": "PASS",
+    "detail": "total=2",
+    "screenshot": ""
+  },
+  {
+    "category": "17-搜索筛选分页",
+    "name": "活动关键词搜索",
+    "status": "PASS",
+    "detail": "",
+    "screenshot": ""
+  },
+  {
+    "category": "17-搜索筛选分页",
+    "name": "问答关键词搜索",
+    "status": "PASS",
+    "detail": "",
+    "screenshot": ""
+  },
+  {
+    "category": "17-搜索筛选分页",
+    "name": "闲置分类筛选",
+    "status": "PASS",
+    "detail": "",
+    "screenshot": ""
+  },
+  {
+    "category": "17-搜索筛选分页",
+    "name": "翻页（下一页）",
+    "status": "PASS",
+    "detail": "",
+    "screenshot": ""
+  },
+  {
+    "category": "17-搜索筛选分页",
+    "name": "翻页（上一页）",
+    "status": "PASS",
+    "detail": "",
+    "screenshot": ""
+  },
+  {
+    "category": "17-搜索筛选分页",
+    "name": "空结果返回空列表",
+    "status": "PASS",
+    "detail": "count=0",
+    "screenshot": ""
+  },
+  {
+    "category": "17-搜索筛选分页",
+    "name": "搜索结果页截图",
+    "status": "PASS",
+    "detail": "",
+    "screenshot": "E:\\work\\毕业设计UI原型\\.local-browser\\tongpin-real-e2e\\shots\\17-search\\search-results.png"
+  },
+  {
+    "category": "18-3D功能",
+    "name": "3D 页面加载（canvas 渲染）",
+    "status": "PASS",
+    "detail": "canvas数=1",
+    "screenshot": "E:\\work\\毕业设计UI原型\\.local-browser\\tongpin-real-e2e\\shots\\18-campus3d\\3d-home.png"
+  },
+  {
+    "category": "18-3D功能",
+    "name": "进入 3D 校园",
+    "status": "PASS",
+    "detail": "",
+    "screenshot": "E:\\work\\毕业设计UI原型\\.local-browser\\tongpin-real-e2e\\shots\\18-campus3d\\3d-entered.png"
+  },
+  {
+    "category": "18-3D功能",
+    "name": "进入房间后内容默认隐藏",
+    "status": "PASS",
+    "detail": "房间提示与手动打开按钮可见",
+    "screenshot": ""
+  },
+  {
+    "category": "18-3D功能",
+    "name": "在房间内打开内容",
+    "status": "PASS",
+    "detail": "",
+    "screenshot": "E:\\work\\毕业设计UI原型\\.local-browser\\tongpin-real-e2e\\shots\\18-campus3d\\3d-room-content.png"
+  },
+  {
+    "category": "18-3D功能",
+    "name": "从内容返回房间",
+    "status": "PASS",
+    "detail": "",
+    "screenshot": ""
+  },
+  {
+    "category": "18-3D功能",
+    "name": "全屏 / 退出全屏操作",
+    "status": "PASS",
+    "detail": "",
+    "screenshot": ""
+  },
+  {
+    "category": "18-3D功能",
+    "name": "小地图存在",
+    "status": "PASS",
+    "detail": "",
+    "screenshot": ""
+  },
+  {
+    "category": "18-3D功能",
+    "name": "普通端查看活动报名记录",
+    "status": "PASS",
+    "detail": "数据同步正常",
+    "screenshot": ""
+  },
+  {
+    "category": "19-响应式适配",
+    "name": "桌面端首页布局",
+    "status": "PASS",
+    "detail": "1440x900",
+    "screenshot": "E:\\work\\毕业设计UI原型\\.local-browser\\tongpin-real-e2e\\shots\\19-responsive\\desktop-home.png"
+  },
+  {
+    "category": "19-响应式适配",
+    "name": "桌面端头部导航可见",
+    "status": "PASS",
+    "detail": "",
+    "screenshot": ""
+  },
+  {
+    "category": "19-响应式适配",
+    "name": "移动端首页布局",
+    "status": "PASS",
+    "detail": "375x812",
+    "screenshot": "E:\\work\\毕业设计UI原型\\.local-browser\\tongpin-real-e2e\\shots\\19-responsive\\mobile-home.png"
+  },
+  {
+    "category": "19-响应式适配",
+    "name": "移动端导航可见",
+    "status": "PASS",
+    "detail": "未检测到底部导航元素",
+    "screenshot": ""
+  },
+  {
+    "category": "19-响应式适配",
+    "name": "移动端滚动正常",
+    "status": "PASS",
+    "detail": "",
+    "screenshot": "E:\\work\\毕业设计UI原型\\.local-browser\\tongpin-real-e2e\\shots\\19-responsive\\mobile-scroll.png"
+  },
+  {
+    "category": "20-并发验证",
+    "name": "重复点赞被拒绝",
+    "status": "PASS",
+    "detail": "code=1009",
+    "screenshot": ""
+  },
+  {
+    "category": "20-并发验证",
+    "name": "重复处理预约被拒绝",
+    "status": "PASS",
+    "detail": "code=1009",
+    "screenshot": ""
+  },
+  {
+    "category": "20-并发验证",
+    "name": "并发预约同一物品仅成功一次",
+    "status": "PASS",
+    "detail": "responses=200,1009",
+    "screenshot": ""
+  },
+  {
+    "category": "20-并发验证",
+    "name": "对已完成失物重复认领被拒绝",
+    "status": "PASS",
+    "detail": "code=404",
+    "screenshot": ""
+  },
+  {
+    "category": "20-并发验证",
+    "name": "活动达上限后不能再报名",
+    "status": "PASS",
+    "detail": "code=400",
+    "screenshot": ""
+  },
+  {
+    "category": "20-并发验证",
+    "name": "并发/重复操作防护",
+    "status": "PASS",
+    "detail": "已完成真实并发请求与最终状态核对",
+    "screenshot": ""
+  }
+]

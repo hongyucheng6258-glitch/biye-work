@@ -36,6 +36,48 @@ async function upload({ file }) {
 </script>
 
 <style scoped>
-.composer { display:grid; grid-template-columns:auto 1fr auto; gap:10px; align-items:end; padding:14px 16px; border-top:1px solid var(--line); background:var(--surface); }
-.composer :deep(.el-textarea__inner) { border-radius:16px; padding:11px 14px; box-shadow:none; resize:none; }
+.composer {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 10px;
+  align-items: end;
+  padding: 14px 16px;
+  border-top: 1px solid var(--line);
+  background: var(--surface);
+}
+.composer :deep(.el-textarea__inner) {
+  border-radius: 16px;
+  padding: 11px 14px;
+  box-shadow: none;
+  resize: none;
+}
+/* 同频校园：本页展示布局，业务绑定保持原样 */
+.composer {
+  display: flex;
+  align-items: flex-end;
+  gap: 12px;
+  padding: 18px;
+  background: var(--surface-2);
+  min-width: 0;
+}
+.composer :deep(.el-textarea) {
+  flex: 1;
+  min-width: 0;
+}
+.composer :deep(.el-textarea__inner) {
+  font-size: 16px;
+}
+.composer :deep(.el-button) {
+  min-height: 42px;
+  margin-left: 0;
+}
+@media (max-width:600px) {
+  .composer {
+    padding: 14px;
+    gap: 8px;
+  }
+  .composer :deep(.el-button) {
+    padding: 10px 12px;
+  }
+}
 </style>

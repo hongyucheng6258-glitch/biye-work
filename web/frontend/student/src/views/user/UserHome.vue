@@ -280,7 +280,10 @@ export default {
   border: 3px solid rgba(255, 255, 255, 0.35);
   flex: none;
 }
-.banner-info { flex: 1; min-width: 0; }
+.banner-info {
+  flex: 1;
+  min-width: 0;
+}
 .banner-info h3 {
   margin: 0 0 6px;
   font-size: 22px;
@@ -288,10 +291,26 @@ export default {
   align-items: center;
   gap: 10px;
 }
-.banner-sub { margin: 0 0 4px; font-size: 13px; opacity: 0.9; }
-.banner-bio { margin: 6px 0; font-size: 14px; opacity: 0.95; }
-.banner-time { margin: 0; font-size: 12px; opacity: 0.7; }
-.banner-ops { display: flex; gap: 8px; flex: none; }
+.banner-sub {
+  margin: 0 0 4px;
+  font-size: 13px;
+  opacity: 0.9;
+}
+.banner-bio {
+  margin: 6px 0;
+  font-size: 14px;
+  opacity: 0.95;
+}
+.banner-time {
+  margin: 0;
+  font-size: 12px;
+  opacity: 0.7;
+}
+.banner-ops {
+  display: flex;
+  gap: 8px;
+  flex: none;
+}
 .banner-ops :deep(.el-button--primary) {
   --el-button-bg-color: #fff;
   --el-button-border-color: #fff;
@@ -313,10 +332,23 @@ export default {
   padding: 16px 10px;
   text-align: center;
 }
-.stat-item b { display: block; font-size: 22px; color: var(--brand-strong); }
-.stat-item span { font-size: 12px; color: #7a8b82; }
-.tab-card { border-radius: 12px; }
-.review-list { display: flex; flex-direction: column; gap: 12px; }
+.stat-item b {
+  display: block;
+  font-size: 22px;
+  color: var(--brand-strong);
+}
+.stat-item span {
+  font-size: 12px;
+  color: #7a8b82;
+}
+.tab-card {
+  border-radius: 12px;
+}
+.review-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
 .review-item {
   display: flex;
   gap: 12px;
@@ -325,12 +357,171 @@ export default {
   border-radius: 10px;
   padding: 12px 14px;
 }
-.review-main { flex: 1; min-width: 0; }
-.review-head { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
-.review-name { font-weight: 600; color: var(--brand-strong); font-size: 14px; }
-.stars { color: #f5a623; font-size: 13px; letter-spacing: 1px; }
-.stars i { color: #d8e2dc; font-style: normal; }
-.review-item-title { color: #7a8b82; font-size: 12px; }
-.review-content { margin-top: 6px; font-size: 14px; color: #1f2d27; }
-.review-time { margin-top: 4px; font-size: 12px; color: #9db5a9; }
+.review-main {
+  flex: 1;
+  min-width: 0;
+}
+.review-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.review-name {
+  font-weight: 600;
+  color: var(--brand-strong);
+  font-size: 14px;
+}
+.stars {
+  color: #f5a623;
+  font-size: 13px;
+  letter-spacing: 1px;
+}
+.stars i {
+  color: #d8e2dc;
+  font-style: normal;
+}
+.review-item-title {
+  color: #7a8b82;
+  font-size: 12px;
+}
+.review-content {
+  margin-top: 6px;
+  font-size: 14px;
+  color: #1f2d27;
+}
+.review-time {
+  margin-top: 4px;
+  font-size: 12px;
+  color: #9db5a9;
+}
+/* 同频校园：本页展示布局，业务绑定保持原样 */
+.home-banner {
+  background: var(--atlas-sky);
+  border-radius: 26px;
+  padding: 28px;
+  min-width: 0;
+}
+.banner-info {
+  min-width: 0;
+}
+.banner-info h1,.banner-bio {
+  overflow-wrap: anywhere;
+}
+.banner-ops {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.stat-row {
+  display: grid;
+  grid-template-columns: repeat(4,minmax(0,1fr));
+  gap: 16px;
+}
+.stat-item {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  padding: 18px;
+  min-width: 0;
+}
+.tab-card {
+  border-radius: 24px;
+  min-width: 0;
+}
+.review-item {
+  padding: 22px;
+  border-radius: 18px;
+  background: var(--surface-2);
+  gap: 14px;
+}
+.review-main {
+  min-width: 0;
+}
+.review-head {
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.review-content {
+  overflow-wrap: anywhere;
+}
+.review-item-title {
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+:deep(.cl) {
+  min-width: 0;
+}
+:deep(.cl-item) {
+  padding: 18px;
+  border-radius: 16px;
+  background: var(--surface-2);
+}
+:deep(.cl-title) {
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+@media (max-width:600px) {
+  .home-banner {
+    flex-wrap: wrap;
+    padding: 22px;
+  }
+  .banner-ops {
+    width: 100%;
+  }
+  .stat-row {
+    grid-template-columns: repeat(2,minmax(0,1fr));
+  }
+  .review-head {
+    display: flex;
+  }
+}
+:deep(.uc-item) {
+  background: var(--surface-2) !important;
+  border-color: var(--line) !important;
+  border-radius: 18px !important;
+  padding: 18px !important;
+  flex-wrap: wrap;
+}
+:deep(.uc-item>div) {
+  min-width: 0;
+}
+:deep(.uc-item span) {
+  overflow-wrap: anywhere;
+}
+.home-banner {
+  color: var(--ink);
+}
+.banner-bio,.banner-meta {
+  color: var(--ink-2);
+}
+.banner-info h3 {
+  overflow-wrap: anywhere;
+}
+.review-content {
+  color: var(--ink);
+}
+.review-item-title,.review-time {
+  color: var(--ink-2);
+}
+.banner-sub,.banner-time {
+  color: var(--ink-2);
+  opacity: 1;
+}
+.banner-ops :deep(.el-button--primary) {
+  --el-button-bg-color: var(--brand);
+  --el-button-border-color: var(--brand);
+  --el-button-text-color: var(--brand-ink);
+  --el-button-hover-bg-color: var(--brand-strong);
+  --el-button-hover-border-color: var(--brand-strong);
+  --el-button-hover-text-color: var(--brand-ink);
+}
+:deep(.uc-item>div:nth-child(2)>div:first-child) {
+  color: var(--ink) !important;
+  white-space: normal !important;
+  overflow-wrap: anywhere;
+}
+:deep(.uc-item>div:nth-child(2)>div:not(:first-child)) {
+  color: var(--ink-2) !important;
+}
 </style>

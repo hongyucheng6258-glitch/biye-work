@@ -1,0 +1,34 @@
+[
+  {
+    "name": "B01: initial favorites deep link, refresh, normal tab and removal",
+    "status": "PASS"
+  },
+  {
+    "name": "B02: comment entry opens, posts, persists and folds",
+    "status": "PASS"
+  },
+  {
+    "name": "B03: detail participant list sends numeric page and existing alternate entry still works",
+    "status": "PASS"
+  },
+  {
+    "name": "B05: Ctrl+K global search, same-route second keyword and manual search",
+    "status": "PASS"
+  },
+  {
+    "name": "B04: new administrator still requires an initial password",
+    "status": "PASS"
+  },
+  {
+    "name": "B04: empty-password nickname edit saves and original password still logs in",
+    "status": "PASS"
+  },
+  {
+    "name": "B06: real AI outline success renders Markdown and can reset",
+    "status": "PASS"
+  },
+  {
+    "name": "B07: pending chat switches to guide, sends successfully, then PDF and chat remain usable",
+    "status": "PASS"
+  }
+]

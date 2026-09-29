@@ -34,12 +34,137 @@ onMounted(async () => {
 </script>
 
 <style scoped>
-.inbox { overflow:hidden; border:1px solid var(--line); border-radius:22px; background:var(--surface); box-shadow:var(--shadow-sm); }
-.inbox > header { display:flex; align-items:center; justify-content:space-between; padding:20px 24px; border-bottom:1px solid var(--line); background:linear-gradient(135deg,var(--brand-soft),transparent 65%); }
-header div { display:flex; align-items:baseline; gap:8px; color:var(--ink-2); } header b { font-family:var(--font-display); font-size:32px; color:var(--brand-strong); }
-.connection { font-size:12px; padding:6px 10px; border-radius:999px; background:var(--surface-2); color:var(--ink-3); } .connection.connected { color:var(--success); }
-.conversation { width:100%; display:grid; grid-template-columns:auto 1fr; gap:16px; align-items:center; padding:18px 24px; border:0; border-bottom:1px solid var(--line); background:transparent; text-align:left; cursor:pointer; transition:.2s; }
-.conversation:hover { background:var(--surface-2); transform:translateX(3px); }
-.body { min-width:0; } .top,.bottom { display:flex; justify-content:space-between; gap:16px; align-items:center; } .top strong { font-size:16px; } time { flex:none; font-size:12px; color:var(--ink-3); }
-.bottom { margin-top:7px; color:var(--ink-3); font-size:13px; } .bottom span { overflow:hidden; white-space:nowrap; text-overflow:ellipsis; } .bottom em { flex:none; max-width:220px; overflow:hidden; white-space:nowrap; text-overflow:ellipsis; padding:3px 8px; border-radius:999px; background:var(--brand-soft); color:var(--brand-strong); font-style:normal; font-size:11px; }
+.inbox {
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 22px;
+  background: var(--surface);
+  box-shadow: var(--shadow-sm);
+}
+.inbox > header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 24px;
+  border-bottom: 1px solid var(--line);
+  background: linear-gradient(135deg,var(--brand-soft),transparent 65%);
+}
+header div {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  color: var(--ink-2);
+}
+header b {
+  font-family: var(--font-display);
+  font-size: 32px;
+  color: var(--brand-strong);
+}
+.connection {
+  font-size: 12px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: var(--surface-2);
+  color: var(--ink-3);
+}
+.connection.connected {
+  color: var(--success);
+}
+.conversation {
+  width: 100%;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 16px;
+  align-items: center;
+  padding: 18px 24px;
+  border: 0;
+  border-bottom: 1px solid var(--line);
+  background: transparent;
+  text-align: left;
+  cursor: pointer;
+  transition: .2s;
+}
+.conversation:hover {
+  background: var(--surface-2);
+  transform: translateX(3px);
+}
+.body {
+  min-width: 0;
+}
+.top,.bottom {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  align-items: center;
+}
+.top strong {
+  font-size: 16px;
+}
+time {
+  flex: none;
+  font-size: 12px;
+  color: var(--ink-3);
+}
+.bottom {
+  margin-top: 7px;
+  color: var(--ink-3);
+  font-size: 13px;
+}
+.bottom span {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.bottom em {
+  flex: none;
+  max-width: 220px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  padding: 3px 8px;
+  border-radius: 999px;
+  background: var(--brand-soft);
+  color: var(--brand-strong);
+  font-style: normal;
+  font-size: 12px;
+}
+/* 同频校园：本页展示布局，业务绑定保持原样 */
+.inbox {
+  min-width: 0;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--r-xl);
+  padding: clamp(18px,2.4vw,28px);
+  box-shadow: none;
+}
+.conversation {
+  padding: 18px;
+  border-radius: 18px;
+  gap: 14px;
+}
+.body {
+  min-width: 0;
+}
+.top,.bottom {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.connection {
+  font-size: 12px;
+}
+.top b,.bottom span {
+  overflow-wrap: anywhere;
+}
+@media (max-width:600px) {
+  .conversation {
+    padding: 14px;
+  }
+  .top {
+    align-items: flex-start;
+  }
+  .bottom {
+    font-size: 12px;
+  }
+}
 </style>

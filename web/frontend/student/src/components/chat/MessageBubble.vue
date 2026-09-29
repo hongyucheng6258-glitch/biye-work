@@ -30,15 +30,103 @@ const formatTime = (value) => value ? dayjs(value).format('MM-DD HH:mm') : ''
 </script>
 
 <style scoped>
-.row { display:flex; gap:10px; align-items:flex-end; margin:18px 0; }
-.row.mine { justify-content:flex-end; }
-.wrap { max-width:min(68%, 620px); }
-.bubble { padding:11px 14px; border-radius:4px 18px 18px 18px; background:var(--surface); border:1px solid var(--line); box-shadow:var(--shadow-sm); line-height:1.65; white-space:pre-wrap; word-break:break-word; }
-.mine .bubble { color:var(--brand-ink); background:linear-gradient(145deg,var(--brand),var(--brand-strong)); border:0; border-radius:18px 4px 18px 18px; }
-.bubble.image { padding:5px; overflow:hidden; background:var(--surface); }
-.bubble.image :deep(.el-image) { display:block; max-width:360px; max-height:420px; border-radius:13px; }
-.bubble.failed { outline:2px solid color-mix(in srgb,var(--error) 45%,transparent); }
-.meta { display:flex; gap:8px; justify-content:flex-start; margin-top:5px; font-size:11px; color:var(--ink-3); }
-.mine .meta { justify-content:flex-end; }
-.meta button { border:0; padding:0; color:var(--error); background:none; cursor:pointer; }
+.row {
+  display: flex;
+  gap: 10px;
+  align-items: flex-end;
+  margin: 18px 0;
+}
+.row.mine {
+  justify-content: flex-end;
+}
+.wrap {
+  max-width: min(68%, 620px);
+}
+.bubble {
+  padding: 11px 14px;
+  border-radius: 4px 18px 18px 18px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow-sm);
+  line-height: 1.65;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+.mine .bubble {
+  color: var(--brand-ink);
+  background: linear-gradient(145deg,var(--brand),var(--brand-strong));
+  border: 0;
+  border-radius: 18px 4px 18px 18px;
+}
+.bubble.image {
+  padding: 5px;
+  overflow: hidden;
+  background: var(--surface);
+}
+.bubble.image :deep(.el-image) {
+  display: block;
+  max-width: 360px;
+  max-height: 420px;
+  border-radius: 13px;
+}
+.bubble.failed {
+  outline: 2px solid color-mix(in srgb,var(--error) 45%,transparent);
+}
+.meta {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-start;
+  margin-top: 5px;
+  font-size: 12px;
+  color: var(--ink-3);
+}
+.mine .meta {
+  justify-content: flex-end;
+}
+.meta button {
+  border: 0;
+  padding: 0;
+  color: var(--error);
+  background: none;
+  cursor: pointer;
+}
+/* 同频校园：本页展示布局，业务绑定保持原样 */
+.row {
+  gap: 12px;
+  margin-bottom: 18px;
+}
+.wrap {
+  min-width: 0;
+  max-width: 82%;
+}
+.bubble {
+  background: var(--surface-2);
+  border-radius: 18px;
+  line-height: 1.8;
+  padding: 12px 16px;
+  overflow-wrap: anywhere;
+}
+.mine .bubble {
+  background: var(--brand);
+  color: var(--brand-ink);
+}
+.meta {
+  font-size: 12px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  color: var(--ink-3);
+}
+.bubble :deep(.el-image) {
+  max-width: 100%;
+  border-radius: 12px;
+}
+@media (max-width:600px) {
+  .wrap {
+    max-width: 86%;
+  }
+  .bubble {
+    padding: 12px 14px;
+  }
+}
 </style>

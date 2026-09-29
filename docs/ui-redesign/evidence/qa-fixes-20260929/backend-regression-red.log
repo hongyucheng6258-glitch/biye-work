@@ -1,0 +1,92 @@
+[INFO] Scanning for projects...
+[INFO]
+[INFO] ---------------------< com.campus:platform-server >---------------------
+[INFO] Building ai-campus-platform-server 1.0.0
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO]
+[INFO] --- resources:3.3.1:resources (default-resources) @ platform-server ---
+[INFO] Copying 1 resource from src\main\resources to target\classes
+[INFO] Copying 13 resources from src\main\resources to target\classes
+[INFO]
+[INFO] --- compiler:3.11.0:compile (default-compile) @ platform-server ---
+[INFO] Changes detected - recompiling the module! :source
+[INFO] Compiling 289 source files with javac [debug release 17] to target\classes
+[INFO] ��������·���з�����һ�����������������������
+  ��ע������δ�����а�� javac ���ܻ������ע������
+  �������ٰ�����ָ����һ���������� (-processor)��
+  ��ָ��������·�� (--processor-path, --processor-module-path)��
+  ����ʽ��������ע���� (-proc:only, -proc:full)��
+  ��ʹ�� -Xlint:-options ���ش���Ϣ��
+  ��ʹ�� -proc:none ������ע������
+[INFO] /E:/work/��ҵ���UIԭ��/Ai-campus/.worktrees/tongpin-ui-redesign/web/backend/src/main/java/com/campus/platform/utils/RedisUtils.java: E:\work\��ҵ���UIԭ��\Ai-campus\.worktrees\tongpin-ui-redesign\web\backend\src\main\java\com\campus\platform\utils\RedisUtils.javaʹ����δ�����򲻰�ȫ�Ĳ�����
+[INFO] /E:/work/��ҵ���UIԭ��/Ai-campus/.worktrees/tongpin-ui-redesign/web/backend/src/main/java/com/campus/platform/utils/RedisUtils.java: �й���ϸ��Ϣ, ��ʹ�� -Xlint:unchecked ���±��롣
+[INFO]
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ platform-server ---
+[INFO] skip non existing resourceDirectory E:\work\��ҵ���UIԭ��\Ai-campus\.worktrees\tongpin-ui-redesign\web\backend\src\test\resources
+[INFO]
+[INFO] --- compiler:3.11.0:testCompile (default-testCompile) @ platform-server ---
+[INFO] Changes detected - recompiling the module! :dependency
+[INFO] Compiling 45 source files with javac [debug release 17] to target\test-classes
+[INFO] ��������·���з�����һ�����������������������
+  ��ע������δ�����а�� javac ���ܻ������ע������
+  �������ٰ�����ָ����һ���������� (-processor)��
+  ��ָ��������·�� (--processor-path, --processor-module-path)��
+  ����ʽ��������ע���� (-proc:only, -proc:full)��
+  ��ʹ�� -Xlint:-options ���ش���Ϣ��
+  ��ʹ�� -proc:none ������ע������
+[WARNING] /E:/work/��ҵ���UIԭ��/Ai-campus/.worktrees/tongpin-ui-redesign/web/backend/src/test/java/com/campus/platform/module/chat/websocket/ChatWsTicketServiceTest.java:[22,76] ���һ������ʹ���˲�׼ȷ�ı������͵� varargs �����ķ� varargs ����;
+  ���� varargs ����, Ӧʹ�� java.lang.Object
+  ���ڷ� varargs ����, Ӧʹ�� java.lang.Object[], ����Ҳ�������ƴ˾���
+[INFO] /E:/work/��ҵ���UIԭ��/Ai-campus/.worktrees/tongpin-ui-redesign/web/backend/src/test/java/com/campus/platform/module/drawgame/service/DrawGuessRoomServiceTest.java: ĳЩ�����ļ�ʹ����δ�����򲻰�ȫ�Ĳ�����
+[INFO] /E:/work/��ҵ���UIԭ��/Ai-campus/.worktrees/tongpin-ui-redesign/web/backend/src/test/java/com/campus/platform/module/drawgame/service/DrawGuessRoomServiceTest.java: �й���ϸ��Ϣ, ��ʹ�� -Xlint:unchecked ���±��롣
+[INFO]
+[INFO] --- surefire:3.1.2:test (default-test) @ platform-server ---
+[INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
+[INFO]
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Running com.campus.platform.module.admin.AdminPasswordEditTest
+Java HotSpot(TM) 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
+WARNING: A Java agent has been loaded dynamically (C:\Users\asus\.m2\repository\net\bytebuddy\byte-buddy-agent\1.14.13\byte-buddy-agent-1.14.13.jar)
+WARNING: If a serviceability tool is in use, please run with -XX:+EnableDynamicAgentLoading to hide this warning
+WARNING: If a serviceability tool is not in use, please run with -Djdk.instrument.traceUsage for more information
+WARNING: Dynamic loading of agents will be disallowed by default in a future release
+19:22:30.719 [main] INFO org.hibernate.validator.internal.util.Version -- HV000001: Hibernate Validator 8.0.1.Final
+[ERROR] Tests run: 4, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 4.072 s <<< FAILURE! -- in com.campus.platform.module.admin.AdminPasswordEditTest
+[ERROR] com.campus.platform.module.admin.AdminPasswordEditTest.editValidationAllowsEmptyOrOmittedPassword -- Time elapsed: 0.022 s <<< FAILURE!
+java.lang.AssertionError:
+
+Expecting empty but was: [ConstraintViolationImpl{interpolatedMessage='���벻��Ϊ��', propertyPath=password, rootBeanClass=class com.campus.platform.module.admin.dto.AdminSaveDTO, messageTemplate='���벻��Ϊ��'}]
+	at com.campus.platform.module.admin.AdminPasswordEditTest.editValidationAllowsEmptyOrOmittedPassword(AdminPasswordEditTest.java:28)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1597)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1597)
+
+[INFO]
+[INFO] Results:
+[INFO]
+[ERROR] Failures:
+[ERROR]   AdminPasswordEditTest.editValidationAllowsEmptyOrOmittedPassword:28
+Expecting empty but was: [ConstraintViolationImpl{interpolatedMessage='���벻��Ϊ��', propertyPath=password, rootBeanClass=class com.campus.platform.module.admin.dto.AdminSaveDTO, messageTemplate='���벻��Ϊ��'}]
+[INFO]
+[ERROR] Tests run: 4, Failures: 1, Errors: 0, Skipped: 0
+[INFO]
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  20.229 s
+[INFO] Finished at: 2026-09-29T19:22:31+08:00
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.apache.maven.plugins:maven-surefire-plugin:3.1.2:test (default-test) on project platform-server: There are test failures.
+[ERROR]
+[ERROR] Please refer to E:\work\��ҵ���UIԭ��\Ai-campus\.worktrees\tongpin-ui-redesign\web\backend\target\surefire-reports for the individual test results.
+[ERROR] Please refer to dump files (if any exist) [date].dump, [date]-jvmRun[N].dump and [date].dumpstream.
+[ERROR] -> [Help 1]
+[ERROR]
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR]
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException

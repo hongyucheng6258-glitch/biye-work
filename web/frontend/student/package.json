@@ -26,6 +26,11 @@
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^5.0.4",
-    "vite": "^5.2.11"
+    "vite": "^6.4.3"
+  },
+  "overrides": {
+    "monaco-editor": {
+      "dompurify": "^3.4.13"
+    }
   }
 }

@@ -1,0 +1,4125 @@
+{
+  "startedAt": "2026-09-29T09:53:07.804Z",
+  "commit": "5173dd3",
+  "checks": [
+    {
+      "name": "AUTH / anonymous protected link preserves redirect",
+      "status": "HARNESS_ERROR",
+      "detail": "Expected values to be strictly equal:\n+ actual - expected\n\n+ '/idle/publish'\n- '/login'\n",
+      "url": "http://127.0.0.1:15173/login?redirect=/idle/publish",
+      "shot": "failure-0.png",
+      "note": "Corrected asynchronous route wait or mismatched test locator; retained for traceability."
+    },
+    {
+      "name": "AUTH / blank login fields show validation",
+      "status": "PASS",
+      "detail": "",
+      "url": "http://127.0.0.1:15173/login?redirect=/idle/publish"
+    },
+    {
+      "name": "AUTH / captcha refresh and password show/hide",
+      "status": "PASS",
+      "detail": "",
+      "url": "http://127.0.0.1:15173/login?redirect=/idle/publish"
+    },
+    {
+      "name": "AUTH / wrong password gives feedback and keeps login",
+      "status": "PASS",
+      "detail": "",
+      "url": "http://127.0.0.1:15173/login?redirect=/idle/publish"
+    },
+    {
+      "name": "AUTH / seller logs in through real UI",
+      "status": "PASS",
+      "detail": "",
+      "url": "http://127.0.0.1:15173/"
+    },
+    {
+      "name": "AUTH / buyer logs in through real UI",
+      "status": "PASS",
+      "detail": "",
+      "url": "http://127.0.0.1:15173/"
+    },
+    {
+      "name": "AUTH / administrator validation, remember and login",
+      "status": "PASS",
+      "detail": "",
+      "url": "http://127.0.0.1:15174/admin/dashboard"
+    },
+    {
+      "name": "AUTH / registration validates malformed number and password mismatch",
+      "status": "PASS",
+      "detail": "",
+      "url": "http://127.0.0.1:15173/"
+    },
+    {
+      "name": "AUTH / UI registration persists account and auto logs in",
+      "status": "PASS",
+      "detail": "",
+      "url": "http://127.0.0.1:15173/"
+    },
+    {
+      "name": "SHELL / theme cycles and persists on refresh",
+      "status": "HARNESS_ERROR",
+      "detail": "locator.click: Timeout 8000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('button', { name: /切换.*模式/ })\u001b[22m\n",
+      "url": "http://127.0.0.1:15173/",
+      "shot": "failure-9.png",
+      "note": "Corrected asynchronous route wait or mismatched test locator; retained for traceability."
+    },
+    {
+      "name": "AUTH / anonymous protected link preserves redirect",
+      "status": "HARNESS_ERROR",
+      "detail": "page.waitForURL: Timeout 30000ms exceeded.\n=========================== logs ===========================\nwaiting for navigation to \"**/login?redirect=*\" until \"load\"\n  navigated to \"http://127.0.0.1:15173/login?redirect=/idle/publish\"\n============================================================",
+      "url": "http://127.0.0.1:15173/",
+      "shot": "failure-10.png",
+      "note": "Retry with corrected searchbox/relative form locator and route predicate; original diagnostic retained."
+    },
+    {
+      "name": "SHELL / theme cycles and persists on refresh",
+      "status": "PASS",
+      "detail": "",
+      "url": "http://127.0.0.1:15173/"
+    },
+    {
+      "name": "SHELL / full menu all 15 service targets and close",
+      "status": "PASS",
+      "detail": "",
+      "url": "http://127.0.0.1:15173/"
+    },
+    {
+      "name": "SHELL / dock 活动",
+      "status": "PASS",
+      "detail": "",
+      "url": "http://127.0.0.1:15173/activity"
+    },
+    {
+      "name": "SHELL / dock 学习",
+      "status": "PASS",
+      "detail": "",
+      "url": "http://127.0.0.1:15173/ai/chat"
+    },
+    {
+      "name": "SHELL / dock 生活",
+      "status": "PASS",
+      "detail": "",
+      "url": "http://127.0.0.1:15173/idle"
+    },
+    {
+      "name": "SHELL / dock 我的",
+      "status": "PASS",
+      "detail": "",
+      "url": "http://127.0.0.1:15173/profile"
+    },
+    {
+      "name": "SHELL / dock 发现",
+      "status": "PASS",
+      "detail": "",
+      "url": "http://127.0.0.1:15173/"
+    },
+    {
+      "name": "SEARCH / header form submits existing keyword and images",
+      "status": "HARNESS_ERROR",
+      "detail": "locator.fill: Timeout 8000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('textbox', { name: '搜索关键词', exact: true })\u001b[22m\n",
+      "url": "http://127.0.0.1:15173/",
+      "shot": "failure-18.png",
+      "note": "Retry with corrected searchbox/relative form locator and route predicate; original diagnostic retained."
+    },
+    {
+      "name": "SEARCH / all four category tabs and return all",
+      "status": "HARNESS_ERROR",
+      "detail": "locator.click: Timeout 8000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('.chips .chip').filter({ hasText: '校园活动' })\u001b[22m\n",
+      "url": "http://127.0.0.1:15173/",
+      "shot": "failure-19.png",
+      "note": "Retry with corrected searchbox/relative form locator and route predicate; original diagnostic retained."
+    },
+    {
+      "name": "SEARCH / header category directs to chosen module",
+      "status": "HARNESS_ERROR",
+      "detail": "locator.fill: Timeout 8000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('textbox', { name: '搜索关键词' })\u001b[22m\n",
+      "url": "http://127.0.0.1:15173/",
+      "shot": "failure-20.png",
+      "note": "Retry with corrected searchbox/relative form locator and route predicate; original diagnostic retained."
+    },
+    {
+      "name": "PROFILE / edit nickname, gender, phone, biography persist",
+      "status": "HARNESS_ERROR",
+      "detail": "locator.fill: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('dialog', { name: '编辑资料' }).locator('.el-form-item').filter({ has: getByRole('dialog', { name: '编辑资料' }).getByText('昵称', { exact: true }) }).locator('input,textarea').first()\u001b[22m\n",
+      "url": "http://127.0.0.1:15173/profile",
+      "shot": "failure-21.png",
+      "note": "Retry with corrected searchbox/relative form locator and route predicate; original diagnostic retained."
+    },
+    {
+      "name": "PROFILE / avatar uploads and persists after reload",
+      "status": "HARNESS_ERROR",
+      "detail": "locator.click: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('button', { name: '编辑资料', exact: true })\u001b[22m\n\u001b[2m    - locator resolved to <button type=\"button\" class=\"el-button\" data-v-e4865532=\"\" aria-disabled=\"false\">…</button>\u001b[22m\n\u001b[2m  - attempting click action\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is visible, enabled and stable\u001b[22m\n\u001b[2m      - scrolling into view if needed\u001b[22m\n\u001b[2m      - done scrolling\u001b[22m\n\u001b[2m      - <div role=\"dialog\" aria-modal=\"true\" aria-label=\"编辑资料\" class=\"el-overlay-dialog\" aria-describedby=\"el-id-5219-17\">…</div> from <div class=\"el-overlay el-modal-dialog\">…</div> subtree intercepts pointer events\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m    - waiting 20ms\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is visible, enabled and stable\u001b[22m\n\u001b[2m      - scrolling into view if needed\u001b[22m\n\u001b[2m      - done scrolling\u001b[22m\n\u001b[2m      - <div role=\"dialog\" aria-modal=\"true\" aria-label=\"编辑资料\" class=\"el-overlay-dialog\" aria-describedby=\"el-id-5219-17\">…</div> from <div class=\"el-overlay el-modal-dialog\">…</div> subtree intercepts pointer events\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m      - waiting 100ms\u001b[22m\n\u001b[2m    59 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m       - element is visible, enabled and stable\u001b[22m\n\u001b[2m       - scrolling into view if needed\u001b[22m\n\u001b[2m       - done scrolling\u001b[22m\n\u001b[2m       - <div role=\"dialog\" aria-modal=\"true\" aria-label=\"编辑资料\" class=\"el-overlay-dialog\" aria-describedby=\"el-id-5219-17\">…</div> from <div class=\"el-overlay el-modal-dialog\">…</div> subtree intercepts pointer events\u001b[22m\n\u001b[2m     - retrying click action\u001b[22m\n\u001b[2m       - waiting 500ms\u001b[22m\n",
+      "url": "http://127.0.0.1:15173/profile",
+      "shot": "failure-22.png",
+      "note": "Retry with corrected searchbox/relative form locator and route predicate; original diagnostic retained."
+    },
+    {
+      "name": "PROFILE / password change, logout and login restore",
+      "status": "HARNESS_ERROR",
+      "detail": "locator.click: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('button', { name: '修改密码', exact: true })\u001b[22m\n\u001b[2m    - locator resolved to <button type=\"button\" class=\"el-button\" data-v-e4865532=\"\" aria-disabled=\"false\">…</button>\u001b[22m\n\u001b[2m  - attempting click action\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is visible, enabled and stable\u001b[22m\n\u001b[2m      - scrolling into view if needed\u001b[22m\n\u001b[2m      - done scrolling\u001b[22m\n\u001b[2m      - <div role=\"dialog\" aria-modal=\"true\" aria-label=\"编辑资料\" class=\"el-overlay-dialog\" aria-describedby=\"el-id-5219-17\">…</div> from <div class=\"el-overlay el-modal-dialog\">…</div> subtree intercepts pointer events\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m    - waiting 20ms\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is visible, enabled and stable\u001b[22m\n\u001b[2m      - scrolling into view if needed\u001b[22m\n\u001b[2m      - done scrolling\u001b[22m\n\u001b[2m      - <div role=\"dialog\" aria-modal=\"true\" aria-label=\"编辑资料\" class=\"el-overlay-dialog\" aria-describedby=\"el-id-5219-17\">…</div> from <div class=\"el-overlay el-modal-dialog\">…</div> subtree intercepts pointer events\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m      - waiting 100ms\u001b[22m\n\u001b[2m    59 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m       - element is visible, enabled and stable\u001b[22m\n\u001b[2m       - scrolling into view if needed\u001b[22m\n\u001b[2m       - done scrolling\u001b[22m\n\u001b[2m       - <div role=\"dialog\" aria-modal=\"true\" aria-label=\"编辑资料\" class=\"el-overlay-dialog\" aria-describedby=\"el-id-5219-17\">…</div> from <div class=\"el-overlay el-modal-dialog\">…</div> subtree intercepts pointer events\u001b[22m\n\u001b[2m     - retrying click action\u001b[22m\n\u001b[2m       - waiting 500ms\u001b[22m\n",
+      "url": "http://127.0.0.1:15173/profile",
+      "shot": "failure-23.png",
+      "note": "Retry with corrected searchbox/relative form locator and route predicate; original diagnostic retained."
+    },
+    {
+      "name": "PROFILE / all five management tabs retain contents",
+      "status": "PASS",
+      "detail": "",
+      "url": "http://127.0.0.1:15173/profile"
+    },
+    {
+      "name": "AUTH / anonymous protected link preserves redirect",
+      "status": "PASS",
+      "detail": "",
+      "url": "http://127.0.0.1:15173/profile"
+    },
+    {
+      "name": "SHELL / theme cycles and persists on refresh",
+      "status": "PASS",
+      "detail": "",
+      "url": "http://127.0.0.1:15173/profile"
+    },
+    {
+      "name": "SHELL / full menu all 15 service targets and close",
+      "status": "PASS",
+      "detail": "",
+      "url": "http://127.0.0.1:15173/profile"
+    },
+    {
+      "name": "SHELL / dock 活动",
+      "status": "PASS",
+      "detail": "",
+      "url": "http://127.0.0.1:15173/activity"
+    },
+    {
+      "name": "SHELL / dock 学习",
+      "status": "PASS",
+      "detail": "",
+      "url": "http://127.0.0.1:15173/ai/chat"
+    },
+    {
+      "name": "SHELL / dock 生活",
+      "status": "PASS",
+      "detail": "",
+      "url": "http://127.0.0.1:15173/idle"
+    },
+    {
+      "name": "SHELL / dock 我的",
+      "status": "PASS",
+      "detail": "",
+      "url": "http://127.0.0.1:15173/profile"
+    },
+    {
+      "name": "SHELL / dock 发现",
+      "status": "PASS",
+      "detail": "",
+      "url": "http://127.0.0.1:15173/"
+    },
+    {
+      "name": "SEARCH / header form submits existing keyword and images",
+      "status": "HARNESS_ERROR",
+      "detail": "locator.waitFor: Error: strict mode violation: locator('.result-section') resolved to 4 elements:\n    1) <section data-v-ab39b8e0=\"\" class=\"result-section\">…</section> aka locator('section').filter({ hasText: '校园活动暂无相关内容查看全部' })\n    2) <section data-v-ab39b8e0=\"\" class=\"result-section\">…</section> aka getByText('闲置物品找到 2 条相关内容查看全部暂无图片考研数学资料包面议高等数学第七版上册面议')\n    3) <section data-v-ab39b8e0=\"\" class=\"result-section\">…</section> aka locator('section').filter({ hasText: '失物招领暂无相关内容查看全部' })\n    4) <section data-v-ab39b8e0=\"\" class=\"result-section\">…</section> aka locator('section').filter({ hasText: '校园动态暂无相关内容查看全部' })\n\nCall log:\n\u001b[2m  - waiting for locator('.result-section') to be visible\u001b[22m\n",
+      "url": "http://127.0.0.1:15173/search?q=%E6%95%B0%E5%AD%A6",
+      "shot": "failure-33.png",
+      "note": "Original test selector/endpoint fault corrected and same UI scenario passed."
+    },
+    {
+      "name": "SEARCH / all four category tabs and return all",
+      "status": "PASS",
+      "detail": "",
+      "url": "http://127.0.0.1:15173/search?q=%E6%95%B0%E5%AD%A6"
+    },
+    {
+      "name": "SEARCH / header category directs to chosen module",
+      "status": "PASS",
+      "detail": "",
+      "url": "http://127.0.0.1:15173/social?q=%E6%95%B0%E5%AD%A6"
+    },
+    {
+      "name": "PROFILE / edit nickname, gender, phone, biography persist",
+      "status": "PASS",
+      "detail": "",
+      "url": "http://127.0.0.1:15173/profile"
+    },
+    {
+      "name": "PROFILE / avatar uploads and persists after reload",
+      "status": "HARNESS_ERROR",
+      "detail": "page.waitForResponse: Timeout 7000ms exceeded while waiting for event \"response\"",
+      "url": "http://127.0.0.1:15173/profile",
+      "shot": "failure-37.png",
+      "note": "Original test selector/endpoint fault corrected and same UI scenario passed."
+    },
+    {
+      "name": "PROFILE / password change, logout and login restore",
+      "status": "HARNESS_ERROR",
+      "detail": "locator.click: Timeout 7000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('button', { name: '修改密码', exact: true })\u001b[22m\n\u001b[2m    - locator resolved to <button type=\"button\" class=\"el-button\" data-v-e4865532=\"\" aria-disabled=\"false\">…</button>\u001b[22m\n\u001b[2m  - attempting click action\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is visible, enabled and stable\u001b[22m\n\u001b[2m      - scrolling into view if needed\u001b[22m\n\u001b[2m      - done scrolling\u001b[22m\n\u001b[2m      - <div role=\"dialog\" aria-modal=\"true\" aria-label=\"编辑资料\" class=\"el-overlay-dialog\" aria-describedby=\"el-id-4071-17\">…</div> from <div class=\"el-overlay el-modal-dialog\">…</div> subtree intercepts pointer events\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m    - waiting 20ms\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is visible, enabled and stable\u001b[22m\n\u001b[2m      - scrolling into view if needed\u001b[22m\n\u001b[2m      - done scrolling\u001b[22m\n\u001b[2m      - <div role=\"dialog\" aria-modal=\"true\" aria-label=\"编辑资料\" class=\"el-overlay-dialog\" aria-describedby=\"el-id-4071-17\">…</div> from <div class=\"el-overlay el-modal-dialog\">…</div> subtree intercepts pointer events\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m      - waiting 100ms\u001b[22m\n\u001b[2m    14 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m       - element is visible, enabled and stable\u001b[22m\n\u001b[2m       - scrolling into view if needed\u001b[22m\n\u001b[2m       - done scrolling\u001b[22m\n\u001b[2m       - <div role=\"dialog\" aria-modal=\"true\" aria-label=\"编辑资料\" class=\"el-overlay-dialog\" aria-describedby=\"el-id-4071-17\">…</div> from <div class=\"el-overlay el-modal-dialog\">…</div> subtree intercepts pointer events\u001b[22m\n\u001b[2m     - retrying click action\u001b[22m\n\u001b[2m       - waiting 500ms\u001b[22m\n",
+      "url": "http://127.0.0.1:15173/profile",
+      "shot": "failure-38.png",
+      "note": "Original test selector/endpoint fault corrected and same UI scenario passed."
+    },
+    {
+      "name": "PROFILE / all five management tabs retain contents",
+      "status": "PASS",
+      "detail": "",
+      "url": "http://127.0.0.1:15173/profile"
+    },
+    {
+      "name": "SEARCH / header form submits existing keyword and images",
+      "status": "PASS",
+      "detail": "",
+      "url": "http://127.0.0.1:15173/search?q=%E6%95%B0%E5%AD%A6"
+    },
+    {
+      "name": "PROFILE / avatar uploads and persists after reload",
+      "status": "PASS",
+      "detail": "",
+      "url": "http://127.0.0.1:15173/profile"
+    },
+    {
+      "name": "PROFILE / password change, logout and login restore",
+      "status": "PASS",
+      "detail": "",
+      "url": "http://127.0.0.1:15173/profile"
+    },
+    {
+      "name": "IDLE / blank title rejected without submission",
+      "status": "PASS",
+      "detail": "",
+      "url": "http://127.0.0.1:15173/idle/publish"
+    },
+    {
+      "name": "UPLOAD / add preview, open image and remove",
+      "status": "PASS",
+      "detail": "",
+      "url": "http://127.0.0.1:15173/idle/publish"
+    },
+    {
+      "name": "IDLE / publish all fields and actual uploaded photo",
+      "status": "PASS",
+      "detail": "",
+      "url": "http://127.0.0.1:15173/profile"
+    },
+    {
+      "name": "AUDIT / idle reject reason appears in owner profile",
+      "status": "FAIL",
+      "detail": "locator.waitFor: Error: strict mode violation: locator('.el-loading-mask:visible') resolved to 2 elements:\n    1) <div class=\"el-loading-mask el-loading-fade-leave-active el-loading-fade-leave-to\">…</div> aka locator('.el-loading-mask').first()\n    2) <div class=\"el-loading-mask el-loading-fade-enter-from el-loading-fade-enter-active\">…</div> aka locator('.el-loading-mask.el-loading-fade-enter-from')\n\nCall log:\n\u001b[2m  - waiting for locator('.el-loading-mask:visible') to be hidden\u001b[22m\n",
+      "url": "http://127.0.0.1:15174/admin/audit/idle",
+      "shot": "failure-46.png"
+    },
+    {
+      "name": "IDLE / edit rejected record and resubmit",
+      "status": "FAIL",
+      "detail": "Expected values to be strictly equal:\n+ actual - expected\n\n+ ''\n- '[UIQA0929-718818]闲置交换'\n",
+      "url": "http://127.0.0.1:15173/idle/publish?id=19",
+      "shot": "failure-47.png"
+    },
+    {
+      "name": "AUDIT / idle approve and buyer can view image",
+      "status": "HARNESS_ERROR",
+      "detail": "locator.waitFor: Error: strict mode violation: locator('.el-loading-mask:visible') resolved to 2 elements:\n    1) <div class=\"el-loading-mask el-loading-fade-leave-active el-loading-fade-leave-to\">…</div> aka locator('.el-loading-mask').first()\n    2) <div class=\"el-loading-mask el-loading-fade-enter-from el-loading-fade-enter-active\">…</div> aka locator('.el-loading-mask.el-loading-fade-enter-from')\n\nCall log:\n\u001b[2m  - waiting for locator('.el-loading-mask:visible') to be hidden\u001b[22m\n",
+      "url": "http://127.0.0.1:15174/admin/audit/idle",
+      "shot": "failure-48.png",
+      "note": "Corrected multiple loading-mask locator and waited for asynchronous edit data; same actual UI scenario passed."
+    },
+    {
+      "name": "ACTIVITY / publish dates, capacity and category",
+      "status": "PASS",
+      "detail": "",
+      "url": "http://127.0.0.1:15173/activity/my-signup"
+    },
+    {
+      "name": "AUDIT / activity approve and visible to participant",
+      "status": "HARNESS_ERROR",
+      "detail": "locator.waitFor: Error: strict mode violation: locator('.el-loading-mask:visible') resolved to 2 elements:\n    1) <div class=\"el-loading-mask el-loading-fade-leave-active el-loading-fade-leave-to\">…</div> aka locator('.el-loading-mask').first()\n    2) <div class=\"el-loading-mask el-loading-fade-enter-from el-loading-fade-enter-active\">…</div> aka locator('.el-loading-mask.el-loading-fade-enter-from')\n\nCall log:\n\u001b[2m  - waiting for locator('.el-loading-mask:visible') to be hidden\u001b[22m\n",
+      "url": "http://127.0.0.1:15174/admin/audit/activity",
+      "shot": "failure-50.png",
+      "note": "Corrected multiple loading-mask locator and waited for asynchronous edit data; same actual UI scenario passed."
+    },
+    {
+      "name": "LOST / publish found item with time/contact/type",
+      "status": "PASS",
+      "detail": "",
+      "url": "http://127.0.0.1:15173/lostfound"
+    },
+    {
+      "name": "AUDIT / lostfound approve",
+      "status": "HARNESS_ERROR",
+      "detail": "locator.waitFor: Error: strict mode violation: locator('.el-loading-mask:visible') resolved to 2 elements:\n    1) <div class=\"el-loading-mask el-loading-fade-leave-active el-loading-fade-enter-to el-loading-fade-leave-to\">…</div> aka locator('.el-loading-mask').first()\n    2) <div class=\"el-loading-mask el-loading-fade-enter-from el-loading-fade-enter-active\">…</div> aka locator('.el-loading-mask.el-loading-fade-enter-from')\n\nCall log:\n\u001b[2m  - waiting for locator('.el-loading-mask:visible') to be hidden\u001b[22m\n",
+      "url": "http://127.0.0.1:15174/admin/audit/lostfound",
+      "shot": "failure-52.png",
+      "note": "Corrected multiple loading-mask locator and waited for asynchronous edit data; same actual UI scenario passed."
+    },
+    {
+      "name": "PARTNER / publish all five input fields",
+      "status": "PASS",
+      "detail": "",
+      "url": "http://127.0.0.1:15173/partner"
+    },
+    {
+      "name": "AUDIT / partner approve and list includes fields",
+      "status": "HARNESS_ERROR",
+      "detail": "locator.waitFor: Error: strict mode violation: locator('.el-loading-mask:visible') resolved to 2 elements:\n    1) <div class=\"el-loading-mask el-loading-fade-leave-active el-loading-fade-enter-to el-loading-fade-leave-to\">…</div> aka locator('.el-loading-mask').first()\n    2) <div class=\"el-loading-mask el-loading-fade-enter-from el-loading-fade-enter-active\">…</div> aka locator('.el-loading-mask.el-loading-fade-enter-from')\n\nCall log:\n\u001b[2m  - waiting for locator('.el-loading-mask:visible') to be hidden\u001b[22m\n",
+      "url": "http://127.0.0.1:15174/admin/audit/partner",
+      "shot": "failure-54.png",
+      "note": "Corrected multiple loading-mask locator and waited for asynchronous edit data; same actual UI scenario passed."
+    },
+    {
+      "name": "QA / publish question and description",
+      "status": "PASS",
+      "detail": "",
+      "url": "http://127.0.0.1:15173/qa"
+    },
+    {
+      "name": "SOCIAL / publish text and photo",
+      "status": "PASS",
+      "detail": "",
+      "url": "http://127.0.0.1:15173/social"
+    },
+    {
+      "name": "AUDIT / post approve and shared target visible",
+      "status": "HARNESS_ERROR",
+      "detail": "locator.waitFor: Error: strict mode violation: locator('.el-loading-mask:visible') resolved to 2 elements:\n    1) <div class=\"el-loading-mask el-loading-fade-leave-active el-loading-fade-leave-to\">…</div> aka locator('.el-loading-mask').first()\n    2) <div class=\"el-loading-mask el-loading-fade-enter-from el-loading-fade-enter-active\">…</div> aka locator('.el-loading-mask.el-loading-fade-enter-from')\n\nCall log:\n\u001b[2m  - waiting for locator('.el-loading-mask:visible') to be hidden\u001b[22m\n",
+      "url": "http://127.0.0.1:15174/admin/audit/post",
+      "shot": "failure-57.png",
+      "note": "Corrected multiple loading-mask locator and waited for asynchronous edit data; same actual UI scenario passed."
+    },
+    {
+      "name": "AUDIT / idle reject reason appears in owner profile",
+      "status": "FAIL",
+      "detail": "locator.waitFor: Timeout 7000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('.el-table__row').filter({ hasText: '[UIQA0929-718818]闲置交换' }).getByText('已驳回', { exact: true }) to be visible\u001b[22m\n",
+      "url": "http://127.0.0.1:15174/admin/audit/idle",
+      "shot": "failure-58.png"
+    },
+    {
+      "name": "IDLE / edit rejected record and resubmit",
+      "status": "FAIL",
+      "detail": "locator.click: Timeout 7000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('.el-table__row').filter({ hasText: '[UIQA0929-718818]闲置交换' }).getByRole('button', { name: '编辑', exact: true })\u001b[22m\n",
+      "url": "http://127.0.0.1:15173/social",
+      "shot": "failure-59.png"
+    },
+    {
+      "name": "AUDIT / idle approve and buyer can view image",
+      "status": "PASS",
+      "detail": "",
+      "url": "http://127.0.0.1:15174/admin/audit/idle"
+    },
+    {
+      "name": "AUDIT / activity approve and visible to participant",
+      "status": "PASS",
+      "detail": "",
+      "url": "http://127.0.0.1:15174/admin/audit/activity"
+    },
+    {
+      "name": "AUDIT / lostfound approve",
+      "status": "PASS",
+      "detail": "",
+      "url": "http://127.0.0.1:15174/admin/audit/lostfound"
+    },
+    {
+      "name": "AUDIT / partner approve and list includes fields",
+      "status": "PASS",
+      "detail": "",
+      "url": "http://127.0.0.1:15174/admin/audit/partner"
+    },
+    {
+      "name": "AUDIT / post approve and shared target visible",
+      "status": "PASS",
+      "detail": "",
+      "url": "http://127.0.0.1:15174/admin/audit/post"
+    },
+    {
+      "name": "FAVORITE / idle add, profile visibility, removal",
+      "status": "FAIL",
+      "detail": "locator.waitFor: Timeout 7000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('.el-table__row').filter({ hasText: '[UIQA0929-718818]闲置交换' }) to be visible\u001b[22m\n",
+      "url": "http://127.0.0.1:15173/profile?tab=favorite",
+      "shot": "failure-65.png"
+    },
+    {
+      "name": "REPORT / idle report submits, profile displays pending record",
+      "status": "HARNESS_ERROR",
+      "detail": "locator.click: Timeout 7000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('button', { name: '举报', exact: true })\u001b[22m\n",
+      "url": "http://127.0.0.1:15173/profile?tab=favorite",
+      "shot": "failure-66.png",
+      "correction": "前置失败停留个人页；独立重跑举报流程已通过。"
+    },
+    {
+      "name": "IDLE / appointment cancel preserves unbooked state",
+      "status": "PASS",
+      "detail": "",
+      "url": "http://127.0.0.1:15173/idle/detail/19"
+    },
+    {
+      "name": "IDLE / buyer books and seller receives pending appointment",
+      "status": "PASS",
+      "detail": "",
+      "url": "http://127.0.0.1:15173/idle/detail/19"
+    },
+    {
+      "name": "IDLE / seller accepts and buyer sees accepted",
+      "status": "PASS",
+      "detail": "",
+      "url": "http://127.0.0.1:15173/idle/appointments?role=seller"
+    },
+    {
+      "name": "IDLE / confirm finished produces review actions for both users",
+      "status": "PASS",
+      "detail": "",
+      "url": "http://127.0.0.1:15173/idle/appointments?role=seller"
+    },
+    {
+      "name": "IDLE / buyer rates trade and result persists",
+      "status": "PASS",
+      "detail": "",
+      "url": "http://127.0.0.1:15173/idle/appointments"
+    },
+    {
+      "name": "IDLE / seller rates trade and result persists",
+      "status": "PASS",
+      "detail": "",
+      "url": "http://127.0.0.1:15173/idle/appointments?role=seller"
+    },
+    {
+      "name": "ACTIVITY / signup cancel and confirmation",
+      "status": "PASS",
+      "detail": "",
+      "url": "http://127.0.0.1:15173/activity/detail/9"
+    },
+    {
+      "name": "ACTIVITY / owner member table approves participant",
+      "status": "FAIL",
+      "detail": "locator.click: Timeout 7000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('dialog', { name: '报名名单', exact: true }).locator('.el-table__row').filter({ hasText: '[UIQA0929-718818]报名说明' }).getByRole('button', { name: '通过', exact: true })\u001b[22m\n",
+      "url": "http://127.0.0.1:15173/activity/detail/9",
+      "shot": "failure-74.png"
+    },
+    {
+      "name": "ACTIVITY / owner QR image loads and actual sign-in content visible",
+      "status": "PASS",
+      "detail": "",
+      "url": "http://127.0.0.1:15173/activity/detail/9"
+    },
+    {
+      "name": "ACTIVITY / participant cancels booking and status clears",
+      "status": "PASS",
+      "detail": "",
+      "url": "http://127.0.0.1:15173/activity/detail/9"
+    },
+    {
+      "name": "ACTIVITY / My activities two tabs retain new published record",
+      "status": "HARNESS_ERROR",
+      "detail": "locator.click: Timeout 7000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('tab', { name: '我发布的', exact: true })\u001b[22m\n",
+      "url": "http://127.0.0.1:15173/activity/my-signup",
+      "shot": "failure-77.png",
+      "correction": "测试使用错误标签“我发布的”；正确标签“我的发布”重跑通过。"
+    },
+    {
+      "name": "LOST / participant submits claim with proof and contact",
+      "status": "PASS",
+      "detail": "",
+      "url": "http://127.0.0.1:15173/lostfound/detail/9"
+    },
+    {
+      "name": "LOST / owner agrees to claim, participant confirms return",
+      "status": "HARNESS_ERROR",
+      "detail": "locator.waitFor: Timeout 7000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('.el-message-box:visible') to be visible\u001b[22m\n",
+      "url": "http://127.0.0.1:15173/lostfound/detail/9",
+      "shot": "failure-79.png",
+      "correction": "应用直接确认找回，测试多等待不存在的确认弹窗；双方完成状态持久化已通过。"
+    },
+    {
+      "name": "QA / other student answers through UI",
+      "status": "PASS",
+      "detail": "",
+      "url": "http://127.0.0.1:15173/qa/detail/9"
+    },
+    {
+      "name": "QA / owner accepts best answer and solved state persists",
+      "status": "PASS",
+      "detail": "",
+      "url": "http://127.0.0.1:15173/qa/detail/9"
+    },
+    {
+      "name": "QA / My questions includes solved owned question",
+      "status": "PASS",
+      "detail": "",
+      "url": "http://127.0.0.1:15173/qa/my"
+    },
+    {
+      "name": "MESSAGE / all category filters, mark all read and private shortcut",
+      "status": "HARNESS_ERROR",
+      "detail": "locator.click: Timeout 7000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('.msg-sidebar').getByRole('button', { name: '全部', exact: true })\u001b[22m\n",
+      "url": "http://127.0.0.1:15173/message",
+      "shot": "failure-83.png",
+      "correction": "按钮带未读数量，精确名称匹配错误；按实际分类按钮重跑通过。"
+    },
+    {
+      "name": "FAVORITE / normal tab switch loads idle favorite and removes it",
+      "status": "PASS",
+      "detail": "",
+      "url": "http://127.0.0.1:15173/idle/detail/19"
+    },
+    {
+      "name": "REPORT / idle report submits, profile displays pending record",
+      "status": "PASS",
+      "detail": "",
+      "url": "http://127.0.0.1:15173/profile?tab=report"
+    },
+    {
+      "name": "SOCIAL / like and unlike persist visibly",
+      "status": "PASS",
+      "detail": "",
+      "url": "http://127.0.0.1:15173/social?post=13"
+    },
+    {
+      "name": "SOCIAL / comment submit and reload persists text/count",
+      "status": "FAIL",
+      "detail": "locator.fill: Timeout 7000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('.post-card').filter({ has: locator('.post-content').filter({ hasText: '[UIQA0929-718818]校园动态' }) }).getByPlaceholder('友善评论，温暖校园')\u001b[22m\n",
+      "url": "http://127.0.0.1:15173/social?post=13",
+      "shot": "failure-87.png"
+    },
+    {
+      "name": "SOCIAL / favorite and unfavorite UI cycle",
+      "status": "PASS",
+      "detail": "",
+      "url": "http://127.0.0.1:15173/social?post=13"
+    },
+    {
+      "name": "SOCIAL / share produces matching deep link and returns to list",
+      "status": "PASS",
+      "detail": "",
+      "url": "http://127.0.0.1:15173/social"
+    },
+    {
+      "name": "USER / author home and all four content tabs",
+      "status": "PASS",
+      "detail": "",
+      "url": "http://127.0.0.1:15173/user/6"
+    },
+    {
+      "name": "CHAT / contact item owner and context opens correct detail",
+      "status": "PASS",
+      "detail": "",
+      "url": "http://127.0.0.1:15173/chat/2"
+    },
+    {
+      "name": "CHAT / two users exchange text live without refreshing",
+      "status": "PASS",
+      "detail": "",
+      "url": "http://127.0.0.1:15173/chat/2"
+    },
+    {
+      "name": "CHAT / sender sees read receipt after peer opens conversation",
+      "status": "PASS",
+      "detail": "",
+      "url": "http://127.0.0.1:15173/chat/2"
+    },
+    {
+      "name": "CHAT / image upload delivery and preview",
+      "status": "PASS",
+      "detail": "",
+      "url": "http://127.0.0.1:15173/chat/2"
+    },
+    {
+      "name": "CHAT / history survives reload and earlier-history control terminates",
+      "status": "PASS",
+      "detail": "",
+      "url": "http://127.0.0.1:15173/chat/2"
+    },
+    {
+      "name": "CHAT / network loss shows failure and retry delivers once",
+      "status": "PASS",
+      "detail": "",
+      "url": "http://127.0.0.1:15173/chat/2"
+    },
+    {
+      "name": "CHAT / cancel block confirmation preserves ability to chat",
+      "status": "PASS",
+      "detail": "",
+      "url": "http://127.0.0.1:15173/chat/2"
+    },
+    {
+      "name": "CHAT / hide conversation removes entry from list",
+      "status": "HARNESS_ERROR",
+      "detail": "Expected values to be strictly equal:\n\n1 !== 0\n",
+      "url": "http://127.0.0.1:15173/chat",
+      "shot": "failure-98.png",
+      "correction": "路由完成时异步列表未更新，等待加载与刷新后会话已隐藏。"
+    },
+    {
+      "name": "SOCIAL / comment expansion reproduced failure",
+      "status": "FAIL",
+      "detail": "Expected values to be strictly equal:\n\n0 !== 1\n",
+      "url": "http://127.0.0.1:15173/social?post=13",
+      "shot": "failure-99.png"
+    },
+    {
+      "name": "CHAT / hide conversation persists after data load and reload",
+      "status": "PASS",
+      "detail": "",
+      "url": "http://127.0.0.1:15173/chat"
+    },
+    {
+      "name": "MESSAGE / four filters, mark all read and private shortcut",
+      "status": "PASS",
+      "detail": "",
+      "url": "http://127.0.0.1:15173/chat"
+    },
+    {
+      "name": "LOST / completed return persists for both accounts",
+      "status": "PASS",
+      "detail": "",
+      "url": "http://127.0.0.1:15173/lostfound/detail/9"
+    },
+    {
+      "name": "ACTIVITY / My activities both tabs and published record",
+      "status": "PASS",
+      "detail": "",
+      "url": "http://127.0.0.1:15173/activity/my-signup"
+    },
+    {
+      "name": "ACTIVITY / fresh signup for member-management test",
+      "status": "PASS",
+      "detail": "",
+      "url": "http://127.0.0.1:15173/activity/detail/9"
+    },
+    {
+      "name": "ACTIVITY / detail member entry loads participant rows",
+      "status": "FAIL",
+      "detail": "locator.waitFor: Timeout 7000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('dialog', { name: '报名名单', exact: true }).locator('.el-table__row').filter({ hasText: '[UIQA0929-718818]重新报名' }) to be visible\u001b[22m\n",
+      "url": "http://127.0.0.1:15173/activity/detail/9",
+      "shot": "failure-105.png"
+    },
+    {
+      "name": "ACTIVITY / published-table member management approves student",
+      "status": "PASS",
+      "detail": "",
+      "url": "http://127.0.0.1:15173/activity/my-signup"
+    },
+    {
+      "name": "ADMIN / route dashboard loads protected content",
+      "status": "HARNESS_ERROR",
+      "detail": "locator.innerText: Timeout 7000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('main')\u001b[22m\n",
+      "url": "http://127.0.0.1:15174/admin/dashboard",
+      "shot": "failure-107.png",
+      "correction": "测试错误地寻找 main 元素及通用页头；改用后台真实 .content 后逐页通过。"
+    },
+    {
+      "name": "ADMIN / route user loads protected content",
+      "status": "HARNESS_ERROR",
+      "detail": "locator.innerText: Timeout 7000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('main')\u001b[22m\n",
+      "url": "http://127.0.0.1:15174/admin/user",
+      "shot": "failure-108.png",
+      "correction": "测试错误地寻找 main 元素及通用页头；改用后台真实 .content 后逐页通过。"
+    },
+    {
+      "name": "ADMIN / route audit/activity loads protected content",
+      "status": "HARNESS_ERROR",
+      "detail": "locator.waitFor: Timeout 7000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('.wt-page-header,.content-manage,.dashboard').first() to be visible\u001b[22m\n",
+      "url": "http://127.0.0.1:15174/admin/audit/activity",
+      "shot": "failure-109.png",
+      "correction": "测试错误地寻找 main 元素及通用页头；改用后台真实 .content 后逐页通过。"
+    },
+    {
+      "name": "ADMIN / route audit/idle loads protected content",
+      "status": "HARNESS_ERROR",
+      "detail": "locator.waitFor: Timeout 7000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('.wt-page-header,.content-manage,.dashboard').first() to be visible\u001b[22m\n",
+      "url": "http://127.0.0.1:15174/admin/audit/idle",
+      "shot": "failure-110.png",
+      "correction": "测试错误地寻找 main 元素及通用页头；改用后台真实 .content 后逐页通过。"
+    },
+    {
+      "name": "ADMIN / route audit/lostfound loads protected content",
+      "status": "HARNESS_ERROR",
+      "detail": "locator.waitFor: Timeout 7000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('.wt-page-header,.content-manage,.dashboard').first() to be visible\u001b[22m\n",
+      "url": "http://127.0.0.1:15174/admin/audit/lostfound",
+      "shot": "failure-111.png",
+      "correction": "测试错误地寻找 main 元素及通用页头；改用后台真实 .content 后逐页通过。"
+    },
+    {
+      "name": "ADMIN / route audit/post loads protected content",
+      "status": "HARNESS_ERROR",
+      "detail": "locator.waitFor: Timeout 7000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('.wt-page-header,.content-manage,.dashboard').first() to be visible\u001b[22m\n",
+      "url": "http://127.0.0.1:15174/admin/audit/post",
+      "shot": "failure-112.png",
+      "correction": "测试错误地寻找 main 元素及通用页头；改用后台真实 .content 后逐页通过。"
+    },
+    {
+      "name": "ADMIN / route audit/partner loads protected content",
+      "status": "HARNESS_ERROR",
+      "detail": "locator.waitFor: Timeout 7000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('.wt-page-header,.content-manage,.dashboard').first() to be visible\u001b[22m\n",
+      "url": "http://127.0.0.1:15174/admin/audit/partner",
+      "shot": "failure-113.png",
+      "correction": "测试错误地寻找 main 元素及通用页头；改用后台真实 .content 后逐页通过。"
+    },
+    {
+      "name": "ADMIN / route content loads protected content",
+      "status": "HARNESS_ERROR",
+      "detail": "locator.innerText: Timeout 7000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('main')\u001b[22m\n",
+      "url": "http://127.0.0.1:15174/admin/content",
+      "shot": "failure-114.png",
+      "correction": "测试错误地寻找 main 元素及通用页头；改用后台真实 .content 后逐页通过。"
+    },
+    {
+      "name": "ADMIN / route ai/audit loads protected content",
+      "status": "HARNESS_ERROR",
+      "detail": "locator.waitFor: Timeout 7000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('.wt-page-header,.content-manage,.dashboard').first() to be visible\u001b[22m\n",
+      "url": "http://127.0.0.1:15174/admin/ai/audit",
+      "shot": "failure-115.png",
+      "correction": "测试错误地寻找 main 元素及通用页头；改用后台真实 .content 后逐页通过。"
+    },
+    {
+      "name": "ADMIN / route report loads protected content",
+      "status": "HARNESS_ERROR",
+      "detail": "locator.innerText: Timeout 7000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('main')\u001b[22m\n",
+      "url": "http://127.0.0.1:15174/admin/report",
+      "shot": "failure-116.png",
+      "correction": "测试错误地寻找 main 元素及通用页头；改用后台真实 .content 后逐页通过。"
+    },
+    {
+      "name": "ADMIN / route notice loads protected content",
+      "status": "HARNESS_ERROR",
+      "detail": "locator.innerText: Timeout 7000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('main')\u001b[22m\n",
+      "url": "http://127.0.0.1:15174/admin/notice",
+      "shot": "failure-117.png",
+      "correction": "测试错误地寻找 main 元素及通用页头；改用后台真实 .content 后逐页通过。"
+    },
+    {
+      "name": "ADMIN / route ai/config loads protected content",
+      "status": "HARNESS_ERROR",
+      "detail": "locator.innerText: Timeout 7000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('main')\u001b[22m\n",
+      "url": "http://127.0.0.1:15174/admin/ai/config",
+      "shot": "failure-118.png",
+      "correction": "测试错误地寻找 main 元素及通用页头；改用后台真实 .content 后逐页通过。"
+    },
+    {
+      "name": "ADMIN / route ai/logs loads protected content",
+      "status": "HARNESS_ERROR",
+      "detail": "locator.innerText: Timeout 7000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('main')\u001b[22m\n",
+      "url": "http://127.0.0.1:15174/admin/ai/logs",
+      "shot": "failure-119.png",
+      "correction": "测试错误地寻找 main 元素及通用页头；改用后台真实 .content 后逐页通过。"
+    },
+    {
+      "name": "ADMIN / route system/config loads protected content",
+      "status": "HARNESS_ERROR",
+      "detail": "locator.innerText: Timeout 7000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('main')\u001b[22m\n",
+      "url": "http://127.0.0.1:15174/admin/system/config",
+      "shot": "failure-120.png",
+      "correction": "测试错误地寻找 main 元素及通用页头；改用后台真实 .content 后逐页通过。"
+    },
+    {
+      "name": "ADMIN / route system loads protected content",
+      "status": "HARNESS_ERROR",
+      "detail": "locator.innerText: Timeout 7000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('main')\u001b[22m\n",
+      "url": "http://127.0.0.1:15174/admin/system",
+      "shot": "failure-121.png",
+      "correction": "测试错误地寻找 main 元素及通用页头；改用后台真实 .content 后逐页通过。"
+    },
+    {
+      "name": "ADMIN USER / search, ban cancel, ban and unban new test account",
+      "status": "PASS",
+      "detail": "",
+      "url": "http://127.0.0.1:15174/admin/user"
+    },
+    {
+      "name": "ADMIN NOTICE / empty validation, markdown preview and draft save",
+      "status": "PASS",
+      "detail": "",
+      "url": "http://127.0.0.1:15174/admin/notice"
+    },
+    {
+      "name": "ADMIN NOTICE / publish, student read, edit, offline and republish",
+      "status": "HARNESS_ERROR",
+      "detail": "locator.click: Timeout 7000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('.el-table__row').filter({ hasText: '[UIQA0929-718818]浏览器公告修订' }).getByRole('button', { name: '下线', exact: true })\u001b[22m\n",
+      "url": "http://127.0.0.1:15174/admin/notice",
+      "shot": "failure-124.png",
+      "correction": "未等待编辑数据加载，输入被初始化覆盖；等待标题加载后重新编辑下线上线及删除通过。"
+    },
+    {
+      "name": "ADMIN NOTICE / delete cancel and delete own QA record",
+      "status": "HARNESS_ERROR",
+      "detail": "locator.click: Timeout 7000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('.el-table__row').filter({ hasText: '[UIQA0929-718818]浏览器公告修订' }).getByRole('button', { name: '删除', exact: true })\u001b[22m\n",
+      "url": "http://127.0.0.1:15174/admin/notice",
+      "shot": "failure-125.png",
+      "correction": "未等待编辑数据加载，输入被初始化覆盖；等待标题加载后重新编辑下线上线及删除通过。"
+    },
+    {
+      "name": "ADMIN REPORT / filters, required explanation, disposition and student result",
+      "status": "PASS",
+      "detail": "",
+      "url": "http://127.0.0.1:15174/admin/report"
+    },
+    {
+      "name": "ADMIN CONTENT / all tabs, temporary off/on and real downloads",
+      "status": "PASS",
+      "detail": "",
+      "url": "http://127.0.0.1:15174/admin/content"
+    },
+    {
+      "name": "ADMIN AI / unchanged config save, create disabled template and edit",
+      "status": "HARNESS_ERROR",
+      "detail": "locator.waitFor: Timeout 7000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByText(/配置已更新|保存成功/).first() to be visible\u001b[22m\n",
+      "url": "http://127.0.0.1:15174/admin/ai/config",
+      "shot": "failure-128.png",
+      "correction": "成功提示文案匹配错误，准确文案及模板操作重跑通过。"
+    },
+    {
+      "name": "ADMIN SYSTEM / all config groups, refresh and unchanged save",
+      "status": "PASS",
+      "detail": "",
+      "url": "http://127.0.0.1:15174/admin/system/config"
+    },
+    {
+      "name": "ADMIN ACCOUNT / create reviewer and edit nickname without changing password",
+      "status": "FAIL",
+      "detail": "locator.waitFor: Timeout 7000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('.el-table__row').filter({ hasText: 'uiqa1790677087477' }).getByText('[UIQA0929-718818]审核员修订', { exact: true }) to be visible\u001b[22m\n",
+      "url": "http://127.0.0.1:15174/admin/system",
+      "shot": "failure-130.png"
+    },
+    {
+      "name": "ADMIN / route dashboard loads protected content",
+      "status": "PASS",
+      "detail": "",
+      "url": "http://127.0.0.1:15174/admin/dashboard"
+    },
+    {
+      "name": "ADMIN / route user loads protected content",
+      "status": "PASS",
+      "detail": "",
+      "url": "http://127.0.0.1:15174/admin/user"
+    },
+    {
+      "name": "ADMIN / route audit/activity loads protected content",
+      "status": "PASS",
+      "detail": "",
+      "url": "http://127.0.0.1:15174/admin/audit/activity"
+    },
+    {
+      "name": "ADMIN / route audit/idle loads protected content",
+      "status": "PASS",
+      "detail": "",
+      "url": "http://127.0.0.1:15174/admin/audit/idle"
+    },
+    {
+      "name": "ADMIN / route audit/lostfound loads protected content",
+      "status": "PASS",
+      "detail": "",
+      "url": "http://127.0.0.1:15174/admin/audit/lostfound"
+    },
+    {
+      "name": "ADMIN / route audit/post loads protected content",
+      "status": "PASS",
+      "detail": "",
+      "url": "http://127.0.0.1:15174/admin/audit/post"
+    },
+    {
+      "name": "ADMIN / route audit/partner loads protected content",
+      "status": "PASS",
+      "detail": "",
+      "url": "http://127.0.0.1:15174/admin/audit/partner"
+    },
+    {
+      "name": "ADMIN / route content loads protected content",
+      "status": "PASS",
+      "detail": "",
+      "url": "http://127.0.0.1:15174/admin/content"
+    },
+    {
+      "name": "ADMIN / route ai/audit loads protected content",
+      "status": "PASS",
+      "detail": "",
+      "url": "http://127.0.0.1:15174/admin/ai/audit"
+    },
+    {
+      "name": "ADMIN / route report loads protected content",
+      "status": "PASS",
+      "detail": "",
+      "url": "http://127.0.0.1:15174/admin/report"
+    },
+    {
+      "name": "ADMIN / route notice loads protected content",
+      "status": "PASS",
+      "detail": "",
+      "url": "http://127.0.0.1:15174/admin/notice"
+    },
+    {
+      "name": "ADMIN / route ai/config loads protected content",
+      "status": "PASS",
+      "detail": "",
+      "url": "http://127.0.0.1:15174/admin/ai/config"
+    },
+    {
+      "name": "ADMIN / route ai/logs loads protected content",
+      "status": "PASS",
+      "detail": "",
+      "url": "http://127.0.0.1:15174/admin/ai/logs"
+    },
+    {
+      "name": "ADMIN / route system/config loads protected content",
+      "status": "PASS",
+      "detail": "",
+      "url": "http://127.0.0.1:15174/admin/system/config"
+    },
+    {
+      "name": "ADMIN / route system loads protected content",
+      "status": "PASS",
+      "detail": "",
+      "url": "http://127.0.0.1:15174/admin/system"
+    },
+    {
+      "name": "ADMIN NOTICE / edit waits for data, offline, republish and delete cancel",
+      "status": "PASS",
+      "detail": "",
+      "url": "http://127.0.0.1:15174/admin/notice"
+    },
+    {
+      "name": "ADMIN AI / unchanged save confirmation, disabled template create and edit",
+      "status": "FAIL",
+      "detail": "locator.click: Timeout 7000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('dialog', { name: '新建模板' }).getByRole('switch')\u001b[22m\n\u001b[2m    - locator resolved to <input name=\"\" role=\"switch\" true-value=\"1\" type=\"checkbox\" false-value=\"0\" id=\"el-id-894-33\" aria-checked=\"true\" aria-disabled=\"false\" class=\"el-switch__input\"/>\u001b[22m\n\u001b[2m  - attempting click action\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is not stable\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m    - waiting 20ms\u001b[22m\n\u001b[2m    - waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m    - element is not stable\u001b[22m\n\u001b[2m  2 × retrying click action\u001b[22m\n\u001b[2m      - waiting 100ms\u001b[22m\n\u001b[2m      - waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is not visible\u001b[22m\n\u001b[2m  12 × retrying click action\u001b[22m\n\u001b[2m       - waiting 500ms\u001b[22m\n\u001b[2m       - waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m       - element is not visible\u001b[22m\n\u001b[2m  - retrying click action\u001b[22m\n\u001b[2m    - waiting 500ms\u001b[22m\n",
+      "url": "http://127.0.0.1:15174/admin/ai/config",
+      "shot": "failure-147.png"
+    },
+    {
+      "name": "ADMIN ACCOUNT / editing with explicit password works",
+      "status": "PASS",
+      "detail": "",
+      "url": "http://127.0.0.1:15174/admin/system"
+    },
+    {
+      "name": "ADMIN PERMISSIONS / reviewer login and super-only routes denied",
+      "status": "FAIL",
+      "detail": "locator.fill: Timeout 7000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByPlaceholder('请输入用户名')\u001b[22m\n",
+      "url": "http://127.0.0.1:15174/admin/system",
+      "shot": "failure-149.png"
+    },
+    {
+      "name": "WRONGBOOK / blank validation and manual add without AI",
+      "status": "PASS",
+      "detail": "",
+      "url": "http://127.0.0.1:15173/ai/wrong"
+    },
+    {
+      "name": "WRONGBOOK / edit, reload, select and cancel selection",
+      "status": "HARNESS_ERROR",
+      "detail": "locator.check: Target page, context or browser has been closed\nCall log:\n\u001b[2m  - waiting for locator('.wq-card').filter({ hasText: '[UIQA0929-718818]求 1+1' }).getByRole('checkbox')\u001b[22m\n\u001b[2m    - locator resolved to <input type=\"checkbox\" id=\"el-id-4386-38\" class=\"el-checkbox__original\"/>\u001b[22m\n\u001b[2m  - attempting click action\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is not visible\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m    - waiting 20ms\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is not visible\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m      - waiting 100ms\u001b[22m\n\u001b[2m    8 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is not visible\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m      - waiting 500ms\u001b[22m\n",
+      "url": "http://127.0.0.1:15173/ai/wrong",
+      "shot": null,
+      "correction": "浏览器窗口关闭导致上下文丢失，重建并实际登录后重跑。"
+    },
+    {
+      "name": "WRONGBOOK / real mastery feedback and persisted review count",
+      "status": "HARNESS_ERROR",
+      "detail": "locator.click: Target page, context or browser has been closed",
+      "url": "http://127.0.0.1:15173/ai/wrong",
+      "shot": null,
+      "correction": "浏览器窗口关闭导致上下文丢失，重建并实际登录后重跑。"
+    },
+    {
+      "name": "WRONGBOOK / status, subject and all sorting filters",
+      "status": "HARNESS_ERROR",
+      "detail": "locator.all: Target page, context or browser has been closed",
+      "url": "http://127.0.0.1:15173/ai/wrong",
+      "shot": null,
+      "correction": "浏览器窗口关闭导致上下文丢失，重建并实际登录后重跑。"
+    },
+    {
+      "name": "AI CHAT / create, rename and delete own empty session",
+      "status": "HARNESS_ERROR",
+      "detail": "page.goto: Target page, context or browser has been closed",
+      "url": "http://127.0.0.1:15173/ai/wrong",
+      "shot": null,
+      "correction": "浏览器窗口关闭导致上下文丢失，重建并实际登录后重跑。"
+    },
+    {
+      "name": "AI CHAT / all three scenes and PDF invalid-file feedback",
+      "status": "HARNESS_ERROR",
+      "detail": "locator.click: Target page, context or browser has been closed",
+      "url": "http://127.0.0.1:15173/ai/wrong",
+      "shot": null,
+      "correction": "浏览器窗口关闭导致上下文丢失，重建并实际登录后重跑。"
+    },
+    {
+      "name": "DRAW / room-code validation, create private room with settings",
+      "status": "HARNESS_ERROR",
+      "detail": "page.goto: Target page, context or browser has been closed",
+      "url": "http://127.0.0.1:15173/ai/wrong",
+      "shot": null,
+      "correction": "浏览器窗口关闭导致上下文丢失，重建并实际登录后重跑。"
+    },
+    {
+      "name": "DRAW / wrong password denied, correct joins both users live",
+      "status": "HARNESS_ERROR",
+      "detail": "page.goto: Target page, context or browser has been closed",
+      "url": "http://127.0.0.1:15173/notice",
+      "shot": null,
+      "correction": "浏览器窗口关闭导致上下文丢失，重建并实际登录后重跑。"
+    },
+    {
+      "name": "DRAW / actual mouse strokes sync, colors, eraser, save and guessed score",
+      "status": "HARNESS_ERROR",
+      "detail": "locator.click: Target page, context or browser has been closed",
+      "url": "http://127.0.0.1:15173/ai/wrong",
+      "shot": null,
+      "correction": "浏览器窗口关闭导致上下文丢失，重建并实际登录后重跑。"
+    },
+    {
+      "name": "DRAW / second turn, chat live, skip finishes and gallery retained",
+      "status": "HARNESS_ERROR",
+      "detail": "locator.waitFor: Target page, context or browser has been closed",
+      "url": "http://127.0.0.1:15173/ai/wrong",
+      "shot": null,
+      "correction": "浏览器窗口关闭导致上下文丢失，重建并实际登录后重跑。"
+    },
+    {
+      "name": "WRONGBOOK / edit, reload, select and cancel selection",
+      "status": "FAIL",
+      "detail": "locator.check: Timeout 7000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('.wq-card').filter({ hasText: '[UIQA0929-718818]求 1+1' }).getByRole('checkbox')\u001b[22m\n\u001b[2m    - locator resolved to <input type=\"checkbox\" id=\"el-id-7017-38\" class=\"el-checkbox__original\"/>\u001b[22m\n\u001b[2m  - attempting click action\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is not visible\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m    - waiting 20ms\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is not visible\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m      - waiting 100ms\u001b[22m\n\u001b[2m    13 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m       - element is not visible\u001b[22m\n\u001b[2m     - retrying click action\u001b[22m\n\u001b[2m       - waiting 500ms\u001b[22m\n",
+      "url": "http://127.0.0.1:15173/ai/wrong",
+      "shot": "failure-160.png"
+    },
+    {
+      "name": "WRONGBOOK / real mastery feedback and persisted review count",
+      "status": "PASS",
+      "detail": "",
+      "url": "http://127.0.0.1:15173/ai/wrong"
+    },
+    {
+      "name": "WRONGBOOK / status, subject and all sorting filters",
+      "status": "PASS",
+      "detail": "",
+      "url": "http://127.0.0.1:15173/ai/wrong"
+    },
+    {
+      "name": "AI CHAT / create, rename and delete own empty session",
+      "status": "PASS",
+      "detail": "",
+      "url": "http://127.0.0.1:15173/ai/chat"
+    },
+    {
+      "name": "AI CHAT / all three scenes and PDF invalid-file feedback",
+      "status": "PASS",
+      "detail": "",
+      "url": "http://127.0.0.1:15173/ai/chat"
+    },
+    {
+      "name": "DRAW / room-code validation, create private room with settings",
+      "status": "PASS",
+      "detail": "",
+      "url": "http://127.0.0.1:15173/draw-guess/room/1"
+    },
+    {
+      "name": "DRAW / wrong password denied, correct joins both users live",
+      "status": "PASS",
+      "detail": "",
+      "url": "http://127.0.0.1:15173/draw-guess/room/1"
+    },
+    {
+      "name": "DRAW / actual mouse strokes sync, colors, eraser, save and guessed score",
+      "status": "FAIL",
+      "detail": "page.waitForFunction: Timeout 7000ms exceeded.",
+      "url": "http://127.0.0.1:15173/draw-guess/room/1",
+      "shot": "failure-167.png"
+    },
+    {
+      "name": "DRAW / second turn, chat live, skip finishes and gallery retained",
+      "status": "FAIL",
+      "detail": "locator.waitFor: Timeout 18000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('button', { name: '跳过本题', exact: true }) to be visible\u001b[22m\n",
+      "url": "http://127.0.0.1:15173/draw-guess/room/1",
+      "shot": "failure-168.png"
+    },
+    {
+      "name": "WRONGBOOK / edit, reload, select and cancel selection",
+      "status": "PASS",
+      "detail": "",
+      "url": "http://127.0.0.1:15173/ai/wrong"
+    },
+    {
+      "name": "DRAW / room-code validation, create private room with settings",
+      "status": "PASS",
+      "detail": "",
+      "url": "http://127.0.0.1:15173/draw-guess/room/2"
+    },
+    {
+      "name": "DRAW / wrong password denied, correct joins both users live",
+      "status": "PASS",
+      "detail": "",
+      "url": "http://127.0.0.1:15173/draw-guess/room/2"
+    },
+    {
+      "name": "DRAW / actual mouse strokes sync, colors, eraser, save and guessed score",
+      "status": "PASS",
+      "detail": "",
+      "url": "http://127.0.0.1:15173/draw-guess/room/2"
+    },
+    {
+      "name": "DRAW / second turn, chat live, skip finishes and gallery retained",
+      "status": "FAIL",
+      "detail": "locator.waitFor: Timeout 7000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('.gallery-card').first() to be visible\u001b[22m\n",
+      "url": "http://127.0.0.1:15173/draw-guess",
+      "shot": "failure-173.png"
+    },
+    {
+      "name": "ADMIN TEMPLATE / visible switch create disabled and edit",
+      "status": "PASS",
+      "detail": "",
+      "url": "http://127.0.0.1:15174/admin/ai/config"
+    },
+    {
+      "name": "ADMIN PERMISSIONS / actual reviewer login and super-only route protection",
+      "status": "FAIL",
+      "detail": "page.goto: Target page, context or browser has been closed",
+      "url": "http://127.0.0.1:15174/admin/ai/config",
+      "shot": "failure-175.png"
+    },
+    {
+      "name": "ADMIN NAV / group menus click all links and keyboard search",
+      "status": "FAIL",
+      "detail": "locator.click: Timeout 7000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('.nav-group-toggle').first().locator('..').locator('.nav-item').first()\u001b[22m\n\u001b[2m    - locator resolved to <a data-v-be67d1a5=\"\" aria-current=\"page\" href=\"/admin/dashboard\" class=\"router-link-active router-link-exact-active nav-item active\">…</a>\u001b[22m\n\u001b[2m  - attempting click action\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is not visible\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m    - waiting 20ms\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is not visible\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m      - waiting 100ms\u001b[22m\n\u001b[2m    13 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m       - element is not visible\u001b[22m\n\u001b[2m     - retrying click action\u001b[22m\n\u001b[2m       - waiting 500ms\u001b[22m\n",
+      "url": "http://127.0.0.1:15174/admin/dashboard",
+      "shot": "failure-176.png"
+    },
+    {
+      "name": "ADMIN FILTERS / audit queue, AI audit tabs, log scenes and result statuses",
+      "status": "PASS",
+      "detail": "",
+      "url": "http://127.0.0.1:15174/admin/ai/logs"
+    },
+    {
+      "name": "IDLE / new spare publish, rejection, edit prefill and resubmit approval",
+      "status": "FAIL",
+      "detail": "page.goto: Target page, context or browser has been closed",
+      "url": "http://127.0.0.1:15173/profile",
+      "shot": "failure-178.png"
+    },
+    {
+      "name": "AI CODE / language choice, actual editor input and unavailable-provider feedback",
+      "status": "FAIL",
+      "detail": "locator.waitFor: Timeout 20000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('.el-message--error').first() to be visible\u001b[22m\n",
+      "url": "http://127.0.0.1:15173/ai/code",
+      "shot": "failure-179.png"
+    },
+    {
+      "name": "WRONGBOOK / AI plan, outline, quiz error feedback and cancel",
+      "status": "FAIL",
+      "detail": "locator.click: Timeout 7000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('dialog', { name: '🤖 AI 生成今日复习计划' }).getByRole('button', { name: '开始生成', exact: true })\u001b[22m\n",
+      "url": "http://127.0.0.1:15173/ai/wrong",
+      "shot": "failure-180.png"
+    },
+    {
+      "name": "LIST / idle keyword and visible category controls",
+      "status": "PASS",
+      "detail": "",
+      "url": "http://127.0.0.1:15173/idle"
+    },
+    {
+      "name": "LIST / activity keyword and visible category controls",
+      "status": "PASS",
+      "detail": "",
+      "url": "http://127.0.0.1:15173/activity"
+    },
+    {
+      "name": "LIST / lostfound keyword and visible category controls",
+      "status": "PASS",
+      "detail": "",
+      "url": "http://127.0.0.1:15173/lostfound"
+    },
+    {
+      "name": "LIST / partner keyword and visible category controls",
+      "status": "PASS",
+      "detail": "",
+      "url": "http://127.0.0.1:15173/partner"
+    },
+    {
+      "name": "LIST / qa keyword and visible category controls",
+      "status": "PASS",
+      "detail": "",
+      "url": "http://127.0.0.1:15173/qa"
+    },
+    {
+      "name": "LIST / social keyword and visible category controls",
+      "status": "PASS",
+      "detail": "",
+      "url": "http://127.0.0.1:15173/social"
+    },
+    {
+      "name": "PARTNER / own entry and visible matching/contact controls",
+      "status": "FAIL",
+      "detail": "locator.waitFor: Timeout 7000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('.partner-card,.card').filter({ hasText: '[UIQA0929-718818]数学搭子' }).first() to be visible\u001b[22m\n",
+      "url": "http://127.0.0.1:15173/partner",
+      "shot": "failure-187.png"
+    },
+    {
+      "name": "3D / scene boots, explore, comfort, quality, fullscreen and movement",
+      "status": "FAIL",
+      "detail": "locator.click: Timeout 7000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('.campus3d-header-actions').getByRole('button', { name: '退出全屏', exact: true })\u001b[22m\n\u001b[2m    - locator resolved to <button type=\"button\" data-v-acb0dbef=\"\" class=\"toolbar-button\">…</button>\u001b[22m\n\u001b[2m  - attempting click action\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is visible, enabled and stable\u001b[22m\n\u001b[2m      - scrolling into view if needed\u001b[22m\n\u001b[2m      - done scrolling\u001b[22m\n\u001b[2m      - <span data-v-acb0dbef=\"\">舒适模式已开</span> from <section data-v-acb0dbef=\"\" aria-label=\"3D校园场景\" class=\"campus3d-frame scene-expanded\">…</section> subtree intercepts pointer events\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m    - waiting 20ms\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is visible, enabled and stable\u001b[22m\n\u001b[2m      - scrolling into view if needed\u001b[22m\n\u001b[2m      - done scrolling\u001b[22m\n\u001b[2m      - <span data-v-acb0dbef=\"\">舒适模式已开</span> from <section data-v-acb0dbef=\"\" aria-label=\"3D校园场景\" class=\"campus3d-frame scene-expanded\">…</section> subtree intercepts pointer events\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m      - waiting 100ms\u001b[22m\n\u001b[2m    4 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is visible, enabled and stable\u001b[22m\n\u001b[2m      - scrolling into view if needed\u001b[22m\n\u001b[2m      - done scrolling\u001b[22m\n\u001b[2m      - <span data-v-acb0dbef=\"\">舒适模式已开</span> from <section data-v-acb0dbef=\"\" aria-label=\"3D校园场景\" class=\"campus3d-frame scene-expanded\">…</section> subtree intercepts pointer events\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m      - waiting 500ms\u001b[22m\n\u001b[2m    - waiting for element to be visible, enabled and stable\u001b[22m\n",
+      "url": "http://127.0.0.1:15173/campus-3d",
+      "shot": "failure-188.png"
+    },
+    {
+      "name": "3D WORKSPACE / 校园活动 opens same data and closes via UI",
+      "status": "FAIL",
+      "detail": "locator.click: Timeout 7000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('.campus3d-header-actions').getByRole('button', { name: /校园导览/ })\u001b[22m\n\u001b[2m    - locator resolved to <button type=\"button\" data-v-acb0dbef=\"\" class=\"toolbar-button\">…</button>\u001b[22m\n\u001b[2m  - attempting click action\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is visible, enabled and stable\u001b[22m\n\u001b[2m      - scrolling into view if needed\u001b[22m\n\u001b[2m      - done scrolling\u001b[22m\n\u001b[2m      - <canvas width=\"1438\" height=\"898\" tabindex=\"0\" class=\"campus-canvas\" data-engine=\"three.js r160\" aria-label=\"校园三维校园。拖动环视，W A S D 行走，点击服务门进入房间，再点击服务台或屏幕打开内容。\"></canvas> from <section data-v-acb0dbef=\"\" aria-label=\"3D校园场景\" class=\"campus3d-frame scene-expanded\">…</section> subtree intercepts pointer events\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m    - waiting 20ms\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is visible, enabled and stable\u001b[22m\n\u001b[2m      - scrolling into view if needed\u001b[22m\n\u001b[2m      - done scrolling\u001b[22m\n\u001b[2m      - <canvas width=\"1438\" height=\"898\" tabindex=\"0\" class=\"campus-canvas\" data-engine=\"three.js r160\" aria-label=\"校园三维校园。拖动环视，W A S D 行走，点击服务门进入房间，再点击服务台或屏幕打开内容。\"></canvas> from <section data-v-acb0dbef=\"\" aria-label=\"3D校园场景\" class=\"campus3d-frame scene-expanded\">…</section> subtree intercepts pointer events\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m      - waiting 100ms\u001b[22m\n\u001b[2m    5 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is visible, enabled and stable\u001b[22m\n\u001b[2m      - scrolling into view if needed\u001b[22m\n\u001b[2m      - done scrolling\u001b[22m\n\u001b[2m      - <canvas width=\"1438\" height=\"898\" tabindex=\"0\" class=\"campus-canvas\" data-engine=\"three.js r160\" aria-label=\"校园三维校园。拖动环视，W A S D 行走，点击服务门进入房间，再点击服务台或屏幕打开内容。\"></canvas> from <section data-v-acb0dbef=\"\" aria-label=\"3D校园场景\" class=\"campus3d-frame scene-expanded\">…</section> subtree intercepts pointer events\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m      - waiting 500ms\u001b[22m\n\u001b[2m    - waiting for element to be visible, enabled and stable\u001b[22m\n",
+      "url": "http://127.0.0.1:15173/campus-3d",
+      "shot": "failure-189.png"
+    },
+    {
+      "name": "3D WORKSPACE / 闲置互换 opens same data and closes via UI",
+      "status": "FAIL",
+      "detail": "locator.click: Timeout 7000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('.campus3d-header-actions').getByRole('button', { name: /校园导览/ })\u001b[22m\n\u001b[2m    - locator resolved to <button type=\"button\" data-v-acb0dbef=\"\" class=\"toolbar-button\">…</button>\u001b[22m\n\u001b[2m  - attempting click action\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is visible, enabled and stable\u001b[22m\n\u001b[2m      - scrolling into view if needed\u001b[22m\n\u001b[2m      - done scrolling\u001b[22m\n\u001b[2m      - <canvas width=\"1438\" height=\"898\" tabindex=\"0\" class=\"campus-canvas\" data-engine=\"three.js r160\" aria-label=\"校园三维校园。拖动环视，W A S D 行走，点击服务门进入房间，再点击服务台或屏幕打开内容。\"></canvas> from <section data-v-acb0dbef=\"\" aria-label=\"3D校园场景\" class=\"campus3d-frame scene-expanded\">…</section> subtree intercepts pointer events\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m    - waiting 20ms\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is visible, enabled and stable\u001b[22m\n\u001b[2m      - scrolling into view if needed\u001b[22m\n\u001b[2m      - done scrolling\u001b[22m\n\u001b[2m      - <canvas width=\"1438\" height=\"898\" tabindex=\"0\" class=\"campus-canvas\" data-engine=\"three.js r160\" aria-label=\"校园三维校园。拖动环视，W A S D 行走，点击服务门进入房间，再点击服务台或屏幕打开内容。\"></canvas> from <section data-v-acb0dbef=\"\" aria-label=\"3D校园场景\" class=\"campus3d-frame scene-expanded\">…</section> subtree intercepts pointer events\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m      - waiting 100ms\u001b[22m\n\u001b[2m    5 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is visible, enabled and stable\u001b[22m\n\u001b[2m      - scrolling into view if needed\u001b[22m\n\u001b[2m      - done scrolling\u001b[22m\n\u001b[2m      - <canvas width=\"1438\" height=\"898\" tabindex=\"0\" class=\"campus-canvas\" data-engine=\"three.js r160\" aria-label=\"校园三维校园。拖动环视，W A S D 行走，点击服务门进入房间，再点击服务台或屏幕打开内容。\"></canvas> from <section data-v-acb0dbef=\"\" aria-label=\"3D校园场景\" class=\"campus3d-frame scene-expanded\">…</section> subtree intercepts pointer events\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m      - waiting 500ms\u001b[22m\n\u001b[2m    - waiting for element to be visible, enabled and stable\u001b[22m\n",
+      "url": "http://127.0.0.1:15173/campus-3d",
+      "shot": "failure-190.png"
+    },
+    {
+      "name": "3D WORKSPACE / 学习搭子 opens same data and closes via UI",
+      "status": "FAIL",
+      "detail": "locator.click: Timeout 7000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('.campus3d-header-actions').getByRole('button', { name: /校园导览/ })\u001b[22m\n\u001b[2m    - locator resolved to <button type=\"button\" data-v-acb0dbef=\"\" class=\"toolbar-button\">…</button>\u001b[22m\n\u001b[2m  - attempting click action\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is visible, enabled and stable\u001b[22m\n\u001b[2m      - scrolling into view if needed\u001b[22m\n\u001b[2m      - done scrolling\u001b[22m\n\u001b[2m      - <canvas width=\"1438\" height=\"898\" tabindex=\"0\" class=\"campus-canvas\" data-engine=\"three.js r160\" aria-label=\"校园三维校园。拖动环视，W A S D 行走，点击服务门进入房间，再点击服务台或屏幕打开内容。\"></canvas> from <section data-v-acb0dbef=\"\" aria-label=\"3D校园场景\" class=\"campus3d-frame scene-expanded\">…</section> subtree intercepts pointer events\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m    - waiting 20ms\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is visible, enabled and stable\u001b[22m\n\u001b[2m      - scrolling into view if needed\u001b[22m\n\u001b[2m      - done scrolling\u001b[22m\n\u001b[2m      - <canvas width=\"1438\" height=\"898\" tabindex=\"0\" class=\"campus-canvas\" data-engine=\"three.js r160\" aria-label=\"校园三维校园。拖动环视，W A S D 行走，点击服务门进入房间，再点击服务台或屏幕打开内容。\"></canvas> from <section data-v-acb0dbef=\"\" aria-label=\"3D校园场景\" class=\"campus3d-frame scene-expanded\">…</section> subtree intercepts pointer events\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m      - waiting 100ms\u001b[22m\n\u001b[2m    5 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is visible, enabled and stable\u001b[22m\n\u001b[2m      - scrolling into view if needed\u001b[22m\n\u001b[2m      - done scrolling\u001b[22m\n\u001b[2m      - <canvas width=\"1438\" height=\"898\" tabindex=\"0\" class=\"campus-canvas\" data-engine=\"three.js r160\" aria-label=\"校园三维校园。拖动环视，W A S D 行走，点击服务门进入房间，再点击服务台或屏幕打开内容。\"></canvas> from <section data-v-acb0dbef=\"\" aria-label=\"3D校园场景\" class=\"campus3d-frame scene-expanded\">…</section> subtree intercepts pointer events\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m      - waiting 500ms\u001b[22m\n\u001b[2m    - waiting for element to be visible, enabled and stable\u001b[22m\n",
+      "url": "http://127.0.0.1:15173/campus-3d",
+      "shot": "failure-191.png"
+    },
+    {
+      "name": "3D WORKSPACE / 失物招领 opens same data and closes via UI",
+      "status": "FAIL",
+      "detail": "locator.click: Timeout 7000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('.campus3d-header-actions').getByRole('button', { name: /校园导览/ })\u001b[22m\n\u001b[2m    - locator resolved to <button type=\"button\" data-v-acb0dbef=\"\" class=\"toolbar-button\">…</button>\u001b[22m\n\u001b[2m  - attempting click action\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is visible, enabled and stable\u001b[22m\n\u001b[2m      - scrolling into view if needed\u001b[22m\n\u001b[2m      - done scrolling\u001b[22m\n\u001b[2m      - <canvas width=\"1438\" height=\"898\" tabindex=\"0\" class=\"campus-canvas\" data-engine=\"three.js r160\" aria-label=\"校园三维校园。拖动环视，W A S D 行走，点击服务门进入房间，再点击服务台或屏幕打开内容。\"></canvas> from <section data-v-acb0dbef=\"\" aria-label=\"3D校园场景\" class=\"campus3d-frame scene-expanded\">…</section> subtree intercepts pointer events\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m    - waiting 20ms\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is visible, enabled and stable\u001b[22m\n\u001b[2m      - scrolling into view if needed\u001b[22m\n\u001b[2m      - done scrolling\u001b[22m\n\u001b[2m      - <canvas width=\"1438\" height=\"898\" tabindex=\"0\" class=\"campus-canvas\" data-engine=\"three.js r160\" aria-label=\"校园三维校园。拖动环视，W A S D 行走，点击服务门进入房间，再点击服务台或屏幕打开内容。\"></canvas> from <section data-v-acb0dbef=\"\" aria-label=\"3D校园场景\" class=\"campus3d-frame scene-expanded\">…</section> subtree intercepts pointer events\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m      - waiting 100ms\u001b[22m\n\u001b[2m    5 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is visible, enabled and stable\u001b[22m\n\u001b[2m      - scrolling into view if needed\u001b[22m\n\u001b[2m      - done scrolling\u001b[22m\n\u001b[2m      - <canvas width=\"1438\" height=\"898\" tabindex=\"0\" class=\"campus-canvas\" data-engine=\"three.js r160\" aria-label=\"校园三维校园。拖动环视，W A S D 行走，点击服务门进入房间，再点击服务台或屏幕打开内容。\"></canvas> from <section data-v-acb0dbef=\"\" aria-label=\"3D校园场景\" class=\"campus3d-frame scene-expanded\">…</section> subtree intercepts pointer events\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m      - waiting 500ms\u001b[22m\n",
+      "url": "http://127.0.0.1:15173/campus-3d",
+      "shot": "failure-192.png"
+    },
+    {
+      "name": "3D WORKSPACE / 互助问答 opens same data and closes via UI",
+      "status": "FAIL",
+      "detail": "locator.click: Timeout 7000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('.campus3d-header-actions').getByRole('button', { name: /校园导览/ })\u001b[22m\n\u001b[2m    - locator resolved to <button type=\"button\" data-v-acb0dbef=\"\" class=\"toolbar-button\">…</button>\u001b[22m\n\u001b[2m  - attempting click action\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is visible, enabled and stable\u001b[22m\n\u001b[2m      - scrolling into view if needed\u001b[22m\n\u001b[2m      - done scrolling\u001b[22m\n\u001b[2m      - <canvas width=\"1438\" height=\"898\" tabindex=\"0\" class=\"campus-canvas\" data-engine=\"three.js r160\" aria-label=\"校园三维校园。拖动环视，W A S D 行走，点击服务门进入房间，再点击服务台或屏幕打开内容。\"></canvas> from <section data-v-acb0dbef=\"\" aria-label=\"3D校园场景\" class=\"campus3d-frame scene-expanded\">…</section> subtree intercepts pointer events\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m    - waiting 20ms\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is visible, enabled and stable\u001b[22m\n\u001b[2m      - scrolling into view if needed\u001b[22m\n\u001b[2m      - done scrolling\u001b[22m\n\u001b[2m      - <canvas width=\"1438\" height=\"898\" tabindex=\"0\" class=\"campus-canvas\" data-engine=\"three.js r160\" aria-label=\"校园三维校园。拖动环视，W A S D 行走，点击服务门进入房间，再点击服务台或屏幕打开内容。\"></canvas> from <section data-v-acb0dbef=\"\" aria-label=\"3D校园场景\" class=\"campus3d-frame scene-expanded\">…</section> subtree intercepts pointer events\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m      - waiting 100ms\u001b[22m\n\u001b[2m    5 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is visible, enabled and stable\u001b[22m\n\u001b[2m      - scrolling into view if needed\u001b[22m\n\u001b[2m      - done scrolling\u001b[22m\n\u001b[2m      - <canvas width=\"1438\" height=\"898\" tabindex=\"0\" class=\"campus-canvas\" data-engine=\"three.js r160\" aria-label=\"校园三维校园。拖动环视，W A S D 行走，点击服务门进入房间，再点击服务台或屏幕打开内容。\"></canvas> from <section data-v-acb0dbef=\"\" aria-label=\"3D校园场景\" class=\"campus3d-frame scene-expanded\">…</section> subtree intercepts pointer events\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m      - waiting 500ms\u001b[22m\n\u001b[2m    - waiting for element to be visible, enabled and stable\u001b[22m\n",
+      "url": "http://127.0.0.1:15173/campus-3d",
+      "shot": "failure-193.png"
+    },
+    {
+      "name": "3D WORKSPACE / 动态广场 opens same data and closes via UI",
+      "status": "FAIL",
+      "detail": "locator.click: Timeout 7000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('.campus3d-header-actions').getByRole('button', { name: /校园导览/ })\u001b[22m\n\u001b[2m    - locator resolved to <button type=\"button\" data-v-acb0dbef=\"\" class=\"toolbar-button\">…</button>\u001b[22m\n\u001b[2m  - attempting click action\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is visible, enabled and stable\u001b[22m\n\u001b[2m      - scrolling into view if needed\u001b[22m\n\u001b[2m      - done scrolling\u001b[22m\n\u001b[2m      - <canvas width=\"1438\" height=\"898\" tabindex=\"0\" class=\"campus-canvas\" data-engine=\"three.js r160\" aria-label=\"校园三维校园。拖动环视，W A S D 行走，点击服务门进入房间，再点击服务台或屏幕打开内容。\"></canvas> from <section data-v-acb0dbef=\"\" aria-label=\"3D校园场景\" class=\"campus3d-frame scene-expanded\">…</section> subtree intercepts pointer events\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m    - waiting 20ms\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is visible, enabled and stable\u001b[22m\n\u001b[2m      - scrolling into view if needed\u001b[22m\n\u001b[2m      - done scrolling\u001b[22m\n\u001b[2m      - <canvas width=\"1438\" height=\"898\" tabindex=\"0\" class=\"campus-canvas\" data-engine=\"three.js r160\" aria-label=\"校园三维校园。拖动环视，W A S D 行走，点击服务门进入房间，再点击服务台或屏幕打开内容。\"></canvas> from <section data-v-acb0dbef=\"\" aria-label=\"3D校园场景\" class=\"campus3d-frame scene-expanded\">…</section> subtree intercepts pointer events\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m      - waiting 100ms\u001b[22m\n\u001b[2m    5 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is visible, enabled and stable\u001b[22m\n\u001b[2m      - scrolling into view if needed\u001b[22m\n\u001b[2m      - done scrolling\u001b[22m\n\u001b[2m      - <canvas width=\"1438\" height=\"898\" tabindex=\"0\" class=\"campus-canvas\" data-engine=\"three.js r160\" aria-label=\"校园三维校园。拖动环视，W A S D 行走，点击服务门进入房间，再点击服务台或屏幕打开内容。\"></canvas> from <section data-v-acb0dbef=\"\" aria-label=\"3D校园场景\" class=\"campus3d-frame scene-expanded\">…</section> subtree intercepts pointer events\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m      - waiting 500ms\u001b[22m\n\u001b[2m    - waiting for element to be visible, enabled and stable\u001b[22m\n",
+      "url": "http://127.0.0.1:15173/campus-3d",
+      "shot": "failure-194.png"
+    },
+    {
+      "name": "3D WORKSPACE / 你画我猜 opens same data and closes via UI",
+      "status": "FAIL",
+      "detail": "locator.click: Timeout 7000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('.campus3d-header-actions').getByRole('button', { name: /校园导览/ })\u001b[22m\n\u001b[2m    - locator resolved to <button type=\"button\" data-v-acb0dbef=\"\" class=\"toolbar-button\">…</button>\u001b[22m\n\u001b[2m  - attempting click action\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is visible, enabled and stable\u001b[22m\n\u001b[2m      - scrolling into view if needed\u001b[22m\n\u001b[2m      - done scrolling\u001b[22m\n\u001b[2m      - <canvas width=\"1438\" height=\"898\" tabindex=\"0\" class=\"campus-canvas\" data-engine=\"three.js r160\" aria-label=\"校园三维校园。拖动环视，W A S D 行走，点击服务门进入房间，再点击服务台或屏幕打开内容。\"></canvas> from <section data-v-acb0dbef=\"\" aria-label=\"3D校园场景\" class=\"campus3d-frame scene-expanded\">…</section> subtree intercepts pointer events\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m    - waiting 20ms\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is visible, enabled and stable\u001b[22m\n\u001b[2m      - scrolling into view if needed\u001b[22m\n\u001b[2m      - done scrolling\u001b[22m\n\u001b[2m      - <canvas width=\"1438\" height=\"898\" tabindex=\"0\" class=\"campus-canvas\" data-engine=\"three.js r160\" aria-label=\"校园三维校园。拖动环视，W A S D 行走，点击服务门进入房间，再点击服务台或屏幕打开内容。\"></canvas> from <section data-v-acb0dbef=\"\" aria-label=\"3D校园场景\" class=\"campus3d-frame scene-expanded\">…</section> subtree intercepts pointer events\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m      - waiting 100ms\u001b[22m\n\u001b[2m    5 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is visible, enabled and stable\u001b[22m\n\u001b[2m      - scrolling into view if needed\u001b[22m\n\u001b[2m      - done scrolling\u001b[22m\n\u001b[2m      - <canvas width=\"1438\" height=\"898\" tabindex=\"0\" class=\"campus-canvas\" data-engine=\"three.js r160\" aria-label=\"校园三维校园。拖动环视，W A S D 行走，点击服务门进入房间，再点击服务台或屏幕打开内容。\"></canvas> from <section data-v-acb0dbef=\"\" aria-label=\"3D校园场景\" class=\"campus3d-frame scene-expanded\">…</section> subtree intercepts pointer events\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m      - waiting 500ms\u001b[22m\n",
+      "url": "http://127.0.0.1:15173/campus-3d",
+      "shot": "failure-195.png"
+    },
+    {
+      "name": "3D WORKSPACE / 校园公告 opens same data and closes via UI",
+      "status": "FAIL",
+      "detail": "locator.click: Timeout 7000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('.campus3d-header-actions').getByRole('button', { name: /校园导览/ })\u001b[22m\n\u001b[2m    - locator resolved to <button type=\"button\" data-v-acb0dbef=\"\" class=\"toolbar-button\">…</button>\u001b[22m\n\u001b[2m  - attempting click action\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is visible, enabled and stable\u001b[22m\n\u001b[2m      - scrolling into view if needed\u001b[22m\n\u001b[2m      - done scrolling\u001b[22m\n\u001b[2m      - <canvas width=\"1438\" height=\"898\" tabindex=\"0\" class=\"campus-canvas\" data-engine=\"three.js r160\" aria-label=\"校园三维校园。拖动环视，W A S D 行走，点击服务门进入房间，再点击服务台或屏幕打开内容。\"></canvas> from <section data-v-acb0dbef=\"\" aria-label=\"3D校园场景\" class=\"campus3d-frame scene-expanded\">…</section> subtree intercepts pointer events\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m    - waiting 20ms\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is visible, enabled and stable\u001b[22m\n\u001b[2m      - scrolling into view if needed\u001b[22m\n\u001b[2m      - done scrolling\u001b[22m\n\u001b[2m      - <canvas width=\"1438\" height=\"898\" tabindex=\"0\" class=\"campus-canvas\" data-engine=\"three.js r160\" aria-label=\"校园三维校园。拖动环视，W A S D 行走，点击服务门进入房间，再点击服务台或屏幕打开内容。\"></canvas> from <section data-v-acb0dbef=\"\" aria-label=\"3D校园场景\" class=\"campus3d-frame scene-expanded\">…</section> subtree intercepts pointer events\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m      - waiting 100ms\u001b[22m\n\u001b[2m    4 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is visible, enabled and stable\u001b[22m\n\u001b[2m      - scrolling into view if needed\u001b[22m\n\u001b[2m      - done scrolling\u001b[22m\n\u001b[2m      - <canvas width=\"1438\" height=\"898\" tabindex=\"0\" class=\"campus-canvas\" data-engine=\"three.js r160\" aria-label=\"校园三维校园。拖动环视，W A S D 行走，点击服务门进入房间，再点击服务台或屏幕打开内容。\"></canvas> from <section data-v-acb0dbef=\"\" aria-label=\"3D校园场景\" class=\"campus3d-frame scene-expanded\">…</section> subtree intercepts pointer events\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m      - waiting 500ms\u001b[22m\n\u001b[2m    - waiting for element to be visible, enabled and stable\u001b[22m\n",
+      "url": "http://127.0.0.1:15173/campus-3d",
+      "shot": "failure-196.png"
+    },
+    {
+      "name": "3D WORKSPACE / 消息中心 opens same data and closes via UI",
+      "status": "FAIL",
+      "detail": "locator.click: Timeout 7000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('.campus3d-header-actions').getByRole('button', { name: /校园导览/ })\u001b[22m\n\u001b[2m    - locator resolved to <button type=\"button\" data-v-acb0dbef=\"\" class=\"toolbar-button\">…</button>\u001b[22m\n\u001b[2m  - attempting click action\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is visible, enabled and stable\u001b[22m\n\u001b[2m      - scrolling into view if needed\u001b[22m\n\u001b[2m      - done scrolling\u001b[22m\n\u001b[2m      - <canvas width=\"1438\" height=\"898\" tabindex=\"0\" class=\"campus-canvas\" data-engine=\"three.js r160\" aria-label=\"校园三维校园。拖动环视，W A S D 行走，点击服务门进入房间，再点击服务台或屏幕打开内容。\"></canvas> from <section data-v-acb0dbef=\"\" aria-label=\"3D校园场景\" class=\"campus3d-frame scene-expanded\">…</section> subtree intercepts pointer events\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m    - waiting 20ms\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is visible, enabled and stable\u001b[22m\n\u001b[2m      - scrolling into view if needed\u001b[22m\n\u001b[2m      - done scrolling\u001b[22m\n\u001b[2m      - <canvas width=\"1438\" height=\"898\" tabindex=\"0\" class=\"campus-canvas\" data-engine=\"three.js r160\" aria-label=\"校园三维校园。拖动环视，W A S D 行走，点击服务门进入房间，再点击服务台或屏幕打开内容。\"></canvas> from <section data-v-acb0dbef=\"\" aria-label=\"3D校园场景\" class=\"campus3d-frame scene-expanded\">…</section> subtree intercepts pointer events\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m      - waiting 100ms\u001b[22m\n\u001b[2m    4 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is visible, enabled and stable\u001b[22m\n\u001b[2m      - scrolling into view if needed\u001b[22m\n\u001b[2m      - done scrolling\u001b[22m\n\u001b[2m      - <canvas width=\"1438\" height=\"898\" tabindex=\"0\" class=\"campus-canvas\" data-engine=\"three.js r160\" aria-label=\"校园三维校园。拖动环视，W A S D 行走，点击服务门进入房间，再点击服务台或屏幕打开内容。\"></canvas> from <section data-v-acb0dbef=\"\" aria-label=\"3D校园场景\" class=\"campus3d-frame scene-expanded\">…</section> subtree intercepts pointer events\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m      - waiting 500ms\u001b[22m\n\u001b[2m    - waiting for element to be visible, enabled and stable\u001b[22m\n",
+      "url": "http://127.0.0.1:15173/campus-3d",
+      "shot": "failure-197.png"
+    },
+    {
+      "name": "3D WORKSPACE / AI 答疑 opens same data and closes via UI",
+      "status": "FAIL",
+      "detail": "locator.click: Timeout 7000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('.campus3d-header-actions').getByRole('button', { name: /校园导览/ })\u001b[22m\n\u001b[2m    - locator resolved to <button type=\"button\" data-v-acb0dbef=\"\" class=\"toolbar-button\">…</button>\u001b[22m\n\u001b[2m  - attempting click action\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is visible, enabled and stable\u001b[22m\n\u001b[2m      - scrolling into view if needed\u001b[22m\n\u001b[2m      - done scrolling\u001b[22m\n\u001b[2m      - <canvas width=\"1438\" height=\"898\" tabindex=\"0\" class=\"campus-canvas\" data-engine=\"three.js r160\" aria-label=\"校园三维校园。拖动环视，W A S D 行走，点击服务门进入房间，再点击服务台或屏幕打开内容。\"></canvas> from <section data-v-acb0dbef=\"\" aria-label=\"3D校园场景\" class=\"campus3d-frame scene-expanded\">…</section> subtree intercepts pointer events\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m    - waiting 20ms\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is visible, enabled and stable\u001b[22m\n\u001b[2m      - scrolling into view if needed\u001b[22m\n\u001b[2m      - done scrolling\u001b[22m\n\u001b[2m      - <canvas width=\"1438\" height=\"898\" tabindex=\"0\" class=\"campus-canvas\" data-engine=\"three.js r160\" aria-label=\"校园三维校园。拖动环视，W A S D 行走，点击服务门进入房间，再点击服务台或屏幕打开内容。\"></canvas> from <section data-v-acb0dbef=\"\" aria-label=\"3D校园场景\" class=\"campus3d-frame scene-expanded\">…</section> subtree intercepts pointer events\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m      - waiting 100ms\u001b[22m\n\u001b[2m    5 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is visible, enabled and stable\u001b[22m\n\u001b[2m      - scrolling into view if needed\u001b[22m\n\u001b[2m      - done scrolling\u001b[22m\n\u001b[2m      - <canvas width=\"1438\" height=\"898\" tabindex=\"0\" class=\"campus-canvas\" data-engine=\"three.js r160\" aria-label=\"校园三维校园。拖动环视，W A S D 行走，点击服务门进入房间，再点击服务台或屏幕打开内容。\"></canvas> from <section data-v-acb0dbef=\"\" aria-label=\"3D校园场景\" class=\"campus3d-frame scene-expanded\">…</section> subtree intercepts pointer events\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m      - waiting 500ms\u001b[22m\n",
+      "url": "http://127.0.0.1:15173/campus-3d",
+      "shot": "failure-198.png"
+    },
+    {
+      "name": "3D WORKSPACE / 代码纠错 opens same data and closes via UI",
+      "status": "FAIL",
+      "detail": "locator.click: Timeout 7000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('.campus3d-header-actions').getByRole('button', { name: /校园导览/ })\u001b[22m\n\u001b[2m    - locator resolved to <button type=\"button\" data-v-acb0dbef=\"\" class=\"toolbar-button\">…</button>\u001b[22m\n\u001b[2m  - attempting click action\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is visible, enabled and stable\u001b[22m\n\u001b[2m      - scrolling into view if needed\u001b[22m\n\u001b[2m      - done scrolling\u001b[22m\n\u001b[2m      - <canvas width=\"1438\" height=\"898\" tabindex=\"0\" class=\"campus-canvas\" data-engine=\"three.js r160\" aria-label=\"校园三维校园。拖动环视，W A S D 行走，点击服务门进入房间，再点击服务台或屏幕打开内容。\"></canvas> from <section data-v-acb0dbef=\"\" aria-label=\"3D校园场景\" class=\"campus3d-frame scene-expanded\">…</section> subtree intercepts pointer events\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m    - waiting 20ms\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is visible, enabled and stable\u001b[22m\n\u001b[2m      - scrolling into view if needed\u001b[22m\n\u001b[2m      - done scrolling\u001b[22m\n\u001b[2m      - <canvas width=\"1438\" height=\"898\" tabindex=\"0\" class=\"campus-canvas\" data-engine=\"three.js r160\" aria-label=\"校园三维校园。拖动环视，W A S D 行走，点击服务门进入房间，再点击服务台或屏幕打开内容。\"></canvas> from <section data-v-acb0dbef=\"\" aria-label=\"3D校园场景\" class=\"campus3d-frame scene-expanded\">…</section> subtree intercepts pointer events\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m      - waiting 100ms\u001b[22m\n\u001b[2m    3 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is visible, enabled and stable\u001b[22m\n\u001b[2m      - scrolling into view if needed\u001b[22m\n\u001b[2m      - done scrolling\u001b[22m\n\u001b[2m      - <canvas width=\"1438\" height=\"898\" tabindex=\"0\" class=\"campus-canvas\" data-engine=\"three.js r160\" aria-label=\"校园三维校园。拖动环视，W A S D 行走，点击服务门进入房间，再点击服务台或屏幕打开内容。\"></canvas> from <section data-v-acb0dbef=\"\" aria-label=\"3D校园场景\" class=\"campus3d-frame scene-expanded\">…</section> subtree intercepts pointer events\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m      - waiting 500ms\u001b[22m\n\u001b[2m    - waiting for element to be visible, enabled and stable\u001b[22m\n",
+      "url": "http://127.0.0.1:15173/campus-3d",
+      "shot": "failure-199.png"
+    },
+    {
+      "name": "3D WORKSPACE / 错题本 opens same data and closes via UI",
+      "status": "FAIL",
+      "detail": "locator.click: Timeout 7000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('.campus3d-header-actions').getByRole('button', { name: /校园导览/ })\u001b[22m\n\u001b[2m    - locator resolved to <button type=\"button\" data-v-acb0dbef=\"\" class=\"toolbar-button\">…</button>\u001b[22m\n\u001b[2m  - attempting click action\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is visible, enabled and stable\u001b[22m\n\u001b[2m      - scrolling into view if needed\u001b[22m\n\u001b[2m      - done scrolling\u001b[22m\n\u001b[2m      - <canvas width=\"1438\" height=\"898\" tabindex=\"0\" class=\"campus-canvas\" data-engine=\"three.js r160\" aria-label=\"校园三维校园。拖动环视，W A S D 行走，点击服务门进入房间，再点击服务台或屏幕打开内容。\"></canvas> from <section data-v-acb0dbef=\"\" aria-label=\"3D校园场景\" class=\"campus3d-frame scene-expanded\">…</section> subtree intercepts pointer events\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m    - waiting 20ms\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is visible, enabled and stable\u001b[22m\n\u001b[2m      - scrolling into view if needed\u001b[22m\n\u001b[2m      - done scrolling\u001b[22m\n\u001b[2m      - <canvas width=\"1438\" height=\"898\" tabindex=\"0\" class=\"campus-canvas\" data-engine=\"three.js r160\" aria-label=\"校园三维校园。拖动环视，W A S D 行走，点击服务门进入房间，再点击服务台或屏幕打开内容。\"></canvas> from <section data-v-acb0dbef=\"\" aria-label=\"3D校园场景\" class=\"campus3d-frame scene-expanded\">…</section> subtree intercepts pointer events\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m      - waiting 100ms\u001b[22m\n\u001b[2m    3 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is visible, enabled and stable\u001b[22m\n\u001b[2m      - scrolling into view if needed\u001b[22m\n\u001b[2m      - done scrolling\u001b[22m\n\u001b[2m      - <canvas width=\"1438\" height=\"898\" tabindex=\"0\" class=\"campus-canvas\" data-engine=\"three.js r160\" aria-label=\"校园三维校园。拖动环视，W A S D 行走，点击服务门进入房间，再点击服务台或屏幕打开内容。\"></canvas> from <section data-v-acb0dbef=\"\" aria-label=\"3D校园场景\" class=\"campus3d-frame scene-expanded\">…</section> subtree intercepts pointer events\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m      - waiting 500ms\u001b[22m\n",
+      "url": "http://127.0.0.1:15173/campus-3d",
+      "shot": "failure-200.png"
+    },
+    {
+      "name": "3D WORKSPACE / 综合门户 opens same data and closes via UI",
+      "status": "FAIL",
+      "detail": "locator.click: Timeout 7000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('.campus3d-header-actions').getByRole('button', { name: /校园导览/ })\u001b[22m\n\u001b[2m    - locator resolved to <button type=\"button\" data-v-acb0dbef=\"\" class=\"toolbar-button\">…</button>\u001b[22m\n\u001b[2m  - attempting click action\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is visible, enabled and stable\u001b[22m\n\u001b[2m      - scrolling into view if needed\u001b[22m\n\u001b[2m      - done scrolling\u001b[22m\n\u001b[2m      - <canvas width=\"1438\" height=\"898\" tabindex=\"0\" class=\"campus-canvas\" data-engine=\"three.js r160\" aria-label=\"校园三维校园。拖动环视，W A S D 行走，点击服务门进入房间，再点击服务台或屏幕打开内容。\"></canvas> from <section data-v-acb0dbef=\"\" aria-label=\"3D校园场景\" class=\"campus3d-frame scene-expanded\">…</section> subtree intercepts pointer events\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m    - waiting 20ms\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is visible, enabled and stable\u001b[22m\n\u001b[2m      - scrolling into view if needed\u001b[22m\n\u001b[2m      - done scrolling\u001b[22m\n\u001b[2m      - <canvas width=\"1438\" height=\"898\" tabindex=\"0\" class=\"campus-canvas\" data-engine=\"three.js r160\" aria-label=\"校园三维校园。拖动环视，W A S D 行走，点击服务门进入房间，再点击服务台或屏幕打开内容。\"></canvas> from <section data-v-acb0dbef=\"\" aria-label=\"3D校园场景\" class=\"campus3d-frame scene-expanded\">…</section> subtree intercepts pointer events\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m      - waiting 100ms\u001b[22m\n\u001b[2m    3 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is visible, enabled and stable\u001b[22m\n\u001b[2m      - scrolling into view if needed\u001b[22m\n\u001b[2m      - done scrolling\u001b[22m\n\u001b[2m      - <canvas width=\"1438\" height=\"898\" tabindex=\"0\" class=\"campus-canvas\" data-engine=\"three.js r160\" aria-label=\"校园三维校园。拖动环视，W A S D 行走，点击服务门进入房间，再点击服务台或屏幕打开内容。\"></canvas> from <section data-v-acb0dbef=\"\" aria-label=\"3D校园场景\" class=\"campus3d-frame scene-expanded\">…</section> subtree intercepts pointer events\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m      - waiting 500ms\u001b[22m\n\u001b[2m    - waiting for element to be visible, enabled and stable\u001b[22m\n",
+      "url": "http://127.0.0.1:15173/campus-3d",
+      "shot": "failure-201.png"
+    },
+    {
+      "name": "3D / returning student home removes scene",
+      "status": "FAIL",
+      "detail": "locator.click: Target page, context or browser has been closed\nCall log:\n\u001b[2m  - waiting for getByRole('button', { name: /返回学生端/ })\u001b[22m\n\u001b[2m    - locator resolved to <button type=\"button\" data-v-acb0dbef=\"\" class=\"back-button\">…</button>\u001b[22m\n\u001b[2m  - attempting click action\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is visible, enabled and stable\u001b[22m\n\u001b[2m      - scrolling into view if needed\u001b[22m\n\u001b[2m      - done scrolling\u001b[22m\n\u001b[2m      - <span data-v-acb0dbef=\"\" class=\"location-chip location-chip-scene\">…</span> from <section data-v-acb0dbef=\"\" aria-label=\"3D校园场景\" class=\"campus3d-frame scene-expanded\">…</section> subtree intercepts pointer events\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m    - waiting 20ms\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is visible, enabled and stable\u001b[22m\n\u001b[2m      - scrolling into view if needed\u001b[22m\n\u001b[2m      - done scrolling\u001b[22m\n\u001b[2m      - <span data-v-acb0dbef=\"\" class=\"location-chip location-chip-scene\">…</span> from <section data-v-acb0dbef=\"\" aria-label=\"3D校园场景\" class=\"campus3d-frame scene-expanded\">…</section> subtree intercepts pointer events\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m      - waiting 100ms\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is visible, enabled and stable\u001b[22m\n\u001b[2m      - scrolling into view if needed\u001b[22m\n\u001b[2m      - done scrolling\u001b[22m\n\u001b[2m      - <span data-v-acb0dbef=\"\" class=\"location-chip location-chip-scene\">…</span> from <section data-v-acb0dbef=\"\" aria-label=\"3D校园场景\" class=\"campus3d-frame scene-expanded\">…</section> subtree intercepts pointer events\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m      - waiting 500ms\u001b[22m\n",
+      "url": "http://127.0.0.1:15173/campus-3d",
+      "shot": null
+    },
+    {
+      "name": "PARTNER / own entry and visible matching/contact controls",
+      "status": "FAIL",
+      "detail": "page.goto: Target page, context or browser has been closed",
+      "url": "http://127.0.0.1:15173/partner",
+      "shot": null
+    },
+    {
+      "name": "3D / scene boots, explore, comfort, quality, fullscreen and movement",
+      "status": "FAIL",
+      "detail": "page.goto: Target page, context or browser has been closed",
+      "url": "http://127.0.0.1:15173/campus-3d",
+      "shot": null
+    },
+    {
+      "name": "3D WORKSPACE / 校园活动 opens same data and closes via UI",
+      "status": "FAIL",
+      "detail": "locator.click: Target page, context or browser has been closed",
+      "url": "http://127.0.0.1:15173/campus-3d",
+      "shot": null
+    },
+    {
+      "name": "3D WORKSPACE / 闲置互换 opens same data and closes via UI",
+      "status": "FAIL",
+      "detail": "locator.click: Target page, context or browser has been closed",
+      "url": "http://127.0.0.1:15173/campus-3d",
+      "shot": null
+    },
+    {
+      "name": "3D WORKSPACE / 学习搭子 opens same data and closes via UI",
+      "status": "FAIL",
+      "detail": "locator.click: Target page, context or browser has been closed",
+      "url": "http://127.0.0.1:15173/campus-3d",
+      "shot": null
+    },
+    {
+      "name": "3D WORKSPACE / 失物招领 opens same data and closes via UI",
+      "status": "FAIL",
+      "detail": "locator.click: Target page, context or browser has been closed",
+      "url": "http://127.0.0.1:15173/campus-3d",
+      "shot": null
+    },
+    {
+      "name": "3D WORKSPACE / 互助问答 opens same data and closes via UI",
+      "status": "FAIL",
+      "detail": "locator.click: Target page, context or browser has been closed",
+      "url": "http://127.0.0.1:15173/campus-3d",
+      "shot": null
+    },
+    {
+      "name": "3D WORKSPACE / 动态广场 opens same data and closes via UI",
+      "status": "FAIL",
+      "detail": "locator.click: Target page, context or browser has been closed",
+      "url": "http://127.0.0.1:15173/campus-3d",
+      "shot": null
+    },
+    {
+      "name": "3D WORKSPACE / 你画我猜 opens same data and closes via UI",
+      "status": "FAIL",
+      "detail": "locator.click: Target page, context or browser has been closed",
+      "url": "http://127.0.0.1:15173/campus-3d",
+      "shot": null
+    },
+    {
+      "name": "3D WORKSPACE / 校园公告 opens same data and closes via UI",
+      "status": "FAIL",
+      "detail": "locator.click: Target page, context or browser has been closed",
+      "url": "http://127.0.0.1:15173/campus-3d",
+      "shot": null
+    },
+    {
+      "name": "3D WORKSPACE / 消息中心 opens same data and closes via UI",
+      "status": "FAIL",
+      "detail": "locator.click: Target page, context or browser has been closed",
+      "url": "http://127.0.0.1:15173/campus-3d",
+      "shot": null
+    },
+    {
+      "name": "3D WORKSPACE / AI 答疑 opens same data and closes via UI",
+      "status": "FAIL",
+      "detail": "locator.click: Target page, context or browser has been closed",
+      "url": "http://127.0.0.1:15173/campus-3d",
+      "shot": null
+    },
+    {
+      "name": "3D WORKSPACE / 代码纠错 opens same data and closes via UI",
+      "status": "FAIL",
+      "detail": "locator.click: Target page, context or browser has been closed",
+      "url": "http://127.0.0.1:15173/campus-3d",
+      "shot": null
+    },
+    {
+      "name": "3D WORKSPACE / 错题本 opens same data and closes via UI",
+      "status": "FAIL",
+      "detail": "locator.click: Target page, context or browser has been closed",
+      "url": "http://127.0.0.1:15173/campus-3d",
+      "shot": null
+    },
+    {
+      "name": "3D WORKSPACE / 综合门户 opens same data and closes via UI",
+      "status": "FAIL",
+      "detail": "locator.click: Target page, context or browser has been closed",
+      "url": "http://127.0.0.1:15173/campus-3d",
+      "shot": null
+    },
+    {
+      "name": "3D / returning student home removes scene",
+      "status": "FAIL",
+      "detail": "locator.click: Target page, context or browser has been closed",
+      "url": "http://127.0.0.1:15173/campus-3d",
+      "shot": null
+    },
+    {
+      "name": "ADMIN PERMISSIONS / reviewer real login and protected routes",
+      "status": "PASS",
+      "detail": "",
+      "url": "about:blank"
+    },
+    {
+      "name": "ADMIN NAV / all groups and links operate with expanded state",
+      "status": "PASS",
+      "detail": "",
+      "url": "http://127.0.0.1:15174/admin/system/config"
+    },
+    {
+      "name": "ADMIN GLOBAL SEARCH / keyword passed into user search form",
+      "status": "FAIL",
+      "detail": "Expected values to be strictly equal:\n+ actual - expected\n\n+ ''\n- '291790675725129'\n",
+      "url": "http://127.0.0.1:15174/admin/user?q=291790675725129",
+      "shot": "failure-221.png"
+    },
+    {
+      "name": "IDLE / rejection, reason, edit initialized fields and new approval",
+      "status": "FAIL",
+      "detail": "New record must be visible in audit\n\n2 !== 1\n",
+      "url": "http://127.0.0.1:15173/profile",
+      "shot": "failure-222.png"
+    },
+    {
+      "name": "AI CODE / provider error is returned and UI remains editable",
+      "status": "FAIL",
+      "detail": "Expected \"actual\" to be strictly unequal to: 200",
+      "url": "http://127.0.0.1:15173/ai/code",
+      "shot": "failure-223.png"
+    },
+    {
+      "name": "WRONG AI / automatic plan, outline and quiz errors expose retry controls",
+      "status": "FAIL",
+      "detail": "locator.waitFor: Timeout 20000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('dialog', { name: '🤖 AI 生成复习提纲' }).locator('.err-box') to be visible\u001b[22m\n",
+      "url": "http://127.0.0.1:15173/ai/wrong",
+      "shot": "failure-224.png"
+    },
+    {
+      "name": "PDF / real document upload, parse, session binding and reload restoration",
+      "status": "PASS",
+      "detail": "",
+      "url": "http://127.0.0.1:15173/ai/chat"
+    },
+    {
+      "name": "PARTNER / published card, contact and peer profile route",
+      "status": "PASS",
+      "detail": "",
+      "url": "http://127.0.0.1:15173/user/6"
+    },
+    {
+      "name": "MAINTENANCE / manual maintenance page retries and returns when service available",
+      "status": "PASS",
+      "detail": "",
+      "url": "http://127.0.0.1:15173/"
+    },
+    {
+      "name": "3D / scene boots, explore, comfort, quality, fullscreen and movement",
+      "status": "PASS",
+      "detail": "",
+      "url": "http://127.0.0.1:15173/campus-3d"
+    },
+    {
+      "name": "3D WORKSPACE / 校园活动 opens same data and closes via UI",
+      "status": "PASS",
+      "detail": "",
+      "url": "http://127.0.0.1:15173/campus-3d"
+    },
+    {
+      "name": "3D WORKSPACE / 闲置互换 opens same data and closes via UI",
+      "status": "PASS",
+      "detail": "",
+      "url": "http://127.0.0.1:15173/campus-3d"
+    },
+    {
+      "name": "3D WORKSPACE / 学习搭子 opens same data and closes via UI",
+      "status": "PASS",
+      "detail": "",
+      "url": "http://127.0.0.1:15173/campus-3d"
+    },
+    {
+      "name": "3D WORKSPACE / 失物招领 opens same data and closes via UI",
+      "status": "PASS",
+      "detail": "",
+      "url": "http://127.0.0.1:15173/campus-3d"
+    },
+    {
+      "name": "3D WORKSPACE / 互助问答 opens same data and closes via UI",
+      "status": "PASS",
+      "detail": "",
+      "url": "http://127.0.0.1:15173/campus-3d"
+    },
+    {
+      "name": "3D WORKSPACE / 动态广场 opens same data and closes via UI",
+      "status": "PASS",
+      "detail": "",
+      "url": "http://127.0.0.1:15173/campus-3d"
+    },
+    {
+      "name": "3D WORKSPACE / 你画我猜 opens same data and closes via UI",
+      "status": "PASS",
+      "detail": "",
+      "url": "http://127.0.0.1:15173/campus-3d"
+    },
+    {
+      "name": "3D WORKSPACE / 校园公告 opens same data and closes via UI",
+      "status": "PASS",
+      "detail": "",
+      "url": "http://127.0.0.1:15173/campus-3d"
+    },
+    {
+      "name": "3D WORKSPACE / 消息中心 opens same data and closes via UI",
+      "status": "PASS",
+      "detail": "",
+      "url": "http://127.0.0.1:15173/campus-3d"
+    },
+    {
+      "name": "3D WORKSPACE / AI 答疑 opens same data and closes via UI",
+      "status": "PASS",
+      "detail": "",
+      "url": "http://127.0.0.1:15173/campus-3d"
+    },
+    {
+      "name": "3D WORKSPACE / 代码纠错 opens same data and closes via UI",
+      "status": "PASS",
+      "detail": "",
+      "url": "http://127.0.0.1:15173/campus-3d"
+    },
+    {
+      "name": "3D WORKSPACE / 错题本 opens same data and closes via UI",
+      "status": "PASS",
+      "detail": "",
+      "url": "http://127.0.0.1:15173/campus-3d"
+    },
+    {
+      "name": "3D WORKSPACE / 综合门户 opens same data and closes via UI",
+      "status": "FAIL",
+      "detail": "locator.click: Timeout 7000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('.map-zones button').filter({ has: getByText('综合门户', { exact: true }) })\u001b[22m\n",
+      "url": "http://127.0.0.1:15173/campus-3d",
+      "shot": "failure-241.png"
+    },
+    {
+      "name": "3D / returning student home removes scene",
+      "status": "FAIL",
+      "detail": "locator.click: Timeout 7000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('button', { name: /返回学生端/ })\u001b[22m\n\u001b[2m    - locator resolved to <button type=\"button\" data-v-acb0dbef=\"\" class=\"back-button\">…</button>\u001b[22m\n\u001b[2m  - attempting click action\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is visible, enabled and stable\u001b[22m\n\u001b[2m      - scrolling into view if needed\u001b[22m\n\u001b[2m      - done scrolling\u001b[22m\n\u001b[2m      - <div class=\"map-layer\" data-v-acb0dbef=\"\">…</div> intercepts pointer events\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m    - waiting 20ms\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is visible, enabled and stable\u001b[22m\n\u001b[2m      - scrolling into view if needed\u001b[22m\n\u001b[2m      - done scrolling\u001b[22m\n\u001b[2m      - <div class=\"map-layer\" data-v-acb0dbef=\"\">…</div> intercepts pointer events\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m      - waiting 100ms\u001b[22m\n\u001b[2m    14 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m       - element is visible, enabled and stable\u001b[22m\n\u001b[2m       - scrolling into view if needed\u001b[22m\n\u001b[2m       - done scrolling\u001b[22m\n\u001b[2m       - <div class=\"map-layer\" data-v-acb0dbef=\"\">…</div> intercepts pointer events\u001b[22m\n\u001b[2m     - retrying click action\u001b[22m\n\u001b[2m       - waiting 500ms\u001b[22m\n",
+      "url": "http://127.0.0.1:15173/campus-3d",
+      "shot": "failure-242.png"
+    },
+    {
+      "name": "3D / returning student home removes scene",
+      "status": "PASS",
+      "detail": "",
+      "url": "http://127.0.0.1:15173/"
+    },
+    {
+      "name": "AI LIVE / new chat streams answer and reload restores history",
+      "status": "FAIL",
+      "detail": "The expression evaluated to a falsy value:\n\n  assert((await page.locator('.bubble.assistant').last().innerText()).trim().length>1)\n",
+      "url": "http://127.0.0.1:15173/ai/chat",
+      "shot": "failure-244.png"
+    },
+    {
+      "name": "AI LIVE / scene switch cancels old stream without contaminating guide",
+      "status": "FAIL",
+      "detail": "locator.click: Timeout 7000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('.ai-input button.send')\u001b[22m\n\u001b[2m    - locator resolved to <button disabled class=\"send\" aria-label=\"发送\" data-v-a67cadb4=\"\">…</button>\u001b[22m\n\u001b[2m  - attempting click action\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is not enabled\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m    - waiting 20ms\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is not enabled\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m      - waiting 100ms\u001b[22m\n\u001b[2m    13 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m       - element is not enabled\u001b[22m\n\u001b[2m     - retrying click action\u001b[22m\n\u001b[2m       - waiting 500ms\u001b[22m\n",
+      "url": "http://127.0.0.1:15173/ai/chat",
+      "shot": "failure-245.png"
+    },
+    {
+      "name": "AI LIVE / parsed PDF answers from document and persists session",
+      "status": "FAIL",
+      "detail": "locator.click: Timeout 7000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('.ai-input button.send')\u001b[22m\n\u001b[2m    - locator resolved to <button disabled class=\"send\" aria-label=\"发送\" data-v-a67cadb4=\"\">…</button>\u001b[22m\n\u001b[2m  - attempting click action\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is not enabled\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m    - waiting 20ms\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is not enabled\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m      - waiting 100ms\u001b[22m\n\u001b[2m    14 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m       - element is not enabled\u001b[22m\n\u001b[2m     - retrying click action\u001b[22m\n\u001b[2m       - waiting 500ms\u001b[22m\n",
+      "url": "http://127.0.0.1:15173/ai/chat",
+      "shot": "failure-246.png"
+    },
+    {
+      "name": "AI LIVE / Python editor produces visible correction result",
+      "status": "PASS",
+      "detail": "",
+      "url": "http://127.0.0.1:15173/ai/code"
+    },
+    {
+      "name": "AI OUTLINE / successful backend response renders actual generated outline",
+      "status": "FAIL",
+      "detail": "locator.waitFor: Timeout 7000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('dialog', { name: '🤖 AI 生成复习提纲' }).locator('.md-body') to be visible\u001b[22m\n",
+      "url": "http://127.0.0.1:15173/ai/wrong",
+      "shot": "failure-248.png"
+    },
+    {
+      "name": "WRONG LIVE / create pending item and today-review/AI plan entry",
+      "status": "PASS",
+      "detail": "",
+      "url": "http://127.0.0.1:15173/ai/wrong"
+    },
+    {
+      "name": "WRONG LIVE / AI explanation and structured practice, answer, analysis, save",
+      "status": "PASS",
+      "detail": "",
+      "url": "http://127.0.0.1:15173/ai/wrong"
+    },
+    {
+      "name": "AI LIVE / streaming content and actual reload persistence",
+      "status": "PASS",
+      "detail": "",
+      "url": "http://127.0.0.1:15173/ai/chat"
+    },
+    {
+      "name": "AI LIVE / independent guide request returns campus data",
+      "status": "PASS",
+      "detail": "",
+      "url": "http://127.0.0.1:15173/ai/chat"
+    },
+    {
+      "name": "AI LIVE / independent PDF question returns grounded answer",
+      "status": "PASS",
+      "detail": "",
+      "url": "http://127.0.0.1:15173/ai/chat"
+    },
+    {
+      "name": "AI CANCEL / switching scene during request enables sending in new scene",
+      "status": "FAIL",
+      "detail": "page.waitForFunction: Timeout 8000ms exceeded.",
+      "url": "http://127.0.0.1:15173/ai/chat",
+      "shot": "failure-254.png"
+    },
+    {
+      "name": "IDLE / uniquely named record rejection, edit and approval",
+      "status": "FAIL",
+      "detail": "page.waitForFunction: Timeout 7000ms exceeded.",
+      "url": "http://127.0.0.1:15173/idle/publish?id=22",
+      "shot": "failure-255.png"
+    },
+    {
+      "name": "IDLE OWNER / offline and relist states persist",
+      "status": "FAIL",
+      "detail": "locator.waitFor: Timeout 7000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('.el-table__row').filter({ hasText: '[UIQA0929-718818]独立编辑1790678368508' }).getByText('在架', { exact: true }) to be visible\u001b[22m\n",
+      "url": "http://127.0.0.1:15173/profile",
+      "shot": "failure-256.png"
+    },
+    {
+      "name": "IDLE / appointment buyer cancels and later seller rejects",
+      "status": "FAIL",
+      "detail": "locator.click: Timeout 7000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('button', { name: '发起预约互换', exact: true })\u001b[22m\n",
+      "url": "http://127.0.0.1:15173/idle/detail/22",
+      "shot": "failure-257.png"
+    },
+    {
+      "name": "UPLOAD NEGATIVE / oversized image blocked, invalid file rejected by server",
+      "status": "PASS",
+      "detail": "",
+      "url": "http://127.0.0.1:15173/idle/publish"
+    },
+    {
+      "name": "LIST FILTERS / every idle, activity, lost and QA category",
+      "status": "PASS",
+      "detail": "",
+      "url": "http://127.0.0.1:15173/qa"
+    },
+    {
+      "name": "EXPLORATORY / unusual search, no results, back navigation and top restoration",
+      "status": "PASS",
+      "detail": "",
+      "url": "http://127.0.0.1:15173/idle"
+    },
+    {
+      "name": "WRONG DELETE / own item cancel preserves record and confirm removes",
+      "status": "PASS",
+      "detail": "",
+      "url": "http://127.0.0.1:15173/ai/wrong"
+    },
+    {
+      "name": "IDLE CORRECTED / rejected item edit prefill and approval",
+      "status": "PASS",
+      "detail": "",
+      "url": "http://127.0.0.1:15173/profile"
+    },
+    {
+      "name": "AI ASSIST / activity real compose, fill and discard",
+      "status": "PASS",
+      "detail": "",
+      "url": "http://127.0.0.1:15173/activity/publish"
+    },
+    {
+      "name": "AI ASSIST / idle real compose, fill and discard",
+      "status": "PASS",
+      "detail": "",
+      "url": "http://127.0.0.1:15173/idle/publish"
+    },
+    {
+      "name": "AI ASSIST / lostfound real compose, fill and discard",
+      "status": "PASS",
+      "detail": "",
+      "url": "http://127.0.0.1:15173/lostfound/publish"
+    },
+    {
+      "name": "AI ASSIST / post real compose, fill and discard",
+      "status": "FAIL",
+      "detail": "locator.inputValue: Timeout 7000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('.compose textarea')\u001b[22m\n",
+      "url": "http://127.0.0.1:15173/social",
+      "shot": "failure-266.png"
+    },
+    {
+      "name": "AI ASSIST / actual 润色 and form fill",
+      "status": "PASS",
+      "detail": "",
+      "url": "http://127.0.0.1:15173/idle/publish"
+    },
+    {
+      "name": "AI ASSIST / actual 扩写 and form fill",
+      "status": "PASS",
+      "detail": "",
+      "url": "http://127.0.0.1:15173/idle/publish"
+    },
+    {
+      "name": "AI ASSIST / actual 精简 and form fill",
+      "status": "PASS",
+      "detail": "",
+      "url": "http://127.0.0.1:15173/idle/publish"
+    },
+    {
+      "name": "AI ESTIMATE / actual range and reference",
+      "status": "PASS",
+      "detail": "",
+      "url": "http://127.0.0.1:15173/idle/publish"
+    },
+    {
+      "name": "AI MATCH / partner results or explicit empty state",
+      "status": "PASS",
+      "detail": "",
+      "url": "http://127.0.0.1:15173/partner/publish"
+    },
+    {
+      "name": "AI MATCH / lost item results or explicit empty state",
+      "status": "FAIL",
+      "detail": "locator.fill: Timeout 7000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByText('物品特征', { exact: true }).locator('..').locator('input,textarea').first()\u001b[22m\n",
+      "url": "http://127.0.0.1:15173/lostfound/publish",
+      "shot": "failure-272.png"
+    },
+    {
+      "name": "AI RECOMMEND / activity recommendations and real detail link",
+      "status": "FAIL",
+      "detail": "locator.waitFor: Timeout 7000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('.detail') to be visible\u001b[22m\n",
+      "url": "http://127.0.0.1:15173/activity/detail/1",
+      "shot": "failure-273.png"
+    },
+    {
+      "name": "AI QA / actual reference response visible",
+      "status": "PASS",
+      "detail": "",
+      "url": "http://127.0.0.1:15173/qa/detail/9"
+    },
+    {
+      "name": "AI ASSIST CORRECTED / post generated draft fills actual publish textarea",
+      "status": "PASS",
+      "detail": "",
+      "url": "http://127.0.0.1:15173/social"
+    },
+    {
+      "name": "AI MATCH CORRECTED / lost form description and actual match",
+      "status": "PASS",
+      "detail": "",
+      "url": "http://127.0.0.1:15173/lostfound/publish"
+    },
+    {
+      "name": "AI RECOMMEND CORRECTED / recommendation opens actual activity detail",
+      "status": "PASS",
+      "detail": "",
+      "url": "http://127.0.0.1:15173/activity/detail/1"
+    },
+    {
+      "name": "IDLE CORRECTED / approved item offline, relist and persisted public state",
+      "status": "FAIL",
+      "detail": "locator.click: Timeout 7000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('.el-table__row').filter({ hasText: '[UIQA0929-718818]独立编辑1790678368508' }).getByRole('button', { name: '下架', exact: true })\u001b[22m\n",
+      "url": "http://127.0.0.1:15173/profile",
+      "shot": "failure-278.png"
+    },
+    {
+      "name": "IDLE / buyer booking and actual seller rejection persist",
+      "status": "FAIL",
+      "detail": "locator.click: Timeout 7000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('button', { name: '发起预约互换', exact: true })\u001b[22m\n",
+      "url": "http://127.0.0.1:15173/idle/detail/22",
+      "shot": "failure-279.png"
+    },
+    {
+      "name": "OCR / actual local worker recognizes upload, image preview and removal",
+      "status": "PASS",
+      "detail": "",
+      "url": "http://127.0.0.1:15173/ai/wrong"
+    },
+    {
+      "name": "ADMIN RESET / cancel then reset own registered account and restore via profile",
+      "status": "PASS",
+      "detail": "",
+      "url": "http://127.0.0.1:15174/admin/user"
+    },
+    {
+      "name": "IDLE FINAL / approved off-shelf record relist, offline and relist cycle",
+      "status": "PASS",
+      "detail": "",
+      "url": "http://127.0.0.1:15173/profile"
+    },
+    {
+      "name": "IDLE / buyer booking and actual seller rejection persist",
+      "status": "FAIL",
+      "detail": "locator.waitFor: Timeout 7000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('.el-table__row').filter({ hasText: '[UIQA0929-718818]独立编辑1790678368508' }).filter({ hasText: '待确认' }).getByText('已拒绝', { exact: true }) to be visible\u001b[22m\n",
+      "url": "http://127.0.0.1:15173/idle/detail/22",
+      "shot": "failure-283.png"
+    },
+    {
+      "name": "DRAW PUBLIC / settings, public join, reconnect and synchronized mouse drawing",
+      "status": "PASS",
+      "detail": "",
+      "url": "http://127.0.0.1:15173/draw-guess/room/3"
+    },
+    {
+      "name": "DRAW PUBLIC / ended round artwork save, finish, gallery and preview",
+      "status": "PASS",
+      "detail": "",
+      "url": "http://127.0.0.1:15173/draw-guess"
+    },
+    {
+      "name": "3D PORTAL / actual tree label opens portal and returns to student home",
+      "status": "PASS",
+      "detail": "",
+      "url": "http://127.0.0.1:15173/"
+    },
+    {
+      "name": "3D NESTED / filtered activity, detail navigation, back restoration and Escape",
+      "status": "PASS",
+      "detail": "",
+      "url": "http://127.0.0.1:15173/campus-3d"
+    },
+    {
+      "name": "IDLE FINAL / seller rejection reflected on both sides after state change",
+      "status": "PASS",
+      "detail": "",
+      "url": "http://127.0.0.1:15173/idle/appointments?role=seller"
+    },
+    {
+      "name": "ADMIN CONFIG / site slogan edit persists and original restored",
+      "status": "PASS",
+      "detail": "",
+      "url": "http://127.0.0.1:15174/admin/system/config"
+    },
+    {
+      "name": "CHAT BLOCK / own new account creates conversation, blocks and cannot send",
+      "status": "PASS",
+      "detail": "",
+      "url": "http://127.0.0.1:15173/chat/3"
+    },
+    {
+      "name": "REPORT / own new account warn disposition and state",
+      "status": "PASS",
+      "detail": "",
+      "url": "http://127.0.0.1:15174/admin/report"
+    },
+    {
+      "name": "REPORT / own new account ban disposition and state",
+      "status": "PASS",
+      "detail": "",
+      "url": "http://127.0.0.1:15174/admin/user"
+    },
+    {
+      "name": "ADMIN AI AUDIT / own deterministic fixtures restore and maintain block",
+      "status": "PASS",
+      "detail": "",
+      "url": "http://127.0.0.1:15174/admin/ai/audit"
+    },
+    {
+      "name": "RESPONSIVE / 1440 /ai/chat input reachable without dock occlusion",
+      "status": "PASS",
+      "detail": "",
+      "url": "http://127.0.0.1:15173/ai/chat"
+    },
+    {
+      "name": "RESPONSIVE / 1440 /chat/2 input reachable without dock occlusion",
+      "status": "PASS",
+      "detail": "",
+      "url": "http://127.0.0.1:15173/chat/2"
+    },
+    {
+      "name": "RESPONSIVE / 390 /ai/chat input reachable without dock occlusion",
+      "status": "PASS",
+      "detail": "",
+      "url": "http://127.0.0.1:15173/ai/chat"
+    },
+    {
+      "name": "RESPONSIVE / 390 /chat/2 input reachable without dock occlusion",
+      "status": "PASS",
+      "detail": "",
+      "url": "http://127.0.0.1:15173/chat/2"
+    },
+    {
+      "name": "MOBILE / message categories remain horizontal and mark-all visible",
+      "status": "PASS",
+      "detail": "",
+      "url": "http://127.0.0.1:15173/message"
+    },
+    {
+      "name": "MOBILE / real booking dialog footer, cancellation and image preview escape",
+      "status": "PASS",
+      "detail": "",
+      "url": "http://127.0.0.1:15173/idle/detail/19"
+    },
+    {
+      "name": "MOBILE ADMIN / horizontal table scroll reaches operation button and cancel",
+      "status": "PASS",
+      "detail": "",
+      "url": "http://127.0.0.1:15174/admin/user"
+    },
+    {
+      "name": "NATIVE HEADED / actual launched Chrome home viewport and placement evidence",
+      "status": "PASS",
+      "detail": "",
+      "url": "http://127.0.0.1:15173/ai/wrong"
+    },
+    {
+      "name": "ACTIVITY EDIT / original fields preload, edit through own publication, resubmit approval",
+      "status": "PASS",
+      "detail": "",
+      "url": "http://127.0.0.1:15173/activity/my-signup"
+    },
+    {
+      "name": "ACTIVITY / new applicant rejected and student sees persisted decision",
+      "status": "FAIL",
+      "detail": "locator.click: Timeout 7000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('dialog', { name: '活动报名' }).getByRole('button', { name: /确认报名|提交报名/ })\u001b[22m\n",
+      "url": "http://127.0.0.1:15173/activity/detail/9",
+      "shot": "failure-303.png"
+    },
+    {
+      "name": "LOST EDIT / own fresh record edits, resubmits and shows updated details",
+      "status": "FAIL",
+      "detail": "page.waitForFunction: Timeout 7000ms exceeded.",
+      "url": "http://127.0.0.1:15173/lostfound/publish?id=10",
+      "shot": "failure-304.png"
+    },
+    {
+      "name": "LOST / owner rejects claim, claimant sees result; owner marks complete",
+      "status": "PASS",
+      "detail": "",
+      "url": "http://127.0.0.1:15173/lostfound/detail/10"
+    },
+    {
+      "name": "ACTIVITY / new applicant rejected and student sees persisted decision",
+      "status": "FAIL",
+      "detail": "locator.click: Timeout 7000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('dialog', { name: '活动报名' }).getByRole('button', { name: /确认报名|提交报名/ })\u001b[22m\n",
+      "url": "http://127.0.0.1:15173/activity/detail/9",
+      "shot": "failure-306.png"
+    },
+    {
+      "name": "LOST EDIT / own fresh record edits, resubmits and shows updated details",
+      "status": "FAIL",
+      "detail": "New record must be visible in audit\n\n2 !== 1\n",
+      "url": "http://127.0.0.1:15173/lostfound",
+      "shot": "failure-307.png"
+    },
+    {
+      "name": "LOST / owner rejects claim, claimant sees result; owner marks complete",
+      "status": "PASS",
+      "detail": "",
+      "url": "http://127.0.0.1:15173/lostfound/detail/11"
+    },
+    {
+      "name": "ACTIVITY / new applicant rejected and student sees persisted decision",
+      "status": "PASS",
+      "detail": "",
+      "url": "http://127.0.0.1:15173/activity/detail/9"
+    },
+    {
+      "name": "LOST EDIT / own fresh record edits, resubmits and shows updated details",
+      "status": "PASS",
+      "detail": "",
+      "url": "http://127.0.0.1:15173/lostfound"
+    },
+    {
+      "name": "LOST / owner rejects claim, claimant sees result; owner marks complete",
+      "status": "PASS",
+      "detail": "",
+      "url": "http://127.0.0.1:15173/lostfound/detail/12"
+    },
+    {
+      "name": "SEARCH PHOTOS / uploaded images render and schematic labels distinguish fallback",
+      "status": "FAIL",
+      "detail": "The expression evaluated to a falsy value:\n\n  assert(await images.count()>0)\n",
+      "url": "http://127.0.0.1:15173/search?q=%5BUIQA0929-718818%5D",
+      "shot": "failure-312.png"
+    },
+    {
+      "name": "SEARCH PHOTOS CORRECTED / real result covers load, uploaded thumbnail and schematic flag",
+      "status": "PASS",
+      "detail": "",
+      "url": "http://127.0.0.1:15173/search?q=%5BUIQA0929-718818%5D"
+    },
+    {
+      "name": "HEADER / all five publish commands keep actual existing routes",
+      "status": "PASS",
+      "detail": "",
+      "url": "http://127.0.0.1:15173/qa/publish"
+    },
+    {
+      "name": "HEADER / profile, wrong book, message and logout-login cycle",
+      "status": "PASS",
+      "detail": "",
+      "url": "http://127.0.0.1:15173/"
+    },
+    {
+      "name": "ADMIN HEADER / pending notification, account shortcut and logout-login cycle",
+      "status": "PASS",
+      "detail": "",
+      "url": "http://127.0.0.1:15174/admin/dashboard"
+    },
+    {
+      "name": "EXPLORATORY / 35 seconds of keyboard, menu escape, theme, search and back navigation",
+      "status": "PASS",
+      "detail": {
+        "seconds": 35.039,
+        "loops": 27
+      },
+      "url": "http://127.0.0.1:15173/"
+    },
+    {
+      "name": "MAINTENANCE LIVE / actual isolated toggle redirects student and restored mode reopens home",
+      "status": "FAIL",
+      "detail": "Expected values to be strictly equal:\n\nnull !== 'false'\n",
+      "url": "http://127.0.0.1:15174/admin/system/config",
+      "shot": "failure-318.png"
+    },
+    {
+      "name": "MAINTENANCE LIVE / actual isolated toggle redirects student and restored mode reopens home",
+      "status": "PASS",
+      "detail": "",
+      "url": "http://127.0.0.1:15174/admin/system/config"
+    }
+  ],
+  "visual": [
+    {
+      "side": "student",
+      "route": "/",
+      "width": 1440,
+      "status": "PASS",
+      "metrics": {
+        "width": 1440,
+        "body": 1440,
+        "scrollY": 0,
+        "images": 0,
+        "brokenImages": [],
+        "dock": {
+          "width": 432,
+          "height": 54,
+          "bottom": 892
+        }
+      },
+      "shot": "visual-student-1440-_.png"
+    },
+    {
+      "side": "student",
+      "route": "/search?q=数学",
+      "width": 1440,
+      "status": "PASS",
+      "metrics": {
+        "width": 1440,
+        "body": 1440,
+        "scrollY": 0,
+        "images": 0,
+        "brokenImages": [],
+        "dock": {
+          "width": 432,
+          "height": 54,
+          "bottom": 892
+        }
+      },
+      "shot": "visual-student-1440-_search_q___.png"
+    },
+    {
+      "side": "student",
+      "route": "/activity",
+      "width": 1440,
+      "status": "PASS",
+      "metrics": {
+        "width": 1440,
+        "body": 1440,
+        "scrollY": 0,
+        "images": 0,
+        "brokenImages": [],
+        "dock": {
+          "width": 432,
+          "height": 54,
+          "bottom": 892
+        }
+      },
+      "shot": "visual-student-1440-_activity.png"
+    },
+    {
+      "side": "student",
+      "route": "/activity/publish",
+      "width": 1440,
+      "status": "PASS",
+      "metrics": {
+        "width": 1440,
+        "body": 1440,
+        "scrollY": 0,
+        "images": 0,
+        "brokenImages": [],
+        "dock": {
+          "width": 432,
+          "height": 54,
+          "bottom": 892
+        }
+      },
+      "shot": "visual-student-1440-_activity_publish.png"
+    },
+    {
+      "side": "student",
+      "route": "/activity/detail/9",
+      "width": 1440,
+      "status": "PASS",
+      "metrics": {
+        "width": 1440,
+        "body": 1440,
+        "scrollY": 0,
+        "images": 0,
+        "brokenImages": [],
+        "dock": {
+          "width": 432,
+          "height": 54,
+          "bottom": 892
+        }
+      },
+      "shot": "visual-student-1440-_activity_detail_9.png"
+    },
+    {
+      "side": "student",
+      "route": "/activity/my-signup",
+      "width": 1440,
+      "status": "PASS",
+      "metrics": {
+        "width": 1440,
+        "body": 1440,
+        "scrollY": 0,
+        "images": 0,
+        "brokenImages": [],
+        "dock": {
+          "width": 432,
+          "height": 54,
+          "bottom": 892
+        }
+      },
+      "shot": "visual-student-1440-_activity_my_signup.png"
+    },
+    {
+      "side": "student",
+      "route": "/idle",
+      "width": 1440,
+      "status": "PASS",
+      "metrics": {
+        "width": 1440,
+        "body": 1440,
+        "scrollY": 0,
+        "images": 0,
+        "brokenImages": [],
+        "dock": {
+          "width": 432,
+          "height": 54,
+          "bottom": 892
+        }
+      },
+      "shot": "visual-student-1440-_idle.png"
+    },
+    {
+      "side": "student",
+      "route": "/idle/publish",
+      "width": 1440,
+      "status": "PASS",
+      "metrics": {
+        "width": 1440,
+        "body": 1440,
+        "scrollY": 0,
+        "images": 0,
+        "brokenImages": [],
+        "dock": {
+          "width": 432,
+          "height": 54,
+          "bottom": 892
+        }
+      },
+      "shot": "visual-student-1440-_idle_publish.png"
+    },
+    {
+      "side": "student",
+      "route": "/idle/detail/19",
+      "width": 1440,
+      "status": "PASS",
+      "metrics": {
+        "width": 1440,
+        "body": 1440,
+        "scrollY": 0,
+        "images": 0,
+        "brokenImages": [],
+        "dock": {
+          "width": 432,
+          "height": 54,
+          "bottom": 892
+        }
+      },
+      "shot": "visual-student-1440-_idle_detail_19.png"
+    },
+    {
+      "side": "student",
+      "route": "/idle/appointments",
+      "width": 1440,
+      "status": "PASS",
+      "metrics": {
+        "width": 1440,
+        "body": 1440,
+        "scrollY": 0,
+        "images": 0,
+        "brokenImages": [],
+        "dock": {
+          "width": 432,
+          "height": 54,
+          "bottom": 892
+        }
+      },
+      "shot": "visual-student-1440-_idle_appointments.png"
+    },
+    {
+      "side": "student",
+      "route": "/lostfound",
+      "width": 1440,
+      "status": "PASS",
+      "metrics": {
+        "width": 1440,
+        "body": 1440,
+        "scrollY": 0,
+        "images": 0,
+        "brokenImages": [],
+        "dock": {
+          "width": 432,
+          "height": 54,
+          "bottom": 892
+        }
+      },
+      "shot": "visual-student-1440-_lostfound.png"
+    },
+    {
+      "side": "student",
+      "route": "/lostfound/publish",
+      "width": 1440,
+      "status": "PASS",
+      "metrics": {
+        "width": 1440,
+        "body": 1440,
+        "scrollY": 0,
+        "images": 0,
+        "brokenImages": [],
+        "dock": {
+          "width": 432,
+          "height": 54,
+          "bottom": 892
+        }
+      },
+      "shot": "visual-student-1440-_lostfound_publish.png"
+    },
+    {
+      "side": "student",
+      "route": "/lostfound/detail/9",
+      "width": 1440,
+      "status": "PASS",
+      "metrics": {
+        "width": 1440,
+        "body": 1440,
+        "scrollY": 0,
+        "images": 0,
+        "brokenImages": [],
+        "dock": {
+          "width": 432,
+          "height": 54,
+          "bottom": 892
+        }
+      },
+      "shot": "visual-student-1440-_lostfound_detail_9.png"
+    },
+    {
+      "side": "student",
+      "route": "/partner",
+      "width": 1440,
+      "status": "PASS",
+      "metrics": {
+        "width": 1440,
+        "body": 1440,
+        "scrollY": 0,
+        "images": 0,
+        "brokenImages": [],
+        "dock": {
+          "width": 432,
+          "height": 54,
+          "bottom": 892
+        }
+      },
+      "shot": "visual-student-1440-_partner.png"
+    },
+    {
+      "side": "student",
+      "route": "/partner/publish",
+      "width": 1440,
+      "status": "PASS",
+      "metrics": {
+        "width": 1440,
+        "body": 1440,
+        "scrollY": 0,
+        "images": 0,
+        "brokenImages": [],
+        "dock": {
+          "width": 432,
+          "height": 54,
+          "bottom": 892
+        }
+      },
+      "shot": "visual-student-1440-_partner_publish.png"
+    },
+    {
+      "side": "student",
+      "route": "/qa",
+      "width": 1440,
+      "status": "PASS",
+      "metrics": {
+        "width": 1440,
+        "body": 1440,
+        "scrollY": 0,
+        "images": 0,
+        "brokenImages": [],
+        "dock": {
+          "width": 432,
+          "height": 54,
+          "bottom": 892
+        }
+      },
+      "shot": "visual-student-1440-_qa.png"
+    },
+    {
+      "side": "student",
+      "route": "/qa/publish",
+      "width": 1440,
+      "status": "PASS",
+      "metrics": {
+        "width": 1440,
+        "body": 1440,
+        "scrollY": 0,
+        "images": 0,
+        "brokenImages": [],
+        "dock": {
+          "width": 432,
+          "height": 54,
+          "bottom": 892
+        }
+      },
+      "shot": "visual-student-1440-_qa_publish.png"
+    },
+    {
+      "side": "student",
+      "route": "/qa/detail/9",
+      "width": 1440,
+      "status": "PASS",
+      "metrics": {
+        "width": 1440,
+        "body": 1440,
+        "scrollY": 0,
+        "images": 0,
+        "brokenImages": [],
+        "dock": {
+          "width": 432,
+          "height": 54,
+          "bottom": 892
+        }
+      },
+      "shot": "visual-student-1440-_qa_detail_9.png"
+    },
+    {
+      "side": "student",
+      "route": "/qa/my",
+      "width": 1440,
+      "status": "PASS",
+      "metrics": {
+        "width": 1440,
+        "body": 1440,
+        "scrollY": 0,
+        "images": 0,
+        "brokenImages": [],
+        "dock": {
+          "width": 432,
+          "height": 54,
+          "bottom": 892
+        }
+      },
+      "shot": "visual-student-1440-_qa_my.png"
+    },
+    {
+      "side": "student",
+      "route": "/social?post=13",
+      "width": 1440,
+      "status": "PASS",
+      "metrics": {
+        "width": 1440,
+        "body": 1440,
+        "scrollY": 0,
+        "images": 0,
+        "brokenImages": [],
+        "dock": {
+          "width": 432,
+          "height": 54,
+          "bottom": 892
+        }
+      },
+      "shot": "visual-student-1440-_social_post_13.png"
+    },
+    {
+      "side": "student",
+      "route": "/notice",
+      "width": 1440,
+      "status": "PASS",
+      "metrics": {
+        "width": 1440,
+        "body": 1440,
+        "scrollY": 0,
+        "images": 0,
+        "brokenImages": [],
+        "dock": {
+          "width": 432,
+          "height": 54,
+          "bottom": 892
+        }
+      },
+      "shot": "visual-student-1440-_notice.png"
+    },
+    {
+      "side": "student",
+      "route": "/message",
+      "width": 1440,
+      "status": "PASS",
+      "metrics": {
+        "width": 1440,
+        "body": 1440,
+        "scrollY": 0,
+        "images": 0,
+        "brokenImages": [],
+        "dock": {
+          "width": 432,
+          "height": 54,
+          "bottom": 892
+        }
+      },
+      "shot": "visual-student-1440-_message.png"
+    },
+    {
+      "side": "student",
+      "route": "/chat",
+      "width": 1440,
+      "status": "PASS",
+      "metrics": {
+        "width": 1440,
+        "body": 1440,
+        "scrollY": 0,
+        "images": 0,
+        "brokenImages": [],
+        "dock": {
+          "width": 432,
+          "height": 54,
+          "bottom": 892
+        }
+      },
+      "shot": "visual-student-1440-_chat.png"
+    },
+    {
+      "side": "student",
+      "route": "/chat/2",
+      "width": 1440,
+      "status": "PASS",
+      "metrics": {
+        "width": 1440,
+        "body": 1440,
+        "scrollY": 0,
+        "images": 0,
+        "brokenImages": [],
+        "dock": {
+          "width": 432,
+          "height": 54,
+          "bottom": 892
+        }
+      },
+      "shot": "visual-student-1440-_chat_2.png"
+    },
+    {
+      "side": "student",
+      "route": "/profile",
+      "width": 1440,
+      "status": "PASS",
+      "metrics": {
+        "width": 1440,
+        "body": 1440,
+        "scrollY": 0,
+        "images": 0,
+        "brokenImages": [],
+        "dock": {
+          "width": 432,
+          "height": 54,
+          "bottom": 892
+        }
+      },
+      "shot": "visual-student-1440-_profile.png"
+    },
+    {
+      "side": "student",
+      "route": "/ai/chat",
+      "width": 1440,
+      "status": "PASS",
+      "metrics": {
+        "width": 1440,
+        "body": 1440,
+        "scrollY": 0,
+        "images": 0,
+        "brokenImages": [],
+        "dock": {
+          "width": 432,
+          "height": 54,
+          "bottom": 892
+        }
+      },
+      "shot": "visual-student-1440-_ai_chat.png"
+    },
+    {
+      "side": "student",
+      "route": "/ai/code",
+      "width": 1440,
+      "status": "PASS",
+      "metrics": {
+        "width": 1440,
+        "body": 1440,
+        "scrollY": 0,
+        "images": 0,
+        "brokenImages": [],
+        "dock": {
+          "width": 432,
+          "height": 54,
+          "bottom": 892
+        }
+      },
+      "shot": "visual-student-1440-_ai_code.png"
+    },
+    {
+      "side": "student",
+      "route": "/ai/wrong",
+      "width": 1440,
+      "status": "PASS",
+      "metrics": {
+        "width": 1440,
+        "body": 1440,
+        "scrollY": 0,
+        "images": 0,
+        "brokenImages": [],
+        "dock": {
+          "width": 432,
+          "height": 54,
+          "bottom": 892
+        }
+      },
+      "shot": "visual-student-1440-_ai_wrong.png"
+    },
+    {
+      "side": "student",
+      "route": "/draw-guess",
+      "width": 1440,
+      "status": "PASS",
+      "metrics": {
+        "width": 1440,
+        "body": 1440,
+        "scrollY": 0,
+        "images": 0,
+        "brokenImages": [],
+        "dock": {
+          "width": 432,
+          "height": 54,
+          "bottom": 892
+        }
+      },
+      "shot": "visual-student-1440-_draw_guess.png"
+    },
+    {
+      "side": "admin",
+      "route": "/dashboard",
+      "width": 1440,
+      "status": "PASS",
+      "metrics": {
+        "width": 1440,
+        "body": 1440,
+        "scrollY": 0,
+        "images": 0,
+        "brokenImages": [],
+        "dock": null
+      },
+      "shot": "visual-admin-1440-_dashboard.png"
+    },
+    {
+      "side": "admin",
+      "route": "/user",
+      "width": 1440,
+      "status": "PASS",
+      "metrics": {
+        "width": 1440,
+        "body": 1440,
+        "scrollY": 0,
+        "images": 0,
+        "brokenImages": [],
+        "dock": null
+      },
+      "shot": "visual-admin-1440-_user.png"
+    },
+    {
+      "side": "admin",
+      "route": "/audit/activity",
+      "width": 1440,
+      "status": "PASS",
+      "metrics": {
+        "width": 1440,
+        "body": 1440,
+        "scrollY": 0,
+        "images": 0,
+        "brokenImages": [],
+        "dock": null
+      },
+      "shot": "visual-admin-1440-_audit_activity.png"
+    },
+    {
+      "side": "admin",
+      "route": "/audit/idle",
+      "width": 1440,
+      "status": "PASS",
+      "metrics": {
+        "width": 1440,
+        "body": 1440,
+        "scrollY": 0,
+        "images": 0,
+        "brokenImages": [],
+        "dock": null
+      },
+      "shot": "visual-admin-1440-_audit_idle.png"
+    },
+    {
+      "side": "admin",
+      "route": "/audit/lostfound",
+      "width": 1440,
+      "status": "PASS",
+      "metrics": {
+        "width": 1440,
+        "body": 1440,
+        "scrollY": 0,
+        "images": 0,
+        "brokenImages": [],
+        "dock": null
+      },
+      "shot": "visual-admin-1440-_audit_lostfound.png"
+    },
+    {
+      "side": "admin",
+      "route": "/audit/post",
+      "width": 1440,
+      "status": "PASS",
+      "metrics": {
+        "width": 1440,
+        "body": 1440,
+        "scrollY": 0,
+        "images": 0,
+        "brokenImages": [],
+        "dock": null
+      },
+      "shot": "visual-admin-1440-_audit_post.png"
+    },
+    {
+      "side": "admin",
+      "route": "/audit/partner",
+      "width": 1440,
+      "status": "PASS",
+      "metrics": {
+        "width": 1440,
+        "body": 1440,
+        "scrollY": 0,
+        "images": 0,
+        "brokenImages": [],
+        "dock": null
+      },
+      "shot": "visual-admin-1440-_audit_partner.png"
+    },
+    {
+      "side": "admin",
+      "route": "/content",
+      "width": 1440,
+      "status": "PASS",
+      "metrics": {
+        "width": 1440,
+        "body": 1440,
+        "scrollY": 0,
+        "images": 0,
+        "brokenImages": [],
+        "dock": null
+      },
+      "shot": "visual-admin-1440-_content.png"
+    },
+    {
+      "side": "admin",
+      "route": "/ai/audit",
+      "width": 1440,
+      "status": "PASS",
+      "metrics": {
+        "width": 1440,
+        "body": 1440,
+        "scrollY": 0,
+        "images": 0,
+        "brokenImages": [],
+        "dock": null
+      },
+      "shot": "visual-admin-1440-_ai_audit.png"
+    },
+    {
+      "side": "admin",
+      "route": "/report",
+      "width": 1440,
+      "status": "PASS",
+      "metrics": {
+        "width": 1440,
+        "body": 1440,
+        "scrollY": 0,
+        "images": 0,
+        "brokenImages": [],
+        "dock": null
+      },
+      "shot": "visual-admin-1440-_report.png"
+    },
+    {
+      "side": "admin",
+      "route": "/notice",
+      "width": 1440,
+      "status": "PASS",
+      "metrics": {
+        "width": 1440,
+        "body": 1440,
+        "scrollY": 0,
+        "images": 0,
+        "brokenImages": [],
+        "dock": null
+      },
+      "shot": "visual-admin-1440-_notice.png"
+    },
+    {
+      "side": "admin",
+      "route": "/notice/edit",
+      "width": 1440,
+      "status": "PASS",
+      "metrics": {
+        "width": 1440,
+        "body": 1440,
+        "scrollY": 0,
+        "images": 0,
+        "brokenImages": [],
+        "dock": null
+      },
+      "shot": "visual-admin-1440-_notice_edit.png"
+    },
+    {
+      "side": "admin",
+      "route": "/ai/config",
+      "width": 1440,
+      "status": "PASS",
+      "metrics": {
+        "width": 1440,
+        "body": 1440,
+        "scrollY": 0,
+        "images": 0,
+        "brokenImages": [],
+        "dock": null
+      },
+      "shot": "visual-admin-1440-_ai_config.png"
+    },
+    {
+      "side": "admin",
+      "route": "/ai/logs",
+      "width": 1440,
+      "status": "PASS",
+      "metrics": {
+        "width": 1440,
+        "body": 1440,
+        "scrollY": 0,
+        "images": 0,
+        "brokenImages": [],
+        "dock": null
+      },
+      "shot": "visual-admin-1440-_ai_logs.png"
+    },
+    {
+      "side": "admin",
+      "route": "/system/config",
+      "width": 1440,
+      "status": "PASS",
+      "metrics": {
+        "width": 1440,
+        "body": 1440,
+        "scrollY": 0,
+        "images": 0,
+        "brokenImages": [],
+        "dock": null
+      },
+      "shot": "visual-admin-1440-_system_config.png"
+    },
+    {
+      "side": "admin",
+      "route": "/system",
+      "width": 1440,
+      "status": "PASS",
+      "metrics": {
+        "width": 1440,
+        "body": 1440,
+        "scrollY": 0,
+        "images": 0,
+        "brokenImages": [],
+        "dock": null
+      },
+      "shot": "visual-admin-1440-_system.png"
+    },
+    {
+      "side": "student",
+      "route": "/",
+      "width": 390,
+      "status": "PASS",
+      "metrics": {
+        "width": 390,
+        "body": 390,
+        "scrollY": 0,
+        "images": 1,
+        "brokenImages": [],
+        "dock": {
+          "width": 374,
+          "height": 54,
+          "bottom": 838
+        }
+      },
+      "shot": "visual-student-390-_.png"
+    },
+    {
+      "side": "student",
+      "route": "/search?q=数学",
+      "width": 390,
+      "status": "PASS",
+      "metrics": {
+        "width": 390,
+        "body": 390,
+        "scrollY": 0,
+        "images": 0,
+        "brokenImages": [],
+        "dock": {
+          "width": 374,
+          "height": 54,
+          "bottom": 838
+        }
+      },
+      "shot": "visual-student-390-_search_q___.png"
+    },
+    {
+      "side": "student",
+      "route": "/activity",
+      "width": 390,
+      "status": "PASS",
+      "metrics": {
+        "width": 390,
+        "body": 390,
+        "scrollY": 0,
+        "images": 0,
+        "brokenImages": [],
+        "dock": {
+          "width": 374,
+          "height": 54,
+          "bottom": 838
+        }
+      },
+      "shot": "visual-student-390-_activity.png"
+    },
+    {
+      "side": "student",
+      "route": "/activity/publish",
+      "width": 390,
+      "status": "PASS",
+      "metrics": {
+        "width": 390,
+        "body": 390,
+        "scrollY": 0,
+        "images": 0,
+        "brokenImages": [],
+        "dock": {
+          "width": 374,
+          "height": 54,
+          "bottom": 838
+        }
+      },
+      "shot": "visual-student-390-_activity_publish.png"
+    },
+    {
+      "side": "student",
+      "route": "/activity/detail/9",
+      "width": 390,
+      "status": "PASS",
+      "metrics": {
+        "width": 390,
+        "body": 390,
+        "scrollY": 0,
+        "images": 0,
+        "brokenImages": [],
+        "dock": {
+          "width": 374,
+          "height": 54,
+          "bottom": 838
+        }
+      },
+      "shot": "visual-student-390-_activity_detail_9.png"
+    },
+    {
+      "side": "student",
+      "route": "/activity/my-signup",
+      "width": 390,
+      "status": "PASS",
+      "metrics": {
+        "width": 390,
+        "body": 390,
+        "scrollY": 0,
+        "images": 0,
+        "brokenImages": [],
+        "dock": {
+          "width": 374,
+          "height": 54,
+          "bottom": 838
+        }
+      },
+      "shot": "visual-student-390-_activity_my_signup.png"
+    },
+    {
+      "side": "student",
+      "route": "/idle",
+      "width": 390,
+      "status": "PASS",
+      "metrics": {
+        "width": 390,
+        "body": 390,
+        "scrollY": 0,
+        "images": 0,
+        "brokenImages": [],
+        "dock": {
+          "width": 374,
+          "height": 54,
+          "bottom": 838
+        }
+      },
+      "shot": "visual-student-390-_idle.png"
+    },
+    {
+      "side": "student",
+      "route": "/idle/publish",
+      "width": 390,
+      "status": "PASS",
+      "metrics": {
+        "width": 390,
+        "body": 390,
+        "scrollY": 0,
+        "images": 0,
+        "brokenImages": [],
+        "dock": {
+          "width": 374,
+          "height": 54,
+          "bottom": 838
+        }
+      },
+      "shot": "visual-student-390-_idle_publish.png"
+    },
+    {
+      "side": "student",
+      "route": "/idle/detail/19",
+      "width": 390,
+      "status": "PASS",
+      "metrics": {
+        "width": 390,
+        "body": 390,
+        "scrollY": 0,
+        "images": 0,
+        "brokenImages": [],
+        "dock": {
+          "width": 374,
+          "height": 54,
+          "bottom": 838
+        }
+      },
+      "shot": "visual-student-390-_idle_detail_19.png"
+    },
+    {
+      "side": "student",
+      "route": "/idle/appointments",
+      "width": 390,
+      "status": "PASS",
+      "metrics": {
+        "width": 390,
+        "body": 390,
+        "scrollY": 0,
+        "images": 0,
+        "brokenImages": [],
+        "dock": {
+          "width": 374,
+          "height": 54,
+          "bottom": 838
+        }
+      },
+      "shot": "visual-student-390-_idle_appointments.png"
+    },
+    {
+      "side": "student",
+      "route": "/lostfound",
+      "width": 390,
+      "status": "PASS",
+      "metrics": {
+        "width": 390,
+        "body": 390,
+        "scrollY": 0,
+        "images": 0,
+        "brokenImages": [],
+        "dock": {
+          "width": 374,
+          "height": 54,
+          "bottom": 838
+        }
+      },
+      "shot": "visual-student-390-_lostfound.png"
+    },
+    {
+      "side": "student",
+      "route": "/lostfound/publish",
+      "width": 390,
+      "status": "PASS",
+      "metrics": {
+        "width": 390,
+        "body": 390,
+        "scrollY": 0,
+        "images": 0,
+        "brokenImages": [],
+        "dock": {
+          "width": 374,
+          "height": 54,
+          "bottom": 838
+        }
+      },
+      "shot": "visual-student-390-_lostfound_publish.png"
+    },
+    {
+      "side": "student",
+      "route": "/lostfound/detail/9",
+      "width": 390,
+      "status": "PASS",
+      "metrics": {
+        "width": 390,
+        "body": 390,
+        "scrollY": 0,
+        "images": 0,
+        "brokenImages": [],
+        "dock": {
+          "width": 374,
+          "height": 54,
+          "bottom": 838
+        }
+      },
+      "shot": "visual-student-390-_lostfound_detail_9.png"
+    },
+    {
+      "side": "student",
+      "route": "/partner",
+      "width": 390,
+      "status": "PASS",
+      "metrics": {
+        "width": 390,
+        "body": 390,
+        "scrollY": 0,
+        "images": 0,
+        "brokenImages": [],
+        "dock": {
+          "width": 374,
+          "height": 54,
+          "bottom": 838
+        }
+      },
+      "shot": "visual-student-390-_partner.png"
+    },
+    {
+      "side": "student",
+      "route": "/partner/publish",
+      "width": 390,
+      "status": "PASS",
+      "metrics": {
+        "width": 390,
+        "body": 390,
+        "scrollY": 0,
+        "images": 0,
+        "brokenImages": [],
+        "dock": {
+          "width": 374,
+          "height": 54,
+          "bottom": 838
+        }
+      },
+      "shot": "visual-student-390-_partner_publish.png"
+    },
+    {
+      "side": "student",
+      "route": "/qa",
+      "width": 390,
+      "status": "PASS",
+      "metrics": {
+        "width": 390,
+        "body": 390,
+        "scrollY": 0,
+        "images": 0,
+        "brokenImages": [],
+        "dock": {
+          "width": 374,
+          "height": 54,
+          "bottom": 838
+        }
+      },
+      "shot": "visual-student-390-_qa.png"
+    },
+    {
+      "side": "student",
+      "route": "/qa/publish",
+      "width": 390,
+      "status": "PASS",
+      "metrics": {
+        "width": 390,
+        "body": 390,
+        "scrollY": 0,
+        "images": 0,
+        "brokenImages": [],
+        "dock": {
+          "width": 374,
+          "height": 54,
+          "bottom": 838
+        }
+      },
+      "shot": "visual-student-390-_qa_publish.png"
+    },
+    {
+      "side": "student",
+      "route": "/qa/detail/9",
+      "width": 390,
+      "status": "PASS",
+      "metrics": {
+        "width": 390,
+        "body": 390,
+        "scrollY": 0,
+        "images": 0,
+        "brokenImages": [],
+        "dock": {
+          "width": 374,
+          "height": 54,
+          "bottom": 838
+        }
+      },
+      "shot": "visual-student-390-_qa_detail_9.png"
+    },
+    {
+      "side": "student",
+      "route": "/qa/my",
+      "width": 390,
+      "status": "PASS",
+      "metrics": {
+        "width": 390,
+        "body": 390,
+        "scrollY": 0,
+        "images": 0,
+        "brokenImages": [],
+        "dock": {
+          "width": 374,
+          "height": 54,
+          "bottom": 838
+        }
+      },
+      "shot": "visual-student-390-_qa_my.png"
+    },
+    {
+      "side": "student",
+      "route": "/social?post=13",
+      "width": 390,
+      "status": "PASS",
+      "metrics": {
+        "width": 390,
+        "body": 390,
+        "scrollY": 0,
+        "images": 0,
+        "brokenImages": [],
+        "dock": {
+          "width": 374,
+          "height": 54,
+          "bottom": 838
+        }
+      },
+      "shot": "visual-student-390-_social_post_13.png"
+    },
+    {
+      "side": "student",
+      "route": "/notice",
+      "width": 390,
+      "status": "PASS",
+      "metrics": {
+        "width": 390,
+        "body": 390,
+        "scrollY": 0,
+        "images": 0,
+        "brokenImages": [],
+        "dock": {
+          "width": 374,
+          "height": 54,
+          "bottom": 838
+        }
+      },
+      "shot": "visual-student-390-_notice.png"
+    },
+    {
+      "side": "student",
+      "route": "/message",
+      "width": 390,
+      "status": "PASS",
+      "metrics": {
+        "width": 390,
+        "body": 390,
+        "scrollY": 0,
+        "images": 0,
+        "brokenImages": [],
+        "dock": {
+          "width": 374,
+          "height": 54,
+          "bottom": 838
+        }
+      },
+      "shot": "visual-student-390-_message.png"
+    },
+    {
+      "side": "student",
+      "route": "/chat",
+      "width": 390,
+      "status": "PASS",
+      "metrics": {
+        "width": 390,
+        "body": 390,
+        "scrollY": 0,
+        "images": 0,
+        "brokenImages": [],
+        "dock": {
+          "width": 374,
+          "height": 54,
+          "bottom": 838
+        }
+      },
+      "shot": "visual-student-390-_chat.png"
+    },
+    {
+      "side": "student",
+      "route": "/chat/2",
+      "width": 390,
+      "status": "PASS",
+      "metrics": {
+        "width": 390,
+        "body": 390,
+        "scrollY": 0,
+        "images": 0,
+        "brokenImages": [],
+        "dock": {
+          "width": 374,
+          "height": 54,
+          "bottom": 838
+        }
+      },
+      "shot": "visual-student-390-_chat_2.png"
+    },
+    {
+      "side": "student",
+      "route": "/profile",
+      "width": 390,
+      "status": "PASS",
+      "metrics": {
+        "width": 390,
+        "body": 390,
+        "scrollY": 0,
+        "images": 0,
+        "brokenImages": [],
+        "dock": {
+          "width": 374,
+          "height": 54,
+          "bottom": 838
+        }
+      },
+      "shot": "visual-student-390-_profile.png"
+    },
+    {
+      "side": "student",
+      "route": "/ai/chat",
+      "width": 390,
+      "status": "PASS",
+      "metrics": {
+        "width": 390,
+        "body": 390,
+        "scrollY": 0,
+        "images": 0,
+        "brokenImages": [],
+        "dock": {
+          "width": 374,
+          "height": 54,
+          "bottom": 838
+        }
+      },
+      "shot": "visual-student-390-_ai_chat.png"
+    },
+    {
+      "side": "student",
+      "route": "/ai/code",
+      "width": 390,
+      "status": "PASS",
+      "metrics": {
+        "width": 390,
+        "body": 390,
+        "scrollY": 0,
+        "images": 0,
+        "brokenImages": [],
+        "dock": {
+          "width": 374,
+          "height": 54,
+          "bottom": 838
+        }
+      },
+      "shot": "visual-student-390-_ai_code.png"
+    },
+    {
+      "side": "student",
+      "route": "/ai/wrong",
+      "width": 390,
+      "status": "PASS",
+      "metrics": {
+        "width": 390,
+        "body": 390,
+        "scrollY": 0,
+        "images": 0,
+        "brokenImages": [],
+        "dock": {
+          "width": 374,
+          "height": 54,
+          "bottom": 838
+        }
+      },
+      "shot": "visual-student-390-_ai_wrong.png"
+    },
+    {
+      "side": "student",
+      "route": "/draw-guess",
+      "width": 390,
+      "status": "PASS",
+      "metrics": {
+        "width": 390,
+        "body": 390,
+        "scrollY": 0,
+        "images": 0,
+        "brokenImages": [],
+        "dock": {
+          "width": 374,
+          "height": 54,
+          "bottom": 838
+        }
+      },
+      "shot": "visual-student-390-_draw_guess.png"
+    },
+    {
+      "side": "admin",
+      "route": "/dashboard",
+      "width": 390,
+      "status": "PASS",
+      "metrics": {
+        "width": 390,
+        "body": 390,
+        "scrollY": 0,
+        "images": 0,
+        "brokenImages": [],
+        "dock": null
+      },
+      "shot": "visual-admin-390-_dashboard.png"
+    },
+    {
+      "side": "admin",
+      "route": "/user",
+      "width": 390,
+      "status": "PASS",
+      "metrics": {
+        "width": 390,
+        "body": 390,
+        "scrollY": 0,
+        "images": 0,
+        "brokenImages": [],
+        "dock": null
+      },
+      "shot": "visual-admin-390-_user.png"
+    },
+    {
+      "side": "admin",
+      "route": "/audit/activity",
+      "width": 390,
+      "status": "PASS",
+      "metrics": {
+        "width": 390,
+        "body": 390,
+        "scrollY": 0,
+        "images": 0,
+        "brokenImages": [],
+        "dock": null
+      },
+      "shot": "visual-admin-390-_audit_activity.png"
+    },
+    {
+      "side": "admin",
+      "route": "/audit/idle",
+      "width": 390,
+      "status": "PASS",
+      "metrics": {
+        "width": 390,
+        "body": 390,
+        "scrollY": 0,
+        "images": 0,
+        "brokenImages": [],
+        "dock": null
+      },
+      "shot": "visual-admin-390-_audit_idle.png"
+    },
+    {
+      "side": "admin",
+      "route": "/audit/lostfound",
+      "width": 390,
+      "status": "PASS",
+      "metrics": {
+        "width": 390,
+        "body": 390,
+        "scrollY": 0,
+        "images": 0,
+        "brokenImages": [],
+        "dock": null
+      },
+      "shot": "visual-admin-390-_audit_lostfound.png"
+    },
+    {
+      "side": "admin",
+      "route": "/audit/post",
+      "width": 390,
+      "status": "PASS",
+      "metrics": {
+        "width": 390,
+        "body": 390,
+        "scrollY": 0,
+        "images": 0,
+        "brokenImages": [],
+        "dock": null
+      },
+      "shot": "visual-admin-390-_audit_post.png"
+    },
+    {
+      "side": "admin",
+      "route": "/audit/partner",
+      "width": 390,
+      "status": "PASS",
+      "metrics": {
+        "width": 390,
+        "body": 390,
+        "scrollY": 0,
+        "images": 0,
+        "brokenImages": [],
+        "dock": null
+      },
+      "shot": "visual-admin-390-_audit_partner.png"
+    },
+    {
+      "side": "admin",
+      "route": "/content",
+      "width": 390,
+      "status": "PASS",
+      "metrics": {
+        "width": 390,
+        "body": 390,
+        "scrollY": 0,
+        "images": 0,
+        "brokenImages": [],
+        "dock": null
+      },
+      "shot": "visual-admin-390-_content.png"
+    },
+    {
+      "side": "admin",
+      "route": "/ai/audit",
+      "width": 390,
+      "status": "PASS",
+      "metrics": {
+        "width": 390,
+        "body": 390,
+        "scrollY": 0,
+        "images": 0,
+        "brokenImages": [],
+        "dock": null
+      },
+      "shot": "visual-admin-390-_ai_audit.png"
+    },
+    {
+      "side": "admin",
+      "route": "/report",
+      "width": 390,
+      "status": "PASS",
+      "metrics": {
+        "width": 390,
+        "body": 390,
+        "scrollY": 0,
+        "images": 0,
+        "brokenImages": [],
+        "dock": null
+      },
+      "shot": "visual-admin-390-_report.png"
+    },
+    {
+      "side": "admin",
+      "route": "/notice",
+      "width": 390,
+      "status": "PASS",
+      "metrics": {
+        "width": 390,
+        "body": 390,
+        "scrollY": 0,
+        "images": 0,
+        "brokenImages": [],
+        "dock": null
+      },
+      "shot": "visual-admin-390-_notice.png"
+    },
+    {
+      "side": "admin",
+      "route": "/notice/edit",
+      "width": 390,
+      "status": "PASS",
+      "metrics": {
+        "width": 390,
+        "body": 390,
+        "scrollY": 0,
+        "images": 0,
+        "brokenImages": [],
+        "dock": null
+      },
+      "shot": "visual-admin-390-_notice_edit.png"
+    },
+    {
+      "side": "admin",
+      "route": "/ai/config",
+      "width": 390,
+      "status": "PASS",
+      "metrics": {
+        "width": 390,
+        "body": 390,
+        "scrollY": 0,
+        "images": 0,
+        "brokenImages": [],
+        "dock": null
+      },
+      "shot": "visual-admin-390-_ai_config.png"
+    },
+    {
+      "side": "admin",
+      "route": "/ai/logs",
+      "width": 390,
+      "status": "PASS",
+      "metrics": {
+        "width": 390,
+        "body": 390,
+        "scrollY": 0,
+        "images": 0,
+        "brokenImages": [],
+        "dock": null
+      },
+      "shot": "visual-admin-390-_ai_logs.png"
+    },
+    {
+      "side": "admin",
+      "route": "/system/config",
+      "width": 390,
+      "status": "PASS",
+      "metrics": {
+        "width": 390,
+        "body": 390,
+        "scrollY": 0,
+        "images": 0,
+        "brokenImages": [],
+        "dock": null
+      },
+      "shot": "visual-admin-390-_system_config.png"
+    },
+    {
+      "side": "admin",
+      "route": "/system",
+      "width": 390,
+      "status": "PASS",
+      "metrics": {
+        "width": 390,
+        "body": 390,
+        "scrollY": 0,
+        "images": 0,
+        "brokenImages": [],
+        "dock": null
+      },
+      "shot": "visual-admin-390-_system.png"
+    },
+    {
+      "side": "student",
+      "mode": "native-window",
+      "viewport": {
+        "w": 1256,
+        "h": 621,
+        "dpr": 1
+      },
+      "shot": "native-window-home.png"
+    },
+    {
+      "side": "student",
+      "route": "/message",
+      "width": 768,
+      "status": "PASS",
+      "metrics": {
+        "width": 768,
+        "body": 768
+      },
+      "shot": "breakpoint-student-768-_message.png"
+    },
+    {
+      "side": "student",
+      "route": "/search?q=数学",
+      "width": 768,
+      "status": "PASS",
+      "metrics": {
+        "width": 768,
+        "body": 768
+      },
+      "shot": "breakpoint-student-768-_search_q___.png"
+    },
+    {
+      "side": "student",
+      "route": "/ai/chat",
+      "width": 768,
+      "status": "PASS",
+      "metrics": {
+        "width": 768,
+        "body": 768
+      },
+      "shot": "breakpoint-student-768-_ai_chat.png"
+    },
+    {
+      "side": "student",
+      "route": "/ai/code",
+      "width": 768,
+      "status": "PASS",
+      "metrics": {
+        "width": 768,
+        "body": 768
+      },
+      "shot": "breakpoint-student-768-_ai_code.png"
+    },
+    {
+      "side": "student",
+      "route": "/chat/2",
+      "width": 768,
+      "status": "PASS",
+      "metrics": {
+        "width": 768,
+        "body": 768
+      },
+      "shot": "breakpoint-student-768-_chat_2.png"
+    },
+    {
+      "side": "student",
+      "route": "/draw-guess",
+      "width": 768,
+      "status": "PASS",
+      "metrics": {
+        "width": 768,
+        "body": 768
+      },
+      "shot": "breakpoint-student-768-_draw_guess.png"
+    },
+    {
+      "side": "student",
+      "route": "/message",
+      "width": 1024,
+      "status": "PASS",
+      "metrics": {
+        "width": 1024,
+        "body": 1024
+      },
+      "shot": "breakpoint-student-1024-_message.png"
+    },
+    {
+      "side": "student",
+      "route": "/search?q=数学",
+      "width": 1024,
+      "status": "PASS",
+      "metrics": {
+        "width": 1024,
+        "body": 1024
+      },
+      "shot": "breakpoint-student-1024-_search_q___.png"
+    },
+    {
+      "side": "student",
+      "route": "/ai/chat",
+      "width": 1024,
+      "status": "PASS",
+      "metrics": {
+        "width": 1024,
+        "body": 1024
+      },
+      "shot": "breakpoint-student-1024-_ai_chat.png"
+    },
+    {
+      "side": "student",
+      "route": "/ai/code",
+      "width": 1024,
+      "status": "PASS",
+      "metrics": {
+        "width": 1024,
+        "body": 1024
+      },
+      "shot": "breakpoint-student-1024-_ai_code.png"
+    },
+    {
+      "side": "student",
+      "route": "/chat/2",
+      "width": 1024,
+      "status": "PASS",
+      "metrics": {
+        "width": 1024,
+        "body": 1024
+      },
+      "shot": "breakpoint-student-1024-_chat_2.png"
+    },
+    {
+      "side": "student",
+      "route": "/draw-guess",
+      "width": 1024,
+      "status": "PASS",
+      "metrics": {
+        "width": 1024,
+        "body": 1024
+      },
+      "shot": "breakpoint-student-1024-_draw_guess.png"
+    },
+    {
+      "side": "admin",
+      "route": "/dashboard",
+      "width": 768,
+      "status": "PASS",
+      "metrics": {
+        "width": 768,
+        "body": 768
+      },
+      "shot": "breakpoint-admin-768-_dashboard.png"
+    },
+    {
+      "side": "admin",
+      "route": "/user",
+      "width": 768,
+      "status": "PASS",
+      "metrics": {
+        "width": 768,
+        "body": 768
+      },
+      "shot": "breakpoint-admin-768-_user.png"
+    },
+    {
+      "side": "admin",
+      "route": "/audit/idle",
+      "width": 768,
+      "status": "PASS",
+      "metrics": {
+        "width": 768,
+        "body": 768
+      },
+      "shot": "breakpoint-admin-768-_audit_idle.png"
+    },
+    {
+      "side": "admin",
+      "route": "/system/config",
+      "width": 768,
+      "status": "PASS",
+      "metrics": {
+        "width": 768,
+        "body": 768
+      },
+      "shot": "breakpoint-admin-768-_system_config.png"
+    },
+    {
+      "side": "admin",
+      "route": "/dashboard",
+      "width": 1024,
+      "status": "PASS",
+      "metrics": {
+        "width": 1024,
+        "body": 1024
+      },
+      "shot": "breakpoint-admin-1024-_dashboard.png"
+    },
+    {
+      "side": "admin",
+      "route": "/user",
+      "width": 1024,
+      "status": "PASS",
+      "metrics": {
+        "width": 1024,
+        "body": 1024
+      },
+      "shot": "breakpoint-admin-1024-_user.png"
+    },
+    {
+      "side": "admin",
+      "route": "/audit/idle",
+      "width": 1024,
+      "status": "PASS",
+      "metrics": {
+        "width": 1024,
+        "body": 1024
+      },
+      "shot": "breakpoint-admin-1024-_audit_idle.png"
+    },
+    {
+      "side": "admin",
+      "route": "/system/config",
+      "width": 1024,
+      "status": "PASS",
+      "metrics": {
+        "width": 1024,
+        "body": 1024
+      },
+      "shot": "breakpoint-admin-1024-_system_config.png"
+    },
+    {
+      "side": "student",
+      "route": "/message",
+      "width": 1440,
+      "mode": "dark",
+      "shot": "dark-student-_message.png"
+    },
+    {
+      "side": "student",
+      "route": "/ai/chat",
+      "width": 1440,
+      "mode": "dark",
+      "shot": "dark-student-_ai_chat.png"
+    },
+    {
+      "side": "student",
+      "route": "/ai/code",
+      "width": 1440,
+      "mode": "dark",
+      "shot": "dark-student-_ai_code.png"
+    },
+    {
+      "side": "student",
+      "route": "/ai/wrong",
+      "width": 1440,
+      "mode": "dark",
+      "shot": "dark-student-_ai_wrong.png"
+    },
+    {
+      "side": "admin",
+      "route": "/audit/idle",
+      "width": 1440,
+      "mode": "dark",
+      "shot": "dark-admin-_audit_idle.png"
+    },
+    {
+      "side": "admin",
+      "route": "/user",
+      "width": 1440,
+      "mode": "dark",
+      "shot": "dark-admin-_user.png"
+    },
+    {
+      "side": "student",
+      "mode": "native-headed",
+      "metrics": {
+        "width": 1038,
+        "height": 755,
+        "dpr": 1.75,
+        "screenX": 10,
+        "screenY": 10,
+        "outerWidth": 1052,
+        "outerHeight": 849,
+        "screenWidth": 1463,
+        "screenHeight": 867
+      },
+      "shot": "native-headed-home.png"
+    }
+  ],
+  "errors": [
+    {
+      "type": "page-closed",
+      "at": "2026-09-29T10:30:18.880Z"
+    }
+  ],
+  "limits": [
+    "Interactive skill runtime failed; persistent Playwright fallback used.",
+    "All UI writes restricted to isolated Docker project.",
+    "有头浏览器窗口多次关闭导致上下文丢失；剩余交互使用持续后台 Chrome，仍为真实 DOM 点击/输入与真实服务。"
+  ],
+  "findings": [
+    {
+      "id": "B01",
+      "severity": "P1",
+      "title": "收藏页直接打开不加载收藏",
+      "repro": "收藏闲置后直接打开 /profile?tab=favorite，列表为空；先进入个人页再切换收藏可加载。",
+      "source": "web/frontend/student/src/views/user/Profile.vue",
+      "evidence": "failure-65.png"
+    },
+    {
+      "id": "B02",
+      "severity": "P1",
+      "title": "动态评论入口点击无响应",
+      "repro": "进入分享动态，点击评论图标，评论输入区未展开。模板绑定 toggleComments(p)，脚本未定义该函数。",
+      "source": "web/frontend/student/src/views/social/PostSquare.vue:82",
+      "evidence": "bug-social-comment.png"
+    },
+    {
+      "id": "B03",
+      "severity": "P1",
+      "title": "活动详情报名名单入口请求页码错误",
+      "repro": "发布者在活动详情点击报名名单管理，pageNum=[object PointerEvent]，返回 code 400。我的报名→我的发布→报名管理可操作。",
+      "source": "web/frontend/student/src/views/activity/Detail.vue:81",
+      "evidence": "bug-activity-members.png"
+    },
+    {
+      "id": "B04",
+      "severity": "P1",
+      "title": "编辑管理员留空密码无法保存",
+      "repro": "编辑管理员提示“留空则不修改”，只改昵称点击保存却返回 code 400 密码不能为空。",
+      "source": "web/backend/src/main/java/com/campus/platform/module/admin/dto/AdminSaveDTO.java:19",
+      "evidence": "failure-130.png"
+    },
+    {
+      "id": "B03",
+      "severity": "P1",
+      "title": "活动详情报名名单入口请求页码错误",
+      "repro": "发布者在活动详情点击报名名单管理，pageNum=[object PointerEvent]，返回 code 400。我的报名→我的发布→报名管理可操作。",
+      "source": "web/frontend/student/src/views/activity/Detail.vue:81",
+      "evidence": "bug-activity-members.png"
+    },
+    {
+      "id": "B05",
+      "severity": "P2",
+      "title": "后台全局搜索关键词未应用到用户筛选",
+      "repro": "Ctrl+K 输入学号后回车，跳到 /admin/user?q=...，用户搜索框仍为空且未筛选。",
+      "source": "web/frontend/admin/src/views/user/UserList.vue:60",
+      "evidence": "bug-admin-global-search.png"
+    },
+    {
+      "id": "B06",
+      "severity": "P1",
+      "title": "AI提纲接口成功但页面不展示结果",
+      "repro": "错题本→生成薄弱点报告，接口 code 200 且 data 为1203字字符串，组件使用 res.answer 得到 undefined，页面回到生成方式。",
+      "source": "web/frontend/student/src/views/ai/components/WrongOutlineDialog.vue:110",
+      "evidence": "failure-248.png"
+    }
+  ],
+  "memberDiagnostic": {
+    "url": "http://127.0.0.1:15173/api/activity/9/members?pageNum=%5Bobject+PointerEvent%5D&pageSize=10",
+    "status": 200,
+    "body": "{\"code\":400,\"message\":\"请求参数格式错误\",\"data\":null}"
+  },
+  "runtimeEvents": [
+    {
+      "type": "page-closed",
+      "at": "2026-09-29T10:30:18.880Z"
+    }
+  ],
+  "aiActual": {
+    "code": 200,
+    "message": "success",
+    "result": "# Java 代码检查报告\n\n## 1. 【错误定位】\n\n| 行号 | 错误内容 | 错误原因 |\n|------|----------|----------|\n| 1 | `print(1/0)` | **语法错误**：Java 中没有全局的 `print()` 函数，Java 的方法必须定义在类中，并通过对象或类名调用。 |\n| 1 | `print(1/0)` | **缺少语句结束符**：Java 语句必须以分号 `;` 结尾。 |\n| 1 | `1/0` | **算术异常（运行时错误）**：整数除以零会抛出 `ArithmeticException: / by zero`。 |\n| — | 整个文件 | **缺少类声明和 main 方法**：Java 程序必须包含类定义以及 `public static void main(String[] args)` 入口方法。 |\n\n## 2. 【修复建议】\n\n1. **包裹类结构**：将代码放入一个类中，并添加 `main` 方法作为程序入口。\n2. **使用正确的输出方法**：将 `print(...)` 改为 `System.out.println(...)`。\n3. **添加分号**：每条语句末尾加上 `;`。\n4. **处理除零异常**：\n   - 若希望避免异常，可将除数改为非零值，例如 `1/1`；\n   - 若希望演示异常处理，可使用 `try-catch` 捕获 `ArithmeticException`；\n   "
+  },
+  "aiEnvironment": {
+    "configured": true,
+    "masked": false,
+    "baseUrl": "https://api.deepseek.com",
+    "model": "deepseek-chat"
+  },
+  "outlineDiagnostic": {
+    "code": 200,
+    "dataType": "string",
+    "length": 1203
+  },
+  "aiCoverage": "实际 DB 配置覆盖隔离环境默认值，已确认真实提供商响应。真实模型生成需按响应证据计数，无法以错误测试计数。",
+  "regionChecks": [
+    {
+      "route": "/ai/chat",
+      "width": 1440,
+      "initial": {
+        "x": 57,
+        "y": 1072.78125,
+        "width": 1326,
+        "height": 72.59375
+      },
+      "height": 900,
+      "firstViewportFits": false
+    },
+    {
+      "route": "/chat/2",
+      "width": 1440,
+      "initial": {
+        "x": 171,
+        "y": 808.1875,
+        "width": 1098,
+        "height": 83
+      },
+      "height": 900,
+      "firstViewportFits": true
+    },
+    {
+      "route": "/ai/chat",
+      "width": 390,
+      "initial": {
+        "x": 33,
+        "y": 1495.5625,
+        "width": 324,
+        "height": 72.59375
+      },
+      "height": 844,
+      "firstViewportFits": false
+    },
+    {
+      "route": "/chat/2",
+      "width": 390,
+      "initial": {
+        "x": 17,
+        "y": 963.1875,
+        "width": 356,
+        "height": 99
+      },
+      "height": 844,
+      "firstViewportFits": false
+    }
+  ]
+}

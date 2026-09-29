@@ -25,11 +25,31 @@ const initial = computed(() => (props.name ? props.name.slice(-1) : ''))
 
 <style scoped>
 .wt-avatar {
-  display: inline-grid; place-items: center; flex: none;
-  border-radius: 50%; overflow: hidden;
+  display: inline-grid;
+  place-items: center;
+  flex: none;
+  border-radius: 50%;
+  overflow: hidden;
   background: linear-gradient(140deg, var(--brand), var(--brand-strong));
-  color: var(--brand-ink); font-weight: 700; line-height: 1;
+  color: var(--brand-ink);
+  font-weight: 700;
+  line-height: 1;
 }
-.wt-avatar img { width: 100%; height: 100%; object-fit: cover; }
-.wt-avatar__txt { user-select: none; }
+.wt-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.wt-avatar__txt {
+  user-select: none;
+}
+/* 同频校园：本页展示布局，业务绑定保持原样 */
+.wt-avatar {
+  background: var(--sage);
+  color: var(--brand);
+  border: 1px solid var(--brand-line);
+}
+.wt-avatar__txt {
+  font-weight: 600;
+}
 </style>

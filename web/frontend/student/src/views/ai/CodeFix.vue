@@ -153,7 +153,102 @@ async function fix() {
 .result :deep(h1), .result :deep(h2), .result :deep(h3) {
   margin: 12px 0 8px;
 }
-.plain-code-editor { width: 100%; height: 100%; min-height: 300px; display: block; resize: vertical; border: 0; padding: 16px; background: var(--surface); color: var(--ink); font: 14px/1.7 Consolas, monospace; tab-size: 2; }
-.editor-note { margin-top: 8px; font-size: 12px; color: var(--ink-3); }
-@media(max-width: 760px) { .codefix { grid-template-columns: 1fr; height: auto; } .panel-head { flex-wrap: wrap; gap: 10px; } .right { min-height: 250px; } }
+.plain-code-editor {
+  width: 100%;
+  height: 100%;
+  min-height: 300px;
+  display: block;
+  resize: vertical;
+  border: 0;
+  padding: 16px;
+  background: var(--surface);
+  color: var(--ink);
+  font: 14px/1.7 Consolas, monospace;
+  tab-size: 2;
+}
+.editor-note {
+  margin-top: 8px;
+  font-size: 12px;
+  color: var(--ink-3);
+}
+@media (max-width: 760px) {
+  .codefix {
+    grid-template-columns: 1fr;
+    height: auto;
+  }
+  .panel-head {
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .right {
+    min-height: 250px;
+  }
+}
+/* 同频校园：本页展示布局，业务绑定保持原样 */
+.codefix {
+  display: grid;
+  grid-template-columns: repeat(2,minmax(0,1fr));
+  gap: 24px;
+  min-width: 0;
+}
+.panel {
+  padding: 24px;
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  background: var(--surface);
+  min-width: 0;
+}
+.panel.left {
+  background: var(--atlas-sky);
+}
+.panel-head,.ops {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+}
+.panel-head {
+  margin-bottom: 20px;
+}
+.editor-box {
+  height: 420px;
+  min-width: 0;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  overflow: hidden;
+  background: var(--surface);
+}
+.plain-code-editor {
+  width: 100%;
+  height: 100%;
+  padding: 18px;
+  color: var(--ink);
+  background: var(--surface);
+  font-size: 14px;
+  line-height: 1.7;
+}
+.result {
+  overflow-wrap: anywhere;
+  max-height: none;
+}
+.result :deep(pre) {
+  max-width: 100%;
+  overflow-x: auto;
+}
+.editor-note {
+  font-size: 12px;
+}
+@media (max-width:1000px) {
+  .codefix {
+    grid-template-columns: minmax(0,1fr);
+  }
+}
+@media (max-width:600px) {
+  .panel {
+    padding: 20px;
+  }
+  .editor-box {
+    height: 340px;
+  }
+}
 </style>

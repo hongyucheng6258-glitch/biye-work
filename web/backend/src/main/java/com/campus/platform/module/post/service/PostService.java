@@ -130,7 +130,7 @@ public class PostService {
     /** 点赞（联合唯一索引防重复；计数用原子自增，防并发丢失更新） */
     @Transactional
     public void like(Long userId, Long postId) {
-        checkVisible(postId);
+        Post post = checkVisible(postId);
         PostLike like = new PostLike();
         like.setPostId(postId);
         like.setUserId(userId);
@@ -141,6 +141,14 @@ public class PostService {
             throw new BizException(ResultCode.DUPLICATE_OPERATION, "你已点赞过该动态");
         }
         postMapper.incrLikeCount(postId, 1);
+        // 通知作者：有人点赞了你的动态（自己点赞不通知）
+        if (!post.getUserId().equals(userId)) {
+            User from = userMapper.selectById(userId);
+            messageService.send(post.getUserId(), Constants.MSG_INTERACT,
+                    "你的动态收到了赞",
+                    String.format("「%s」赞了你的动态。", from == null ? "有用户" : from.getNickname()),
+                    Constants.BIZ_POST, postId);
+        }
     }
 
     /** 取消点赞（删除成功才减计数，原子自减且不为负） */

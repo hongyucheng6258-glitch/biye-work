@@ -3,6 +3,30 @@
   <WtPageHeader title="校园动态" subtitle="同学们都在聊些什么" eyebrow="同辈圈" />
 
   <div class="square">
+    <aside class="square-rail">
+      <div v-if="hotTopics.length" class="rail-card card card-hover">
+        <div class="rail-title">🔥 热门话题</div>
+        <div class="topic-list">
+          <button v-for="(t, i) in hotTopics" :key="t.tag" type="button" class="topic-row" @click="searchTopic(t.tag)">
+            <span class="topic-rank" :class="{ top: i < 3 }">{{ i + 1 }}</span>
+            <span class="topic-tag"># {{ t.tag }}</span>
+            <span class="topic-count">{{ t.count }} 讨论</span>
+          </button>
+        </div>
+      </div>
+      <div v-if="hotPosts.length" class="rail-card card card-hover">
+        <div class="rail-title">🔥 热门动态</div>
+        <div class="hot-list">
+          <button v-for="p in hotPosts" :key="p.id" type="button" class="hot-row" @click="openPost(p)">
+            <el-avatar :size="30" :src="p.avatar">{{ p.nickname?.charAt(0) }}</el-avatar>
+            <div class="hot-main">
+              <div class="hot-text">{{ p.content }}</div>
+              <div class="hot-meta">❤️ {{ p.likeCount }} · 💬 {{ p.commentCount }}</div>
+            </div>
+          </button>
+        </div>
+      </div>
+    </aside>
     <div class="square-main">
     <div class="post-search">
       <el-input v-model="keyword" placeholder="搜索校园动态…" clearable @keyup.enter="search" @clear="search">
@@ -73,30 +97,7 @@
     </div>
 
     <!-- 右栏：热门话题 + 热门动态 -->
-    <aside class="square-rail">
-      <div v-if="hotTopics.length" class="rail-card card card-hover">
-        <div class="rail-title">🔥 热门话题</div>
-        <div class="topic-list">
-          <button v-for="(t, i) in hotTopics" :key="t.tag" type="button" class="topic-row" @click="searchTopic(t.tag)">
-            <span class="topic-rank" :class="{ top: i < 3 }">{{ i + 1 }}</span>
-            <span class="topic-tag"># {{ t.tag }}</span>
-            <span class="topic-count">{{ t.count }} 讨论</span>
-          </button>
-        </div>
-      </div>
-      <div v-if="hotPosts.length" class="rail-card card card-hover">
-        <div class="rail-title">🔥 热门动态</div>
-        <div class="hot-list">
-          <button v-for="p in hotPosts" :key="p.id" type="button" class="hot-row" @click="openPost(p)">
-            <el-avatar :size="30" :src="p.avatar">{{ p.nickname?.charAt(0) }}</el-avatar>
-            <div class="hot-main">
-              <div class="hot-text">{{ p.content }}</div>
-              <div class="hot-meta">❤️ {{ p.likeCount }} · 💬 {{ p.commentCount }}</div>
-            </div>
-          </button>
-        </div>
-      </div>
-    </aside>
+
 
     <!-- 举报弹窗 -->
     <el-dialog v-model="reportVisible" title="举报该动态" width="440px">
@@ -195,6 +196,9 @@ function searchTopic(tag) {
 function openPost(p) {
   // 展开评论区：评论数据由 CommentList 组件内自包含分页加载
   expandedPostId.value = p.id
+}
+function toggleComments(p) {
+  expandedPostId.value = expandedPostId.value === p.id ? null : p.id
 }
 async function sharePost(p) {
   const url = `${location.origin}/social?post=${encodeURIComponent(p.id)}`
@@ -456,7 +460,6 @@ function closeShare() {
   color: var(--ink-3);
   margin-top: 2px;
 }
-
 /* 头像渐变（对齐原型 user-avatar） */
 .post-card :deep(.el-avatar) {
   background: linear-gradient(135deg, var(--brand) 0%, var(--accent) 100%);
@@ -469,7 +472,6 @@ function closeShare() {
   font-weight: 600;
   flex: none;
 }
-
 @media (max-width: 1080px) {
   .square {
     grid-template-columns: 1fr;
@@ -478,7 +480,10 @@ function closeShare() {
     position: static;
   }
 }
-.post-search { width: min(420px, 100%); margin-bottom: 16px; }
+.post-search {
+  width: min(420px, 100%);
+  margin-bottom: 16px;
+}
 .publish-box {
   margin-bottom: 16px;
 }
@@ -572,5 +577,86 @@ function closeShare() {
 }
 .share-error {
   margin-bottom: 12px;
+}
+/* 同频校园：本页展示布局，业务绑定保持原样 */
+.square {
+  display: grid;
+  grid-template-columns: minmax(0,1fr);
+  gap: 24px;
+}
+.square-rail {
+  position: static;
+  display: grid;
+  grid-template-columns: repeat(2,minmax(0,1fr));
+  width: 100%;
+  gap: 20px;
+}
+.square-main {
+  min-width: 0;
+  width: 100%;
+}
+.rail-card {
+  border: 1px solid var(--line);
+  border-radius: 22px;
+  padding: 22px;
+  background: var(--atlas-sky);
+}
+.post-card,.publish-box {
+  border-radius: 24px;
+}
+.post-head,.post-head-actions,.publish-ops,.post-ops {
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.post-content {
+  line-height: 1.85;
+  overflow-wrap: anywhere;
+}
+.post-images {
+  grid-template-columns: repeat(3,minmax(0,1fr));
+  max-width: 100%;
+}
+.post-img {
+  max-width: 100%;
+}
+.hot-text {
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+.share-banner {
+  flex-wrap: wrap;
+  gap: 12px;
+  background: var(--accent-soft);
+}
+.comment-area {
+  border-radius: 18px;
+  background: var(--surface-2);
+}
+.op {
+  min-height: 40px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 12px;
+  border-radius: var(--r-pill);
+}
+.op.liked {
+  background: var(--brand-soft);
+  color: var(--brand);
+}
+@media (max-width:760px) {
+  .square-rail {
+    display: grid;
+    grid-template-columns: minmax(0,1fr);
+  }
+  .post-images {
+    grid-template-columns: repeat(2,minmax(0,1fr));
+  }
+  .post-head-actions {
+    margin-left: 0;
+  }
+  .publish-ops {
+    align-items: flex-start;
+  }
 }
 </style>

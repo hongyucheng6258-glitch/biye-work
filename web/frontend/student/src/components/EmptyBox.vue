@@ -11,3 +11,13 @@ defineProps({
   imageSize: { type: Number, default: 120 }
 })
 </script>
+
+<style scoped>
+:deep(.el-empty) {
+  padding: 40px 20px;
+}
+:deep(.el-empty__description p) {
+  font-size: 14px;
+  color: var(--ink-3);
+}
+</style>

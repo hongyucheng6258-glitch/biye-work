@@ -1164,33 +1164,33 @@ onUnmounted(() => {
 .tp-dock {
   position: fixed;
   left: 50%;
-  bottom: calc(20px + env(safe-area-inset-bottom));
+  bottom: calc(8px + env(safe-area-inset-bottom));
   transform: translateX(-50%);
   z-index: 80;
   display: flex;
-  gap: 6px;
-  width: min(560px, calc(100vw - 24px));
-  padding: 8px;
+  gap: 2px;
+  width: min(432px, calc(100vw - 16px));
+  padding: 4px;
   border: 1px solid var(--line);
-  border-radius: 24px;
-  background: color-mix(in srgb, var(--surface) 94%, transparent);
-  box-shadow: var(--shadow-lg);
-  backdrop-filter: blur(16px);
+  border-radius: 18px;
+  background: var(--surface);
+  box-shadow: 0 4px 14px color-mix(in srgb, var(--brand) 12%, transparent);
 }
 .tp-dock > a, .tp-dock > button {
   flex: 1;
   min-width: 0;
-  min-height: 48px;
+  min-height: 44px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 6px;
-  padding: 10px 8px;
+  padding: 6px 8px;
   border: 0;
-  border-radius: 16px;
+  border-radius: 12px;
   background: transparent;
   color: var(--ink-2);
   font-size: 13px;
+  font-family: inherit;
   cursor: pointer;
 }
 .tp-dock > a.active {
@@ -1201,16 +1201,18 @@ onUnmounted(() => {
   background: var(--accent);
   color: var(--accent-ink);
 }
+.tp-dock > a:focus-visible, .tp-dock > button:focus-visible {
+  outline: 2px solid var(--brand);
+  outline-offset: 1px;
+}
 @media (max-width: 600px) {
   .tp-dock {
-    bottom: calc(12px + env(safe-area-inset-bottom));
-    gap: 3px;
-    padding: 6px;
+    bottom: calc(6px + env(safe-area-inset-bottom));
   }
   .tp-dock > a, .tp-dock > button {
     font-size: 12px;
-    min-height: 46px;
-    padding: 8px 4px;
+    min-height: 44px;
+    padding: 6px 4px;
   }
 }
 .header-inner {

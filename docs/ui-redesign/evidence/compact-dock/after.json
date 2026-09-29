@@ -1,0 +1,933 @@
+{
+  "phase": "after",
+  "measurements": [
+    {
+      "width": 320,
+      "theme": "light",
+      "pathname": "/search?q=%E6%95%B0%E5%AD%A6",
+      "dock": {
+        "x": 8,
+        "y": 840,
+        "width": 304,
+        "height": 54,
+        "right": 312,
+        "bottom": 894
+      },
+      "bottomGap": 6,
+      "shadow": "color(srgb 0.141176 0.309804 0.27451 / 0.12) 0px 4px 14px 0px",
+      "overflow": false,
+      "buttons": [
+        {
+          "text": "发现",
+          "box": {
+            "x": 13,
+            "y": 845,
+            "width": 47.328125,
+            "height": 44,
+            "right": 60.328125,
+            "bottom": 889
+          },
+          "href": "/"
+        },
+        {
+          "text": "活动",
+          "box": {
+            "x": 62.328125,
+            "y": 845,
+            "width": 47.34375,
+            "height": 44,
+            "right": 109.671875,
+            "bottom": 889
+          },
+          "href": "/activity"
+        },
+        {
+          "text": "学习",
+          "box": {
+            "x": 111.671875,
+            "y": 845,
+            "width": 47.328125,
+            "height": 44,
+            "right": 159,
+            "bottom": 889
+          },
+          "href": "/ai/chat"
+        },
+        {
+          "text": "生活",
+          "box": {
+            "x": 161,
+            "y": 845,
+            "width": 47.34375,
+            "height": 44,
+            "right": 208.34375,
+            "bottom": 889
+          },
+          "href": "/idle"
+        },
+        {
+          "text": "我的",
+          "box": {
+            "x": 210.34375,
+            "y": 845,
+            "width": 47.328125,
+            "height": 44,
+            "right": 257.671875,
+            "bottom": 889
+          },
+          "href": "/profile"
+        },
+        {
+          "text": "全部",
+          "box": {
+            "x": 259.671875,
+            "y": 845,
+            "width": 47.328125,
+            "height": 44,
+            "right": 307,
+            "bottom": 889
+          },
+          "href": null
+        }
+      ]
+    },
+    {
+      "width": 320,
+      "theme": "dark",
+      "pathname": "/search?q=%E6%95%B0%E5%AD%A6",
+      "dock": {
+        "x": 8,
+        "y": 840,
+        "width": 304,
+        "height": 54,
+        "right": 312,
+        "bottom": 894
+      },
+      "bottomGap": 6,
+      "shadow": "oklab(0.393797 -0.0505955 0.00169662 / 0.12) 0px 4px 14px 0px",
+      "overflow": false,
+      "buttons": [
+        {
+          "text": "发现",
+          "box": {
+            "x": 13,
+            "y": 845,
+            "width": 47.328125,
+            "height": 44,
+            "right": 60.328125,
+            "bottom": 889
+          },
+          "href": "/"
+        },
+        {
+          "text": "活动",
+          "box": {
+            "x": 62.328125,
+            "y": 845,
+            "width": 47.34375,
+            "height": 44,
+            "right": 109.671875,
+            "bottom": 889
+          },
+          "href": "/activity"
+        },
+        {
+          "text": "学习",
+          "box": {
+            "x": 111.671875,
+            "y": 845,
+            "width": 47.328125,
+            "height": 44,
+            "right": 159,
+            "bottom": 889
+          },
+          "href": "/ai/chat"
+        },
+        {
+          "text": "生活",
+          "box": {
+            "x": 161,
+            "y": 845,
+            "width": 47.34375,
+            "height": 44,
+            "right": 208.34375,
+            "bottom": 889
+          },
+          "href": "/idle"
+        },
+        {
+          "text": "我的",
+          "box": {
+            "x": 210.34375,
+            "y": 845,
+            "width": 47.328125,
+            "height": 44,
+            "right": 257.671875,
+            "bottom": 889
+          },
+          "href": "/profile"
+        },
+        {
+          "text": "全部",
+          "box": {
+            "x": 259.671875,
+            "y": 845,
+            "width": 47.328125,
+            "height": 44,
+            "right": 307,
+            "bottom": 889
+          },
+          "href": null
+        }
+      ]
+    },
+    {
+      "width": 390,
+      "theme": "light",
+      "pathname": "/search?q=%E6%95%B0%E5%AD%A6",
+      "dock": {
+        "x": 8,
+        "y": 840,
+        "width": 374,
+        "height": 54,
+        "right": 382,
+        "bottom": 894
+      },
+      "bottomGap": 6,
+      "shadow": "color(srgb 0.141176 0.309804 0.27451 / 0.12) 0px 4px 14px 0px",
+      "overflow": false,
+      "buttons": [
+        {
+          "text": "发现",
+          "box": {
+            "x": 13,
+            "y": 845,
+            "width": 59,
+            "height": 44,
+            "right": 72,
+            "bottom": 889
+          },
+          "href": "/"
+        },
+        {
+          "text": "活动",
+          "box": {
+            "x": 74,
+            "y": 845,
+            "width": 59,
+            "height": 44,
+            "right": 133,
+            "bottom": 889
+          },
+          "href": "/activity"
+        },
+        {
+          "text": "学习",
+          "box": {
+            "x": 135,
+            "y": 845,
+            "width": 59,
+            "height": 44,
+            "right": 194,
+            "bottom": 889
+          },
+          "href": "/ai/chat"
+        },
+        {
+          "text": "生活",
+          "box": {
+            "x": 196,
+            "y": 845,
+            "width": 59,
+            "height": 44,
+            "right": 255,
+            "bottom": 889
+          },
+          "href": "/idle"
+        },
+        {
+          "text": "我的",
+          "box": {
+            "x": 257,
+            "y": 845,
+            "width": 59,
+            "height": 44,
+            "right": 316,
+            "bottom": 889
+          },
+          "href": "/profile"
+        },
+        {
+          "text": "全部",
+          "box": {
+            "x": 318,
+            "y": 845,
+            "width": 59,
+            "height": 44,
+            "right": 377,
+            "bottom": 889
+          },
+          "href": null
+        }
+      ]
+    },
+    {
+      "width": 390,
+      "theme": "dark",
+      "pathname": "/search?q=%E6%95%B0%E5%AD%A6",
+      "dock": {
+        "x": 8,
+        "y": 840,
+        "width": 374,
+        "height": 54,
+        "right": 382,
+        "bottom": 894
+      },
+      "bottomGap": 6,
+      "shadow": "oklab(0.393797 -0.0505955 0.00169662 / 0.12) 0px 4px 14px 0px",
+      "overflow": false,
+      "buttons": [
+        {
+          "text": "发现",
+          "box": {
+            "x": 13,
+            "y": 845,
+            "width": 59,
+            "height": 44,
+            "right": 72,
+            "bottom": 889
+          },
+          "href": "/"
+        },
+        {
+          "text": "活动",
+          "box": {
+            "x": 74,
+            "y": 845,
+            "width": 59,
+            "height": 44,
+            "right": 133,
+            "bottom": 889
+          },
+          "href": "/activity"
+        },
+        {
+          "text": "学习",
+          "box": {
+            "x": 135,
+            "y": 845,
+            "width": 59,
+            "height": 44,
+            "right": 194,
+            "bottom": 889
+          },
+          "href": "/ai/chat"
+        },
+        {
+          "text": "生活",
+          "box": {
+            "x": 196,
+            "y": 845,
+            "width": 59,
+            "height": 44,
+            "right": 255,
+            "bottom": 889
+          },
+          "href": "/idle"
+        },
+        {
+          "text": "我的",
+          "box": {
+            "x": 257,
+            "y": 845,
+            "width": 59,
+            "height": 44,
+            "right": 316,
+            "bottom": 889
+          },
+          "href": "/profile"
+        },
+        {
+          "text": "全部",
+          "box": {
+            "x": 318,
+            "y": 845,
+            "width": 59,
+            "height": 44,
+            "right": 377,
+            "bottom": 889
+          },
+          "href": null
+        }
+      ]
+    },
+    {
+      "width": 780,
+      "theme": "light",
+      "pathname": "/search?q=%E6%95%B0%E5%AD%A6",
+      "dock": {
+        "x": 174,
+        "y": 838,
+        "width": 432,
+        "height": 54,
+        "right": 606,
+        "bottom": 892
+      },
+      "bottomGap": 8,
+      "shadow": "color(srgb 0.141176 0.309804 0.27451 / 0.12) 0px 4px 14px 0px",
+      "overflow": false,
+      "buttons": [
+        {
+          "text": "发现",
+          "box": {
+            "x": 179,
+            "y": 843,
+            "width": 68.65625,
+            "height": 44,
+            "right": 247.65625,
+            "bottom": 887
+          },
+          "href": "/"
+        },
+        {
+          "text": "活动",
+          "box": {
+            "x": 249.65625,
+            "y": 843,
+            "width": 68.671875,
+            "height": 44,
+            "right": 318.328125,
+            "bottom": 887
+          },
+          "href": "/activity"
+        },
+        {
+          "text": "学习",
+          "box": {
+            "x": 320.328125,
+            "y": 843,
+            "width": 68.65625,
+            "height": 44,
+            "right": 388.984375,
+            "bottom": 887
+          },
+          "href": "/ai/chat"
+        },
+        {
+          "text": "生活",
+          "box": {
+            "x": 390.984375,
+            "y": 843,
+            "width": 68.671875,
+            "height": 44,
+            "right": 459.65625,
+            "bottom": 887
+          },
+          "href": "/idle"
+        },
+        {
+          "text": "我的",
+          "box": {
+            "x": 461.65625,
+            "y": 843,
+            "width": 68.671875,
+            "height": 44,
+            "right": 530.328125,
+            "bottom": 887
+          },
+          "href": "/profile"
+        },
+        {
+          "text": "全部",
+          "box": {
+            "x": 532.328125,
+            "y": 843,
+            "width": 68.671875,
+            "height": 44,
+            "right": 601,
+            "bottom": 887
+          },
+          "href": null
+        }
+      ]
+    },
+    {
+      "width": 780,
+      "theme": "dark",
+      "pathname": "/search?q=%E6%95%B0%E5%AD%A6",
+      "dock": {
+        "x": 174,
+        "y": 838,
+        "width": 432,
+        "height": 54,
+        "right": 606,
+        "bottom": 892
+      },
+      "bottomGap": 8,
+      "shadow": "color(srgb 0.717647 0.807843 0.607843 / 0.12) 0px 4px 14px 0px",
+      "overflow": false,
+      "buttons": [
+        {
+          "text": "发现",
+          "box": {
+            "x": 179,
+            "y": 843,
+            "width": 68.65625,
+            "height": 44,
+            "right": 247.65625,
+            "bottom": 887
+          },
+          "href": "/"
+        },
+        {
+          "text": "活动",
+          "box": {
+            "x": 249.65625,
+            "y": 843,
+            "width": 68.671875,
+            "height": 44,
+            "right": 318.328125,
+            "bottom": 887
+          },
+          "href": "/activity"
+        },
+        {
+          "text": "学习",
+          "box": {
+            "x": 320.328125,
+            "y": 843,
+            "width": 68.65625,
+            "height": 44,
+            "right": 388.984375,
+            "bottom": 887
+          },
+          "href": "/ai/chat"
+        },
+        {
+          "text": "生活",
+          "box": {
+            "x": 390.984375,
+            "y": 843,
+            "width": 68.671875,
+            "height": 44,
+            "right": 459.65625,
+            "bottom": 887
+          },
+          "href": "/idle"
+        },
+        {
+          "text": "我的",
+          "box": {
+            "x": 461.65625,
+            "y": 843,
+            "width": 68.671875,
+            "height": 44,
+            "right": 530.328125,
+            "bottom": 887
+          },
+          "href": "/profile"
+        },
+        {
+          "text": "全部",
+          "box": {
+            "x": 532.328125,
+            "y": 843,
+            "width": 68.671875,
+            "height": 44,
+            "right": 601,
+            "bottom": 887
+          },
+          "href": null
+        }
+      ]
+    },
+    {
+      "width": 1440,
+      "theme": "light",
+      "pathname": "/search?q=%E6%95%B0%E5%AD%A6",
+      "dock": {
+        "x": 504,
+        "y": 838,
+        "width": 432,
+        "height": 54,
+        "right": 936,
+        "bottom": 892
+      },
+      "bottomGap": 8,
+      "shadow": "color(srgb 0.141176 0.309804 0.27451 / 0.12) 0px 4px 14px 0px",
+      "overflow": false,
+      "buttons": [
+        {
+          "text": "发现",
+          "box": {
+            "x": 509,
+            "y": 843,
+            "width": 68.65625,
+            "height": 44,
+            "right": 577.65625,
+            "bottom": 887
+          },
+          "href": "/"
+        },
+        {
+          "text": "活动",
+          "box": {
+            "x": 579.65625,
+            "y": 843,
+            "width": 68.671875,
+            "height": 44,
+            "right": 648.328125,
+            "bottom": 887
+          },
+          "href": "/activity"
+        },
+        {
+          "text": "学习",
+          "box": {
+            "x": 650.328125,
+            "y": 843,
+            "width": 68.65625,
+            "height": 44,
+            "right": 718.984375,
+            "bottom": 887
+          },
+          "href": "/ai/chat"
+        },
+        {
+          "text": "生活",
+          "box": {
+            "x": 720.984375,
+            "y": 843,
+            "width": 68.671875,
+            "height": 44,
+            "right": 789.65625,
+            "bottom": 887
+          },
+          "href": "/idle"
+        },
+        {
+          "text": "我的",
+          "box": {
+            "x": 791.65625,
+            "y": 843,
+            "width": 68.671875,
+            "height": 44,
+            "right": 860.328125,
+            "bottom": 887
+          },
+          "href": "/profile"
+        },
+        {
+          "text": "全部",
+          "box": {
+            "x": 862.328125,
+            "y": 843,
+            "width": 68.671875,
+            "height": 44,
+            "right": 931,
+            "bottom": 887
+          },
+          "href": null
+        }
+      ]
+    },
+    {
+      "width": 1440,
+      "theme": "dark",
+      "pathname": "/search?q=%E6%95%B0%E5%AD%A6",
+      "dock": {
+        "x": 504,
+        "y": 838,
+        "width": 432,
+        "height": 54,
+        "right": 936,
+        "bottom": 892
+      },
+      "bottomGap": 8,
+      "shadow": "color(srgb 0.717647 0.807843 0.607843 / 0.12) 0px 4px 14px 0px",
+      "overflow": false,
+      "buttons": [
+        {
+          "text": "发现",
+          "box": {
+            "x": 509,
+            "y": 843,
+            "width": 68.65625,
+            "height": 44,
+            "right": 577.65625,
+            "bottom": 887
+          },
+          "href": "/"
+        },
+        {
+          "text": "活动",
+          "box": {
+            "x": 579.65625,
+            "y": 843,
+            "width": 68.671875,
+            "height": 44,
+            "right": 648.328125,
+            "bottom": 887
+          },
+          "href": "/activity"
+        },
+        {
+          "text": "学习",
+          "box": {
+            "x": 650.328125,
+            "y": 843,
+            "width": 68.65625,
+            "height": 44,
+            "right": 718.984375,
+            "bottom": 887
+          },
+          "href": "/ai/chat"
+        },
+        {
+          "text": "生活",
+          "box": {
+            "x": 720.984375,
+            "y": 843,
+            "width": 68.671875,
+            "height": 44,
+            "right": 789.65625,
+            "bottom": 887
+          },
+          "href": "/idle"
+        },
+        {
+          "text": "我的",
+          "box": {
+            "x": 791.65625,
+            "y": 843,
+            "width": 68.671875,
+            "height": 44,
+            "right": 860.328125,
+            "bottom": 887
+          },
+          "href": "/profile"
+        },
+        {
+          "text": "全部",
+          "box": {
+            "x": 862.328125,
+            "y": 843,
+            "width": 68.671875,
+            "height": 44,
+            "right": 931,
+            "bottom": 887
+          },
+          "href": null
+        }
+      ]
+    },
+    {
+      "width": 1920,
+      "theme": "light",
+      "pathname": "/search?q=%E6%95%B0%E5%AD%A6",
+      "dock": {
+        "x": 744,
+        "y": 838,
+        "width": 432,
+        "height": 54,
+        "right": 1176,
+        "bottom": 892
+      },
+      "bottomGap": 8,
+      "shadow": "color(srgb 0.141176 0.309804 0.27451 / 0.12) 0px 4px 14px 0px",
+      "overflow": false,
+      "buttons": [
+        {
+          "text": "发现",
+          "box": {
+            "x": 749,
+            "y": 843,
+            "width": 68.65625,
+            "height": 44,
+            "right": 817.65625,
+            "bottom": 887
+          },
+          "href": "/"
+        },
+        {
+          "text": "活动",
+          "box": {
+            "x": 819.65625,
+            "y": 843,
+            "width": 68.671875,
+            "height": 44,
+            "right": 888.328125,
+            "bottom": 887
+          },
+          "href": "/activity"
+        },
+        {
+          "text": "学习",
+          "box": {
+            "x": 890.328125,
+            "y": 843,
+            "width": 68.65625,
+            "height": 44,
+            "right": 958.984375,
+            "bottom": 887
+          },
+          "href": "/ai/chat"
+        },
+        {
+          "text": "生活",
+          "box": {
+            "x": 960.984375,
+            "y": 843,
+            "width": 68.671875,
+            "height": 44,
+            "right": 1029.65625,
+            "bottom": 887
+          },
+          "href": "/idle"
+        },
+        {
+          "text": "我的",
+          "box": {
+            "x": 1031.65625,
+            "y": 843,
+            "width": 68.671875,
+            "height": 44,
+            "right": 1100.328125,
+            "bottom": 887
+          },
+          "href": "/profile"
+        },
+        {
+          "text": "全部",
+          "box": {
+            "x": 1102.328125,
+            "y": 843,
+            "width": 68.671875,
+            "height": 44,
+            "right": 1171,
+            "bottom": 887
+          },
+          "href": null
+        }
+      ]
+    },
+    {
+      "width": 1920,
+      "theme": "dark",
+      "pathname": "/search?q=%E6%95%B0%E5%AD%A6",
+      "dock": {
+        "x": 744,
+        "y": 838,
+        "width": 432,
+        "height": 54,
+        "right": 1176,
+        "bottom": 892
+      },
+      "bottomGap": 8,
+      "shadow": "oklab(0.393797 -0.0505955 0.00169662 / 0.12) 0px 4px 14px 0px",
+      "overflow": false,
+      "buttons": [
+        {
+          "text": "发现",
+          "box": {
+            "x": 749,
+            "y": 843,
+            "width": 68.65625,
+            "height": 44,
+            "right": 817.65625,
+            "bottom": 887
+          },
+          "href": "/"
+        },
+        {
+          "text": "活动",
+          "box": {
+            "x": 819.65625,
+            "y": 843,
+            "width": 68.671875,
+            "height": 44,
+            "right": 888.328125,
+            "bottom": 887
+          },
+          "href": "/activity"
+        },
+        {
+          "text": "学习",
+          "box": {
+            "x": 890.328125,
+            "y": 843,
+            "width": 68.65625,
+            "height": 44,
+            "right": 958.984375,
+            "bottom": 887
+          },
+          "href": "/ai/chat"
+        },
+        {
+          "text": "生活",
+          "box": {
+            "x": 960.984375,
+            "y": 843,
+            "width": 68.671875,
+            "height": 44,
+            "right": 1029.65625,
+            "bottom": 887
+          },
+          "href": "/idle"
+        },
+        {
+          "text": "我的",
+          "box": {
+            "x": 1031.65625,
+            "y": 843,
+            "width": 68.671875,
+            "height": 44,
+            "right": 1100.328125,
+            "bottom": 887
+          },
+          "href": "/profile"
+        },
+        {
+          "text": "全部",
+          "box": {
+            "x": 1102.328125,
+            "y": 843,
+            "width": 68.671875,
+            "height": 44,
+            "right": 1171,
+            "bottom": 887
+          },
+          "href": null
+        }
+      ]
+    }
+  ],
+  "actions": [
+    "Footer readable 320/light",
+    "Full service menu opens/closes 320/light",
+    "Footer readable 320/dark",
+    "Full service menu opens/closes 320/dark",
+    "Footer readable 390/light",
+    "Full service menu opens/closes 390/light",
+    "Footer readable 390/dark",
+    "Full service menu opens/closes 390/dark",
+    "Footer readable 780/light",
+    "Full service menu opens/closes 780/light",
+    "Footer readable 780/dark",
+    "Full service menu opens/closes 780/dark",
+    "Footer readable 1440/light",
+    "Full service menu opens/closes 1440/light",
+    "Footer readable 1440/dark",
+    "Full service menu opens/closes 1440/dark",
+    "Footer readable 1920/light",
+    "Full service menu opens/closes 1920/light",
+    "Footer readable 1920/dark",
+    "Full service menu opens/closes 1920/dark",
+    "Original navigation 发现",
+    "Original navigation 活动",
+    "Original navigation 生活",
+    "Learning keeps login redirect",
+    "Profile keeps login redirect"
+  ],
+  "errors": []
+}

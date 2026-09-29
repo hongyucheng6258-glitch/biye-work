@@ -1,0 +1,97 @@
+{
+  "phase": "before",
+  "measurements": [
+    {
+      "width": 1440,
+      "theme": "light",
+      "pathname": "/search?q=%E6%95%B0%E5%AD%A6",
+      "dock": {
+        "x": 440,
+        "y": 814,
+        "width": 560,
+        "height": 66,
+        "right": 1000,
+        "bottom": 880
+      },
+      "bottomGap": 20,
+      "shadow": "rgba(36, 79, 70, 0.14) 0px 20px 60px 0px",
+      "overflow": false,
+      "buttons": [
+        {
+          "text": "发现",
+          "box": {
+            "x": 449,
+            "y": 823,
+            "width": 85.328125,
+            "height": 48,
+            "right": 534.328125,
+            "bottom": 871
+          },
+          "href": "/"
+        },
+        {
+          "text": "活动",
+          "box": {
+            "x": 540.328125,
+            "y": 823,
+            "width": 85.34375,
+            "height": 48,
+            "right": 625.671875,
+            "bottom": 871
+          },
+          "href": "/activity"
+        },
+        {
+          "text": "学习",
+          "box": {
+            "x": 631.671875,
+            "y": 823,
+            "width": 85.328125,
+            "height": 48,
+            "right": 717,
+            "bottom": 871
+          },
+          "href": "/ai/chat"
+        },
+        {
+          "text": "生活",
+          "box": {
+            "x": 723,
+            "y": 823,
+            "width": 85.34375,
+            "height": 48,
+            "right": 808.34375,
+            "bottom": 871
+          },
+          "href": "/idle"
+        },
+        {
+          "text": "我的",
+          "box": {
+            "x": 814.34375,
+            "y": 823,
+            "width": 85.328125,
+            "height": 48,
+            "right": 899.671875,
+            "bottom": 871
+          },
+          "href": "/profile"
+        },
+        {
+          "text": "全部",
+          "box": {
+            "x": 905.671875,
+            "y": 823,
+            "width": 85.328125,
+            "height": 48,
+            "right": 991,
+            "bottom": 871
+          },
+          "href": null
+        }
+      ]
+    }
+  ],
+  "actions": [],
+  "errors": []
+}

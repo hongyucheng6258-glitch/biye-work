@@ -533,8 +533,9 @@ watch(() => props.type, resetAndLoad)
 }
 .review-card {
   display: grid;
-  grid-template-columns: 120px minmax(0,1fr) auto;
-  gap: 20px;
+  grid-template-columns: 148px minmax(0,1fr) auto;
+  align-items: start;
+  gap: 24px;
   padding: 24px;
   border-radius: 24px;
   background: var(--surface);
@@ -544,8 +545,15 @@ watch(() => props.type, resetAndLoad)
   grid-template-columns: minmax(0,1fr) auto;
 }
 .review-cover {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 10 / 7;
   border-radius: 16px;
   overflow: hidden;
+}
+.review-cover :deep(.el-image) {
+  width: 100%;
+  height: 100%;
 }
 .review-body {
   min-width: 0;
@@ -555,6 +563,7 @@ watch(() => props.type, resetAndLoad)
   gap: 10px;
 }
 .review-title .ellipsis {
+  max-width: 100%;
   white-space: normal;
   overflow-wrap: anywhere;
 }
@@ -572,9 +581,11 @@ watch(() => props.type, resetAndLoad)
   line-height: 1.8;
 }
 .ai-pre {
+  width: 100%;
+  max-width: 760px;
   border-radius: 16px;
   background: var(--atlas-sky);
-  padding: 16px;
+  padding: 12px 14px;
 }
 .ai-pre-body {
   min-width: 0;
@@ -582,8 +593,10 @@ watch(() => props.type, resetAndLoad)
 }
 .review-actions {
   display: flex;
+  flex-direction: column;
   flex-wrap: wrap;
-  align-content: center;
+  align-self: start;
+  justify-content: flex-start;
   gap: 10px;
 }
 .btn {
@@ -603,6 +616,8 @@ watch(() => props.type, resetAndLoad)
   }
   .review-actions {
     grid-column: 1/-1;
+    flex-direction: row;
+    justify-content: flex-end;
   }
   .review-card.no-cover {
     grid-template-columns: minmax(0,1fr);
@@ -615,10 +630,7 @@ watch(() => props.type, resetAndLoad)
   }
   .review-cover {
     width: 100%;
-    max-height: 220px;
-  }
-  .review-cover :deep(.el-image) {
-    width: 100%;
+    max-height: 180px;
   }
   .page-head-actions {
     width: 100%;

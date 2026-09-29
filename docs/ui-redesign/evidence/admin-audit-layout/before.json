@@ -1,0 +1,367 @@
+{
+  "phase": "before",
+  "measurements": [
+    {
+      "route": "idle",
+      "width": 1440,
+      "theme": "light",
+      "overflow": false,
+      "cards": [
+        {
+          "card": {
+            "x": 80,
+            "y": 456.140625,
+            "right": 1360,
+            "bottom": 667.703125,
+            "width": 1280,
+            "height": 211.5625
+          },
+          "cover": {
+            "x": 105,
+            "y": 481.140625,
+            "right": 253,
+            "bottom": 585.140625,
+            "width": 148,
+            "height": 104
+          },
+          "body": {
+            "x": 245,
+            "y": 481.140625,
+            "right": 1223,
+            "bottom": 642.703125,
+            "width": 978,
+            "height": 161.5625
+          },
+          "actions": {
+            "x": 1243,
+            "y": 481.140625,
+            "right": 1335,
+            "bottom": 642.703125,
+            "width": 92,
+            "height": 161.5625
+          },
+          "ai": {
+            "x": 245,
+            "y": 572.703125,
+            "right": 1223,
+            "bottom": 642.703125,
+            "width": 978,
+            "height": 70
+          },
+          "gap": -8,
+          "columns": "120px 978px 92px",
+          "buttons": [
+            "驳回"
+          ]
+        },
+        {
+          "card": {
+            "x": 80,
+            "y": 685.703125,
+            "right": 1360,
+            "bottom": 897.265625,
+            "width": 1280,
+            "height": 211.5625
+          },
+          "cover": {
+            "x": 105,
+            "y": 710.703125,
+            "right": 253,
+            "bottom": 814.703125,
+            "width": 148,
+            "height": 104
+          },
+          "body": {
+            "x": 245,
+            "y": 710.703125,
+            "right": 1223,
+            "bottom": 872.265625,
+            "width": 978,
+            "height": 161.5625
+          },
+          "actions": {
+            "x": 1243,
+            "y": 710.703125,
+            "right": 1335,
+            "bottom": 872.265625,
+            "width": 92,
+            "height": 161.5625
+          },
+          "ai": {
+            "x": 245,
+            "y": 802.265625,
+            "right": 1223,
+            "bottom": 872.265625,
+            "width": 978,
+            "height": 70
+          },
+          "gap": -8,
+          "columns": "120px 978px 92px",
+          "buttons": [
+            "驳回"
+          ]
+        },
+        {
+          "card": {
+            "x": 80,
+            "y": 915.265625,
+            "right": 1360,
+            "bottom": 1126.828125,
+            "width": 1280,
+            "height": 211.5625
+          },
+          "cover": {
+            "x": 105,
+            "y": 940.265625,
+            "right": 253,
+            "bottom": 1044.265625,
+            "width": 148,
+            "height": 104
+          },
+          "body": {
+            "x": 245,
+            "y": 940.265625,
+            "right": 1223,
+            "bottom": 1101.828125,
+            "width": 978,
+            "height": 161.5625
+          },
+          "actions": {
+            "x": 1243,
+            "y": 940.265625,
+            "right": 1335,
+            "bottom": 1101.828125,
+            "width": 92,
+            "height": 161.5625
+          },
+          "ai": {
+            "x": 245,
+            "y": 1031.828125,
+            "right": 1223,
+            "bottom": 1101.828125,
+            "width": 978,
+            "height": 70
+          },
+          "gap": -8,
+          "columns": "120px 978px 92px",
+          "buttons": [
+            "驳回"
+          ]
+        },
+        {
+          "card": {
+            "x": 80,
+            "y": 1144.828125,
+            "right": 1360,
+            "bottom": 1356.390625,
+            "width": 1280,
+            "height": 211.5625
+          },
+          "cover": {
+            "x": 105,
+            "y": 1169.828125,
+            "right": 253,
+            "bottom": 1273.828125,
+            "width": 148,
+            "height": 104
+          },
+          "body": {
+            "x": 245,
+            "y": 1169.828125,
+            "right": 1223,
+            "bottom": 1331.390625,
+            "width": 978,
+            "height": 161.5625
+          },
+          "actions": {
+            "x": 1243,
+            "y": 1169.828125,
+            "right": 1335,
+            "bottom": 1331.390625,
+            "width": 92,
+            "height": 161.5625
+          },
+          "ai": {
+            "x": 245,
+            "y": 1261.390625,
+            "right": 1223,
+            "bottom": 1331.390625,
+            "width": 978,
+            "height": 70
+          },
+          "gap": -8,
+          "columns": "120px 978px 92px",
+          "buttons": [
+            "驳回"
+          ]
+        },
+        {
+          "card": {
+            "x": 80,
+            "y": 1374.390625,
+            "right": 1360,
+            "bottom": 1528.390625,
+            "width": 1280,
+            "height": 154
+          },
+          "cover": {
+            "x": 105,
+            "y": 1399.390625,
+            "right": 253,
+            "bottom": 1503.390625,
+            "width": 148,
+            "height": 104
+          },
+          "body": {
+            "x": 245,
+            "y": 1399.390625,
+            "right": 1223,
+            "bottom": 1503.390625,
+            "width": 978,
+            "height": 104
+          },
+          "actions": {
+            "x": 1243,
+            "y": 1399.390625,
+            "right": 1335,
+            "bottom": 1503.390625,
+            "width": 92,
+            "height": 104
+          },
+          "ai": null,
+          "gap": -8,
+          "columns": "120px 978px 92px",
+          "buttons": [
+            "驳回"
+          ]
+        },
+        {
+          "card": {
+            "x": 80,
+            "y": 1546.390625,
+            "right": 1360,
+            "bottom": 1700.390625,
+            "width": 1280,
+            "height": 154
+          },
+          "cover": {
+            "x": 105,
+            "y": 1571.390625,
+            "right": 253,
+            "bottom": 1675.390625,
+            "width": 148,
+            "height": 104
+          },
+          "body": {
+            "x": 245,
+            "y": 1571.390625,
+            "right": 1223,
+            "bottom": 1675.390625,
+            "width": 978,
+            "height": 104
+          },
+          "actions": {
+            "x": 1243,
+            "y": 1571.390625,
+            "right": 1335,
+            "bottom": 1675.390625,
+            "width": 92,
+            "height": 104
+          },
+          "ai": null,
+          "gap": -8,
+          "columns": "120px 978px 92px",
+          "buttons": [
+            "驳回"
+          ]
+        },
+        {
+          "card": {
+            "x": 80,
+            "y": 1718.390625,
+            "right": 1360,
+            "bottom": 1872.390625,
+            "width": 1280,
+            "height": 154
+          },
+          "cover": {
+            "x": 105,
+            "y": 1743.390625,
+            "right": 253,
+            "bottom": 1847.390625,
+            "width": 148,
+            "height": 104
+          },
+          "body": {
+            "x": 245,
+            "y": 1743.390625,
+            "right": 1223,
+            "bottom": 1847.390625,
+            "width": 978,
+            "height": 104
+          },
+          "actions": {
+            "x": 1243,
+            "y": 1743.390625,
+            "right": 1335,
+            "bottom": 1847.390625,
+            "width": 92,
+            "height": 104
+          },
+          "ai": null,
+          "gap": -8,
+          "columns": "120px 978px 92px",
+          "buttons": [
+            "驳回"
+          ]
+        },
+        {
+          "card": {
+            "x": 80,
+            "y": 1890.390625,
+            "right": 1360,
+            "bottom": 2044.390625,
+            "width": 1280,
+            "height": 154
+          },
+          "cover": {
+            "x": 105,
+            "y": 1915.390625,
+            "right": 253,
+            "bottom": 2019.390625,
+            "width": 148,
+            "height": 104
+          },
+          "body": {
+            "x": 245,
+            "y": 1915.390625,
+            "right": 1223,
+            "bottom": 2019.390625,
+            "width": 978,
+            "height": 104
+          },
+          "actions": {
+            "x": 1243,
+            "y": 1915.390625,
+            "right": 1335,
+            "bottom": 2019.390625,
+            "width": 92,
+            "height": 104
+          },
+          "ai": null,
+          "gap": -8,
+          "columns": "120px 978px 92px",
+          "buttons": [
+            "驳回"
+          ]
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "actions": [],
+  "hypothesis": {
+    "change": "Only set cover width to its grid track",
+    "gap": 20
+  }
+}
